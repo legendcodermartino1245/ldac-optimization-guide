@@ -162,12 +162,17 @@ It works like this:
 +-----------------------------+
             |
             v
+
+
+            
 +-----------------------------+
 | [2] Headphones Connect      |
 | System auto-selects codec  |
 +-----------------------------+
             |
             v
+
+            
 +-----------------------------+
 | [3] Step 1: Force SBC       |
 | - Switch to SBC            |
@@ -175,12 +180,16 @@ It works like this:
 +-----------------------------+
             |
             v
+
+            
 +-----------------------------+
 | [4] Delay: 500–2000 ms      |
 | - Wait to stabilize        |
 +-----------------------------+
             |
             v
+
+            
 +-----------------------------+
 | [5] Step 2: Force LDAC      |
 | - Apply target profile:    |
@@ -188,6 +197,8 @@ It works like this:
 +-----------------------------+
             |
             v
+
+            
 +-----------------------------+
 | [6] Success!                |
 | - LDAC handshake complete  |
