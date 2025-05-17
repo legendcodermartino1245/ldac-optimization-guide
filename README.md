@@ -73,6 +73,7 @@ The **Adaptive** mode dynamically switches between 330–990 kbps depending on a
 | 96 kHz      | 32-bit    | 660            | Fixed            |
 | 96 kHz      | 32-bit    | 990            | Fixed            |
 
+| Sample Rate | Bit Depth | Bitrate (kbps) | Mode                        |
 | 44.1 kHz    | 16-bit    | 303/606/909            | Adaptive            |
 | 44.1 kHz    | 24-bit    | 303/606/909            | Adaptive            |
 | 44.1 kHz    | 32-bit    | 303/606/909            | Adaptive            |
