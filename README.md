@@ -1,12 +1,11 @@
 # LDAC Done Right
 
- There is a lot of misconception about LDAC and how to properly configure it on different operating systems (Windows and Android for example.) This guide will focus on both and will include strategies which help you get the best sound possible. I tried to make it as practical as possible to replicate. To make troubleshooting easier I have clearly documented the steps needed to set everything back to defaults for full transparency.
+There is a lot of misconception about LDAC and how to properly configure it on different operating systems (Windows and Android for example.) This guide will focus on both and will include strategies which help you get the best sound possible. I tried to make it as practical as possible to replicate. To make troubleshooting easier I have clearly documented the steps needed to set everything back to defaults for full transparency.
 
+## My setup and the hardware I used during the making of this guide:
 
- My setup and the hardware I used during the making of this guide:
- 
-| Device         | OS / Firmware             | Supported Codecs                       |
-|----------------|---------------------------|----------------------------------------|
+| Device              | OS / Firmware             | Supported Codecs                       |
+|---------------------|---------------------------|----------------------------------------|
 | **Samsung S22 Plus** | One UI 6.1 (Android 14)    | LDAC, SSC, AptX, AAC, SBC               |
 | **Samsung S24**      | One UI 6.1 (Android 14)    | LDAC, SSC, AptX, AAC, SBC               |
 | **Windows 11**       | Version 24H2               | AAC, SBC *(LDAC not supported natively)* |
@@ -15,36 +14,25 @@
 | **Sony WH-1000XM3**  | 4.5.2                      | LDAC, AptX, AAC, SBC                    |
 
 > 📌 *Note: On Windows, LDAC support requires specific Bluetooth drivers or third-party implementations (e.g. CSR Harmony stack or alternative USB dongles). This guide focuses on standard OS behavior unless otherwise noted.*
-               
-## Inner working of LDAC
+
+## Inner workings of LDAC
 
 LDAC supports sample rates ranging from **44.1 kHz to 96 kHz**, quality modes of **330**, **660**, **990 kbps**, or **Adaptive**, and always uses **24-bit** precision internally. However, you should set LDAC’s input bit-depth to match **exactly** what your player is feeding it:
 
 | Playback Scenario                          | Player Output Depth | LDAC Bit-Depth Setting         | Rationale                                                                                        |
 | ------------------------------------------ | ------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------ |
-| **Pure CD-quality (44.1 kHz / 16-bit)**      | 16-bit              | 16-bit (or “System Selection”) | Matches the original 16-bit samples—no unnecessary padding or noise.                             |
+| **Pure CD-quality (44.1 kHz / 16-bit)**      | 16-bit              | 16-bit (or "System Selection") | Matches the original 16-bit samples—no unnecessary padding or noise.                             |
 | **Native Hi-Res (>44.1 kHz / 24-bit)**       | 24-bit              | 24-bit                         | Preserves the full dynamic range of your 24-bit source all the way into LDAC’s encoder.          |
 | **Any source + DSP (EQ, gain, fades)**     | 24-bit              | 24-bit                         | Provides headroom for processing; avoids rounding errors during DSP before LDAC encoding.        |
-| **Non–bit-perfect apps (mixed to 16-bit)** | 16-bit              | 16-bit (or “System Selection”) | Reflects the actual 16-bit data the mixer delivers; keeps your settings honest about input depth. |
+| **Non–bit-perfect apps (mixed to 16-bit)** | 16-bit              | 16-bit (or "System Selection") | Reflects the actual 16-bit data the mixer delivers; keeps your settings honest about input depth. |
 
 > ⚠️ **Clarification:** LDAC always encodes at 24-bit internally.  
 > Even if you choose **32-bit** in Developer Options or BCC, this setting **has no effect** — it is just an Android wrapper format used by the OS.  
 > **LDAC does not support or transmit true 32-bit audio**, and any 32-bit float data is truncated or rounded to 24-bit for encoding.
+
 The **Adaptive** mode dynamically switches between 330–990 kbps depending on available bandwidth and signal strength.
 
-
-
-
-
-
-32-bit is just a wrapper format used by the audio subsystem.
-The **Adaptive** mode dynamically switches between 330–990 kbps depending on available bandwidth and signal strength.
-
-
-
-The table below lists all valid LDAC configurations tested and confirmed across both Android and Windows platforms.
-
-### 🎛️ LDAC Configuration Matrix
+### 🎮 LDAC Configuration Matrix
 
 | Sample Rate | Bit Depth | Bitrate (kbps) | Mode             |
 |-------------|-----------|----------------|------------------|
@@ -62,178 +50,68 @@ The table below lists all valid LDAC configurations tested and confirmed across 
 | 96 kHz      | 24-bit    | 990            | Fixed            |
 | 96 kHz      | 32-bit    | 990            | Adaptive         |
 
- Now that my setup and the software and hardware I use is clear let's dive into what bug in android I solved.
-
 ## The Real LDAC Bug: Quality Settings Don’t Apply on Their Own
 
-There’s a hidden behavior in Android’s LDAC implementation that causes almost everyone to configure it wrong — even advanced users.
-
-Here’s the issue:
-
 > **Changing the LDAC quality setting (330 / 660 / 990 / Adaptive) by itself does nothing.**  
->  
 > Unless the system renegotiates the entire codec connection, **your change won’t be applied** — even if the UI says it was.
 
 ### What Triggers a Real Codec Reset?
 LDAC settings like bitrate, sample rate, and bit depth are **only renegotiated** when one of the following is changed:
 
-- A different **codec** is selected (e.g. switching to SBC or AAC, then back to LDAC)
-- The **sample rate** changes (e.g. 48kHz → 44.1kHz → back)
-- The **bit depth** changes (e.g. 32-bit → 24-bit → back)
+- A different **codec** is selected (e.g. SBC → LDAC)
+- The **sample rate** changes (e.g. 48kHz → 44.1kHz)
+- The **bit depth** changes (e.g. 32-bit → 24-bit)
 
-> **Only then will the LDAC handshake restart**, and Android will apply the new quality setting (330, 660, 990, or Adaptive).
+> ⚠️ This is a bug in Android's Bluetooth stack. UI updates don't guarantee actual codec reconfiguration. Bitrate must always be reapplied after reconnection — it is never saved.
 
+## 🔐 Samsung LDAC Override Stack
 
-> ⚠️ **This is a bug in Android's Bluetooth stack — not just a limitation.**  
-> When you change LDAC bitrate, sample rate, or bit depth, Android often fails to renegotiate the codec connection.  
-> The system UI may show the new values, but the actual audio stream continues using the old configuration.  
-> **Your changes are silently ignored unless you force a full codec reset.**
-> The bitrate setting always need to be reapplied after reconection cant be saved anywhere
+Samsung **always** enforces its own LDAC codec profile **during the Bluetooth handshake**:
 
-## 🔒 Samsung LDAC Override Stack
-
-Samsung **always** enforces its own LDAC codec profile **during the Bluetooth handshake**. This override is built into the system and **cannot be prevented**, intercepted, or skipped — it happens **before** any app (like Bluetooth Codec Changer or Sony Music Center) can take control.
-
-### 🔧 What Samsung’s Override Forces on Every Connection:
 - **Sample Rate:** 96 kHz  
 - **Bit Depth:** 32-bit  
-- **Bitrate:** Adaptive (330–990 kbps, dynamic)
+- **Bitrate:** Adaptive (330–990 kbps)
 
-This profile is negotiated automatically by Samsung’s Bluetooth stack **as soon as LDAC is enabled** — whether manually toggled or via Fast Pair.
-
-> ⚠️ In Developer Options, you'll see **Playback Quality: Default**.  
-> This is not a selectable setting — it indicates that **Samsung’s override is already active**, and that any custom settings (e.g., 990 kbps) won't apply unless a new codec reset is triggered.
-
-
-
+This override happens **before** apps like BCC or Music Center can act. Developer Options will show "Playback Quality: Default" if this override is active.
 
 ## ✅ Developer Options Are Safe — Just Clean Up After Yourself
 
-You **can freely use Developer Options** to tweak Bluetooth audio — there’s nothing wrong with that.
-But before you rely on other methods which there are, make sure to **clean up leftover settings** that might interfere.
+Set these **back to default** before disabling Developer Options or handing off control:
 
-### 🧼 Clean-Up Checklist:
+- Sample Rate → "Use System Selection"
+- Bits Per Sample → "Use System Selection"
+- Playback Quality → "Best Effort"
 
-Before disabling Developer Options or handing off control to BCC:
+> ✅ *You can safely leave Developer Options enabled — just make sure all codec-related settings are returned to default. No harm is done if they’re inactive.*
 
-- Set these **back to "Use System Selection (Default)"**:
-  - **Sample Rate**
-  - **Bits Per Sample**
+> Leaving overridden settings can cause LDAC to renegotiate, trigger Samsung's override again, or break BCC's control.
 
-- For LDAC playback quality (bitrate):
-  - Set to **"Best Effort"** (this *is* the default — it's Samsung’s adaptive bitrate mode: 330–990 kbps)
+## Bluetooth Codec Changer (BCC)
 
-You can **leave the codec set to LDAC** if you want.
+### Auto Switch
+BCC forces LDAC codec, sample rate, bit depth, and bitrate on connect. Settings are not persistent, so Auto Switch reapplies them with a user-defined delay.
 
-Then either:
-- **Disable Developer Options**, or
-- Leave it alone — just **don’t change anything else** afterward.
+### 2-Step Switch
 
-### ⚠️ Why It Matters
+| Step | Description                         |
+|------|-------------------------------------|
+| 1    | Initial connection                  |
+| 2    | System selects default codec (LDAC) |
+| 3    | Force SBC to reset LDAC session     |
+| 4    | Delay (500–2000 ms)                |
+| 5    | Reapply LDAC with target profile    |
+| 6    | LDAC clean handshake achieved       |
 
-Leaving sample rate or bit depth manually set can cause:
-- LDAC codec renegotiation on reconnect
-- Samsung's override stack to re-trigger
-- Your clean LDAC handshake (e.g., from BCC or Music Center) to get wiped
+### Why 2-Step Doesn't Work on Samsung
+Samsung enforces LDAC **before** BCC acts. Step 3 (SBC switch) fails to reset the override. BCC GUI may show incorrect values. Workaround: apply profile twice or use Tasker automation.
 
----
+## Verify BCC Isn’t Lying
 
-### 🎯 Do You Need to Reset All Codecs in Developer Options?
+Use this PowerShell script to monitor real-time LDAC status:
 
-**No — only the ones you actually changed.**
-
-Android stores codec-specific settings individually. That means each codec (LDAC, SBC, AAC, aptX, etc.) has its own override profile.
-
-### ✅ If you only touched LDAC:
-- You only need to reset **LDAC parameters**:
-  - Sample Rate → “Use System Selection (Default)”
-  - Bits Per Sample → “Use System Selection (Default)”
-  - Playback Quality → “Best Effort” (default for LDAC)
-- Other codecs like AAC or SBC won’t be affected.
-
-### ⚠️ If you touched other codecs too (e.g., aptX or AAC):
-- You must:
-  1. Temporarily select that codec
-  2. Reset its sample rate / bit depth to default (if available)
-  3. Then re-select LDAC (if desired) and clean up its values too
-
-### 💡 Why This Matters
-
-Even if a codec isn't currently active, Android can silently reapply its override settings during renegotiation or reconnect. This is how old LDAC tweaks can corrupt future Bluetooth behavior — unless properly cleared.
-
-Developer Options do not persist across reconnections and reboots which means Samsung LDAC Override is back as soon as headphones disconnect. But that doesnt mean the dev options are not there anymore they still are alive but samsung is overriding them futher proving the point that you always need to default all settings when you are done with dev settings.
-
-## Bluetooth Codec Changer
-
-## Auto switch
-The Bluetooth Codec Changer app will help us force the ldac settings we want including codec, sample rate, bit depth and bitrate. This tool applies these settings but the settings arent persistent. Which means if the device is disconnected or bluetooth is off or phone is rebooted the configuration erases and you have to start over. This is why it has the Auto switch functionality which applies the ldac profile as soon as it sees that a connected ldac capable in bcc configured device is connected and applies the settings after a set delay which you can customize. So bcc can force real ldac 44.1 khz 24 bit 990 on its own.
-
-
-## 2-Step Switch
-The Bluetooth Codec Changer app has another important setting which works especially well with Samsung phones. It is called 2-Step Switch.
-It works like this:
-
-+-----------------------------+
-| [1] Initial Connection      |
-| (Bluetooth pairing begins) |
-+-----------------------------+
-            |
-            v
-
-
-            
-+-----------------------------+
-| [2] Headphones Connect      |
-| System auto-selects codec  |
-+-----------------------------+
-            |
-            v
-
-            
-+-----------------------------+
-| [3] Step 1: Force SBC       |
-| - Switch to SBC            |
-| - LDAC session cleared     |
-+-----------------------------+
-            |
-            v
-
-            
-+-----------------------------+
-| [4] Delay: 500–2000 ms      |
-| - Wait to stabilize        |
-+-----------------------------+
-            |
-            v
-
-            
-+-----------------------------+
-| [5] Step 2: Force LDAC      |
-| - Apply target profile:    |
-|   44.1 kHz / 24-bit / 990kbps|
-+-----------------------------+
-            |
-            v
-
-            
-+-----------------------------+
-| [6] Success!                |
-| - LDAC handshake complete  |
-| - Clean profile active     |
-| - Samsung override bypassed|
-
-
-## Why 2-Step Switching doesnt work on Samsung phones
-As i explained earlier the samsung override always takes place no matter what and that messes 2 step up on samsung phones. Samsung enforces its LDAC override before any app or user profile can take effect — including BCC’s 2-step switch. This makes the initial “Step 1 → SBC” ineffective, because the LDAC override profile is already applied in the background by the time the app attempts the SBC switch. Forcing SBC after the override doesn’t cancel Samsung’s LDAC profile That is why you should keep it disabled on samsung phones. This does mean the bluetooth codec gui wont no longer show the correct bitrate unfortunately. This can be solved by always applying the same profile twice. I made a tasker profile to do this automatically in combination with Autonotification. 
-
-
-## verify that BCC isnt lying
-Now that 2-Step Switching is disabled the chances of it not working are slim but just to be sure there is a way to confirm the full ldac configuration after BCC has applied it with auto switch. Use this powershell script:
 ```powershell
 while ($true) {
     Clear-Host
     adb shell dumpsys bluetooth_manager | Select-String "ldac"
     Start-Sleep -Seconds 2
 }
-```
-           
