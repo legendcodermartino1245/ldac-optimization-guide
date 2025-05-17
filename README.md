@@ -16,7 +16,7 @@
 
 > 📌 *Note: On Windows, LDAC support requires specific Bluetooth drivers or third-party implementations (e.g. CSR Harmony stack or alternative USB dongles). This guide focuses on standard OS behavior unless otherwise noted.*
                
-# Inner working of LDAC
+## Inner working of LDAC
 
 
 
@@ -47,7 +47,7 @@ The table below lists all valid LDAC configurations tested and confirmed across 
 
  Now that my setup and the software and hardware I use is clear let's dive into what bug in android I solved.
 
-## The Real LDAC Bug: Quality Settings Don’t Apply on Their Own
+#### The Real LDAC Bug: Quality Settings Don’t Apply on Their Own
 
 There’s a hidden behavior in Android’s LDAC implementation that causes almost everyone to configure it wrong — even advanced users.
 
