@@ -93,7 +93,7 @@ This profile is negotiated automatically by Samsung’s Bluetooth stack **as soo
 ## ✅ Developer Options Are Safe — Just Clean Up After Yourself
 
 You **can freely use Developer Options** to tweak Bluetooth audio — there’s nothing wrong with that.
-But before you rely on apps like Bluetooth Codec Changer (BCC), make sure to **clean up leftover settings** that might interfere.
+But before you rely on other methods which there are, make sure to **clean up leftover settings** that might interfere.
 
 ### 🧼 Clean-Up Checklist:
 
@@ -143,12 +143,6 @@ Android stores codec-specific settings individually. That means each codec (LDAC
 ### 💡 Why This Matters
 
 Even if a codec isn't currently active, Android can silently reapply its override settings during renegotiation or reconnect. This is how old LDAC tweaks can corrupt future Bluetooth behavior — unless properly cleared.
-
----
-
-### ✅ TL;DR
-
-> Use Developer Options freely — just reset **Sample Rate** and **Bits Per Sample** to default, set **LDAC quality to Best Effort**, and only clean codecs you modified. Then disable Developer Options or leave it alone.
 
 Developer Options do not persist across reconnections and reboots which means Samsung LDAC Override is back as soon as heapdhoens disconnect. But that doesnt mean the dev options are not there anymore they still are alive but samsung is overriding them futher proving the point that you always need to default all settings when you are done with dev settings.
 
