@@ -204,6 +204,5 @@ It works like this:
 | - LDAC handshake complete  |
 | - Clean profile active     |
 | - Samsung override bypassed|
-+-----------------------------+
-           |
-           v
+
+           
