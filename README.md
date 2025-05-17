@@ -73,19 +73,23 @@ The **Adaptive** mode dynamically switches between 330–990 kbps depending on a
 | 96 kHz      | 32-bit    | 660            | Fixed            |
 | 96 kHz      | 32-bit    | 990            | Fixed            |
 
-| Sample Rate | Bit Depth | Bitrate (kbps) | Mode                        |
-| 44.1 kHz    | 16-bit    | 303/606/909            | Adaptive            |
-| 44.1 kHz    | 24-bit    | 303/606/909            | Adaptive            |
-| 44.1 kHz    | 32-bit    | 303/606/909            | Adaptive            |
-| 48 kHz      | 16-bit    | 330/660/990            | Adaptive            |
-| 48 kHz      | 24-bit    | 330/660/990            | Adaptive            |
-| 48 kHz      | 32-bit    | 330/660/990            | Adaptive            |
-| 88.2 kHz    | 16-bit    | 303/606/909            | Adaptive            |
-| 88.2 kHz    | 24-bit    | 303/606/909            | Adaptive            |
-| 88.2 kHz    | 32-bit    | 303/606/909            | Adaptive            |
-| 96 kHz      | 16-bit    | 330/660/990            | Adaptive            |
-| 96 kHz      | 24-bit    | 330/660/990            | Adaptive            |
-| 96 kHz      | 32-bit    | 330/660/990            | Adaptive            |
+| Sample Rate | Bit Depth | Bitrate (kbps) | Mode      |
+|-------------|-----------|----------------|-----------|
+| 44.1 kHz    | 16-bit    | 303 / 606 / 909 | Adaptive |
+| 44.1 kHz    | 24-bit    | 303 / 606 / 909 | Adaptive |
+| 44.1 kHz    | 32-bit*   | 303 / 606 / 909 | Adaptive |
+| 48 kHz      | 16-bit    | 330 / 660 / 990 | Adaptive |
+| 48 kHz      | 24-bit    | 330 / 660 / 990 | Adaptive |
+| 48 kHz      | 32-bit*   | 330 / 660 / 990 | Adaptive |
+| 88.2 kHz    | 16-bit    | 303 / 606 / 909 | Adaptive |
+| 88.2 kHz    | 24-bit    | 303 / 606 / 909 | Adaptive |
+| 88.2 kHz    | 32-bit*   | 303 / 606 / 909 | Adaptive |
+| 96 kHz      | 16-bit    | 330 / 660 / 990 | Adaptive |
+| 96 kHz      | 24-bit    | 330 / 660 / 990 | Adaptive |
+| 96 kHz      | 32-bit*   | 330 / 660 / 990 | Adaptive |
+
+\* **32-bit in Developer Options is only a container width; LDAC truncates/rounds to 24-bit internally.**
+
 ## The Real LDAC Bug: Quality Settings Don’t Apply on Their Own
 
 > **Changing the LDAC quality setting (330 / 660 / 990 / Adaptive) by itself does nothing.**  
