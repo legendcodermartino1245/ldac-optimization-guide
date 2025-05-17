@@ -20,7 +20,21 @@
 
 
 
-LDAC supports sample rates ranging from **44.1 kHz to 96 kHz**, bit depths of **16-bit or 24-bit**, and quality modes of **330**, **660**, **990 kbps**, or **Adaptive**. Internally, LDAC encodes at 24-bit even when 16-bit is requested — making 24-bit the most stable and consistent choice. While Android shows 32-bit support in Developer Options, LDAC only encodes at 24-bit internally. 32-bit is just a wrapper format used by the audio subsystem.
+LDAC supports sample rates ranging from **44.1 kHz to 96 kHz**, bit depths of **16-bit or 24-bit**, and quality modes of **330**, **660**, **990 kbps**, or **Adaptive**. Internally, LDAC encodes at 24-bit even when 16-bit is requested. While Android shows 32-bit support in Developer Options, LDAC only encodes at 24-bit internally. 
+
+
+| Playback Scenario                          | Player Output Depth | LDAC Bit-Depth Setting         | Rationale                                                                                        |
+| ------------------------------------------ | ------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------ |
+| **Pure CD-quality (44.1 kHz/16-bit)**      | 16-bit              | 16-bit (or “System Selection”) | Matches the original samples exactly—no unnecessary up-cast, no added noise.                     |
+| **Native Hi-Res (>44.1 kHz/24-bit)**       | 24-bit              | 24-bit                         | Preserves the full dynamic range of your 24-bit source all the way into LDAC’s internal encoder. |
+| **Any source + DSP (EQ, gain, fades)**     | 24-bit              | 24-bit                         | Gives you headroom for processing; avoids rounding errors during DSP before LDAC encoding.       |
+| **Non–bit-perfect apps (mixed to 16-bit)** | 16-bit              | 16-bit (or “System Selection”) | Reflects what the mixer actually delivers; keeps your settings honest about real input depth.    |
+
+
+
+
+
+32-bit is just a wrapper format used by the audio subsystem.
 The **Adaptive** mode dynamically switches between 330–990 kbps depending on available bandwidth and signal strength.
 
 
