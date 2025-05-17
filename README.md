@@ -156,45 +156,42 @@ The Bluetooth Codec Changer app will help us force the ldac settings we want inc
 The Bluetooth Codec Changer app has another important setting which works especially well with Samsung phones. It is called 2-Step Switch.
 It works like this:
 
-+----------------------------+
-|   [1] Initial Connection   |
-|   (Bluetooth device pairs)|
-+----------------------------+
++-----------------------------+
+| [1] Initial Connection      |
+| (Bluetooth pairing begins) |
++-----------------------------+
             |
             v
-+----------------------------+
-|   [2] Headphones Connect   |
-|   System selects default   |
-|   codec (e.g., LDAC)       |
-+----------------------------+
++-----------------------------+
+| [2] Headphones Connect      |
+| System auto-selects codec  |
++-----------------------------+
             |
             v
-+----------------------------+
-|   [3] Step 1: Force SBC    |
-|   - Codec: SBC             |
-|   - LDAC session cleared   |
-+----------------------------+
++-----------------------------+
+| [3] Step 1: Force SBC       |
+| - Switch to SBC            |
+| - LDAC session cleared     |
++-----------------------------+
             |
             v
-+----------------------------+
-|   [4] Delay (500–2000 ms)  |
-|   - Wait to stabilize      |
-+----------------------------+
++-----------------------------+
+| [4] Delay: 500–2000 ms      |
+| - Wait to stabilize        |
++-----------------------------+
             |
             v
-+----------------------------+
-|   [5] Step 2: Force LDAC   |
-|   - Apply target profile:  |
-|     44.1kHz / 24-bit /     |
-|     990 kbps (Fixed)       |
-+----------------------------+
++-----------------------------+
+| [5] Step 2: Force LDAC      |
+| - Apply target profile:    |
+|   44.1 kHz / 24-bit / 990kbps|
++-----------------------------+
             |
             v
-+----------------------------+
-|   [6] Success              |
-|   - LDAC handshake done    |
-|   - Clean profile active   |
-|   - Overrides bypassed     |
-+----------------------------+
-
++-----------------------------+
+| [6] Success!                |
+| - LDAC handshake complete  |
+| - Clean profile active     |
+| - Samsung override bypassed|
++-----------------------------+
 
