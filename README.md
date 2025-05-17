@@ -45,9 +45,28 @@ The table below lists all valid LDAC configurations tested and confirmed across 
 | 96 kHz      | 24-bit    | 990            | Fixed            |
 | 96 kHz      | 32-bit    | 990            | Adaptive         |
 
-
-
-
-
-
  Now that my setup and the software and hardware I use is clear let's dive into what bug in android I solved.
+
+## The Real LDAC Bug: Quality Settings Don’t Apply on Their Own
+
+There’s a hidden behavior in Android’s LDAC implementation that causes almost everyone to configure it wrong — even advanced users.
+
+Here’s the issue:
+
+> **Changing the LDAC quality setting (330 / 660 / 990 / Adaptive) by itself does nothing.**  
+>  
+> Unless the system renegotiates the entire codec connection, **your change won’t be applied** — even if the UI says it was.
+
+### What Triggers a Real Codec Reset?
+LDAC settings like bitrate, sample rate, and bit depth are **only renegotiated** when one of the following is changed:
+
+- A different **codec** is selected (e.g. switching to SBC or AAC, then back to LDAC)
+- The **sample rate** changes (e.g. 48kHz → 44.1kHz → back)
+- The **bit depth** changes (e.g. 32-bit → 24-bit → back)
+
+> **Only then will the LDAC handshake restart**, and Android will apply the new quality setting (330, 660, 990, or Adaptive).
+
+
+
+
+
