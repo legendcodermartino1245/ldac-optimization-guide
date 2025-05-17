@@ -16,6 +16,31 @@
 
 > 📌 *Note: On Windows, LDAC support requires specific Bluetooth drivers or third-party implementations (e.g. CSR Harmony stack or alternative USB dongles). This guide focuses on standard OS behavior unless otherwise noted.*
                
+# Inner working of LDAC
+
+
+
+LDAC works with sample rates ranging from **44.1 kHz to 96 kHz**, bit depths of **16-bit or 24-bit**, and quality modes of **330**, **660**, **990 kbps**, or **Adaptive**. Internally, LDAC prefers 24-bit encoding, making 24-bit the most consistent and stable choice.  
+The **Adaptive** mode dynamically switches between 330–990 kbps depending on available bandwidth and signal strength.
+
+### 🎛️ LDAC Configuration Matrix
+
+| Sample Rate | Bit Depth | Bitrate (kbps) | Mode             |
+|-------------|-----------|----------------|------------------|
+| 44.1 kHz    | 16-bit    | 330            | Adaptive         |
+| 44.1 kHz    | 16-bit    | 660            | Adaptive / Fixed |
+| 44.1 kHz    | 16-bit    | 990            | Adaptive / Fixed |
+| 44.1 kHz    | 24-bit    | 990            | Fixed            |
+| 44.1 kHz    | 32-bit    | 990            | Adaptive         |
+| 48 kHz      | 16-bit    | 330            | Adaptive         |
+| 48 kHz      | 24-bit    | 660            | Adaptive / Fixed |
+| 48 kHz      | 24-bit    | 990            | Adaptive / Fixed |
+| 48 kHz      | 32-bit    | 990            | Adaptive         |
+| 88.2 kHz    | 24-bit    | 990            | Fixed            |
+| 88.2 kHz    | 32-bit    | 990            | Adaptive         |
+| 96 kHz      | 24-bit    | 990            | Fixed            |
+| 96 kHz      | 32-bit    | 990            | Adaptive         |
+
 
 
 
