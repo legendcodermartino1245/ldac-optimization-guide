@@ -74,14 +74,17 @@ LDAC settings like bitrate, sample rate, and bit depth are **only renegotiated**
 > The bitrate setting always nneed to be reapplied after reconection cant be saved anywhere
 
 ## Samsung LDAC Override Stack
-> ⚠️ If ldac is enabled and Developer Options says “Playback Quality: Default, 96 khz 32 bit it means the samsung override has been applied”  
-> it means the system has applied the LDAC profile: **96 kHz / 32-bit / Adaptive** — even if you previously selected 990 kbps.
+Samsung always enforces its own LDAC codec profile on Bluetooth handshake.
+This override is hardcoded in the firmware-level negotiation and cannot be bypassed, removed, or overwritten
 
-> And even when you manually set:
-> - **44.1 kHz**
-> - **24-bit**
-> - **990 kbps**
+ What the Samsung Override Forces Every Time:
+LDAC 96 kHz
 
+32-bit
 
+Adaptive bitrate (330–990 kbps, dynamic)
+
+These values are pushed at the system level
+In dev options the bitrate is showed as Default which is another clue about samsung override being on
 
 
