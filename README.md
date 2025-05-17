@@ -103,7 +103,7 @@ BCC forces LDAC codec, sample rate, bit depth, and bitrate on connect. Settings 
 | 6    | LDAC clean handshake achieved       |
 
 ### Why 2-Step Doesn't Work on Samsung
-Samsung enforces LDAC **before** BCC acts. Step 3 (SBC switch) fails to reset the override. BCC GUI may show incorrect values. Workaround: apply profile twice or use Tasker automation.
+Samsung enforces LDAC **before** BCC acts. Step 3 (SBC switch) fails to reset the override. BCC GUI does show incorrect values. Workaround: apply profile twice or use Tasker automation.
 
 ## Verify BCC Isn’t Lying
 
