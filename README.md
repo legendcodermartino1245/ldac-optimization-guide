@@ -5,13 +5,17 @@
 
  My setup and the hardware I used during the making of this guide:
  
- Device                                  Supported Codecs by default
- Windows 11 24H2                         AAC and SBC
- Samsung S22 Plus One UI version 6.1     LDAC SSC AptX AAC SBC
- Samsung S24 One UI version 6.1          LDAC SSC AptX AAC SBC
- Windows 10 22H2                         AAC and SBC
- WH-1000XM5                              SBC AAC LDAC
- WH-1000XM3                              SBC AAC AptX LDAC                   
+| Device         | OS / Firmware             | Supported Codecs                       |
+|----------------|---------------------------|----------------------------------------|
+| **Samsung S22 Plus** | One UI 6.1 (Android 14)    | LDAC, SSC, AptX, AAC, SBC               |
+| **Samsung S24**      | One UI 6.1 (Android 14)    | LDAC, SSC, AptX, AAC, SBC               |
+| **Windows 11**       | Version 24H2               | AAC, SBC *(LDAC not supported natively)* |
+| **Windows 10**       | Version 22H2               | AAC, SBC *(LDAC not supported natively)* |
+| **Sony WH-1000XM5**  | 2.4.1                      | LDAC, AAC, SBC                          |
+| **Sony WH-1000XM3**  | 4.5.2                      | LDAC, AptX, AAC, SBC                    |
+
+> 📌 *Note: On Windows, LDAC support requires specific Bluetooth drivers or third-party implementations (e.g. CSR Harmony stack or alternative USB dongles). This guide focuses on standard OS behavior unless otherwise noted.*
+               
 
 
 
