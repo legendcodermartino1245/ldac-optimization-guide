@@ -156,46 +156,45 @@ The Bluetooth Codec Changer app will help us force the ldac settings we want inc
 The Bluetooth Codec Changer app has another important setting which works especially well with Samsung phones. It is called 2-Step Switch.
 It works like this:
 
-╭──────────────────────────────╮
-│     🔌 Initial Connection     │
-│   (Bluetooth device pairs)   │
-╰──────────────────────────────╯
-              │
-              ▼
-╭──────────────────────────────╮
-│ 🎧 Headphones Connect         │
-│ – System auto-selects codec  │
-╰──────────────────────────────╯
-              │
-              ▼
-╭──────────────────────────────╮
-│ 1️⃣ Step 1: Force SBC         │
-│ – Codec switches to SBC      │
-│ – LDAC session cleared       │
-╰──────────────────────────────╯
-              │
-              ▼
-╭──────────────────────────────╮
-│ ⏱ Delay (500–2000 ms)        │
-│ – Wait to stabilize          │
-╰──────────────────────────────╯
-              │
-              ▼
-╭──────────────────────────────╮
-│ 2️⃣ Step 2: Force LDAC        │
-│ – Apply your target profile: │
-│   • 44.1 kHz                 │
-│   • 24-bit                   │
-│   • 990 kbps (Fixed)         │
-╰──────────────────────────────╯
-              │
-              ▼
-╭──────────────────────────────╮
-│ ✅ Handshake Complete         │
-│ ✅ Clean LDAC Profile Active │
-│ ✅ Overrides bypassed        │
-╰──────────────────────────────╯
-
-
++----------------------------+
+|   [1] Initial Connection   |
+|   (Bluetooth device pairs)|
++----------------------------+
+            |
+            v
++----------------------------+
+|   [2] Headphones Connect   |
+|   System selects default   |
+|   codec (e.g., LDAC)       |
++----------------------------+
+            |
+            v
++----------------------------+
+|   [3] Step 1: Force SBC    |
+|   - Codec: SBC             |
+|   - LDAC session cleared   |
++----------------------------+
+            |
+            v
++----------------------------+
+|   [4] Delay (500–2000 ms)  |
+|   - Wait to stabilize      |
++----------------------------+
+            |
+            v
++----------------------------+
+|   [5] Step 2: Force LDAC   |
+|   - Apply target profile:  |
+|     44.1kHz / 24-bit /     |
+|     990 kbps (Fixed)       |
++----------------------------+
+            |
+            v
++----------------------------+
+|   [6] Success              |
+|   - LDAC handshake done    |
+|   - Clean profile active   |
+|   - Overrides bypassed     |
++----------------------------+
 
 
