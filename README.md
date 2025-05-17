@@ -89,3 +89,66 @@ This profile is negotiated automatically by Samsung’s Bluetooth stack **as soo
 
 
 
+
+## ✅ Developer Options Are Safe — Just Clean Up After Yourself
+
+You **can freely use Developer Options** to tweak Bluetooth audio — there’s nothing wrong with that.
+But before you rely on apps like Bluetooth Codec Changer (BCC), make sure to **clean up leftover settings** that might interfere.
+
+### 🧼 Clean-Up Checklist:
+
+Before disabling Developer Options or handing off control to BCC:
+
+- Set these **back to "Use System Selection (Default)"**:
+  - **Sample Rate**
+  - **Bits Per Sample**
+
+- For LDAC playback quality (bitrate):
+  - Set to **"Best Effort"** (this *is* the default — it's Samsung’s adaptive bitrate mode: 330–990 kbps)
+
+You can **leave the codec set to LDAC** if you want.
+
+Then either:
+- **Disable Developer Options**, or
+- Leave it alone — just **don’t change anything else** afterward.
+
+### ⚠️ Why It Matters
+
+Leaving sample rate or bit depth manually set can cause:
+- LDAC codec renegotiation on reconnect
+- Samsung's override stack to re-trigger
+- Your clean LDAC handshake (e.g., from BCC or Music Center) to get wiped
+
+---
+
+### 🎯 Do You Need to Reset All Codecs in Developer Options?
+
+**No — only the ones you actually changed.**
+
+Android stores codec-specific settings individually. That means each codec (LDAC, SBC, AAC, aptX, etc.) has its own override profile.
+
+### ✅ If you only touched LDAC:
+- You only need to reset **LDAC parameters**:
+  - Sample Rate → “Use System Selection (Default)”
+  - Bits Per Sample → “Use System Selection (Default)”
+  - Playback Quality → “Best Effort” (default for LDAC)
+- Other codecs like AAC or SBC won’t be affected.
+
+### ⚠️ If you touched other codecs too (e.g., aptX or AAC):
+- You must:
+  1. Temporarily select that codec
+  2. Reset its sample rate / bit depth to default (if available)
+  3. Then re-select LDAC (if desired) and clean up its values too
+
+### 💡 Why This Matters
+
+Even if a codec isn't currently active, Android can silently reapply its override settings during renegotiation or reconnect. This is how old LDAC tweaks can corrupt future Bluetooth behavior — unless properly cleared.
+
+---
+
+### ✅ TL;DR
+
+> Use Developer Options freely — just reset **Sample Rate** and **Bits Per Sample** to default, set **LDAC quality to Best Effort**, and only clean codecs you modified. Then disable Developer Options or leave it alone.
+
+
+
