@@ -157,35 +157,40 @@ The Bluetooth Codec Changer app has another important setting which works especi
 It works like this:
 
 Initial Connection
-      ↓
+       ↓
 +-----------------------------+
-|   Headphones connect       |
-|   (e.g. LDAC-capable)      |
+|  Headphones Connect         |
+|  (e.g., LDAC-capable)       |
 +-----------------------------+
-      ↓
-BCC 2-Step Switch starts
-      ↓
+       ↓
 +-----------------------------+
-| Step 1: Force SBC           |
-| - Codec switches to SBC     |
-| - LDAC session is cleared   |
+|  BCC 2-Step Switch Starts   |
 +-----------------------------+
-      ↓
+       ↓
 +-----------------------------+
-| Delay: 500–2000ms           |
-| - Wait to stabilize         |
+|  Step 1: Force SBC          |
+|  - Codec switches to SBC    |
+|  - LDAC session is cleared  |
 +-----------------------------+
-      ↓
+       ↓
 +-----------------------------+
-| Step 2: Force LDAC          |
-| - Codec switches to LDAC    |
-| - Settings applied:         |
-|   44.1kHz / 24-bit / 990kbps|
+|  Delay: 500–2000ms          |
+|  - Wait to stabilize        |
 +-----------------------------+
-      ↓
+       ↓
 +-----------------------------+
-| ✅ LDAC handshake complete   |
-| ✅ Clean profile is active   |
-| ✅ Bitrate/sample rate valid |
+|  Step 2: Force LDAC         |
+|  - Codec switches to LDAC   |
+|  - Settings applied:        |
+|    • 44.1kHz                |
+|    • 24-bit                 |
+|    • 990 kbps (Fixed)       |
 +-----------------------------+
+       ↓
++-----------------------------+
+|  ✅ LDAC Handshake Complete |
+|  ✅ Clean Profile is Active |
+|  ✅ Bitrate & Sample Rate OK|
++-----------------------------+
+
 
