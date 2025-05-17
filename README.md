@@ -23,6 +23,10 @@
 LDAC supports sample rates ranging from **44.1 kHz to 96 kHz**, bit depths of **16-bit or 24-bit**, and quality modes of **330**, **660**, **990 kbps**, or **Adaptive**. Internally, LDAC encodes at 24-bit even when 16-bit is requested — making 24-bit the most stable and consistent choice.
 The **Adaptive** mode dynamically switches between 330–990 kbps depending on available bandwidth and signal strength.
 
+
+
+The table below lists all valid LDAC configurations tested and confirmed across both Android and Windows platforms.
+
 ### 🎛️ LDAC Configuration Matrix
 
 | Sample Rate | Bit Depth | Bitrate (kbps) | Mode             |
