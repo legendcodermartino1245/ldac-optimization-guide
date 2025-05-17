@@ -71,7 +71,7 @@ LDAC settings like bitrate, sample rate, and bit depth are **only renegotiated**
 > When you change LDAC bitrate, sample rate, or bit depth, Android often fails to renegotiate the codec connection.  
 > The system UI may show the new values, but the actual audio stream continues using the old configuration.  
 > **Your changes are silently ignored unless you force a full codec reset.**
-the quality setting always nneed to be reapplied after reconection cant be saved anywhere
+> The bitrate setting always nneed to be reapplied after reconection cant be saved anywhere
 
 ## Samsung LDAC Override Stack
 > ⚠️ If ldac is enabled and Developer Options says “Playback Quality: Default,”  
