@@ -82,7 +82,7 @@ Samsung **always** enforces its own LDAC codec profile **during the Bluetooth ha
 - **Bit Depth:** 32-bit  
 - **Bitrate:** Adaptive (330–990 kbps, dynamic)
 
-This profile is negotiated automatically by Samsung’s Bluetooth stack **as soon as LDAC is enabled** — whether manually or via Fast Pair.
+This profile is negotiated automatically by Samsung’s Bluetooth stack **as soon as LDAC is enabled** — whether manually toggled or via Fast Pair.
 
 > ⚠️ In Developer Options, you'll see **Playback Quality: Default**.  
 > This is not a selectable setting — it indicates that **Samsung’s override is already active**, and that any custom settings (e.g., 990 kbps) won't apply unless a new codec reset is triggered.
