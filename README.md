@@ -150,5 +150,5 @@ Even if a codec isn't currently active, Android can silently reapply its overrid
 
 > Use Developer Options freely — just reset **Sample Rate** and **Bits Per Sample** to default, set **LDAC quality to Best Effort**, and only clean codecs you modified. Then disable Developer Options or leave it alone.
 
-
+Developer Options do not persist across reconnections and reboots which means Samsung LDAC Override is back as soon as heapdhoens disconnect. But that doesnt mean the dev options are not there anymore they still are alive but samsung is overriding them futher proving the point that you always need to default all settings when you are done with dev settings.
 
