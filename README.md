@@ -67,6 +67,9 @@ LDAC settings like bitrate, sample rate, and bit depth are **only renegotiated**
 > **Only then will the LDAC handshake restart**, and Android will apply the new quality setting (330, 660, 990, or Adaptive).
 
 
-
+> ⚠️ **This is a bug in Android's Bluetooth stack — not just a limitation.**  
+> When you change LDAC bitrate, sample rate, or bit depth, Android often fails to renegotiate the codec connection.  
+> The system UI may show the new values, but the actual audio stream continues using the old configuration.  
+> **Your changes are silently ignored unless you force a full codec reset.**
 
 
