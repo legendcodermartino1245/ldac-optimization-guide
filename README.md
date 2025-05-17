@@ -158,25 +158,29 @@ It works like this:
 
 ╭──────────────────────────────╮
 │     🔌 Initial Connection     │
-│    (Bluetooth device pairs)  │
+│   (Bluetooth device pairs)   │
 ╰──────────────────────────────╯
-              ↓
+              │
+              ▼
 ╭──────────────────────────────╮
 │ 🎧 Headphones Connect         │
 │ – System auto-selects codec  │
 ╰──────────────────────────────╯
-              ↓
+              │
+              ▼
 ╭──────────────────────────────╮
 │ 1️⃣ Step 1: Force SBC         │
 │ – Codec switches to SBC      │
 │ – LDAC session cleared       │
 ╰──────────────────────────────╯
-              ↓
+              │
+              ▼
 ╭──────────────────────────────╮
 │ ⏱ Delay (500–2000 ms)        │
 │ – Wait to stabilize          │
 ╰──────────────────────────────╯
-              ↓
+              │
+              ▼
 ╭──────────────────────────────╮
 │ 2️⃣ Step 2: Force LDAC        │
 │ – Apply your target profile: │
@@ -184,7 +188,8 @@ It works like this:
 │   • 24-bit                   │
 │   • 990 kbps (Fixed)         │
 ╰──────────────────────────────╯
-              ↓
+              │
+              ▼
 ╭──────────────────────────────╮
 │ ✅ Handshake Complete         │
 │ ✅ Clean LDAC Profile Active │
