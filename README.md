@@ -208,4 +208,15 @@ It works like this:
 
 ## Why 2-Step Switching doesnt work on Samsung phones
 As i explained earlier the samsung override always takes place no matter what and that messes 2 step up on samsung phones. Samsung enforces its LDAC override before any app or user profile can take effect — including BCC’s 2-step switch. This makes the initial “Step 1 → SBC” ineffective, because: The override already occurred before SBC is even triggered. Forcing SBC after the override doesn’t cancel Samsung’s LDAC profile That is why you should keep it disabled on samsung phones. This does mean the bluetooth codec gui wont no longer show the correct bitrate unfortantly. This can be solved by always applying the same profile twice. I made a tasker profile to do this automatically in combination with Autonotification. 
+
+
+## verify that BCC isnt lying
+Now that 2-Step Swtiching is disabled the chances of it not working are slim but just to be sure there is a way to confirm the full ldac configuration after BCC has applied it with auto switch. Use this powershell script:
+```powershell
+while ($true) {
+    Clear-Host
+    adb shell dumpsys bluetooth_manager | Select-String "ldac"
+    Start-Sleep -Seconds 2
+}
+```
            
