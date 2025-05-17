@@ -205,4 +205,7 @@ It works like this:
 | - Clean profile active     |
 | - Samsung override bypassed|
 
+
+## Why 2-Step Switching doesnt work on Samsung phones
+As i explained earlier the samsung override always takes place no matter what and that messes 2 step up on samsung phones. That is why you should keep it disabled on samsung phones. This does mean the bluetooth codec gui wont no longer show the correct bitrate unfortantly. This can be solved by always applying the same profile twice. I made a tasker profile to do this automatically in combination with Autonotification. 
            
