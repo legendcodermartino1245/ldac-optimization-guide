@@ -85,6 +85,6 @@ LDAC 96 kHz
 Adaptive bitrate (330–990 kbps, dynamic)
 
 These values are pushed at the system level
-In dev options the bitrate is showed as Default which is another clue about samsung override being on
+In dev options "Default" is not a selectable bitrate — it indicates the override has taken effect.
 
 
