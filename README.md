@@ -146,3 +146,11 @@ Even if a codec isn't currently active, Android can silently reapply its overrid
 
 Developer Options do not persist across reconnections and reboots which means Samsung LDAC Override is back as soon as heapdhoens disconnect. But that doesnt mean the dev options are not there anymore they still are alive but samsung is overriding them futher proving the point that you always need to default all settings when you are done with dev settings.
 
+## Bluetooth Codec Changer
+
+## Auto switch
+The Bluetooth Codec Changer app will help us force the ldac settings we want including codec, sample rate, bit depth and bitrate. This tool applies these settings but the settings arent persistent. Which means if the device is disconnected or bluetooth is off or phone is rebooted the configuration erases and you have to start over. This is why it has the Auto switch functionality which applies the ldac profile as soon as it sees that a connected ldac capable in bcc configured device is connected and applies the settings after a set delay which you can customize. So bcc can force real ldac 44.1 khz 24 bit 990 on its own.
+
+
+## 2-Step Switch
+The Bluetooth Codec Changer app has another important setting which works especially well with Samsung phones. It is called 2-Step Switch.
