@@ -71,7 +71,7 @@ LDAC settings like bitrate, sample rate, and bit depth are **only renegotiated**
 > When you change LDAC bitrate, sample rate, or bit depth, Android often fails to renegotiate the codec connection.  
 > The system UI may show the new values, but the actual audio stream continues using the old configuration.  
 > **Your changes are silently ignored unless you force a full codec reset.**
-> The bitrate setting always nneed to be reapplied after reconection cant be saved anywhere
+> The bitrate setting always need to be reapplied after reconection cant be saved anywhere
 
 ## 🔒 Samsung LDAC Override Stack
 
@@ -144,7 +144,7 @@ Android stores codec-specific settings individually. That means each codec (LDAC
 
 Even if a codec isn't currently active, Android can silently reapply its override settings during renegotiation or reconnect. This is how old LDAC tweaks can corrupt future Bluetooth behavior — unless properly cleared.
 
-Developer Options do not persist across reconnections and reboots which means Samsung LDAC Override is back as soon as heapdhoens disconnect. But that doesnt mean the dev options are not there anymore they still are alive but samsung is overriding them futher proving the point that you always need to default all settings when you are done with dev settings.
+Developer Options do not persist across reconnections and reboots which means Samsung LDAC Override is back as soon as headphones disconnect. But that doesnt mean the dev options are not there anymore they still are alive but samsung is overriding them futher proving the point that you always need to default all settings when you are done with dev settings.
 
 ## Bluetooth Codec Changer
 
@@ -207,11 +207,11 @@ It works like this:
 
 
 ## Why 2-Step Switching doesnt work on Samsung phones
-As i explained earlier the samsung override always takes place no matter what and that messes 2 step up on samsung phones. Samsung enforces its LDAC override before any app or user profile can take effect — including BCC’s 2-step switch. This makes the initial “Step 1 → SBC” ineffective, because: because the LDAC override profile is already applied in the background by the time the app attempts the SBC switch. Forcing SBC after the override doesn’t cancel Samsung’s LDAC profile That is why you should keep it disabled on samsung phones. This does mean the bluetooth codec gui wont no longer show the correct bitrate unfortantly. This can be solved by always applying the same profile twice. I made a tasker profile to do this automatically in combination with Autonotification. 
+As i explained earlier the samsung override always takes place no matter what and that messes 2 step up on samsung phones. Samsung enforces its LDAC override before any app or user profile can take effect — including BCC’s 2-step switch. This makes the initial “Step 1 → SBC” ineffective, because: because the LDAC override profile is already applied in the background by the time the app attempts the SBC switch. Forcing SBC after the override doesn’t cancel Samsung’s LDAC profile That is why you should keep it disabled on samsung phones. This does mean the bluetooth codec gui wont no longer show the correct bitrate unfortunately. This can be solved by always applying the same profile twice. I made a tasker profile to do this automatically in combination with Autonotification. 
 
 
 ## verify that BCC isnt lying
-Now that 2-Step Swtiching is disabled the chances of it not working are slim but just to be sure there is a way to confirm the full ldac configuration after BCC has applied it with auto switch. Use this powershell script:
+Now that 2-Step Switching is disabled the chances of it not working are slim but just to be sure there is a way to confirm the full ldac configuration after BCC has applied it with auto switch. Use this powershell script:
 ```powershell
 while ($true) {
     Clear-Host
