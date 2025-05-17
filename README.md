@@ -47,7 +47,7 @@ The table below lists all valid LDAC configurations tested and confirmed across 
 
  Now that my setup and the software and hardware I use is clear let's dive into what bug in android I solved.
 
-#### The Real LDAC Bug: Quality Settings Don’t Apply on Their Own
+## The Real LDAC Bug: Quality Settings Don’t Apply on Their Own
 
 There’s a hidden behavior in Android’s LDAC implementation that causes almost everyone to configure it wrong — even advanced users.
 
