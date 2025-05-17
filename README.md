@@ -156,41 +156,7 @@ The Bluetooth Codec Changer app will help us force the ldac settings we want inc
 The Bluetooth Codec Changer app has another important setting which works especially well with Samsung phones. It is called 2-Step Switch.
 It works like this:
 
-Initial Connection
-       ↓
-+-----------------------------+
-|  Headphones Connect         |
-|  (e.g., LDAC-capable)       |
-+-----------------------------+
-       ↓
-+-----------------------------+
-|  BCC 2-Step Switch Starts   |
-+-----------------------------+
-       ↓
-+-----------------------------+
-|  Step 1: Force SBC          |
-|  - Codec switches to SBC    |
-|  - LDAC session is cleared  |
-+-----------------------------+
-       ↓
-+-----------------------------+
-|  Delay: 500–2000ms          |
-|  - Wait to stabilize        |
-+-----------------------------+
-       ↓
-+-----------------------------+
-|  Step 2: Force LDAC         |
-|  - Codec switches to LDAC   |
-|  - Settings applied:        |
-|    • 44.1kHz                |
-|    • 24-bit                 |
-|    • 990 kbps (Fixed)       |
-+-----------------------------+
-       ↓
-+-----------------------------+
-|  ✅ LDAC Handshake Complete |
-|  ✅ Clean Profile is Active |
-|  ✅ Bitrate & Sample Rate OK|
-+-----------------------------+
+![image](https://github.com/user-attachments/assets/dc67596f-5c03-4508-b7fa-b76772f86f96)
+
 
 
