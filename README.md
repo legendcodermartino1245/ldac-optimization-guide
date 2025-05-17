@@ -45,8 +45,8 @@ The **Adaptive** mode dynamically switches between 330–990 kbps depending on a
 | 48 kHz      | 24-bit    | 660            | Adaptive / Fixed |
 | 48 kHz      | 24-bit    | 990            | Adaptive / Fixed |
 | 48 kHz      | 32-bit    | 990            | Adaptive         |
-| 88.2 kHz    | 24-bit    | 990            | Fixed            |
-| 88.2 kHz    | 32-bit    | 990            | Adaptive         |
+| 88.2 kHz    | 24-bit    | 909            | Fixed            |
+| 88.2 kHz    | 32-bit    | 909            | Adaptive         |
 | 96 kHz      | 24-bit    | 990            | Fixed            |
 | 96 kHz      | 32-bit    | 990            | Adaptive         |
 
