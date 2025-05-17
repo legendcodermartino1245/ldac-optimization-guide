@@ -18,17 +18,18 @@
                
 ## Inner working of LDAC
 
-
-
-LDAC supports sample rates ranging from **44.1 kHz to 96 kHz**, bit depths of **16-bit or 24-bit**, and quality modes of **330**, **660**, **990 kbps**, or **Adaptive**. Internally, LDAC encodes at 24-bit even when 16-bit is requested. While Android shows 32-bit support in Developer Options, LDAC only encodes at 24-bit internally. 
-
+LDAC supports sample rates ranging from **44.1 kHz to 96 kHz**, quality modes of **330**, **660**, **990 kbps**, or **Adaptive**, and always uses **24-bit** precision internally. However, you should set LDAC’s input bit-depth to match **exactly** what your player is feeding it:
 
 | Playback Scenario                          | Player Output Depth | LDAC Bit-Depth Setting         | Rationale                                                                                        |
 | ------------------------------------------ | ------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------ |
-| **Pure CD-quality (44.1 kHz/16-bit)**      | 16-bit              | 16-bit (or “System Selection”) | Matches the original samples exactly—no unnecessary up-cast, no added noise.                     |
-| **Native Hi-Res (>44.1 kHz/24-bit)**       | 24-bit              | 24-bit                         | Preserves the full dynamic range of your 24-bit source all the way into LDAC’s internal encoder. |
-| **Any source + DSP (EQ, gain, fades)**     | 24-bit              | 24-bit                         | Gives you headroom for processing; avoids rounding errors during DSP before LDAC encoding.       |
-| **Non–bit-perfect apps (mixed to 16-bit)** | 16-bit              | 16-bit (or “System Selection”) | Reflects what the mixer actually delivers; keeps your settings honest about real input depth.    |
+| **Pure CD-quality (44.1 kHz / 16-bit)**      | 16-bit              | 16-bit (or “System Selection”) | Matches the original 16-bit samples—no unnecessary padding or noise.                             |
+| **Native Hi-Res (>44.1 kHz / 24-bit)**       | 24-bit              | 24-bit                         | Preserves the full dynamic range of your 24-bit source all the way into LDAC’s encoder.          |
+| **Any source + DSP (EQ, gain, fades)**     | 24-bit              | 24-bit                         | Provides headroom for processing; avoids rounding errors during DSP before LDAC encoding.        |
+| **Non–bit-perfect apps (mixed to 16-bit)** | 16-bit              | 16-bit (or “System Selection”) | Reflects the actual 16-bit data the mixer delivers; keeps your settings honest about input depth. |
+
+32-bit in Developer Options is just an Android wrapper and never increases LDAC’s real 24-bit encoding precision.  
+The **Adaptive** mode dynamically switches between 330–990 kbps depending on available bandwidth and signal strength.
+
 
 
 
