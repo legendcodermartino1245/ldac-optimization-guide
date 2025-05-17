@@ -85,7 +85,7 @@ This override is **hardcoded at the firmware level** and **cannot be bypassed, r
 
 These values are **pushed automatically at the system level**, regardless of any prior codec settings you configured.
 
-> 🧩 In Developer Options, **“Default”** will appear as the playback quality.  
+> In Developer Options, **“Default”** will appear as the playback quality.  
 > This is **not a selectable option** — it’s a clear indicator that the **Samsung override is active** and your manually chosen bitrate is ignored.
 
 
