@@ -1,6 +1,6 @@
-﻿# LDAC Done Right
+# LDAC Done Right
 
- There is a lot of misconception about ldac and how to properly configure it on different operating systems (Windows and Android for example.) This guide will focus on both and will include strategies which help you get the best sound possible. I tried to make it as pratical as possbile to replicate. To make troubleshooting easier I have clearly documented the steps needed to set everything back to defaults for full transparancy.
+ There is a lot of misconception about LDAC and how to properly configure it on different operating systems (Windows and Android for example.) This guide will focus on both and will include strategies which help you get the best sound possible. I tried to make it as practical as possible to replicate. To make troubleshooting easier I have clearly documented the steps needed to set everything back to defaults for full transparency.
 
 
  My setup and the hardware I used during the making of this guide:
