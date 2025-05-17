@@ -205,4 +205,5 @@ It works like this:
 | - Clean profile active     |
 | - Samsung override bypassed|
 +-----------------------------+
-
+           |
+           v
