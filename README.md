@@ -26,12 +26,12 @@ LDAC supports sample rates ranging from **44.1 kHz to 96 kHz**, quality modes of
 | **Any source + DSP (EQ, gain, fades)**     | 24-bit              | 24-bit                         | Provides headroom for processing; avoids rounding errors during DSP before LDAC encoding.        |
 | **Non–bit-perfect apps (mixed to 16-bit)** | 16-bit              | 16-bit (or "System Selection") | Reflects the actual 16-bit data the mixer delivers; keeps your settings honest about input depth. |
 
-> ⚠️ **Clarification:** LDAC always encodes at 24-bit internally.  
-> Even if you choose **32-bit** in Developer Options or BCC, this setting **has no effect** — it is just an Android wrapper format used by the OS.  
-> **LDAC does not support or transmit true 32-bit audio**, and any 32-bit float data is truncated or rounded to 24-bit for encoding.
->  Even if an app outputs 32-bit float, Android’s audio system downmixes it to 24-bit PCM before passing it to the LDAC encoder.
-LDAC always encodes at 24-bit, so any input above that — including 32-bit float — is truncated or dithered, not preserved.
-There is no audio quality gain from selecting 32-bit in Developer Options or BCC; it’s just an OS-side wrapper, not a real encoder setting.
+> ⚠️ **Clarification:**  
+> LDAC always encodes audio at **24-bit precision** — never higher.  
+> Selecting **32-bit** in Developer Options or BCC has **no effect** on actual audio quality; it's just an Android-side format wrapper.  
+> Even if an app outputs **32-bit float** (which many do by default), Android's audio pipeline will **downmix** it to 24-bit PCM before handing it off to the LDAC encoder.  
+> There is **no resolution benefit** from using 32-bit with LDAC — anything above 24-bit is truncated or dithered during encoding.
+
 
 The **Adaptive** mode dynamically switches between 330–990 kbps depending on available bandwidth and signal strength.
 
