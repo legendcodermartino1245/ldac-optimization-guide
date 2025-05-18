@@ -244,6 +244,8 @@ This is expected behavior and typically resolves quickly.
 A key indicator that LDAC Adaptive has stabilized is the log entry:
 LDAC adaptive bit rate adjustments: 2
 
+A key indicator that LDAC Adaptive is not yet initialized
+LDAC encode quality mode index: -1
 
 ### 📊 LDAC Adaptive Mode Stability Matrix
 
