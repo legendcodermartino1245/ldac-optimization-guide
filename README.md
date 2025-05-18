@@ -174,6 +174,16 @@ This reliably forces a valid LDAC renegotiation that **bypasses Samsung’s over
 - Works even when BCC switches quickly (short or 0ms delay)
 - Requires no Music Center involvement
 
+👁️ **BCC GUI Reflects External Codec Changes**
+
+As of the latest update, BCC’s GUI now updates in real time to reflect LDAC codec changes made by **other apps or the system**, such as:
+
+- UAPP
+- Developer Options
+- Sony Music Center
+- System-level codec negotiation (e.g. Fast Pair)
+
+This makes BCC a **reliable visual monitor** for active LDAC settings — even if BCC didn't apply the codec itself.
 
 
 ## Verify BCC Isn’t Lying
