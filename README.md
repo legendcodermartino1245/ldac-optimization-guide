@@ -170,4 +170,5 @@ while ($true) {
     adb shell dumpsys bluetooth_manager | Select-String "ldac"
     Start-Sleep -Seconds 2
 }
+```
 Non standard codec values other than 990 660 330 303 606 909 can appear here when adaptive bitrate is on
