@@ -128,7 +128,9 @@ However, it can be **reliably bypassed** by forcing a full codec renegotiation a
 
 🧠 *Samsung’s override is not permanent — it’s just the default LDAC handshake. What matters is whether your LDAC session gets renegotiated correctly after that handshake.*
 
-This override happens **before** apps like BCC or Music Center can act. Developer Options will show "Playback Quality: Default" if this override is active.
+> Developer Options may temporarily display "Playback Quality: Default" when Samsung’s override is active.  
+> However, **apps like BCC or Music Center *can act after the initial handshake*** if they force a full codec renegotiation using bit-depth or sample rate changes.
+
 
 ## ✅ Developer Options Are Safe — Just Clean Up After Yourself
 
