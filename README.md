@@ -28,9 +28,10 @@ LDAC supports sample rates ranging from **44.1 kHz to 96 kHz**, quality modes of
 
 > ⚠️ **Clarification:**  
 > LDAC always encodes audio at **24-bit precision** — never higher.  
-> Selecting **32-bit** in Developer Options or BCC has **no effect** on actual audio quality; it's just an Android-side format wrapper.  
-> Even if an app outputs **32-bit float** (which many do by default), Android's audio pipeline will **downmix** it to 24-bit PCM before handing it off to the LDAC encoder.  
-> There is **no resolution benefit** from using 32-bit with LDAC — anything above 24-bit is truncated or dithered during encoding.
+> Selecting **32-bit** in Developer Options or BCC has **no effect** on actual audio quality; it’s just an Android-side format wrapper.  
+> Even if an app outputs **32-bit float** (as many do), Android’s audio system **downmixes it to 24-bit PCM** before it reaches the LDAC encoder.  
+> There is **no resolution benefit** from using 32-bit with LDAC — anything above 24-bit is **truncated or dithered** during encoding.
+
 
 
 The **Adaptive** mode dynamically switches between 330–990 kbps depending on available bandwidth and signal strength.
