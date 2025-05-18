@@ -165,8 +165,9 @@ BCC forces LDAC codec, sample rate, bit depth, and bitrate on connect. Settings 
 Samsung enforces LDAC **before** BCC acts. Step 3 (SBC switch) fails to reset the override. BCC GUI does show incorrect values. Workaround: apply profile twice or use Tasker automation.
 
 ## Intermediate Profile Switch
-In auto switch is an option called Intermediate Codec Profile. This needs to be set to SBC on samsung to correctly handle the samsung override otherwise you could end up with 96 khz bit depth you selected in auto switch and bitrate you selected in auto switch because bcc doesnt handle the samsung override correctly all of the time when you select LDAC 44.1 khz 24 bit 990 as your auto switch. What does work if you want 44.1 khz 24 bit 990 is to set 44.1 khz 16 bit 990 as intermediate profile. If bcc is too fast it defaults back to sbc and when it fails to override and if it wasnt too fast but cant overide the samsung override it can get stuck at 96 khz 24 bit 990.
-
+In Auto Switch, there's an option called Intermediate Codec Profile.
+On Samsung devices, this should be set to SBC to correctly reset the LDAC handshake.
+If you skip this step, BCC may fail to override Samsung's default — resulting in your selected LDAC 44.1 kHz / 24-bit / 990 kbps profile falling back to 96 kHz / 24-bit / 990 kbps, or even SBC, depending on timing.
 
 💡 **Samsung Override Bypass Without SBC**
 
