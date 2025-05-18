@@ -160,6 +160,22 @@ Samsung enforces LDAC **before** BCC acts. Step 3 (SBC switch) fails to reset th
 In auto switch is an option called Intermediate Codec Profile. This needs to be set to SBC on samsung to correctly handle the samsung override otherwise you could end up with 96 khz bit depth you selected in auto switch and bitrate you selected in auto switch because bcc doesnt handle the samsung override correctly all of the time when you select LDAC 44.1 khz 24 bit 990 as your auto switch. What does work if you want 44.1 khz 24 bit 990 is to set 44.1 khz 16 bit 990 as intermediate profile. If bcc is too fast it defaults back to sbc and when it fails to override and if it wasnt too fast but cant overide the samsung override it can get stuck at 96 khz 24 bit 990.
 
 
+💡 **Samsung Override Bypass Without SBC**
+
+If you want to apply **44.1 kHz / 24-bit / 990 kbps**, set the **Intermediate Profile** in BCC to:
+
+> `44.1 kHz / 16-bit / 990 kbps (Fixed)`
+
+This reliably forces a valid LDAC renegotiation that **bypasses Samsung’s override**, without requiring SBC.
+
+✅ Benefits:
+- No need for 2-step switching
+- Avoids fallback to 96 kHz / 24-bit or SBC
+- Works even when BCC switches quickly (short or 0ms delay)
+- Requires no Music Center involvement
+
+
+
 ## Verify BCC Isn’t Lying
 
 Use this PowerShell script to monitor real-time LDAC status:
