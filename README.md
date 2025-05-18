@@ -152,7 +152,7 @@ Set these **back to default** before disabling Developer Options or handing off 
 - Bits Per Sample → "Use System Selection"
 - Playback Quality → "Best Effort"
 
-This needs to be done for all previously via developer options controlled codecs 
+This needs to be done for all codecs previously controlled via Developer Options
 
 > ✅ *You can safely leave Developer Options enabled — just make sure all codec-related settings are returned to default. No harm is done if they’re inactive.*
 
@@ -208,8 +208,8 @@ As of the latest update, BCC’s GUI reflects LDAC codec changes made by **other
 - System-level negotiation (e.g. Fast Pair)
 
 ⚠️ On Samsung, GUI accuracy is **only reliable when 2-Step Switch is enabled**.  
-However, **2-Step must be disabled** to make LDAC profile switching stable  
-This means the GUI will often **show incorrect bitrate** even though the override succeeded.
+However, 2-Step must be disabled to make LDAC profile switching stable.
+This means the GUI will often show incorrect bitrate, even though the override succeeded.
 
 ✅ For stability, keep **2-Step disabled** and use verification tools like ADB or real-time dumpsys monitoring instead.
 
@@ -229,8 +229,8 @@ while ($true) {
 }
 ```
 ## Adaptive bitrate ldac
-Non standard codec values other than 990 660 330 303 606 909 can appear here when adaptive bitrate is on like 452
-The moment a stream starts, LDAC selects a bitrate tier (adaptive logic kicks in).
+Non-standard LDAC bitrate values (e.g., 452 kbps) can appear during adaptive mode.
+These transient values occur right when a stream starts, as LDAC begins ramping and adaptive bitrate logic kicks in to settle on a stable tier (e.g., 990 / 660 / 330 or 909 / 606 / 303 depending on sample rate).
 LDAC adaptive bit rate adjustments: 2 is a key indicator of when LDAC Adaptive has finished ramping and stabilized at a specific bitrate tier.
 
 
