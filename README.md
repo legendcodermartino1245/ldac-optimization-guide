@@ -172,3 +172,4 @@ while ($true) {
 }
 ```
 Non standard codec values other than 990 660 330 303 606 909 can appear here when adaptive bitrate is on
+The moment a stream starts, LDAC selects a bitrate tier (adaptive logic kicks in).
