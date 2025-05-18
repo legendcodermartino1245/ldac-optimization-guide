@@ -30,22 +30,26 @@ There is a lot of misconception about LDAC and how to properly configure it on d
 
 ## Inner workings of LDAC
 
-LDAC supports sample rates ranging from **44.1 kHz to 96 kHz**, quality modes of **330**, **660**, **990 kbps**, or **Adaptive**, and always uses **24-bit** precision internally. However, you should set LDAC’s input bit-depth to match **exactly** what your player is feeding it:
+LDAC supports sample rates ranging from **44.1 kHz to 96 kHz**, quality modes of **330**, **660**, **990 kbps**, or **Adaptive**, and supports both **16-bit** and **24-bit PCM input**. You should set LDAC’s input bit-depth to match **exactly** what your player is feeding it to preserve fidelity.
 
 | Playback Scenario                          | Player Output Depth | LDAC Bit-Depth Setting         | Rationale                                                                                        |
 | ------------------------------------------ | ------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------ |
-| **Pure CD-quality (44.1 kHz / 16-bit)**      | 16-bit              | 16-bit (or "System Selection") | Matches the original 16-bit samples—no unnecessary padding or noise.                             |
+| **Pure CD-quality (44.1 kHz / 16-bit)**      | 16-bit              | 16-bit (or "System Selection") | Matches the original 16-bit samples — avoids unnecessary padding or truncation.                 |
 | **Native Hi-Res (>44.1 kHz / 24-bit)**       | 24-bit              | 24-bit                         | Preserves the full dynamic range of your 24-bit source all the way into LDAC’s encoder.          |
 | **Any source + DSP (EQ, gain, fades)**     | 24-bit              | 24-bit                         | Provides headroom for processing; avoids rounding errors during DSP before LDAC encoding.        |
 | **Non–bit-perfect apps (mixed to 16-bit)** | 16-bit              | 16-bit (or "System Selection") | Reflects the actual 16-bit data the mixer delivers; keeps your settings honest about input depth. |
 
 > ⚠️ **Clarification:**  
-> LDAC always encodes audio at **24-bit precision** — never higher.  
-> Selecting **32-bit** in Developer Options or BCC has **no effect** on actual audio quality; it’s just an Android-side format wrapper.  
-> Even if an app outputs **32-bit float** (as many do), Android’s audio system **downmixes it to 24-bit PCM** before it reaches the LDAC encoder.  
-> There is **no resolution benefit** from using 32-bit with LDAC — anything above 24-bit is **truncated or dithered** during encoding.  
-> 🧠 The **32-bit setting is not for LDAC itself**, but for **apps like UAPP or Neutron** that internally process audio at 32-bit float.  
-> It gives these apps more headroom and avoids precision loss before the audio is handed off to Android’s Bluetooth stack, which will always deliver 24-bit to LDAC.
+> LDAC **does not always encode at 24-bit**. It encodes audio at **the bit-depth it receives** — 16-bit or 24-bit PCM.  
+> Android’s Bluetooth stack forwards the player's output to LDAC without automatic upsampling.  
+> - ✅ If the player outputs 16-bit PCM (e.g., CD-quality), LDAC encodes it directly as 16-bit.  
+> - ✅ If the player outputs 24-bit PCM, LDAC uses full 24-bit encoding.  
+> - ❌ If the player outputs 32-bit float, Android truncates it to 24-bit PCM before LDAC sees it.  
+
+> 🧠 **The 32-bit setting in Developer Options or BCC is not for LDAC itself**, but for internal processing in apps like UAPP or Neutron, which operate at 32-bit float for DSP. It provides internal headroom but has **no effect on the final transmitted resolution**, which is max 24-bit.
+
+> 🔎 **Bit-perfect transmission over LDAC is only achieved** when the player's output bit-depth and sample rate match the source, and no DSP or mixing occurs.
+
 
 
 ### 🎮 LDAC Configuration Matrix Fixed
