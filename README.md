@@ -32,7 +32,7 @@ LDAC supports sample rates ranging from **44.1 kHz to 96 kHz**, quality modes of
 
 The **Adaptive** mode dynamically switches between 330–990 kbps depending on available bandwidth and signal strength.
 
-### 🎮 LDAC Configuration Matrix
+### 🎮 LDAC Configuration Matrix Fixed
 
 | Sample Rate | Bit Depth | Bitrate (kbps) | Mode             |
 |-------------|-----------|----------------|------------------|
@@ -73,6 +73,8 @@ The **Adaptive** mode dynamically switches between 330–990 kbps depending on a
 | 96 kHz      | 32-bit    | 660            | Fixed            |
 | 96 kHz      | 32-bit    | 990            | Fixed            |
 
+
+### 🎮 LDAC Configuration Matrix Adaptive
 | Sample Rate | Bit Depth | Bitrate (kbps) | Mode      |
 |-------------|-----------|----------------|-----------|
 | 44.1 kHz    | 16-bit    | 303 / 606 / 909 | Adaptive |
@@ -87,8 +89,6 @@ The **Adaptive** mode dynamically switches between 330–990 kbps depending on a
 | 96 kHz      | 16-bit    | 330 / 660 / 990 | Adaptive |
 | 96 kHz      | 24-bit    | 330 / 660 / 990 | Adaptive |
 | 96 kHz      | 32-bit*   | 330 / 660 / 990 | Adaptive |
-
-\* **32-bit in Developer Options is only a container width; LDAC truncates/rounds to 24-bit internally.**
 
 ## The Real LDAC Bug: Quality Settings Don’t Apply on Their Own
 
