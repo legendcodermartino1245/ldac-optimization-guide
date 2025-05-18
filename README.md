@@ -36,7 +36,10 @@ LDAC supports sample rates ranging from **44.1 kHz to 96 kHz**, quality modes of
 
 
 
-The **Adaptive** mode dynamically switches between 330–990 kbps depending on available bandwidth and signal strength.
+> The **Adaptive mode** dynamically switches between three bitrate levels, depending on bandwidth and signal strength:
+>
+> - **303 / 606 / 909 kbps** at 44.1 kHz and 88.2 kHz  
+> - **330 / 660 / 990 kbps** at 48 kHz and 96 kHz
 
 ### 🎮 LDAC Configuration Matrix Fixed
 
