@@ -174,7 +174,7 @@ while ($true) {
 Non standard codec values other than 990 660 330 303 606 909 can appear here when adaptive bitrate is on like 452
 The moment a stream starts, LDAC selects a bitrate tier (adaptive logic kicks in).
 LDAC adaptive bit rate adjustments: 2 is a key indicator of when LDAC Adaptive has finished ramping and stabilized at a specific bitrate tier.
-LDAC 44.1 khz 16 adaptive is unstable
-LDAC 48 khz 16 adaptive is stable
-LDAC 88.2 khz 16 is a little better than 44.1 khz 16
-LDAC 96 khz 16 adaptive is stable
+LDAC 44.1 khz 16 bit or 24 bit adaptive is unstable
+LDAC 48 khz 16 bit or 24 bit adaptive is stable
+LDAC 88.2 khz 16 bit or 24 bit is a little better than 44.1 khz 16
+LDAC 96 khz 16 bit or 24 bit adaptive is stable
