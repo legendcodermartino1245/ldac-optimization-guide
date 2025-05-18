@@ -1,5 +1,5 @@
 ## 📑 Table of Contents
-- [My setup and hardware](#my-setup-and-the-hardware-i-used-during-the-making-of-this-guide)
+- [My setup and the hardware I used during the making of this guide](#my-setup-and-the-hardware-i-used-during-the-making-of-this-guide)
 - [Inner workings of LDAC](#inner-workings-of-ldac)
 - [LDAC Configuration Matrix Fixed](#-ldac-configuration-matrix-fixed)
 - [LDAC Configuration Matrix Adaptive](#-ldac-configuration-matrix-adaptive)
@@ -184,7 +184,7 @@ If you skip this step, BCC may fail to override Samsung's default — resulting 
 
 
 
-## Working Two stetp and Intermediate Profile pairs
+## Working Two step and Intermediate Profile pairs
 Any codec switch away from LDAC — even if momentary — triggers a full renegotiation when switching back.
 
 
