@@ -1,3 +1,16 @@
+## 📑 Table of Contents
+- [My setup and hardware](#my-setup-and-the-hardware-i-used-during-the-making-of-this-guide)
+- [Inner workings of LDAC](#inner-workings-of-ldac)
+- [LDAC Configuration Matrix Fixed](#-ldac-configuration-matrix-fixed)
+- [LDAC Configuration Matrix Adaptive](#-ldac-configuration-matrix-adaptive)
+- [The Real LDAC Bug](#the-real-ldac-bug-quality-settings-dont-apply-on-their-own)
+- [Samsung LDAC Override Stack](#-samsung-ldac-override-stack)
+- [Developer Options](#-developer-options-are-safe--just-clean-up-after-yourself)
+- [Bluetooth Codec Changer (BCC)](#bluetooth-codec-changer-bcc)
+- [Intermediate Profile Switch](#intermediate-profile-switch)
+- [Verify BCC Isn’t Lying](#verify-bcc-isnt-lying)
+- [Adaptive Bitrate Behavior](#adaptive-bitrate-ldac)
+- [LDAC Adaptive Mode Stability Matrix](#-ldac-adaptive-mode-stability-matrix)
 # LDAC Done Right
 
 There is a lot of misconception about LDAC and how to properly configure it on different operating systems (Windows and Android for example.) This guide will focus on both and will include strategies which help you get the best sound possible. I tried to make it as practical as possible to replicate. To make troubleshooting easier I have clearly documented the steps needed to set everything back to defaults for full transparency.
