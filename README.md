@@ -232,10 +232,17 @@ while ($true) {
     Start-Sleep -Seconds 2
 }
 ```
-## Adaptive bitrate ldac
-Non-standard LDAC bitrate values (e.g., 452 kbps) can appear during adaptive mode.
-These transient values occur right when a stream starts, as LDAC begins ramping and adaptive bitrate logic kicks in to settle on a stable tier (e.g., 990 / 660 / 330 or 909 / 606 / 303 depending on sample rate).
-LDAC adaptive bit rate adjustments: 2 is a key indicator of when LDAC Adaptive has finished ramping and stabilized at a specific bitrate tier.
+## Adaptive Bitrate LDAC
+
+In **Adaptive** mode, LDAC may briefly report *non-standard bitrate values* (e.g., **452 kbps**). These transient values occur right at the **start of playback**, as LDAC begins its **bitrate ramp-up process**. It takes a few seconds for the adaptive logic to stabilize and settle on an official bitrate tier:
+
+- **990 / 660 / 330 kbps** → for **48 kHz** and **96 kHz**
+- **909 / 606 / 303 kbps** → for **44.1 kHz** and **88.2 kHz**
+
+This is expected behavior and typically resolves quickly.
+
+A key indicator that LDAC Adaptive has stabilized is the log entry:
+LDAC adaptive bit rate adjustments: 2
 
 
 ### 📊 LDAC Adaptive Mode Stability Matrix
