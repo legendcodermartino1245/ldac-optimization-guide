@@ -171,5 +171,6 @@ while ($true) {
     Start-Sleep -Seconds 2
 }
 ```
-Non standard codec values other than 990 660 330 303 606 909 can appear here when adaptive bitrate is on
+Non standard codec values other than 990 660 330 303 606 909 can appear here when adaptive bitrate is on like 452
 The moment a stream starts, LDAC selects a bitrate tier (adaptive logic kicks in).
+LDAC adaptive bit rate adjustments: 2 is a key indicator of when LDAC Adaptive has finished ramping and stabilized at a specific bitrate tier.
