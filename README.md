@@ -156,6 +156,10 @@ BCC forces LDAC codec, sample rate, bit depth, and bitrate on connect. Settings 
 ### Why 2-Step Doesn't Work on Samsung
 Samsung enforces LDAC **before** BCC acts. Step 3 (SBC switch) fails to reset the override. BCC GUI does show incorrect values. Workaround: apply profile twice or use Tasker automation.
 
+## Intermediate profile swtich
+In auto swtich is an option called Intermediate Codec Profile. This needs to be set to SBC on samsung to correctly handle the samsung override otherwise you could end up with 96 khz bit depth you selected in auto switch and bitrate you selected in auto switch because bcc doesnt handle the samsung override correctly all of the time.
+
+
 ## Verify BCC Isn’t Lying
 
 Use this PowerShell script to monitor real-time LDAC status:
