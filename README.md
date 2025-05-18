@@ -115,11 +115,18 @@ LDAC settings like bitrate, sample rate, and bit depth are **only renegotiated**
 
 ## 🔐 Samsung LDAC Override Stack
 
-Samsung **always** enforces its own LDAC codec profile **during the Bluetooth handshake**:
+Samsung **injects its own LDAC codec profile at the very start of the Bluetooth handshake**:
 
 - **Sample Rate:** 96 kHz  
 - **Bit Depth:** 32-bit  
 - **Bitrate:** Adaptive (330–990 kbps)
+
+This override happens **before** your device finishes establishing the Bluetooth session.  
+However, it can be **reliably bypassed** by forcing a full codec renegotiation after connection, see  The Real LDAC Bug section on how to do it
+
+✅ BCC and other apps **can override** Samsung's initial profile — but only if they trigger a full codec reset after the override is applied.
+
+🧠 *Samsung’s override is not permanent — it’s just the default LDAC handshake. What matters is whether your LDAC session gets renegotiated correctly after that handshake.*
 
 This override happens **before** apps like BCC or Music Center can act. Developer Options will show "Playback Quality: Default" if this override is active.
 
