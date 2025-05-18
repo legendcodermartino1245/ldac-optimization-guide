@@ -190,12 +190,6 @@ If you want to apply **44.1 kHz / 24-bit / 990 kbps**, set the **Intermediate Pr
 
 This reliably forces a valid LDAC renegotiation that **bypasses Samsung’s override**, without requiring SBC.
 
-✅ Benefits:
-- No need for 2-step switching
-- Avoids fallback to 96 kHz / 24-bit or SBC
-- Works even when BCC switches quickly (short or 0ms delay)
-- Requires no Music Center involvement
-
 👁️ **BCC GUI Reflects External Codec Changes**
 
 As of the latest update, BCC’s GUI reflects LDAC codec changes made by **other apps or the system**, such as:
