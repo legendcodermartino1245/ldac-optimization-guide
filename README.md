@@ -79,16 +79,16 @@ The **Adaptive** mode dynamically switches between 330–990 kbps depending on a
 |-------------|-----------|----------------|-----------|
 | 44.1 kHz    | 16-bit    | 303 / 606 / 909 | Adaptive |
 | 44.1 kHz    | 24-bit    | 303 / 606 / 909 | Adaptive |
-| 44.1 kHz    | 32-bit*   | 303 / 606 / 909 | Adaptive |
+| 44.1 kHz    | 32-bit    | 303 / 606 / 909 | Adaptive |
 | 48 kHz      | 16-bit    | 330 / 660 / 990 | Adaptive |
 | 48 kHz      | 24-bit    | 330 / 660 / 990 | Adaptive |
-| 48 kHz      | 32-bit*   | 330 / 660 / 990 | Adaptive |
+| 48 kHz      | 32-bit    | 330 / 660 / 990 | Adaptive |
 | 88.2 kHz    | 16-bit    | 303 / 606 / 909 | Adaptive |
 | 88.2 kHz    | 24-bit    | 303 / 606 / 909 | Adaptive |
-| 88.2 kHz    | 32-bit*   | 303 / 606 / 909 | Adaptive |
+| 88.2 kHz    | 32-bit    | 303 / 606 / 909 | Adaptive |
 | 96 kHz      | 16-bit    | 330 / 660 / 990 | Adaptive |
 | 96 kHz      | 24-bit    | 330 / 660 / 990 | Adaptive |
-| 96 kHz      | 32-bit*   | 330 / 660 / 990 | Adaptive |
+| 96 kHz      | 32-bit    | 330 / 660 / 990 | Adaptive |
 
 ## The Real LDAC Bug: Quality Settings Don’t Apply on Their Own
 
