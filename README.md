@@ -187,14 +187,21 @@ This reliably forces a valid LDAC renegotiation that **bypasses Samsung’s over
 
 👁️ **BCC GUI Reflects External Codec Changes**
 
-As of the latest update, BCC’s GUI now updates in real time to reflect LDAC codec changes made by **other apps or the system**, such as:
+As of the latest update, BCC’s GUI reflects LDAC codec changes made by **other apps or the system**, such as:
 
-- UAPP
-- Developer Options
-- Sony Music Center
-- System-level codec negotiation (e.g. Fast Pair)
+- UAPP  
+- Developer Options  
+- Sony Music Center  
+- System-level negotiation (e.g. Fast Pair)
 
-This makes BCC a **reliable visual monitor** for active LDAC settings — even if BCC didn't apply the codec itself.
+⚠️ On Samsung, GUI accuracy is **only reliable when 2-Step Switch is enabled**.  
+However, **2-Step must be disabled** to make LDAC profile switching stable — especially when using intermediate profile logic (e.g., 44.1 kHz 16-bit → 24-bit).  
+This means the GUI will often **show incorrect sample rate, bit depth, or bitrate** even though the override succeeded.
+
+✅ For stability, keep **2-Step disabled** and use verification tools like ADB or real-time dumpsys monitoring instead.
+
+🧪 *Verified Behavior – GUI desync is expected with 2-Step disabled. Stability and accuracy cannot both be achieved on Samsung at the same time.*
+
 
 
 ## Verify BCC Isn’t Lying
