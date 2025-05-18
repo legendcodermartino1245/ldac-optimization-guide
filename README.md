@@ -182,6 +182,14 @@ In Auto Switch, there's an option called Intermediate Codec Profile.
 On Samsung devices, this should be set to SBC to correctly reset the LDAC handshake.
 If you skip this step, BCC may fail to override Samsung's default — resulting in your selected LDAC 44.1 kHz / 24-bit / 990 kbps profile falling back to 96 kHz / 24-bit / 990 kbps, or even SBC, depending on timing.
 
+
+
+## Working Two stetp and Intermediate Profile pairs
+Any codec switch away from LDAC — even if momentary — triggers a full renegotiation when switching back.
+
+
+
+
 💡 **Samsung Override Bypass Without SBC**
 
 If you want to apply **44.1 kHz / 24-bit / 990 kbps**, set the **Intermediate Profile** in BCC to:
