@@ -125,7 +125,7 @@ Set these **back to default** before disabling Developer Options or handing off 
 - Bits Per Sample → "Use System Selection"
 - Playback Quality → "Best Effort"
 
-This neeeds to be done for all previously via developer options controlled codecs 
+This needs to be done for all previously via developer options controlled codecs 
 
 > ✅ *You can safely leave Developer Options enabled — just make sure all codec-related settings are returned to default. No harm is done if they’re inactive.*
 
