@@ -35,12 +35,6 @@ LDAC supports sample rates ranging from **44.1 kHz to 96 kHz**, quality modes of
 > It gives these apps more headroom and avoids precision loss before the audio is handed off to Android’s Bluetooth stack, which will always deliver 24-bit to LDAC.
 
 
-
-> The **Adaptive mode** dynamically switches between three bitrate levels, depending on bandwidth and signal strength:
->
-> - **303 / 606 / 909 kbps** at 44.1 kHz and 88.2 kHz  
-> - **330 / 660 / 990 kbps** at 48 kHz and 96 kHz
-
 ### 🎮 LDAC Configuration Matrix Fixed
 
 | Sample Rate | Bit Depth | Bitrate (kbps) | Mode             |
@@ -81,6 +75,12 @@ LDAC supports sample rates ranging from **44.1 kHz to 96 kHz**, quality modes of
 | 96 kHz      | 32-bit    | 330            | Fixed            |
 | 96 kHz      | 32-bit    | 660            | Fixed            |
 | 96 kHz      | 32-bit    | 990            | Fixed            |
+
+
+> The **Adaptive mode** dynamically switches between three bitrate levels, depending on bandwidth and signal strength:
+>
+> - **303 / 606 / 909 kbps** at 44.1 kHz and 88.2 kHz  
+> - **330 / 660 / 990 kbps** at 48 kHz and 96 kHz
 
 
 ### 🎮 LDAC Configuration Matrix Adaptive
