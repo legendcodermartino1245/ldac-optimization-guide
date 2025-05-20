@@ -288,6 +288,14 @@ These actions cause Samsung’s LDAC override (96 kHz / 32-bit / Default bitrate
 | 7    | **Sound Connect Software Reset**        | Clears stored app settings                 | **Low**                 | **Medium**      | Optional support step if still installed              |
 | 8    | **Reset Network Settings**              | Wipes Bluetooth + Wi-Fi                    | **Very High**           | **High**        | Last resort only                                      |
 
+> ⚠️ **Warning: Sony Music Center silently reasserts LDAC settings**  
+> If you've previously used Music Center to select a specific LDAC profile (e.g., 990 kbps), it may **automatically reapply that setting** on the next reconnect — *even if the app is no longer open*.  
+>  
+> To prevent this, you must either:  
+> - **Set LDAC to 660 kbps** in the app before uninstalling (resets override state), or  
+> - **Clear app data** or uninstall Music Center **before the next pairing**  
+>  
+> Simply uninstalling **after** a 990 kbps override won't erase the stored configuration from the headphone firmware.
 
 
 
