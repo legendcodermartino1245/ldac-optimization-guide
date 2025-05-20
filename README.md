@@ -255,3 +255,8 @@ LDAC encode quality mode index: -1
 | 48 kHz      | 16-bit / 24-bit   | ✅ Stable     | Consistently ramps to and holds 990 kbps                           |
 | 88.2 kHz    | 16-bit / 24-bit   | ⚠️ Moderate   | Slightly more stable than 44.1, but not reliable at high bitrates  |
 | 96 kHz      | 16-bit / 24-bit   | ✅ Stable     | Ramps cleanly and holds 990 kbps with minimal adjustments          |
+## Bluetooth Connectivity methods
+NFC
+Bluetooth quick settings UI
+bleutooth setttings UI
+Fast pair
