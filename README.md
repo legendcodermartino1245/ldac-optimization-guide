@@ -136,7 +136,7 @@ Samsung **injects its own LDAC codec profile at the very start of the Bluetooth 
 
 - **Sample Rate:** 96 kHz  
 - **Bit Depth:** 32-bit  
-- **Bitrate:** Adaptive (330–990 kbps)
+- **Bitrate:** Default (330–990 kbps)
 
 This override happens **before** your device finishes establishing the Bluetooth session.  
 However, it can be **reliably bypassed** by forcing a full codec renegotiation after connection, see  The Real LDAC Bug section on how to do it
