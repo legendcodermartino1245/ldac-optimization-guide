@@ -260,3 +260,4 @@ NFC
 Bluetooth quick settings UI
 bleutooth setttings UI
 Fast pair
+manaual power on of headphones
