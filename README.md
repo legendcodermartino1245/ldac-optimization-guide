@@ -147,20 +147,23 @@ However, it can be **reliably bypassed** by forcing a full codec renegotiation a
 
 > Developer Options may temporarily display "Playback Quality: Default" when Samsung’s override is active.
 
+## ✅ Developer Options Are Safe — If You Clean Up Properly
 
-## ✅ Developer Options Are Safe — Just Clean Up After Yourself
+> 🛑 Just disabling Developer Options is **not enough** if LDAC was ever manually selected.
 
-Set these **back to default** before disabling Developer Options or handing off control:
+Samsung may silently continue applying the **last used LDAC override profile** even after Developer Options are turned off — especially if it was previously set to LDAC 660, Adaptive, or 990.
 
-- Sample Rate → "Use System Selection"
-- Bits Per Sample → "Use System Selection"
-- Playback Quality → "Best Effort"
+### ✅ Correct Reset Procedure
 
-This needs to be done for all codecs previously controlled via Developer Options
+1. Enable **Developer Options** — only if you’ve used them before
+2. Set **Bluetooth Audio Codec** to **SBC**
+   - ℹ️ On Samsung, there is **no “Default” option** — selecting **SBC** is the only way to fully clear override behavior
+3. Exit the Developer Options menu
+4. Go back and **disable Developer Options**
+5. *(Optional but safest)* Reset network settings:
+   - `Settings → General Management → Reset → Reset network settings`
 
-> ✅ *You can safely leave Developer Options enabled — just make sure all codec-related settings are returned to default. No harm is done if they’re inactive.*
-
-> Leaving overridden settings can cause LDAC to renegotiate, trigger Samsung's override again, or break BCC's control.
+✅ This fully clears Samsung’s override memory, ensuring a clean LDAC handshake window for hijack and BCC profile injection.
 
 ## Bluetooth Codec Changer (BCC)
 
