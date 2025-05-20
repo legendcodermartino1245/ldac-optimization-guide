@@ -272,7 +272,8 @@ These actions cause Samsung’s LDAC override (96 kHz / 32-bit / Default bitrate
 | Quick Settings Connect            | **Instant**     |
 | Bluetooth Settings UI Reconnect  | **Immediate**   |
 | Developer Options not reset       | **Immediate**   |
-
+| Media Audio Toggle (OFF → ON)                | **Immediate**       |
+| Bluetooth toggled (while headphones stay on) | **Immediate**       |
 
 ## ✅ Valid LDAC Codec Preference Reset Strategies (Ranked)
 
