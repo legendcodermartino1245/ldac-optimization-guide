@@ -297,3 +297,4 @@ These actions cause Samsung’s LDAC override (96 kHz / 32-bit / Default bitrate
 | 1 | **HD Audio (LDAC) Toggle**  | Appears to trigger codec renegotiation      | Just re-enables Samsung's default LDAC override             | **False reset** — reasserts override profile       |
 | 2 | **Input Device Toggle**     | Seems like it influences audio routing      | Only toggles HFP profile (mic/remote), not A2DP             | **Unrelated** — no codec impact                    |
 | 3 | **Fast Pair Notification Tap** | Looks like a clean connection method     | Requires manual confirmation, then applies override profile | **Misleading** — not auto, and reuses LDAC state   |
+| 4 | **Music Center Disconnect Button** | Feels like a proper disconnection method     | Only performs a UI-level disconnect, no codec reset or override clear | **Misleading** — does not renegotiate or reset LDAC |
