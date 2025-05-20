@@ -330,3 +330,4 @@ This table expands on the common ways to connect your headphones (from NFC to Fa
 | **Manual Headphone Power-On First**   | ⚠️ Moderate       | ✅ Sometimes  | BCC may win if auto-switch is fast enough                             |
 | **Headphones On → Manual Connect**    | ⚠️ Moderate       | ✅ Sometimes  | Safer if Fast Pair and UI triggers are avoided                        |
 | **App-Initiated Connect (e.g. BCC)**  | ✅ Delayed        | ✅ Yes        | Cleanest connection — override can be bypassed reliably               |
+| **Tasker + BCC Dual Profile**   | **Custom**     | ✅ Always     | Automation with two chained LDAC profiles — defeats firmware override |
