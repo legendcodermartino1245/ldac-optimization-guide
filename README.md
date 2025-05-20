@@ -307,3 +307,24 @@ These actions cause Samsung’s LDAC override (96 kHz / 32-bit / Default bitrate
 | 2 | **Input Device Toggle**     | Seems like it influences audio routing      | Only toggles HFP profile (mic/remote), not A2DP             | **Unrelated** — no codec impact                    |
 | 3 | **Fast Pair Notification Tap** | Looks like a clean connection method     | Requires manual confirmation, then applies override profile | **Misleading** — not auto, and reuses LDAC state   |
 | 4 | **Music Center Disconnect Button** | Feels like a proper disconnection method     | Only performs a UI-level disconnect, no codec reset or override clear | **Misleading** — does not renegotiate or reset LDAC |
+
+
+## fast pair
+### ⚠️ Fast Pair Auto-Connect — The Hidden Override Trigger
+
+Fast Pair doesn’t just work when you tap the notification. Even if you ignore it, it can automatically reconnect your headphones in the background using Google Play Services — often **faster than Samsung’s own auto-connect**.
+
+This hidden auto-connect is **aggressive and high priority**, meaning it often **beats BCC to the LDAC handshake** and allows the **Samsung override (96 kHz / 32-bit / default bitrate)** to reassert itself silently.
+
+#### 🧠 Comparison: Fast Pair Auto-Connect vs. Samsung Auto-Connect
+
+| Method                      | Initiator                      | Speed          | Override Applied? | Can BCC Win? | Notes                                                    |
+|-----------------------------|---------------------------------|----------------|-------------------|--------------|----------------------------------------------------------|
+| **Fast Pair Auto-Connect** | Google Play Services (Nearby)   | **Faster**     | ✅ Always          | ❌ No         | Strongest override injection — happens before codec init |
+| **Samsung Auto-Connect**   | Android system Bluetooth stack  | Slower         | ✅ Usually         | ⚠️ Maybe      | BCC can win *if timing favors it*                        |
+
+> ⚠️ **Warning:**  
+> Fast Pair Auto-Connect is **faster than Samsung’s own reconnect logic** and will override BCC before it can act — even if you never tap the notification.  
+> To avoid this:
+> - Disable *Nearby Devices* permission for **Google Play Services**
+> - Unpair and remove the Fast Pair association from [fastpair.google.com](https://fastpair.google.com)
