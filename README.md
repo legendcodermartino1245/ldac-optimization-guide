@@ -261,3 +261,14 @@ Bluetooth quick settings UI
 bleutooth setttings UI
 Fast pair
 manaual power on of headphones
+
+### ⚠️ Override Acceleration Triggers
+
+These actions cause Samsung’s LDAC override (96 kHz / 32-bit / Default bitrate) to apply faster than BCC or any other app can intervene.
+
+| Condition / Action                | Override Speed |
+|-----------------------------------|----------------|
+| Fast Pair Notification Tap        | **Instant**     |
+| Quick Settings Connect            | **Instant**     |
+| Bluetooth Settings UI Reconnect  | **Immediate**   |
+| Developer Options not reset       | **Immediate**   |
