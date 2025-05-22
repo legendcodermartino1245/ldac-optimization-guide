@@ -314,11 +314,18 @@ Fast Pair doesn’t just work when you tap the notification. Even if you ignore 
 
 This hidden auto-connect is **aggressive and high priority**, meaning it often **beats BCC to the LDAC handshake** and allows the **Samsung override (96 kHz / 32-bit / default bitrate)** to reassert itself silently.
 
-#### 🧠 Comparison: Fast Pair Auto-Connect vs. Samsung Auto-Connect
+### 🧠 Comparison: Fast Pair Auto-Connect vs. Samsung Auto-Connect
 
-| Method                      | Initiator                      | Speed          | Override Applied? | Can BCC Win? | Notes                                                    |
-|
-
+| Feature                        | **Fast Pair Auto-Connect**              | **Samsung Auto-Connect**                 |
+|-------------------------------|----------------------------------------|------------------------------------------|
+| **Initiator**                 | Google Play Services (Fast Pair logic) | Samsung Bluetooth Stack                  |
+| **Connection Speed**          | **Very Fast** (sub-second)             | Fast (1–2 seconds)                       |
+| **Override Triggered**        | **Yes** — immediately upon connection  | **Yes** — slightly delayed               |
+| **BCC Profile Blocked**       | **Yes** — BCC profile gets ignored     | **Sometimes** — BCC may still apply      |
+| **Notification Required**     | No — can trigger silently              | No — triggers automatically on power-on  |
+| **Detectable in UI?**         | ❌ No — occurs without user action     | ✅ Yes — visible device connect prompt    |
+| **Best Defense Strategy**     | Disable Nearby Devices in Play Services | Delay auto-connect, use SBC or BCC delay |
+| **Risk of Override**          | **High** — triggers instantly          | **Medium** — timing window for bypass    |
 
 ### 🔌 Bluetooth Connection Methods — Ranked by Override Speed and BCC Compatibility
 
@@ -334,8 +341,7 @@ This table expands on the common ways to connect your headphones (from NFC to Fa
 | **Manual Headphone Power-On First**   | ⚠️ Moderate       | ✅ Sometimes  | BCC may win if auto-switch is fast enough                             |
 | **Headphones On → Manual Connect**    | ⚠️ Moderate       | ✅ Sometimes  | Safer if Fast Pair and UI triggers are avoided                        |
 | **App-Initiated Connect (e.g. BCC)**  | ✅ Delayed        | ✅ Yes        | Cleanest connection — override can be bypassed reliably               |
-| **Tasker + BCC Dual Profile**   | **Custom**     | ✅ Always     | Automation with two chained LDAC profiles — defeats firmware override |
-
+| **Tasker + BCC Dual Profile**         | **Custom**       | ✅ Always     | Automation with two chained LDAC profiles — defeats firmware override |
 
 
 ## ✅ Complete LDAC Codec Reset Matrix (v2025)
