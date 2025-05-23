@@ -516,6 +516,9 @@ Before pairing the headphones, open the BCC app and configure:
 2. **Disable "2-Step Switching"**  
    *(Prevents handshake desyncs and GUI bugs)*
 
+3. **Enable "Ultra Advanced Automation Apps Integration"**  
+   *(Allows BCC to be fully controlled via Tasker or other automation tools for precise codec switching)*
+
 ---
 
 ### ⚠️ Critical Timing Warning: Auto Switch May Be Too Late
