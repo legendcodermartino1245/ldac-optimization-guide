@@ -419,7 +419,7 @@ This table expands on the common ways to connect your headphones (from NFC to Fa
 These steps eliminate all stored codec profiles, Fast Pair metadata, Developer Option overrides, and app-based LDAC reassertions:
 
 1. **Hardware Reset headphones** → `#1`  
-   *(Power + Custom button for 7 seconds — wipes firmware profile and pairing data)*
+   *(Power + Custom button for 7 seconds — wipes firmware profile and pairing data)* if you hear paring right after boot it works and you can safely turn the headphones off with the button on the headphones
 
 2. **Reset Network Settings on phone** → `#4`  
    `Settings → General Management → Reset → Reset network settings`
