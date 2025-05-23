@@ -554,7 +554,7 @@ It’s the *key* to taming Samsung’s override and enforcing your exact LDAC pr
 
 ---
 
-### 🧠 Real Behavior Summary
+### 🧠 Real Behavior Summary (Updated)
 
 When using **manual pairing via Bluetooth settings**, Samsung injects its override profile (96kHz / 32-bit / Adaptive) *before* you get a chance to assert your own settings. This leads to:
 
@@ -563,37 +563,32 @@ When using **manual pairing via Bluetooth settings**, Samsung injects its overri
 - Desynced UI info  
 - BCC and app profiles failing silently
 
+✅ The only reliable way to bypass this:
+
+- Use **Fast Pair** for the initial handshake  
+- Train your **LDAC profile immediately**  
+- Then lock it in using **Bluetooth Codec Changer (BCC)** with **Tasker-based profile switching**
+
+> 🧠 **Important:**  
+> Fast Pair **only works reliably** when used **with BCC and Tasker automation**.  
+> Without Tasker handling profile switching and LDAC reapplication, Samsung’s override may still reassert itself — especially during reconnects or UI-triggered connections.
+
 ---
 
-### 🎯 What Fast Pair Actually Does
-
-- Creates a **brief delay** before override injection  
-- Gives BCC or UAPP a chance to **lock in your desired LDAC profile**  
-- Stores **your profile** in Samsung’s override memory, not theirs  
-- Keeps that profile **persistent** on every reconnect  
-- Works **without Developer Options**
-
----
-
-### 🔐 Final Verdict
+### 🔐 Final Verdict (Updated)
 
 > Manual Bluetooth pairing is a **trap**.  
 > You don’t control the handshake timing — Samsung does.  
 > You lose before LDAC even starts.
 
-✅ With Fast Pair:
+✅ With **Fast Pair + BCC + Tasker**:
 
 - You win the timing window  
-- You enforce **bit-perfect playback**  
-- You rewire Samsung’s override to **obey you**
+- You enforce **your custom LDAC profile**  
+- You gain **persistent, override-free playback**  
+- You no longer need Developer Options or risky UI workarounds  
+- Samsung’s override stack becomes **your ally**, not your enemy
 
 ---
 
-### ⚠️ Bonus Pro Tip
-
-> **Do not enable BCC Auto Switch until the profile is trained.**  
-> It may race the override and cause profile desync.
-
----
-
-**Fast Pair isn’t a shortcut — it’s the only clean door to codec mastery.**
+**Fast Pair isn’t just a workaround — it’s the foundation for a controlled LDAC environment when paired with BCC and Tasker.**
