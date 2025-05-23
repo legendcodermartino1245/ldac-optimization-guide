@@ -424,7 +424,8 @@ These steps eliminate all stored codec profiles, Fast Pair metadata, Developer O
    *(Must be done **while the headphones are connected** — this flushes Samsung's internal LDAC override. Critical: Samsung has no “Default” codec option)*
 
 3. **Disable Developer Options afterwards** → `#7`  
-   *(Still while connected — this finalizes override memory wipe and ensures no silent reassertion later)*
+   *(Still while connected — this finalizes override memory wipe and ensures no silent reassertion later)*  
+   ✅ *You may now safely power off the headphones. The override memory has been wiped and no further interaction is required until the reset.*
 
 4. **Hardware Reset headphones** → `#1`  
    *(Power + Custom button for 7 seconds — wipes firmware profile and pairing data)*  
