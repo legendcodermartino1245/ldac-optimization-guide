@@ -419,15 +419,19 @@ This table expands on the common ways to connect your headphones (from NFC to Fa
 These steps eliminate all stored codec profiles, Fast Pair metadata, Developer Option overrides, and app-based LDAC reassertions:
 
 1. **Hardware Reset headphones** → `#1`  
-   *(Power + Custom button for 7 seconds — wipes firmware profile and pairing data)* if you hear paring right after boot it works and you can safely turn the headphones off with the button on the headphones
+   *(Power + Custom button for 7 seconds — wipes firmware profile and pairing data)*  
+   ✅ If you hear **“Pairing”** immediately after boot, it confirms a clean reset.  
+   You can safely **power off the headphones** at this point using the button — no profile has been stored yet.
 
 2. **Reset Network Settings on phone** → `#4`  
-   `Settings → General Management → Reset → Reset network settings`
+   `Settings → General Management → Reset → Reset Wi-Fi and Bluetooth settings`  
+   *(Same as old “Reset Network Settings” — this clears Samsung’s override memory)*
 
 3. **Clear Storage of**:  
    - Sony Music Center → `#9`  
    - Headphones Connect (Sound Connect) → `#10`  
-   - Bluetooth Codec Changer (BCC) → `#11`
+   - Bluetooth Codec Changer (BCC) → `#11`  
+   🔒 Ensure each app is **fully closed or force-stopped** before and after clearing storage to avoid re-initializing old settings.
 
 4. **Forget Bluetooth device** → `#5`  
    `Settings → Connections → Bluetooth → [Headphones] → Forget`
@@ -436,10 +440,10 @@ These steps eliminate all stored codec profiles, Fast Pair metadata, Developer O
    `Settings → Google → Devices & Sharing → Saved Devices → [Headphones] → Remove`
 
 6. **Set codec to SBC in Developer Options** → `#6`  
-   *(Prevents LDAC override profile re-injection from Developer Options)*
+   *(This flushes any residual LDAC override state — especially critical on Samsung, which lacks a “Default” codec option)*
 
 7. **Disable Developer Options afterwards** → `#7`  
-   *(Finalizes override memory wipe — avoids silent reassertion)*
+   *(Finalizes override memory wipe — prevents silent reassertion)*
 
 8. *(Optional — deeper cleanup via ADB)*  
    - `adb shell am force-stop com.android.bluetooth` → `#15`  
@@ -449,39 +453,40 @@ These steps eliminate all stored codec profiles, Fast Pair metadata, Developer O
    *(Flushes Bluetooth stack and cached state)*
 
 10. **Pair again using Fast Pair or Bluetooth Settings** → `#18`  
-    ❗ *Safe only after this full reset. Do **not** use Quick Settings or NFC Tap-to-Pair — they instantly trigger override logic.*
+    ❗ *Safe only after this full reset. Do **not** use Quick Settings or NFC Tap-to-Pair — they instantly trigger Samsung’s override logic.*
 
 ---
 
 ### 🧠 Step 2: Override Hijack — Train Samsung to Use Your LDAC Profile
 
-Samsung doesn’t override at first pairing. It listens to the **first real LDAC session**, then stores the profile and reapplies it on all future connections. You can use this behavior to **train it to remember your preferred profile**.
+Samsung doesn’t override at first pairing. It listens to the **first real LDAC session**, then stores that profile and reuses it on all future connections.
 
 #### ✅ Steps to Hijack the Override:
 
 1. **After pairing**, immediately start audio playback  
-   (Use UAPP, Neutron, or force profile via BCC)
+   *(Use UAPP, Neutron, or force your profile via BCC)*
 
 2. **Force a clean LDAC profile**:  
-   - Example: `44.1 kHz / 16-bit / 990 kbps (Fixed)`  
-   *(Can be done via Bluetooth Codec Changer or hi-res player settings)*
+   - Example: `44.1 kHz / 16-bit / 990 kbps (Fixed)`
 
 3. **Let playback continue for at least 10–15 seconds**
 
 4. **Power off the headphones while LDAC is still active**
 
 > ✅ This stores your custom profile into:
-> - 🎧 Headphone firmware  
-> - 📱 Samsung override memory
+> - 🎧 Sony’s headset session memory  
+> - 📱 Samsung’s override memory
 
 On the next reconnect, Samsung will automatically reapply **your profile** — not its default `96 kHz / 32-bit Default`.
+
+---
 
 ## 🧠 Final Technique: Override Mastery — Train Samsung to Enforce Your Profile
 
 Samsung’s LDAC override isn’t just a bug — it’s an opportunity.
 
-Once it sees a valid LDAC session, it **stores that exact profile** and reuses it during future reconnects.  
-This means you can **train** the override memory to **apply your preferred LDAC profile every time**, even *without* using BCC afterward.
+Once it sees a valid LDAC session, it **stores that exact profile** and reuses it on future reconnects.  
+This means you can **train** Samsung’s override logic to **apply your preferred LDAC profile every time**, even *without* BCC or Developer Options afterward.
 
 ---
 
@@ -490,60 +495,60 @@ This means you can **train** the override memory to **apply your preferred LDAC 
 When you complete a full LDAC session, the following is saved:
 
 - 📱 In **Samsung’s Bluetooth stack**:
-  - Sample rate
-  - Bit-depth
-  - Bitrate mode (Fixed/Adaptive)
+  - Sample rate  
+  - Bit-depth  
+  - Bitrate mode (Fixed or Adaptive)
 - 🎧 In **Sony’s headset session memory** *(if powered off during LDAC)*  
-  Helps retain a clean A2DP fingerprint — ensures smoother reconnects but does **not** store codec settings explicitly
-
-This becomes the "last known LDAC profile," and will be injected automatically on future reconnects.
+  🧠 This helps retain a clean A2DP fingerprint but **does not store explicit codec settings** — it reinforces clean reconnect behavior.
 
 ---
 
 ### 🔐 How to Train Samsung to Use *Your* LDAC Profile
 
-Once you’ve completed a full override memory reset, do the following:
+Once you’ve completed a full override memory reset:
 
-1. **Immediately after pairing**, begin playback with a clean LDAC handshake:
-   - Use UAPP, Neutron, or Bluetooth Codec Changer
-   - Force your ideal LDAC profile (e.g. `44.1 kHz / 16-bit / 990 kbps (Fixed)`)
+1. **Immediately after pairing**, begin playback with a clean LDAC handshake  
+   *(Using UAPP, Neutron, or Bluetooth Codec Changer)*
 
-2. **Let playback run for 10–15 seconds** (don’t change codec settings during this time)
+2. **Force your target LDAC profile** (e.g. `44.1 kHz / 16-bit / 990 kbps (Fixed)`)
 
-3. **Power off the headphones while LDAC is still active**
+3. **Let playback continue for 10–15 seconds**  
+   *(Do not change codecs or app settings during this window)*
 
-> 🎯 This stores your profile in **Samsung’s override memory**,  
-> and leaves a clean session footprint in the headset for reliable reconnects.
+4. **Power off the headphones while LDAC is still active**
+
+> 🎯 This saves your LDAC profile to:
+> - 📱 Samsung’s override memory  
+> - 🎧 Sony’s firmware session memory
 
 ---
 
 ### 🛠 Need to Train It Again?
 
 Just repeat the [🧼 Clean Reset + Override Hijack Strategy](#-clean-reset--override-hijack-strategy).  
-Samsung will forget the old profile and remember the new one after your next LDAC session.
+Samsung will forget the old profile and memorize the next LDAC session you provide.
 
 ---
 
 ### 🧪 Pro Tips for Maximum Persistence
 
 - Use **Intermediate LDAC 16-bit** or **SBC handshake** if BCC profiles aren’t sticking
-- Avoid Quick Settings or NFC pairing — they inject Samsung’s override instantly
-- Always **disconnect cleanly** (power off headphones) while LDAC is active to retain session fingerprint
+- Avoid **Quick Settings**, **Fast Pair notification**, and **NFC tap** — they instantly trigger Samsung’s default override
+- Always **disconnect cleanly** (power off headphones during playback) to lock in session memory
 
 ---
 
 ### 🧠 Why This Is the Final Form
 
-You’re no longer *overriding* Samsung — you’re using its own override **against itself**.
+You’re no longer *overriding* Samsung — you’re **commanding** it.
 
-- No need to reapply codec settings on every connect  
-- No BCC delay tuning  
-- No Developer Option hacks  
-- No UI lies
+- No more reapplying LDAC manually  
+- No reliance on Developer Options or unstable GUIs  
+- No desync between what's displayed and what's actually used
 
-✅ One time setup  
-✅ Lifetime persistence  
-✅ Bit-perfect playback on every reconnect
+✅ One-time setup  
+✅ Persistent profile memory  
+✅ Bit-perfect playback every time
 
 > You didn’t just beat the override.  
-> You *taught it to serve you.*
+> You *rewired it to obey you.*
