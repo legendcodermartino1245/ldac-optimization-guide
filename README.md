@@ -597,15 +597,3 @@ When using **manual pairing via Bluetooth settings**, Samsung injects its overri
 ---
 
 **Fast Pair isn’t a shortcut — it’s the only clean door to codec mastery.**
-
-
-
-
-
-
-
-
-
-
-
-
