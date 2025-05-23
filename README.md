@@ -491,16 +491,20 @@ These steps **eliminate all stored codec profiles**, Fast Pair metadata, Develop
 
 11. **Pair your headphones using Fast Pair**.
 
-12. **Immediately after successful pairing and training your LDAC profile:**  
-    Permanently **deny Nearby Devices permission** to Google Play Services to block silent auto-connect and override injection:  
+12. **Enable LDAC in Bluetooth Settings**  
+    `Settings → Connections → Bluetooth → ⚙️ → Enable “HD audio: LDAC”`  
+    > This toggle is required. Without it, LDAC won’t activate and your BCC profile will not apply.
+
+13. **Immediately after successful pairing and training your LDAC profile:**  
+    Permanently **deny Nearby Devices permission** to Google Play Services:  
     - `Settings → Apps → Google Play Services → Permissions → Nearby Devices`  
     - Select **Deny** and **Do not allow** requests again
 
-13. **Disable “Automatically save devices”**  
+14. **Disable “Automatically save devices”**  
     - `Settings → Google → Devices & Sharing → Saved Devices`  
     - Tap ︙ → **Turn off "Automatically save devices"**
 
-14. **Reboot the phone** and **toggle Airplane Mode on/off**
+15. **Reboot the phone** and **toggle Airplane Mode on/off**
 
 ---
 
