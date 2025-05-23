@@ -418,29 +418,29 @@ This table expands on the common ways to connect your headphones (from NFC to Fa
 
 These steps eliminate all stored codec profiles, Fast Pair metadata, Developer Option overrides, and app-based LDAC reassertions:
 
-1. **Hardware Reset headphones** → `#1`  
+1. **Connect your headphones normally**  
+   *(Use Bluetooth Settings, not Quick Settings or NFC. Fast Pair is okay if followed by sync disabling later.)*
+
+2. **Set codec to SBC in Developer Options** → `#6`  
+   *(Must be done **while the headphones are connected** — this flushes Samsung's internal LDAC override. Critical: Samsung has no “Default” codec option)*
+
+3. **Disable Developer Options afterwards** → `#7`  
+   *(Still while connected — this finalizes override memory wipe and ensures no silent reassertion later)*
+
+4. **Hardware Reset headphones** → `#1`  
    *(Power + Custom button for 7 seconds — wipes firmware profile and pairing data)*  
    ✅ If you hear **“Pairing”** immediately after boot, it confirms a clean reset.  
    You can safely **power off the headphones** at this point using the button — no profile has been stored yet.
 
-2. **Reset Network Settings on phone** → `#4`  
+5. **Reset Network Settings on phone** → `#4`  
    `Settings → General Management → Reset → Reset Wi-Fi and Bluetooth settings`  
-   *(Same as old “Reset Network Settings” — this clears Samsung’s override memory)*
+   *(Same as old “Reset Network Settings” — clears Samsung’s override memory)*
 
-3. **Clear Storage of**:  
+6. **Clear Storage of**:  
    - Sony Music Center → `#9`  
    - Headphones Connect (Sound Connect) → `#10`  
    - Bluetooth Codec Changer (BCC) → `#11`  
    🔒 Ensure each app is **fully closed or force-stopped** before and after clearing storage to avoid re-initializing old settings.
-
-4. **Pair headphones via Bluetooth Settings**  
-   *(Do not use Quick Settings or NFC. Fast Pair is okay if you plan to disable Google sync settings afterward.)*
-
-5. **Set codec to SBC in Developer Options** → `#6`  
-   *(Must be done **while the headphones are connected** — this flushes any residual LDAC override state. Especially critical on Samsung, which lacks a “Default” codec option)*
-
-6. **Disable Developer Options afterwards** → `#7`  
-   *(Also while the headphones are still connected — this finalizes override memory wipe and prevents silent reassertion)*
 
 7. **Forget Bluetooth device** → `#5`  
    `Settings → Connections → Bluetooth → [Headphones] → Forget`
@@ -462,6 +462,7 @@ These steps eliminate all stored codec profiles, Fast Pair metadata, Developer O
 
 12. **Pair again using Fast Pair or Bluetooth Settings** → `#18`  
     ❗ *Safe only after this full reset. Do **not** use Quick Settings or NFC Tap-to-Pair — they instantly trigger Samsung’s override logic.*
+
 
 
 ---
