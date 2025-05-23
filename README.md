@@ -168,6 +168,8 @@ LDAC supports both 16-bit and 24-bit input. But the encoder only uses what it re
    - `Settings → General Management → Reset → Reset network settings`
 
 ✅ This fully clears Samsung’s override memory, ensuring a clean LDAC handshake window for hijack and BCC profile injection.
+2. Set **Bluetooth Audio Codec** to **SBC**
+   - ℹ️ **Why SBC?** Selecting SBC resets the Bluetooth codec negotiation path and clears LDAC override memory at the system level — it’s the only true reset trigger on Samsung.
 
 ## Bluetooth Codec Changer (BCC)
 
