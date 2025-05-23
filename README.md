@@ -473,8 +473,14 @@ Samsung doesn’t override at first pairing. It listens to the **first real LDAC
 
 #### ✅ Steps to Hijack the Override:
 
-1. **After pairing**, immediately start audio playback  
+1. **After pairing**, enable the LDAC toggle in Bluetooth device settings:  
+   - `Settings → Connections → Bluetooth → [Headphones] → Gear icon → Enable “HD Audio (LDAC)”`
+
+   ❗ *This is critical if Samsung defaulted to AAC. LDAC must be active for the override to store the correct profile.*
+
+2. **Immediately start audio playback**  
    *(Use UAPP, Neutron, or force your profile via BCC)*
+
 
 2. **Force a clean LDAC profile**:  
    - Example: `44.1 kHz / 16-bit / 990 kbps (Fixed)`
