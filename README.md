@@ -741,7 +741,7 @@ These steps **eliminate all stored codec profiles**, Fast Pair metadata, Develop
 7. **Clear App Storage**  
    - Sony Music Center  
    - Headphones Connect  
-   - Bluetooth Codec Changer (BCC)
+   ⚠️ *Do **not** clear BCC data — keep your profiles and automation intact*
 
 8. **Forget Bluetooth Device**  
    `Settings → Connections → Bluetooth → [Your Headphones] → Forget`
@@ -784,117 +784,81 @@ Before pairing the headphones, open the BCC app and configure:
 3. **Enable "Ultra Advanced Automation Apps Integration"**  
    *(Allows BCC to be fully controlled via Tasker or other automation tools for precise codec switching)*
 
----
+> ⚠️ **Warning:** If BCC’s Auto Switch is enabled at this stage, it may race with Samsung’s override and cause a desync.  
+> **Disable Auto Switch** until after your LDAC profile is fully trained and locked in.
 
-### ⚖️ Fast Pair vs Manual Bluetooth Pairing — Override Hijack Reliability
 
-| Behavior / Feature                      | **Fast Pair**                          | **Manual Bluetooth Pairing**           |
-|----------------------------------------|----------------------------------------|----------------------------------------|
-| **Override Timing**                    | ✅ *Delayed* — happens after LDAC starts | ❌ *Immediate* — applied during pairing |
-| **Hijack Window**                      | ✅ Yes — time to force your own profile | ❌ No — override injects too early     |
-| **Works with SBC→LDAC Trick**          | ✅ Perfect timing                      | ⚠️ Often too late                      |
-| **Ideal for Tasker or BCC profile**    | ✅ Yes — BCC can override in time      | ⚠️ Often too late, override wins       |
-| **Override Persistence Risk**          | ✅ Low — if metadata blocked           | ❌ High — needs full wipe              |
-| **Compatibility with Auto Switch**     | ✅ Works well — if BCC is prepped      | ⚠️ Unreliable — override often wins    |
-| **Requires Developer Options?**        | ❌ No — fully profile-based            | ⚠️ Often needed to fix override damage |
 
-> 🧠 Only Fast Pair gives you a delay before Samsung’s override applies.  
-> That delay is enough to **force your profile** and **train it permanently**.
+
+
+
+
+## ⚡ Why Fast Pair Is the Ultimate Weapon
+
+Forget the outdated advice — **Fast Pair isn’t the problem**.  
+It’s the *key* to taming Samsung’s override and enforcing your exact LDAC profile.
 
 ---
 
-### ⚡ Step 2: Fast Pair Without Override Corruption
+### ✅ Why Fast Pair Beats Manual Pairing
 
-Now that the override is wiped, use Fast Pair to initiate clean pairing — but **block Google’s interference** immediately after.
-
-#### ✅ Timing Strategy
-
-| Phase | Google Play Services | Why |
-|-------|----------------------|-----|
-| **Pairing** | ✅ **Enabled** | Fast Pair won’t work otherwise |
-| **Immediately after pairing** | ❌ **Disabled** | Prevents Google from restoring old LDAC/SBC metadata |
-| **Post-profile training** | 🔁 Optional | Can be re-enabled *after* profile is locked |
-
-#### 🔧 Actions
-
-1. **Enable Google Play Services** *(if disabled)*  
-2. **Initiate Fast Pair** — accept pairing request  
-3. **Immediately disable Google Play Services**  
-   - Settings → Apps → Google Play Services → Disable  
-   - OR: Revoke *Nearby Devices* permission + Force Stop  
-4. **Launch BCC or your preferred player**  
-5. **Immediately begin training LDAC profile**
+| Feature / Behavior                        | ✅ **Fast Pair**                          | ❌ **Manual Bluetooth Pairing**          |
+|------------------------------------------|------------------------------------------|------------------------------------------|
+| Override injection timing                | ✅ Delayed — override happens *after* pairing | ❌ Instant — override injects during pairing |
+| Time window to hijack codec              | ✅ Yes — clean hijack possible            | ❌ None — Samsung locks in early         |
+| SBC→LDAC handshake exploit compatibility | ✅ Perfectly timed                        | ⚠️ Often too late                        |
+| BCC or UAPP profile takeover             | ✅ Yes — reliable                         | ⚠️ Rarely wins override race             |
+| Override persistence risk                | ✅ Low — if cloud sync blocked            | ❌ High — sticks until full wipe         |
+| Tasker and automation support            | ✅ Cleanly automatable after pairing      | ⚠️ Unstable if override dominates early  |
+| Developer Options required?              | ❌ No — fully profile-based               | ⚠️ Often needed to fix override damage   |
+| Compatible with Auto Switch (after lock) | ✅ Yes — if enabled *after* profile lock  | ⚠️ Risk of conflict at connect time      |
+| Can override stay locked without BCC?    | ✅ Yes — Samsung reuses trained profile   | ❌ No — override often resets to 96kHz   |
 
 ---
 
-### 🎧 Step 3: Train Samsung to Use Your LDAC Profile
+### 🧠 Real Behavior Summary
 
-With the override stack clean and Google blocked:
+When using **manual pairing via Bluetooth settings**, Samsung injects its override profile (96kHz / 32-bit / Adaptive) *before* you get a chance to assert your own settings. This leads to:
 
-1. Open **Bluetooth Codec Changer**  
-2. Set **LDAC / 44.1kHz / 16-bit / 990kbps (Fixed)**  
-3. Start playback in UAPP, Neutron, or Poweramp  
-4. Let playback run for **15 seconds**  
-5. Power off headphones while LDAC is still active
-
-> 🎯 This stores your profile in:  
-> - 📱 **Samsung’s override memory**  
-> - 🎧 **Sony’s firmware session memory**
+- Locked-in default LDAC behavior  
+- Bitrate dropouts  
+- Desynced UI info  
+- BCC and app profiles failing silently
 
 ---
 
-### 🧠 Stored Data Breakdown
+### 🎯 What Fast Pair Actually Does
 
-| Memory | What Gets Stored |
-|--------|------------------|
-| 📱 **Samsung** | Sample rate, Bit depth, Bitrate mode |
-| 🎧 **Sony** | Handshake session fingerprint (not full codec params) |
-
----
-
-### ✅ What Happens Next
-
-On every reconnect (even without Developer Options or BCC):
-
-- Samsung applies your trained LDAC profile  
-- LDAC connects instantly at the correct bitrate  
-- No UI lies, no override bugs
-
-You no longer need Developer Options, app reassertions, or timing tricks — **Samsung works for you now**.
+- Creates a **brief delay** before override injection  
+- Gives BCC or UAPP a chance to **lock in your desired LDAC profile**  
+- Stores **your profile** in Samsung’s override memory, not theirs  
+- Keeps that profile **persistent** on every reconnect  
+- Works **without Developer Options**
 
 ---
 
-## ✅ Summary: Fast Pair Master Workflow
+### 🔐 Final Verdict
 
-| Step | Action |
-|------|--------|
-| 1 | Clean Reset override and Fast Pair metadata |
-| 2 | Pair via Fast Pair with Google Play Services ON |
-| 3 | Disable Google Play Services **immediately after pairing** |
-| 4 | Apply LDAC profile using BCC/UAPP/Neutron |
-| 5 | Let it play 10–15 seconds |
-| 6 | Power off headphones during playback |
-| 7 | Reconnect and enjoy auto-990kbps LDAC every time |
+> Manual Bluetooth pairing is a **trap**.  
+> You don’t control the handshake timing — Samsung does.  
+> You lose before LDAC even starts.
+
+✅ With Fast Pair:
+
+- You win the timing window  
+- You enforce **bit-perfect playback**  
+- You rewire Samsung’s override to **obey you**
 
 ---
 
-## 🧠 The Final Form: You Rewired Samsung
+### ⚠️ Bonus Pro Tip
 
-This isn’t a workaround — it’s a **repurposing** of Samsung’s override stack.
+> **Do not enable BCC Auto Switch until the profile is trained.**  
+> It may race the override and cause profile desync.
 
-- 🔒 One-time setup  
-- ✅ Persistent LDAC  
-- 🚫 No Developer Options  
-- 🧼 Fully profile-driven playback
+---
 
-> You didn’t just defeat the override.  
-> **You rewired it to obey you.**
-
-
-
-
-
-
+**Fast Pair isn’t a shortcut — it’s the only clean door to codec mastery.**
 
 
 
