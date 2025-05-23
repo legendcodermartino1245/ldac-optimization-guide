@@ -478,23 +478,20 @@ Samsung doesn’t override at first pairing. It listens to the **first real LDAC
 
 #### ✅ Steps to Hijack the Override (Corrected Order):
 
-1. **Pair the headphones**  
-   *(Use Bluetooth Settings, not Quick Settings or NFC)*
-
-2. **Go to Bluetooth settings → tap the gear icon next to your headphones → enable “HD Audio (LDAC)”**  
+1. **Open Bluetooth settings → tap the gear icon next to your headphones → enable “HD Audio (LDAC)”**  
    ❗ *If LDAC is not enabled here, Samsung will default to AAC — breaking the override.*
 
-3. **Let BCC apply your desired LDAC profile**  
+2. **Let BCC apply your desired LDAC profile**  
    - Example: `44.1 kHz / 16-bit / 990 kbps (Fixed)`  
    - (Use Auto Switch or apply it manually inside BCC)
 
-4. ✅ **Once you see the correct profile applied (verify with dumpsys or logs), then**:
+3. ✅ **Once you see the correct profile applied (verify with dumpsys or logs), then**:
    - **Start audio playback** using UAPP, Neutron, or any app you trust
 
-5. **Let playback continue for at least 10–15 seconds**  
+4. **Let playback continue for at least 10–15 seconds**  
    *(This gives Samsung time to detect and memorize the session profile)*
 
-6. **Power off the headphones while LDAC is still active**  
+5. **Power off the headphones while LDAC is still active**  
    *(This saves the session fingerprint into Sony’s firmware and Samsung’s override memory)*
 
 ---
