@@ -441,6 +441,41 @@ You’re no longer *overriding* Samsung — you’re **commanding** it.
 
 
 
+### 📶 Fast Pair Safe Timing Strategy
+
+You *can* use Fast Pair **once** during initial pairing:
+
+1. ✅ Pair via Fast Pair  
+2. ✅ Immediately train your LDAC profile  
+3. ❗ After initial pairing and training:
+   - Permanently **deny Nearby Devices permission** to Google Play Services  
+   - Disable “Automatically save devices”
+
+> ⚠️ **Important:**  
+> Keep Nearby Devices permission **enabled during pairing** so Fast Pair works correctly.  
+> Deny it **immediately after pairing** to prevent Google Play Services from silently reconnecting and forcing Samsung's LDAC override profile. This also improves LDAC 990 kbps stability significantly.
+
+---
+
+## 🧠 Why This Is the Final Form
+
+You’re no longer *overriding* Samsung — you’re **commanding** it.
+
+- No more reapplying LDAC manually  
+- No reliance on Developer Options  
+- No false UI readings
+
+✅ One-time setup  
+✅ Persistent memory  
+✅ Bit-perfect playback — *every time*
+
+> You didn’t just beat the override.  
+> You **rewired it to obey you.**
+
+
+---------
+
+
 ## ✅ 🧼 Clean Reset + Override Hijack Strategy (Fast Pair Edition)
 
 Use this sequence to **force Samsung to adopt your LDAC profile** permanently using Fast Pair — but without letting Google sabotage the handshake.
@@ -480,12 +515,20 @@ These steps **eliminate all stored codec profiles**, Fast Pair metadata, Develop
 9. **Clear Fast Pair Metadata**  
    `Settings → Google → Devices & Sharing → Saved Devices → [Headphones] → Remove`
 
-10. **(Optional) Disable Google Cloud Sync Only**  
-    ✅ *Do not turn off Nearby Devices — it's needed for Fast Pair and Tasker*  
+10. **Keep Nearby Devices permission enabled during pairing** so Fast Pair can function.
+
+11. **Pair your headphones using Fast Pair**.
+
+12. **Immediately after successful pairing and training your LDAC profile:**  
+    Permanently **deny Nearby Devices permission** to Google Play Services to block silent auto-connect and override injection:  
+    - `Settings → Apps → Google Play Services → Permissions → Nearby Devices`  
+    - Select **Deny** and **Do not allow** requests again
+
+13. **Disable “Automatically save devices”**  
     - `Settings → Google → Devices & Sharing → Saved Devices`  
     - Tap ︙ → **Turn off "Automatically save devices"**
 
-11. **Reboot the phone** and **toggle Airplane Mode on/off**
+14. **Reboot the phone** and **toggle Airplane Mode on/off**
 
 ---
 
@@ -518,11 +561,7 @@ Before pairing the headphones, open the BCC app and configure:
 > ⚠️ **Warning:** If BCC’s Auto Switch is enabled at this stage, it may race with Samsung’s override and cause a desync.  
 > **Disable Auto Switch** until after your LDAC profile is fully trained and locked in.
 
-
-
-
-
-
+---
 
 ## ⚡ Why Fast Pair Is the Ultimate Weapon
 
@@ -590,11 +629,6 @@ When using **manual pairing via Bluetooth settings**, Samsung injects its overri
 ---
 
 **Fast Pair isn’t a shortcut — it’s the only clean door to codec mastery.**
-
-
-
-
-
 
 
 
