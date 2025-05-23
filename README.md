@@ -153,6 +153,9 @@ However, it can be **reliably bypassed** by forcing a full codec renegotiation a
 > 🛑 Just disabling Developer Options is **not enough** if LDAC was ever manually selected.
 
 Samsung may silently continue applying the **last used LDAC override profile** even after Developer Options are turned off — especially if it was previously set to LDAC 660, Adaptive, or 990.
+LDAC supports both 16-bit and 24-bit input. But the encoder only uses what it receives — not what you select in Developer Options.
+
+
 
 ### ✅ Correct Reset Procedure
 
