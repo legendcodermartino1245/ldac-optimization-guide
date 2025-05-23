@@ -523,6 +523,22 @@ Once you’ve completed a full override memory reset:
 
 ---
 
+### 🚫 Optional but Strongly Recommended: Block Google’s Fast Pair From Interfering
+
+To avoid Google silently reapplying old LDAC override profiles via cloud sync:
+
+**Disable these two options in Google Settings:**
+
+- `Settings → Google → Devices & Sharing → Nearby Devices`  
+  ➤ Turn **Nearby Devices** → **Off**
+
+- `Settings → Google → Devices & Sharing → Saved Devices`  
+  ➤ Tap ︙ → **Turn off “Automatically save devices”**
+
+> 🔒 This prevents Fast Pair from injecting an old LDAC profile silently on reconnect — a common cause of override failures even after clean training.
+
+---
+
 ### 🛠 Need to Train It Again?
 
 Just repeat the [🧼 Clean Reset + Override Hijack Strategy](#-clean-reset--override-hijack-strategy).  
@@ -552,3 +568,4 @@ You’re no longer *overriding* Samsung — you’re **commanding** it.
 
 > You didn’t just beat the override.  
 > You *rewired it to obey you.*
+
