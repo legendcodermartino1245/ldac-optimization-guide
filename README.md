@@ -634,3 +634,48 @@ Both Samsung’s override cache and Sony’s headset firmware **need confirmatio
 6. **Power off headphones while LDAC is still active**
 7. Wait 10+ seconds
 8. Repeat 2–3 times
+
+## 🚫 Full Google Play Services Lockdown (GUI-Only Method)
+
+To prevent Google Play Services from interfering with your LDAC profile (via Fast Pair, Nearby Devices, and cloud override), follow these GUI-only steps:
+
+### ✅ Step 1: Disable Nearby Devices Access
+1. Go to:  
+   `Settings → Apps → Google Play Services → Permissions`
+2. Tap **Nearby Devices**
+3. Select **Deny**
+4. Confirm by selecting **Don’t allow**
+
+> This prevents silent reconnects and cloud override injection.
+
+---
+
+### ✅ Step 2: Turn Off Auto-Save for Fast Pair
+1. Go to:  
+   `Settings → Google → Devices & Sharing → Saved Devices`
+2. Tap the **⋮ (3-dot menu)** in the top right
+3. Tap **"Turn off Automatically Save Devices"**
+
+> This stops Google from syncing override profiles to your account.
+
+---
+
+### ✅ Step 3: Remove Stored Fast Pair Metadata
+1. In the same **Saved Devices** screen, tap your headphone entry
+2. Tap **Remove device**
+
+> This ensures old override data isn’t re-applied during pairing.
+
+---
+
+### ✅ Step 4: Disable Google Location Accuracy
+1. Go to:  
+   `Settings → Location → Location Services → Google Location Accuracy`
+2. Turn **OFF** the toggle
+
+> This disables Wi-Fi and BLE scanning that can interfere with LDAC and audio stability.
+
+---
+
+✅ These changes **completely prevent Google Play Services from reasserting override profiles or reconnecting silently in the background** — while still keeping the Play Store and apps fully functional.
+
