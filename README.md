@@ -781,8 +781,25 @@ Before pairing the headphones, open the BCC app and configure:
 2. **Disable "2-Step Switching"**  
    *(Prevents handshake desyncs and GUI bugs)*
 
-3. **Enable "Ultra Advanced > Automation Apps Integration"**  
+3. **Enable "Ultra Advanced Automation Apps Integration"**  
    *(Allows BCC to be fully controlled via Tasker or other automation tools for precise codec switching)*
+
+---
+
+### ⚖️ Fast Pair vs Manual Bluetooth Pairing — Override Hijack Reliability
+
+| Behavior / Feature                      | **Fast Pair**                          | **Manual Bluetooth Pairing**           |
+|----------------------------------------|----------------------------------------|----------------------------------------|
+| **Override Timing**                    | ✅ *Delayed* — happens after LDAC starts | ❌ *Immediate* — applied during pairing |
+| **Hijack Window**                      | ✅ Yes — time to force your own profile | ❌ No — override injects too early     |
+| **Works with SBC→LDAC Trick**          | ✅ Perfect timing                      | ⚠️ Often too late                      |
+| **Ideal for Tasker or BCC profile**    | ✅ Yes — BCC can override in time      | ⚠️ Often too late, override wins       |
+| **Override Persistence Risk**          | ✅ Low — if metadata blocked           | ❌ High — needs full wipe              |
+| **Compatibility with Auto Switch**     | ✅ Works well — if BCC is prepped      | ⚠️ Unreliable — override often wins    |
+| **Requires Developer Options?**        | ❌ No — fully profile-based            | ⚠️ Often needed to fix override damage |
+
+> 🧠 Only Fast Pair gives you a delay before Samsung’s override applies.  
+> That delay is enough to **force your profile** and **train it permanently**.
 
 ---
 
@@ -872,6 +889,7 @@ This isn’t a workaround — it’s a **repurposing** of Samsung’s override s
 
 > You didn’t just defeat the override.  
 > **You rewired it to obey you.**
+
 
 
 
