@@ -457,7 +457,7 @@ These steps eliminate all stored codec profiles, Fast Pair metadata, Developer O
     - `adb shell am force-stop com.android.bluetooth` → `#15`  
     - `adb shell am force-stop com.google.android.gms` → `#16`
 
-11. **Reboot phone and toggle Airplane Mode once** → `#17`  
+11. **Reboot phone and toggle Airplane Mode on and off** → `#17`  
     *(Flushes Bluetooth stack and cached state)*
 
 12. **Pair again using Fast Pair or Bluetooth Settings** → `#18`  
