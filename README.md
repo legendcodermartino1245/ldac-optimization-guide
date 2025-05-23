@@ -444,7 +444,7 @@ You’re no longer *overriding* Samsung — you’re **commanding** it.
 ---------
 
 
-## ✅ 🧼 Clean Reset + Override Hijack Strategy (Fast Pair Edition)
+## 🧼 Manual Override Hijack (Legacy Method — For Non-Automated Setups)
 
 Use this sequence to **force Samsung to adopt your LDAC profile** permanently using Fast Pair — but without letting Google sabotage the handshake.
 
