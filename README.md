@@ -525,7 +525,7 @@ Once you’ve completed a full override memory reset:
 
 ### 🚫 Optional but Strongly Recommended: Block Google’s Fast Pair From Interfering
 
-To avoid Google silently reapplying old LDAC override profiles via cloud sync:
+To avoid Google silently reapplying old LDAC override profiles via cloud sync **after you've trained your preferred profile**, disable these **after pairing with Fast Pair**, but **before your next reconnect**:
 
 **Disable these two options in Google Settings:**
 
@@ -537,6 +537,8 @@ To avoid Google silently reapplying old LDAC override profiles via cloud sync:
 
 > 🔒 This prevents Fast Pair from injecting an old LDAC profile silently on reconnect — a common cause of override failures even after clean training.
 
+📛 If you disable these **before** pairing, Fast Pair won’t work.  
+📛 If you disable them **after reconnecting**, it's already too late — the override may have been applied.
 ---
 
 ### 🛠 Need to Train It Again?
