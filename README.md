@@ -433,27 +433,36 @@ These steps eliminate all stored codec profiles, Fast Pair metadata, Developer O
    - Bluetooth Codec Changer (BCC) → `#11`  
    🔒 Ensure each app is **fully closed or force-stopped** before and after clearing storage to avoid re-initializing old settings.
 
-4. **Forget Bluetooth device** → `#5`  
+4. **Pair headphones via Bluetooth Settings**  
+   *(Do not use Quick Settings or NFC. Fast Pair is okay if you plan to disable Google sync settings afterward.)*
+
+5. **Set codec to SBC in Developer Options** → `#6`  
+   *(Must be done **while the headphones are connected** — this flushes any residual LDAC override state. Especially critical on Samsung, which lacks a “Default” codec option)*
+
+6. **Disable Developer Options afterwards** → `#7`  
+   *(Also while the headphones are still connected — this finalizes override memory wipe and prevents silent reassertion)*
+
+7. **Forget Bluetooth device** → `#5`  
    `Settings → Connections → Bluetooth → [Headphones] → Forget`
 
-5. **Clear saved Fast Pair metadata** → `#13`  
+8. **Clear saved Fast Pair metadata** → `#13`  
    `Settings → Google → Devices & Sharing → Saved Devices → [Headphones] → Remove`
 
-6. **Set codec to SBC in Developer Options** → `#6`  
-   *(This flushes any residual LDAC override state — especially critical on Samsung, which lacks a “Default” codec option)*
+9. **(Optional) Disable Google Fast Pair Sync Settings**  
+   *(If you used Fast Pair above, do this now before the next reconnect):*  
+   - `Settings → Google → Devices & Sharing → Nearby Devices` → **Off**  
+   - `Settings → Google → Devices & Sharing → Saved Devices` → Tap ︙ → **Turn off “Automatically save devices”**
 
-7. **Disable Developer Options afterwards** → `#7`  
-   *(Finalizes override memory wipe — prevents silent reassertion)*
+10. *(Optional — deeper cleanup via ADB)*  
+    - `adb shell am force-stop com.android.bluetooth` → `#15`  
+    - `adb shell am force-stop com.google.android.gms` → `#16`
 
-8. *(Optional — deeper cleanup via ADB)*  
-   - `adb shell am force-stop com.android.bluetooth` → `#15`  
-   - `adb shell am force-stop com.google.android.gms` → `#16`
+11. **Reboot phone and toggle Airplane Mode once** → `#17`  
+    *(Flushes Bluetooth stack and cached state)*
 
-9. **Reboot phone and toggle Airplane Mode once** → `#17`  
-   *(Flushes Bluetooth stack and cached state)*
-
-10. **Pair again using Fast Pair or Bluetooth Settings** → `#18`  
+12. **Pair again using Fast Pair or Bluetooth Settings** → `#18`  
     ❗ *Safe only after this full reset. Do **not** use Quick Settings or NFC Tap-to-Pair — they instantly trigger Samsung’s override logic.*
+
 
 ---
 
