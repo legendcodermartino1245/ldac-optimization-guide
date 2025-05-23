@@ -552,6 +552,22 @@ Samsung will forget the old profile and memorize the next LDAC session you provi
 - Avoid **Quick Settings**, **Fast Pair notification**, and **NFC tap** — they instantly trigger Samsung’s default override
 - Always **disconnect cleanly** (power off headphones during playback) to lock in session memory
 
+### 📶 Fast Pair Use — Safe Timing Strategy
+
+If you plan to use **Fast Pair** during the initial pairing, it’s still possible to train Samsung’s override — but **timing is critical**:
+
+1. ✅ You may use **Fast Pair once** for initial pairing only  
+2. ✅ Immediately **train your LDAC profile** (e.g. `44.1 / 16-bit / 990 kbps`)  
+3. ❗ **Before the next reconnect**, go to:  
+   - `Settings → Google → Devices & Sharing → Nearby Devices` → **Off**  
+   - `Settings → Google → Devices & Sharing → Saved Devices` → Tap ︙ → **Disable "Automatically save devices"**
+
+> 🔒 This blocks Google from silently syncing or reasserting the Fast Pair override profile on future connections.
+
+📛 If you leave these enabled after pairing, Google Play Services may inject an old LDAC state — even after a full override training.
+
+
+
 ---
 
 ### 🧠 Why This Is the Final Form
