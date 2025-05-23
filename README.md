@@ -749,9 +749,10 @@ These steps **eliminate all stored codec profiles**, Fast Pair metadata, Develop
 9. **Clear Fast Pair Metadata**  
    `Settings → Google → Devices & Sharing → Saved Devices → [Headphones] → Remove`
 
-10. **(Optional) Disable Google Sync Settings**  
-    - `Nearby Devices` → **Off**  
-    - Saved Devices → ︙ → **Turn off "Automatically save devices"`
+10. **(Optional) Disable Google Cloud Sync Only**  
+    ✅ *Do not turn off Nearby Devices — it's needed for Fast Pair and Tasker*  
+    - `Settings → Google → Devices & Sharing → Saved Devices`  
+    - Tap ︙ → **Turn off "Automatically save devices"**
 
 11. **Reboot the phone** and **toggle Airplane Mode on/off**
 
@@ -767,6 +768,21 @@ Ensure Airplane Mode **fully disables Bluetooth**:
 4. Disable Airplane Mode again
 
 > Android will now remember: *Airplane Mode = Bluetooth OFF*
+
+---
+
+### ✅ Pre-Pairing BCC Setup (Can Be Done Before Connecting)
+
+Before pairing the headphones, open the BCC app and configure:
+
+1. **Enable "Main Background Service"**  
+   *(Keeps BCC active after Bluetooth connection)*
+
+2. **Disable "2-Step Switching"**  
+   *(Prevents handshake desyncs and GUI bugs)*
+
+3. **Enable "Ultra Advanced > Automation Apps Integration"**  
+   *(Allows BCC to be fully controlled via Tasker or other automation tools for precise codec switching)*
 
 ---
 
@@ -831,14 +847,6 @@ You no longer need Developer Options, app reassertions, or timing tricks — **S
 
 ---
 
-## 🧱 Final Tips
-
-- Avoid **Quick Settings** and **NFC pairing** — these trigger override prematurely  
-- Power off headphones **during active LDAC playback** to lock in profile  
-- Re-enable Google Play Services *only after training is complete*
-
----
-
 ## ✅ Summary: Fast Pair Master Workflow
 
 | Step | Action |
@@ -850,17 +858,6 @@ You no longer need Developer Options, app reassertions, or timing tricks — **S
 | 5 | Let it play 10–15 seconds |
 | 6 | Power off headphones during playback |
 | 7 | Reconnect and enjoy auto-990kbps LDAC every time |
-
----
-
-### 🧪 Optional Automation
-
-Use **Tasker** to enforce switching:
-
-- Send `SBC` first  
-- Wait 1s  
-- Send `LDAC 44.1/16/990`  
-- Start playback
 
 ---
 
