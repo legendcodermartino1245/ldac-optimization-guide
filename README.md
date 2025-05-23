@@ -494,57 +494,68 @@ If Bluetooth stays on during Airplane Mode, LDAC reset may fail.
 
 ## 🎧 Step 2: Train Clean LDAC Profile
 
-Now that Samsung’s override stack is flushed, it’s time to apply your **actual target LDAC profile** — and make Samsung learn it permanently.
+Now that Samsung’s override stack is flushed, it’s time to apply your actual target LDAC profile — and make Samsung learn it permanently.
 
-> ✅ This is where you configure **Bluetooth Codec Changer (BCC)** to apply the right handshake, and not just rely on GUI feedback.
+✅ This is where you configure **Bluetooth Codec Changer (BCC)** to apply the right handshake — not just rely on GUI feedback.
 
 ---
 
 ### ✅ Required BCC Setup Before Training
 
-Open **Bluetooth Codec Changer** and do the following:
+Before pairing:
 
-1. **Enable "Auto Switch on Connect"**
-2. Tap "Codec Profile" and select your target:
+1. **Open Bluetooth Codec Changer (BCC)**  
+2. Tap **"Codec Profile"** and select your target:
    - `LDAC`
    - `44.1 kHz`
    - `16-bit`
    - `990 kbps (Fixed)`
-3. (Optional but recommended)  
-   **Enable Intermediate Profile Switching**:
+
+3. *(Optional but recommended)*  
+   Leave **2-Step Switching disabled** — enabling it before connection may desync or stall the handshake.  
+   Instead, use Intermediate Profiles **manually once connected** if needed:
    - Intermediate 1: `SBC`
    - Intermediate 2: `LDAC 16-bit / 606 kbps`
 
-> 🧠 This two-step switch improves reliability and prevents Samsung from caching the wrong LDAC profile too early.
+🧠 BCC's **Auto Switch on Connect** cannot be pre-enabled before the device connects —  
+You must **toggle it manually via the notification** after the headphones are paired and connected.
 
 ---
 
 ### ✅ Training Steps (Now With BCC Active)
 
-1. **Power off headphones**  
-2. **Turn on and connect via Bluetooth Settings (not Quick Settings / NFC)**  
-3. Let **BCC auto-apply** your LDAC profile  
-   *(Wait 2–3 seconds to ensure it's active — check via `dumpsys` or trusted playback app)*
+1. **Power off headphones**
 
-4. **Start playback using UAPP / Neutron / Poweramp**  
-5. **Let audio play for 15 seconds minimum**
+2. **Turn on and connect via Bluetooth Settings**  
+   *(Do not use Quick Settings or NFC)*
+
+3. Once connected:
+   - Open BCC
+   - **Manually toggle "Auto Switch on Connect" from the notification**
+   - BCC will now apply your selected LDAC profile  
+     *(Wait ~2–3 seconds to ensure it’s active — verify via `dumpsys` or trusted playback app)*
+
+4. **Start playback using UAPP / Neutron / Poweramp**
+
+5. **Let audio play for at least 15 seconds**
+
 6. **Power off the headphones while LDAC is active**
 
-> 🔒 This stores your clean profile in:
-> - 🎧 Sony firmware session memory
-> - 📱 Samsung’s override stack
+---
+
+🔒 This stores your clean profile in:
+
+- 🎧 **Sony firmware session memory**
+- 📱 **Samsung’s override stack**
+
+💡 From now on, this exact LDAC profile will auto-apply on all future reconnects — even without Developer Options or BCC.
 
 ---
 
-💡 From now on, this **exact LDAC profile will auto-apply on all future reconnects** — even without Developer Options or BCC.
+✅ This stores your custom LDAC profile into:
 
-
-
----
-
-> ✅ This stores your custom LDAC profile into:
-> - 🎧 **Sony’s headset session memory** (if powered off during LDAC)
-> - 📱 **Samsung’s override memory** (used on all future reconnects)
+- 🎧 **Sony’s headset session memory** *(if powered off during LDAC)*
+- 📱 **Samsung’s override memory** *(used on all future reconnects)*
 
 On the next reconnect, Samsung will automatically apply **your trained LDAC profile** — completely bypassing the default `96 kHz / 32-bit` override.
 
@@ -555,9 +566,10 @@ On the next reconnect, Samsung will automatically apply **your trained LDAC prof
 Samsung’s override isn’t just a limitation — it’s programmable.
 
 Once trained, it will:
-- Apply your exact LDAC profile  
-- Work without Developer Options  
-- Require no BCC reassertion on reconnect
+
+- ✅ Apply your exact LDAC profile  
+- ✅ Work without Developer Options  
+- ✅ Require no BCC reassertion on reconnect
 
 ---
 
@@ -569,7 +581,7 @@ Once trained, it will:
   - Bitrate mode (Fixed or Adaptive)
 
 - 🎧 **Sony’s Headset Session Memory**:
-  - Clean session fingerprint only (not codec params)
+  - Clean session fingerprint only *(not codec params)*
 
 ---
 
@@ -581,9 +593,9 @@ Once trained, it will:
 4. Let it play for 10–15 seconds  
 5. Power off headphones while LDAC is still active
 
-> 🎯 This stores the session cleanly into:
-> - 📱 Samsung’s override memory  
-> - 🎧 Sony’s session memory
+🎯 This stores the session cleanly into:
+- 📱 Samsung’s override memory  
+- 🎧 Sony’s session memory
 
 ---
 
@@ -591,8 +603,8 @@ Once trained, it will:
 
 To prevent old LDAC profiles from being reasserted by cloud sync:
 
-1. `Settings → Google → Devices & Sharing → Nearby Devices` → **Off**  
-2. `Settings → Google → Devices & Sharing → Saved Devices` → Tap ︙ → **Turn off "Automatically save devices"**
+- `Settings → Google → Devices & Sharing → Nearby Devices` → **Off**  
+- `Settings → Google → Devices & Sharing → Saved Devices` → Tap ︙ → **Turn off "Automatically save devices"**
 
 📛 If you leave these enabled, Google may silently reapply a previous override.
 
@@ -607,8 +619,8 @@ Samsung will forget the old profile and store the new one.
 
 ### 🧪 Pro Tips for Maximum Persistence
 
-- Use **Intermediate LDAC 16-bit** or **SBC handshake** if BCC profiles don’t stick  
-- Avoid **Quick Settings**, **Fast Pair popups**, and **NFC pairing**  
+- Use Intermediate LDAC 16-bit or SBC handshake if BCC profiles don’t stick  
+- Avoid Quick Settings, Fast Pair popups, and NFC pairing  
 - Always power off headphones during LDAC playback to lock in profile
 
 ---
@@ -619,7 +631,7 @@ You *can* use Fast Pair **once** during initial pairing:
 
 1. ✅ Pair via Fast Pair  
 2. ✅ Immediately train your LDAC profile  
-3. ❗ Before the next reconnect:  
+3. ❗ Before the next reconnect:
    - Disable Nearby Devices  
    - Disable “Automatically save devices”
 
@@ -639,4 +651,5 @@ You’re no longer *overriding* Samsung — you’re **commanding** it.
 
 > You didn’t just beat the override.  
 > You **rewired it to obey you.**
+
 
