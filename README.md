@@ -494,6 +494,46 @@ These steps **eliminate all stored codec profiles**, Fast Pair metadata, Develop
 
 12. **Pair your headphones using Fast Pair**.
 
+---
+
+### 🚫 Immediately Disable Google Play Services Override Sync (GUI Method)
+
+To prevent Google Play Services from reasserting old LDAC profiles or syncing Fast Pair override metadata, complete the following steps **immediately after pairing**:
+
+#### ✅ Disable Nearby Devices Access
+1. Go to:  
+   `Settings → Apps → Google Play Services → Permissions`
+2. Tap **Nearby Devices**
+3. Select **Deny**
+4. Confirm by selecting **Don’t allow**
+
+> This prevents silent reconnects and cloud override injection.
+
+#### ✅ Turn Off Auto-Save for Fast Pair
+1. Go to:  
+   `Settings → Google → Devices & Sharing → Saved Devices`
+2. Tap the **⋮ (3-dot menu)** in the top right
+3. Tap **"Turn off Automatically Save Devices"**
+
+> This stops Google from syncing override profiles to your account.
+
+#### ✅ Remove Stored Fast Pair Metadata
+1. In the same **Saved Devices** screen, tap your headphone entry
+2. Tap **Remove device**
+
+> This ensures old override data isn’t re-applied during pairing.
+
+#### ✅ Disable Google Location Accuracy
+1. Go to:  
+   `Settings → Location → Location Services → Google Location Accuracy`
+2. Turn **OFF** the toggle
+
+> This disables Wi-Fi and BLE scanning that can interfere with LDAC and audio stability.
+
+---
+
+✅ These steps must be done **immediately after pairing** to prevent override corruption from Google Play Services during your first handshake and training cycles.
+
 13. **Enable LDAC in Bluetooth Settings**  
     `Settings → Connections → Bluetooth → ⚙️ → Enable “HD audio: LDAC”`  
     > This toggle is required. Without it, LDAC won’t activate and your BCC profile will not apply.
