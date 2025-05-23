@@ -413,6 +413,12 @@ Use this sequence for a guaranteed clean LDAC handshake and to make Samsung’s 
 
 ---
 
+## ✅ 🧼 Clean Reset + Override Hijack Strategy
+
+Use this sequence for a guaranteed clean LDAC handshake and to make Samsung’s override work *for* you, not against you.
+
+---
+
 ### 🔁 Step 1: Full Reset (Wipe Samsung’s LDAC Override Memory)
 
 These steps eliminate all stored codec profiles, Fast Pair metadata, Developer Option overrides, and app-based LDAC reassertions:
@@ -512,6 +518,39 @@ Before pairing the headphones, open the BCC app and configure:
 
 ---
 
+### ⚠️ Critical Timing Warning: Auto Switch May Be Too Late
+
+Even with the correct LDAC profile selected, **Auto Switch on Connect** may apply it **after Samsung has already stored its default override (96kHz / 32-bit)**.
+
+This happens because:
+- Samsung injects its override immediately on A2DP connection
+- Auto Switch is delayed by 1–2 seconds
+- Your profile may appear active, but Samsung never saw it in time to store it
+
+🧪 *Test:* Disable Auto Switch and reconnect.  
+If the wrong LDAC profile (e.g. 96/32/Adaptive) appears, the override hijack failed.
+
+---
+
+### ✅ Recommended Fix: Use Tasker or Manual BCC Switching
+
+#### 🔧 Manual Method:
+1. Connect headphones via Bluetooth Settings
+2. Immediately open BCC and apply `SBC`
+3. Wait 1 second
+4. Apply your profile: `LDAC / 44.1kHz / 16-bit / 990kbps`
+5. Start playback
+6. Power off the headphones during active playback
+
+#### ⚙️ Tasker Method (Best):
+Use Tasker to automate:
+- Send BCC intent for `SBC`
+- Delay 1 second
+- Send BCC intent for `LDAC_44_16_990`
+- (Optional) Trigger playback intent
+
+---
+
 ### ✅ Training Steps (Do This After Pairing)
 
 Once your headphones are paired and connected:
@@ -523,10 +562,11 @@ Once your headphones are paired and connected:
    - `16-bit`
    - `990 kbps (Fixed)`
 
-3. **Use the notification to enable "Auto Switch on Connect"**
+3. **(Optional — if you are not using Tasker) Enable Auto Switch via notification**  
+   ⚠️ *Only use if testing — it may be too late for override hijack to succeed*
 
 4. Wait ~2–3 seconds for BCC to apply the profile  
-   *(Optional: Verify with `dumpsys` or UAPP codec readout)*
+   *(Verify with `dumpsys` or UAPP if possible)*
 
 5. **Start playback using UAPP / Neutron / Poweramp**
 
@@ -542,16 +582,6 @@ Once your headphones are paired and connected:
 - 📱 **Samsung’s override stack**
 
 💡 From now on, this exact LDAC profile will auto-apply on all future reconnects — even without Developer Options or BCC.
-
----
-
-✅ This stores your custom LDAC profile into:
-
-- 🎧 **Sony’s headset session memory** *(if powered off during LDAC)*
-- 📱 **Samsung’s override memory** *(used on all future reconnects)*
-
-On the next reconnect, Samsung will automatically apply **your trained LDAC profile** — completely bypassing the default `96 kHz / 32-bit` override.
-
 
 ---
 
@@ -654,5 +684,6 @@ You’re no longer *overriding* Samsung — you’re **commanding** it.
 
 > You didn’t just beat the override.  
 > You **rewired it to obey you.**
+
 
 
