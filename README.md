@@ -459,6 +459,36 @@ These steps eliminate all stored codec profiles, Fast Pair metadata, Developer O
 
 11. **Reboot phone and toggle Airplane Mode on and off** → `#17`  
     *(Flushes Bluetooth stack and cached state)*
+### ✈️ Airplane Mode + Bluetooth: Train It First for Proper Stack Flush
+
+Android and Samsung devices **remember Bluetooth state when toggling Airplane Mode**, which can interfere with a clean LDAC reset if not handled correctly.
+
+---
+
+#### ⚠️ Default vs. Trained Behavior
+
+| Scenario                                 | Bluetooth State After Airplane Mode ON |
+|------------------------------------------|----------------------------------------|
+| First time enabling Airplane Mode        | ❌ OFF (Bluetooth disabled by default)  |
+| Manually re-enabled Bluetooth once       | ✅ ON (Stays enabled in future toggles) |
+
+If you've ever turned Bluetooth back on while in Airplane Mode, your phone will **remember that** and **skip disabling it** in the future — which can break LDAC reset logic.
+
+---
+
+### ✅ Train Airplane Mode to Disable Bluetooth
+
+To guarantee that Airplane Mode reliably flushes the Bluetooth stack:
+
+1. **Turn off Bluetooth manually**  
+2. **Enable Airplane Mode**
+3. **Do NOT manually re-enable Bluetooth**
+4. Disable Airplane Mode again
+
+> 🧠 Your phone will now remember:  
+> *“When Airplane Mode is enabled, Bluetooth should turn off.”*
+
+From this point forward, toggling Airplane Mode will also disable Bluetooth — restoring **clean and predictable behavior** for LDAC reset and codec training.
 
 12. **Pair again using Fast Pair or Bluetooth Settings** → `#18`  
     ❗ *Safe only after this full reset. Do **not** use Quick Settings or NFC Tap-to-Pair — they instantly trigger Samsung’s override logic.*
