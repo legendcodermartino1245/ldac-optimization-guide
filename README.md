@@ -483,28 +483,34 @@ These steps **eliminate all stored codec profiles**, Fast Pair metadata, Develop
 9. **Clear Fast Pair Metadata**  
    `Settings → Google → Devices & Sharing → Saved Devices → [Headphones] → Remove`
 
-9b. **Temporarily enable Nearby Devices for Google Play Services**
-   - `Settings → Apps → Google Play Services → Permissions → Nearby Devices`
+9b. **Temporarily enable Nearby Devices for Google Play Services**  
+   - `Settings → Apps → Google Play Services → Permissions → Nearby Devices`  
    - `This enables Fast Pair to show up during pairing`
 
 10. **Keep Nearby Devices permission enabled during pairing** so Fast Pair can function.
 
-11. **Pair your headphones using Fast Pair**.
+11. **Reboot your phone**  
+    *(This ensures Developer Option overrides and Fast Pair metadata are fully flushed before pairing again.)*
 
-12. **Enable LDAC in Bluetooth Settings**  
+12. **Pair your headphones using Fast Pair**.
+
+13. **Enable LDAC in Bluetooth Settings**  
     `Settings → Connections → Bluetooth → ⚙️ → Enable “HD audio: LDAC”`  
     > This toggle is required. Without it, LDAC won’t activate and your BCC profile will not apply.
 
-13. **Immediately after successful pairing and training your LDAC profile:**  
-    Permanently **deny Nearby Devices permission** to Google Play Services:  
+14. **Immediately after successful pairing and training your LDAC profile:**  
+    Permanently **deny Nearby Devices permission** to Google Play Services to block silent auto-connect and override injection:  
     - `Settings → Apps → Google Play Services → Permissions → Nearby Devices`  
     - Select **Deny** and **Do not allow** requests again
 
-14. **Disable “Automatically save devices”**  
+15. **Disable “Automatically save devices”**  
     - `Settings → Google → Devices & Sharing → Saved Devices`  
     - Tap ︙ → **Turn off "Automatically save devices"**
 
-15. **Reboot the phone** and **toggle Airplane Mode on/off**
+16. **Toggle Airplane Mode on/off** to finalize memory flush
+
+> ✅ Your device is now ready to accept and retain your custom LDAC handshake.
+
 
 ---
 
