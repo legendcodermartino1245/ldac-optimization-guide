@@ -592,3 +592,31 @@ When using **manual pairing via Bluetooth settings**, Samsung injects its overri
 ---
 
 **Fast Pair isn’t just a workaround — it’s the foundation for a controlled LDAC environment when paired with BCC and Tasker.**
+## 🔁 LDAC Profile Training: Why One Handshake Isn’t Always Enough
+
+Even with a perfect Fast Pair + BCC setup, **one clean LDAC handshake doesn’t always lock in your custom profile** — especially on Samsung devices and Sony XM-series headphones.
+
+Both Samsung’s override cache and Sony’s headset firmware **need confirmation over multiple sessions** to permanently apply your desired codec.
+
+---
+
+### 🧠 Why Multiple Training Cycles Help
+
+| System              | What It Watches                                  | When It Stores Your Profile               |
+|---------------------|--------------------------------------------------|-------------------------------------------|
+| 🎧 Sony Headphones  | Active LDAC session with audio playback          | After ~10+ sec of playback, then power-off |
+| 📱 Samsung Stack    | Initial LDAC sessions after pairing              | After 2–3 consistent, stable reconnects    |
+| 🔁 Google Services  | Fast Pair & override sync data                   | If not blocked, may reassert old profiles |
+
+---
+
+### ✅ Recommended Training Loop (Repeat 2–3 Times)
+
+1. **Power on headphones manually**
+2. **Let BCC/Tasker connect automatically**
+3. Confirm correct LDAC profile (via GUI or ADB)
+4. **Start playback immediately** (UAPP/Neutron preferred)
+5. Let music run for **15–30 seconds**
+6. **Power off headphones while LDAC is still active**
+7. Wait 10+ seconds
+8. Repeat 2–3 times
