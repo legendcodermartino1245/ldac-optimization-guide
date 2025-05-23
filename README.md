@@ -471,29 +471,40 @@ These steps eliminate all stored codec profiles, Fast Pair metadata, Developer O
 
 Samsung doesn’t override at first pairing. It listens to the **first real LDAC session**, then stores that profile and reuses it on all future connections.
 
-#### ✅ Steps to Hijack the Override:
+> ⚠️ On Samsung devices, the **LDAC toggle is often disabled by default**, and the first connection may default to **AAC** even if BCC is active.  
+> You must manually enable LDAC before applying your custom profile or starting playback — otherwise the override memory stores the wrong codec.
 
-1. **After pairing**, enable the LDAC toggle in Bluetooth device settings:  
-   - `Settings → Connections → Bluetooth → [Headphones] → Gear icon → Enable “HD Audio (LDAC)”`
+---
 
-   ❗ *This is critical if Samsung defaulted to AAC. LDAC must be active for the override to store the correct profile.*
+#### ✅ Steps to Hijack the Override (Corrected Order):
 
-2. **Immediately start audio playback**  
-   *(Use UAPP, Neutron, or force your profile via BCC)*
+1. **Pair the headphones**  
+   *(Use Bluetooth Settings, not Quick Settings or NFC)*
 
+2. **Go to Bluetooth settings → tap the gear icon next to your headphones → enable “HD Audio (LDAC)”**  
+   ❗ *If LDAC is not enabled here, Samsung will default to AAC — breaking the override.*
 
-2. **Force a clean LDAC profile**:  
-   - Example: `44.1 kHz / 16-bit / 990 kbps (Fixed)`
+3. **Let BCC apply your desired LDAC profile**  
+   - Example: `44.1 kHz / 16-bit / 990 kbps (Fixed)`  
+   - (Use Auto Switch or apply it manually inside BCC)
 
-3. **Let playback continue for at least 10–15 seconds**
+4. ✅ **Once you see the correct profile applied (verify with dumpsys or logs), then**:
+   - **Start audio playback** using UAPP, Neutron, or any app you trust
 
-4. **Power off the headphones while LDAC is still active**
+5. **Let playback continue for at least 10–15 seconds**  
+   *(This gives Samsung time to detect and memorize the session profile)*
 
-> ✅ This stores your custom profile into:
-> - 🎧 Sony’s headset session memory  
-> - 📱 Samsung’s override memory
+6. **Power off the headphones while LDAC is still active**  
+   *(This saves the session fingerprint into Sony’s firmware and Samsung’s override memory)*
+
+---
+
+> ✅ This stores your custom LDAC profile into:
+> - 🎧 Sony’s headset session memory *(if powered off during LDAC)*  
+> - 📱 Samsung’s override memory *(used on all future reconnects)*
 
 On the next reconnect, Samsung will automatically reapply **your profile** — not its default `96 kHz / 32-bit Default`.
+
 
 ---
 
