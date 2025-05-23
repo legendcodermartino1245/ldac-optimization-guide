@@ -408,11 +408,6 @@ This table expands on the common ways to connect your headphones (from NFC to Fa
 
 ---
 
-## ✅ 🧼 Clean Reset + Override Hijack Strategy  
-Use this sequence for a guaranteed clean LDAC handshake and to make Samsung’s override work *for* you, not against you.
-
----
-
 ## ✅ 🧼 Clean Reset + Override Hijack Strategy
 
 Use this sequence for a guaranteed clean LDAC handshake and to make Samsung’s override work *for* you, not against you.
@@ -687,6 +682,218 @@ You’re no longer *overriding* Samsung — you’re **commanding** it.
 
 > You didn’t just beat the override.  
 > You **rewired it to obey you.**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------
+
+
+
+## ✅ 🧼 Clean Reset + Override Hijack Strategy (Fast Pair Edition)
+
+Use this sequence to **force Samsung to adopt your LDAC profile** permanently using Fast Pair — but without letting Google sabotage the handshake.
+
+---
+
+### 🔁 Step 1: Full Reset (Wipe Samsung’s LDAC Override Memory)
+
+These steps **eliminate all stored codec profiles**, Fast Pair metadata, Developer Option overrides, and app-based LDAC reassertions:
+
+1. **Connect your headphones via Bluetooth Settings**  
+   *(Avoid Quick Settings and NFC. Fast Pair will be used **after** this reset.)*
+
+2. **Set codec to SBC in Developer Options**  
+   `Settings → Developer Options → Bluetooth Audio Codec → SBC`  
+   *(Must be done **while headphones are connected**. This wipes Samsung’s override memory.)*
+
+3. **Disable Developer Options**  
+   *(Still while connected — finalizes override wipe and prevents silent reassertion.)*
+
+4. **Power off headphones**
+
+5. **Hardware Reset the headphones** → `Power + Custom for 7 seconds`  
+   *(Wait for “Pairing” voice cue. Power off again immediately.)*
+
+6. **Reset Network Settings**  
+   `Settings → General Management → Reset → Reset Wi-Fi and Bluetooth`
+
+7. **Clear App Storage**  
+   - Sony Music Center  
+   - Headphones Connect  
+   - Bluetooth Codec Changer (BCC)
+
+8. **Forget Bluetooth Device**  
+   `Settings → Connections → Bluetooth → [Your Headphones] → Forget`
+
+9. **Clear Fast Pair Metadata**  
+   `Settings → Google → Devices & Sharing → Saved Devices → [Headphones] → Remove`
+
+10. **(Optional) Disable Google Sync Settings**  
+    - `Nearby Devices` → **Off**  
+    - Saved Devices → ︙ → **Turn off "Automatically save devices"`
+
+11. **Reboot the phone** and **toggle Airplane Mode on/off**
+
+---
+
+### ✈️ Airplane Mode Training
+
+Ensure Airplane Mode **fully disables Bluetooth**:
+
+1. Turn off Bluetooth  
+2. Enable Airplane Mode  
+3. Do **not** re-enable Bluetooth  
+4. Disable Airplane Mode again
+
+> Android will now remember: *Airplane Mode = Bluetooth OFF*
+
+---
+
+### ⚡ Step 2: Fast Pair Without Override Corruption
+
+Now that the override is wiped, use Fast Pair to initiate clean pairing — but **block Google’s interference** immediately after.
+
+#### ✅ Timing Strategy
+
+| Phase | Google Play Services | Why |
+|-------|----------------------|-----|
+| **Pairing** | ✅ **Enabled** | Fast Pair won’t work otherwise |
+| **Immediately after pairing** | ❌ **Disabled** | Prevents Google from restoring old LDAC/SBC metadata |
+| **Post-profile training** | 🔁 Optional | Can be re-enabled *after* profile is locked |
+
+#### 🔧 Actions
+
+1. **Enable Google Play Services** *(if disabled)*  
+2. **Initiate Fast Pair** — accept pairing request  
+3. **Immediately disable Google Play Services**  
+   - Settings → Apps → Google Play Services → Disable  
+   - OR: Revoke *Nearby Devices* permission + Force Stop  
+4. **Launch BCC or your preferred player**  
+5. **Immediately begin training LDAC profile**
+
+---
+
+### 🎧 Step 3: Train Samsung to Use Your LDAC Profile
+
+With the override stack clean and Google blocked:
+
+1. Open **Bluetooth Codec Changer**  
+2. Set **LDAC / 44.1kHz / 16-bit / 990kbps (Fixed)**  
+3. Start playback in UAPP, Neutron, or Poweramp  
+4. Let playback run for **15 seconds**  
+5. Power off headphones while LDAC is still active
+
+> 🎯 This stores your profile in:  
+> - 📱 **Samsung’s override memory**  
+> - 🎧 **Sony’s firmware session memory**
+
+---
+
+### 🧠 Stored Data Breakdown
+
+| Memory | What Gets Stored |
+|--------|------------------|
+| 📱 **Samsung** | Sample rate, Bit depth, Bitrate mode |
+| 🎧 **Sony** | Handshake session fingerprint (not full codec params) |
+
+---
+
+### ✅ What Happens Next
+
+On every reconnect (even without Developer Options or BCC):
+
+- Samsung applies your trained LDAC profile  
+- LDAC connects instantly at the correct bitrate  
+- No UI lies, no override bugs
+
+You no longer need Developer Options, app reassertions, or timing tricks — **Samsung works for you now**.
+
+---
+
+## 🧱 Final Tips
+
+- Avoid **Quick Settings** and **NFC pairing** — these trigger override prematurely  
+- Power off headphones **during active LDAC playback** to lock in profile  
+- Re-enable Google Play Services *only after training is complete*
+
+---
+
+## ✅ Summary: Fast Pair Master Workflow
+
+| Step | Action |
+|------|--------|
+| 1 | Clean Reset override and Fast Pair metadata |
+| 2 | Pair via Fast Pair with Google Play Services ON |
+| 3 | Disable Google Play Services **immediately after pairing** |
+| 4 | Apply LDAC profile using BCC/UAPP/Neutron |
+| 5 | Let it play 10–15 seconds |
+| 6 | Power off headphones during playback |
+| 7 | Reconnect and enjoy auto-990kbps LDAC every time |
+
+---
+
+### 🧪 Optional Automation
+
+Use **Tasker** to enforce switching:
+
+- Send `SBC` first  
+- Wait 1s  
+- Send `LDAC 44.1/16/990`  
+- Start playback
+
+---
+
+## 🧠 The Final Form: You Rewired Samsung
+
+This isn’t a workaround — it’s a **repurposing** of Samsung’s override stack.
+
+- 🔒 One-time setup  
+- ✅ Persistent LDAC  
+- 🚫 No Developer Options  
+- 🧼 Fully profile-driven playback
+
+> You didn’t just defeat the override.  
+> **You rewired it to obey you.**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
