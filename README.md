@@ -158,24 +158,20 @@ However, it can be **reliably bypassed** by forcing a full codec renegotiation a
 
 > 🛑 Just disabling Developer Options is **not enough** if LDAC was ever manually selected.
 
-Samsung may silently continue applying the **last used LDAC override profile** even after Developer Options are turned off — especially if it was previously set to LDAC 660, Adaptive, or 990.
+Samsung may silently continue applying the **last used LDAC override profile** even after Developer Options are turned off — especially if it was previously set to LDAC 660, Adaptive, or 990.  
 LDAC supports both 16-bit and 24-bit input. But the encoder only uses what it receives — not what you select in Developer Options.
-
-
 
 ### ✅ Correct Reset Procedure
 
-1. Enable **Developer Options** — only if you’ve used them before
+1. Enable **Developer Options** — only if you’ve used them before  
 2. Set **Bluetooth Audio Codec** to **SBC**
-   - ℹ️ On Samsung, there is **no “Default” option** — selecting **SBC** is the only way to fully clear override behavior
-3. Exit the Developer Options menu
-4. Go back and **disable Developer Options**
-5. *(Optional but safest)* Reset network settings:
+   - ℹ️ On Samsung, there is **no “Default” option** — selecting **SBC** is the only way to fully clear override behavior  
+3. Exit the Developer Options menu  
+4. Go back and **disable Developer Options**  
+5. *(Optional but safest)* Reset network settings:  
    - `Settings → General Management → Reset → Reset network settings`
 
 ✅ This fully clears Samsung’s override memory, ensuring a clean LDAC handshake window for hijack and BCC profile injection.
-2. Set **Bluetooth Audio Codec** to **SBC**
-   - ℹ️ **Why SBC?** Selecting SBC resets the Bluetooth codec negotiation path and clears LDAC override memory at the system level — it’s the only true reset trigger on Samsung.
 
 ## Bluetooth Codec Changer (BCC)
 
