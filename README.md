@@ -496,50 +496,43 @@ If Bluetooth stays on during Airplane Mode, LDAC reset may fail.
 
 Now that Samsung’s override stack is flushed, it’s time to apply your actual target LDAC profile — and make Samsung learn it permanently.
 
-✅ This is where you configure **Bluetooth Codec Changer (BCC)** to apply the right handshake — not just rely on GUI feedback.
+✅ This step is where you **train your LDAC handshake**, using **Bluetooth Codec Changer (BCC)** *after pairing* your headphones.
 
 ---
 
-### ✅ Required BCC Setup Before Training
+### ✅ Pre-Pairing BCC Setup (Can Be Done Before Connecting)
 
-Before pairing:
+Before pairing the headphones, open the BCC app and configure:
 
-1. **Open Bluetooth Codec Changer (BCC)**  
-2. Tap **"Codec Profile"** and select your target:
+1. **Enable "Main Background Service"**  
+   *(Keeps BCC active after Bluetooth connection)*
+
+2. **Disable "2-Step Switching"**  
+   *(Prevents handshake desyncs and GUI bugs)*
+
+---
+
+### ✅ Training Steps (Do This After Pairing)
+
+Once your headphones are paired and connected:
+
+1. **Open the BCC app**
+2. Tap **"Codec Profile"** and select:
    - `LDAC`
    - `44.1 kHz`
    - `16-bit`
    - `990 kbps (Fixed)`
 
-3. *(Optional but recommended)*  
-   Leave **2-Step Switching disabled** — enabling it before connection may desync or stall the handshake.  
-   Instead, use Intermediate Profiles **manually once connected** if needed:
-   - Intermediate 1: `SBC`
-   - Intermediate 2: `LDAC 16-bit / 606 kbps`
+3. **Use the notification to enable "Auto Switch on Connect"**
 
-🧠 BCC's **Auto Switch on Connect** cannot be pre-enabled before the device connects —  
-You must **toggle it manually via the notification** after the headphones are paired and connected.
+4. Wait ~2–3 seconds for BCC to apply the profile  
+   *(Optional: Verify with `dumpsys` or UAPP codec readout)*
 
----
+5. **Start playback using UAPP / Neutron / Poweramp**
 
-### ✅ Training Steps (Now With BCC Active)
+6. Let audio play for **15+ seconds**
 
-1. **Power off headphones**
-
-2. **Turn on and connect via Bluetooth Settings**  
-   *(Do not use Quick Settings or NFC)*
-
-3. Once connected:
-   - Open BCC
-   - **Manually toggle "Auto Switch on Connect" from the notification**
-   - BCC will now apply your selected LDAC profile  
-     *(Wait ~2–3 seconds to ensure it’s active — verify via `dumpsys` or trusted playback app)*
-
-4. **Start playback using UAPP / Neutron / Poweramp**
-
-5. **Let audio play for at least 15 seconds**
-
-6. **Power off the headphones while LDAC is active**
+7. **Power off the headphones while LDAC is active**
 
 ---
 
@@ -549,6 +542,16 @@ You must **toggle it manually via the notification** after the headphones are pa
 - 📱 **Samsung’s override stack**
 
 💡 From now on, this exact LDAC profile will auto-apply on all future reconnects — even without Developer Options or BCC.
+
+---
+
+✅ This stores your custom LDAC profile into:
+
+- 🎧 **Sony’s headset session memory** *(if powered off during LDAC)*
+- 📱 **Samsung’s override memory** *(used on all future reconnects)*
+
+On the next reconnect, Samsung will automatically apply **your trained LDAC profile** — completely bypassing the default `96 kHz / 32-bit` override.
+
 
 ---
 
