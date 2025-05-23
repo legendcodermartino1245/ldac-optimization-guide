@@ -483,6 +483,10 @@ These steps **eliminate all stored codec profiles**, Fast Pair metadata, Develop
 9. **Clear Fast Pair Metadata**  
    `Settings → Google → Devices & Sharing → Saved Devices → [Headphones] → Remove`
 
+9b. **Temporarily enable Nearby Devices for Google Play Services**
+   - `Settings → Apps → Google Play Services → Permissions → Nearby Devices`
+   - `This enables Fast Pair to show up during pairing`
+
 10. **Keep Nearby Devices permission enabled during pairing** so Fast Pair can function.
 
 11. **Pair your headphones using Fast Pair**.
