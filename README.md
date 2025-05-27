@@ -721,7 +721,7 @@ To prevent Google Play Services from interfering with your LDAC profile (via Fas
 ## 🔁 Multipoint LDAC Overview
 
 The Sony WH-1000XM5 supports **multipoint Bluetooth**, allowing connection to **two devices simultaneously**.  
-Typically, this works seamlessly because **Windows defaults to SBC or AAC**, while **Android uses LDAC**, avoiding any codec conflict.  
+Typically, this works seamlessly because **Windows defaults to SBC or AAC**, while **Android uses LDAC**, avoiding codec conflict.
 
 However, advanced users may configure **LDAC on both devices** — for example, on **Android and Windows**, or even **two Android devices**.
 
@@ -729,7 +729,19 @@ This presents a unique challenge:
 
 > **Can we build a stable configuration where both devices use LDAC without triggering codec fallback, stutters, or renegotiation?**
 
-The answer is yes — but it requires careful tuning of codec behavior, volume control, and AVRCP versions across both platforms.
+✅ The answer is yes — but it requires careful tuning of codec behavior, volume control, and AVRCP versions across both platforms.
+
+---
+
+## 🛠️ Setup Prerequisites
+
+- **AVRCP 1.6 on both devices**  
+  - On Android: enable it once in Developer Options — it persists even after Dev Options are turned off.  
+  - On Windows: use a registry edit.
+
+```reg
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Bluetooth\Audio\AVRCP]
+"AvrcpTargetVersion"=dword:00000006
 
 Lets breakdown what you need in order to succeed
 AVCRP 1.6 on both devices. It can be enabled in dev options once and isnt affected by disabling dev options and is always set unnless you change it again
