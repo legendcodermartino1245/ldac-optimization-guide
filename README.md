@@ -742,7 +742,7 @@ This presents a unique challenge:
 ```reg
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Bluetooth\Audio\AVRCP]
 "AvrcpTargetVersion"=dword:00000006
-
+```
 Lets breakdown what you need in order to succeed
 AVCRP 1.6 on both devices. It can be enabled in dev options once and isnt affected by disabling dev options and is always set unnless you change it again
 AVCRP 1.6 on windows can be activated by using reg edits.
