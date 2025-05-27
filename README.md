@@ -729,7 +729,7 @@ This presents a unique challenge:
 
 > **Can we build a stable configuration where both devices use LDAC without triggering codec fallback, stutters, or renegotiation?**
 
-✅ The answer is yes — but it requires careful tuning of codec behavior, volume control, and AVRCP versions across both platforms.
+Simultaneous LDAC use on two devices depends on system configuration, codec settings, and volume/control options.
 
 ---
 
