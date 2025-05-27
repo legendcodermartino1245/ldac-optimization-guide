@@ -714,7 +714,9 @@ To prevent Google Play Services from interfering with your LDAC profile (via Fas
 2. Turn **OFF** the toggle
 
 > This disables Wi-Fi and BLE scanning that can interfere with LDAC and audio stability.
+---
 
+✅ These changes **completely prevent Google Play Services from reasserting override profiles or reconnecting silently in the background** — while still keeping the Play Store and apps fully functional.
 
 ## Multipoint
 The sony XM5 has multipoint support. This means the headphones can be connected to max 2 devices at the same time. This is smart because by default windows uses sbc and aac which dont interfere with ldac on android making switching beteween the devices seamless. But in our case we also have ldac configured on windows. This is a very interesting intresting combination and raises one main question. Can we built a combination of settings that support 2 ldac connections one on windows and one on android. And 2 androids is also a very intresting usecase.
@@ -730,7 +732,19 @@ av off on both windows and android is bad
 reparing required to swtich from av off and on on windows
 i feel like i cant recommend a best combination i feel the avcrp version 1.6 on windows is too badly implemented is that valid
 
----
+## 🎧 Multipoint AV/AVRCP Combination Matrix
 
-✅ These changes **completely prevent Google Play Services from reasserting override profiles or reconnecting silently in the background** — while still keeping the Play Store and apps fully functional.
+| # | Setup Type       | Device A         | Device B         | Absolute Volume (A / B) | AVRCP Version (A / B) |
+|---|------------------|------------------|------------------|--------------------------|------------------------|
+| 1 | Android + Android | Android          | Android          | ON / ON                  | 1.6 / 1.6              |
+| 2 | Android + Android | Android          | Android          | OFF / OFF                | 1.6 / 1.6              |
+| 3 | Android + Android | Android          | Android          | OFF / ON                 | 1.6 / 1.6              |
+| 4 | Android + Windows | Android          | Windows          | OFF / ON                 | 1.6 / 1.6              |
+| 5 | Android + Windows | Android          | Windows          | ON / ON                  | 1.6 / 1.6              |
+| 6 | Android + Windows | Android          | Windows          | OFF / OFF                | 1.6 / 1.6              |
+| 7 | Android + Windows | Android          | Windows          | ON / OFF                 | 1.6 / 1.6              |
+
+
+
+
 
