@@ -749,16 +749,16 @@ AVCRP 1.6 on windows can be activated by using reg edits.
 for controlling Absolute volume on windows I recommend Bluetooth Tweaker
 ## 🔄 LDAC Multipoint Stability Factors
 
-| Factor                        | Recommendation                                                 | Purpose / Effect                                                  |
+| Factor                       | Configuration Options                                           | Related Notes or Interactions                                     |
 |------------------------------|-----------------------------------------------------------------|-------------------------------------------------------------------|
 | Codec settings               | Mirror LDAC settings on both devices                            | Prevents codec renegotiation or fallback to SBC/AAC               |
-| Playback format              | Match sample rate and bit depth (e.g., 96 kHz / 24-bit)         | Avoids stutters and DSP resync delays                            |
-| Absolute Volume              | Use **ON on Windows**, **OFF on Android**                      | Maintains volume sync on Windows and codec control on Android    |
-| Volume level                 | Set the **same volume** on both devices (e.g., 85%)             | Prevents loudness jumps and smoothens handoff behavior           |
-| AVRCP version                | Use **1.6** on both Android and Windows                        | Ensures faster media control switching and improved metadata sync |
-| Playback state coordination  | **Pause playback** on the inactive device                      | Prevents LDAC renegotiation and session fight during handoff      |
+| Playback format              | Match sample rate and bit depth (e.g., 96 kHz / 24-bit)         | Avoids stutters and DSP resync delays                             |
+| Absolute Volume              | Use **ON on Windows**, **OFF on Android**                      | Maintains volume sync on Windows and codec control on Android      |
+| Volume level                 | Set the **same volume** on both devices (e.g., 85%)             | Prevents loudness jumps and smoothens handoff behavior            |
+| AVRCP version                | Use **1.6** on both Android and Windows                        | Ensures faster media control switching and improved metadata sync  |
+| Playback state coordination  | **Pause playback** on the inactive device                      | Prevents LDAC renegotiation and session fight during handoff       |
 | Fast Pair behavior           | Disable **"Automatically save devices"** in Android settings    | Prevents Fast Pair from reapplying stale codec/AV states          |
-| BCC timing logic             | Add **intermediate profile (e.g., SBC or LDAC 16-bit)** before final LDAC | Ensures clean codec handshake and profile lock-in                 |
+| BCC timing logic             | Add **intermediate profile (e.g., SBC or LDAC 16-bit)** before final LDAC | Ensures clean codec handshake and profile lock-in       |          |
 
 
 
