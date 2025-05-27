@@ -732,17 +732,18 @@ av off on both windows and android is bad
 reparing required to swtich from av off and on on windows
 i feel like i cant recommend a best combination i feel the avcrp version 1.6 on windows is too badly implemented is that valid
 
-## 🎧 Multipoint AV/AVRCP Combination Matrix
+## 🎧 Multipoint AV/AVRCP Combination Matrix (LDAC on Both Devices)
 
-| # | Setup Type       | Device A         | Device B         | Absolute Volume (A / B) | AVRCP Version (A / B) |
-|---|------------------|------------------|------------------|--------------------------|------------------------|
-| 1 | Android + Android | Android          | Android          | ON / ON                  | 1.6 / 1.6              |
-| 2 | Android + Android | Android          | Android          | OFF / OFF                | 1.6 / 1.6              |
-| 3 | Android + Android | Android          | Android          | OFF / ON                 | 1.6 / 1.6              |
-| 4 | Android + Windows | Android          | Windows          | OFF / ON                 | 1.6 / 1.6              |
-| 5 | Android + Windows | Android          | Windows          | ON / ON                  | 1.6 / 1.6              |
-| 6 | Android + Windows | Android          | Windows          | OFF / OFF                | 1.6 / 1.6              |
-| 7 | Android + Windows | Android          | Windows          | ON / OFF                 | 1.6 / 1.6              |
+| # | Setup Type         | Device A | Device B | Absolute Volume (A / B) | AVRCP Version (A / B) |
+|---|--------------------|----------|----------|--------------------------|------------------------|
+| 1 | Android + Android  | Android  | Android  | ON / ON                  | 1.6 / 1.6              |
+| 2 | Android + Android  | Android  | Android  | OFF / OFF                | 1.6 / 1.6              |
+| 3 | Android + Android  | Android  | Android  | OFF / ON                 | 1.6 / 1.6              |
+| 4 | Android + Windows  | Android  | Windows  | OFF / ON                 | 1.6 / 1.6              |
+| 5 | Android + Windows  | Android  | Windows  | ON / ON                  | 1.6 / 1.6              |
+| 6 | Android + Windows  | Android  | Windows  | OFF / OFF                | 1.6 / 1.6              |
+| 7 | Android + Windows  | Android  | Windows  | ON / OFF                 | 1.6 / 1.6              |
+
 
 
 
