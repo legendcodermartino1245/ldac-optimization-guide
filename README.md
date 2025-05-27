@@ -726,6 +726,7 @@ I found out that mirroring codec settings and playback format works best
 ALso volume plays a big role in this espaclly Absolute volume on or off
 Volume istelf should also be the same on both devices to ensure best stability
 In my experience 1.6 is faster when swtiching between devices.
+av off on both windows and android is bad
 
 
 ---
