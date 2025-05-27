@@ -718,17 +718,38 @@ To prevent Google Play Services from interfering with your LDAC profile (via Fas
 
 ✅ These changes **completely prevent Google Play Services from reasserting override profiles or reconnecting silently in the background** — while still keeping the Play Store and apps fully functional.
 
-## Multipoint
-The sony XM5 has multipoint support. This means the headphones can be connected to max 2 devices at the same time. This is smart because by default windows uses sbc and aac which dont interfere with ldac on android making switching beteween the devices seamless. But in our case we also have ldac configured on windows. This is a very interesting intresting combination and raises one main question. Can we built a combination of settings that support 2 ldac connections one on windows and one on android. And 2 androids is also a very intresting usecase.
+## 🔁 Multipoint LDAC Overview
+
+The Sony WH-1000XM5 supports **multipoint Bluetooth**, allowing connection to **two devices simultaneously**.  
+Typically, this works seamlessly because **Windows defaults to SBC or AAC**, while **Android uses LDAC**, avoiding any codec conflict.  
+
+However, advanced users may configure **LDAC on both devices** — for example, on **Android and Windows**, or even **two Android devices**.
+
+This presents a unique challenge:
+
+> **Can we build a stable configuration where both devices use LDAC without triggering codec fallback, stutters, or renegotiation?**
+
+The answer is yes — but it requires careful tuning of codec behavior, volume control, and AVRCP versions across both platforms.
 
 Lets breakdown what you need in order to succeed
 AVCRP 1.6 on both devices. It can be enabled in dev options once and isnt affected by disabling dev options and is always set unnless you change it again
 AVCRP 1.6 on windows can be activated by using reg edits.
-I found out that mirroring codec settings and playback format works best
-ALso volume plays a big role in this espaclly Absolute volume on or off
-Volume istelf should also be the same on both devices to ensure best stability
-In my experience 1.6 is faster when swtiching between devices.
-av off on both windows and android is bad
+for controlling Absolute volume on windows I recommend Bluetooth Tweaker
+## 🔄 LDAC Multipoint Stability Factors
+
+| Factor                        | Recommendation                                                 | Purpose / Effect                                                  |
+|------------------------------|-----------------------------------------------------------------|-------------------------------------------------------------------|
+| Codec settings               | Mirror LDAC settings on both devices                            | Prevents codec renegotiation or fallback to SBC/AAC               |
+| Playback format              | Match sample rate and bit depth (e.g., 96 kHz / 24-bit)         | Avoids stutters and DSP resync delays                            |
+| Absolute Volume              | Use **ON on Windows**, **OFF on Android**                      | Maintains volume sync on Windows and codec control on Android    |
+| Volume level                 | Set the **same volume** on both devices (e.g., 85%)             | Prevents loudness jumps and smoothens handoff behavior           |
+| AVRCP version                | Use **1.6** on both Android and Windows                        | Ensures faster media control switching and improved metadata sync |
+| Playback state coordination  | **Pause playback** on the inactive device                      | Prevents LDAC renegotiation and session fight during handoff      |
+| Fast Pair behavior           | Disable **"Automatically save devices"** in Android settings    | Prevents Fast Pair from reapplying stale codec/AV states          |
+| BCC timing logic             | Add **intermediate profile (e.g., SBC or LDAC 16-bit)** before final LDAC | Ensures clean codec handshake and profile lock-in                 |
+
+
+
 reparing required to swtich from av off and on on windows
 i feel like i cant recommend a best combination i feel the avcrp version 1.6 on windows is too badly implemented is that valid
 
