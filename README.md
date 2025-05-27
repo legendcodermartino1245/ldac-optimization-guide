@@ -743,7 +743,8 @@ i feel like i cant recommend a best combination i feel the avcrp version 1.6 on 
 | 5 | Android + Windows  | Android  | Windows  | ON / ON                  | 1.6 / 1.6              |
 | 6 | Android + Windows  | Android  | Windows  | OFF / OFF                | 1.6 / 1.6              |
 | 7 | Android + Windows  | Android  | Windows  | ON / OFF                 | 1.6 / 1.6              |
-
+> ⚠️ **Note:** All combinations in this table were tested using **AVRCP 1.6** only.  
+> I did not test other AVRCP versions, as 1.6 provided noticeably faster switching behavior between devices.
 
 
 
