@@ -715,6 +715,19 @@ To prevent Google Play Services from interfering with your LDAC profile (via Fas
 
 > This disables Wi-Fi and BLE scanning that can interfere with LDAC and audio stability.
 
+
+## Multipoint
+The sony XM5 has multipoint support. This means the headphones can be connected to max 2 devices at the same time. This is smart because by default windows uses sbc and aac which dont interfere with ldac on android making switching beteween the devices seamless. But in our case we also have ldac configured on windows. This is a very interesting intresting combination and raises one main question. Can we built a combination of settings that support 2 ldac connections one on windows and one on android. And 2 androids is also a very intresting usecase.
+
+Lets breakdown what you need in order to succeed
+AVCRP 1.6 on both devices. It can be enabled in dev options once and isnt affected by disabling dev options and is always set unnless you change it again
+AVCRP 1.6 on windows can be activated by using reg edits.
+I found out that mirroring codec settings and playback format works best
+ALso volume plays a big role in this espaclly Absolute volume on or off
+Volume istelf should also be the same on both devices to ensure best stability
+In my experience 1.6 is faster when swtiching between devices.
+
+
 ---
 
 ✅ These changes **completely prevent Google Play Services from reasserting override profiles or reconnecting silently in the background** — while still keeping the Play Store and apps fully functional.
