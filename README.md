@@ -746,7 +746,7 @@ Simultaneous LDAC use on two devices depends on system configuration, codec sett
 Lets breakdown what you need in order to succeed
 AVCRP 1.6 on both devices. It can be enabled in dev options once and isnt affected by disabling dev options and is always set unnless you change it again
 AVCRP 1.6 on windows can be activated by using reg edits.
-for controlling Absolute volume on windows I recommend Bluetooth Tweaker
+Absolute Volume on Windows can be adjusted via registry settings or external tools like Bluetooth Tweaker.
 ## 🔄 LDAC Multipoint Stability Factors
 
 | Factor                       | Configuration Options                                           | Related Notes or Interactions                                     |
@@ -763,7 +763,7 @@ for controlling Absolute volume on windows I recommend Bluetooth Tweaker
 
 
 reparing required to swtich from av off and on on windows
-i feel like i cant recommend a best combination i feel the avcrp version 1.6 on windows is too badly implemented is that valid
+Implementation details of AVRCP 1.6 may vary between platforms.
 
 ## 🎧 Multipoint AV/AVRCP Combination Matrix (LDAC on Both Devices)
 
@@ -777,7 +777,7 @@ i feel like i cant recommend a best combination i feel the avcrp version 1.6 on 
 | 6 | Android + Windows  | Android  | Windows  | OFF / OFF                | 1.6 / 1.6              |
 | 7 | Android + Windows  | Android  | Windows  | ON / OFF                 | 1.6 / 1.6              |
 > ⚠️ **Note:** All combinations in this table were tested using **AVRCP 1.6** only.  
-> I did not test other AVRCP versions, as 1.6 provided noticeably faster switching behavior between devices.
+> AVRCP 1.6 was used for all test configurations. Other versions were not evaluated.
 
 
 
