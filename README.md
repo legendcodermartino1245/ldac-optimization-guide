@@ -728,6 +728,7 @@ Volume istelf should also be the same on both devices to ensure best stability
 In my experience 1.6 is faster when swtiching between devices.
 av off on both windows and android is bad
 reparing required to swtich from av off and on on windows
+i feel like i cant recommend a best combination i feel the avcrp version 1.6 on windows is too badly implemented is that valid
 
 ---
 
