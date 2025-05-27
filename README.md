@@ -720,50 +720,65 @@ To prevent Google Play Services from interfering with your LDAC profile (via Fas
 
 ## 🔁 Multipoint LDAC Overview
 
-The Sony WH-1000XM5 supports **multipoint Bluetooth**, allowing connection to **two devices simultaneously**.  
-Typically, this works seamlessly because **Windows defaults to SBC or AAC**, while **Android uses LDAC**, avoiding codec conflict.
+The **Sony WH-1000XM5** supports **multipoint Bluetooth**, allowing connection to **two devices simultaneously**.
 
-However, advanced users may configure **LDAC on both devices** — for example, on **Android and Windows**, or even **two Android devices**.
+Typically, this works seamlessly because:
+- **Windows** defaults to **SBC or AAC**
+- **Android** uses **LDAC**
 
-This presents a unique challenge:
+➡️ This prevents codec conflicts.
 
+---
+
+However, **advanced users** may configure **LDAC on both devices** — for example:
+- Android **and** Windows  
+- Or even **two Android devices**
+
+### ⚠️ This introduces a challenge:
 > **Can we build a stable configuration where both devices use LDAC without triggering codec fallback, stutters, or renegotiation?**
 
-Simultaneous LDAC use on two devices depends on system configuration, codec settings, and volume/control options.
+A stable dual-LDAC setup requires careful tuning of:
+- Codec behavior  
+- Volume and AVRCP versions  
+- Playback format
 
 ---
 
 ## 🛠️ Setup Prerequisites
 
-- **AVRCP 1.6 on both devices**  
-  - On Android: enable it once in Developer Options — it persists even after Dev Options are turned off.  
-  - On Windows: use a registry edit.
+To ensure a smooth and stable LDAC multipoint experience:
+
+### ✅ AVRCP 1.6 on Both Devices
+
+- **On Android:**
+  - Enable AVRCP 1.6 once in Developer Options
+  - **It persists even after Developer Options are turned off**
+  
+- **On Windows:**
+  - Set via registry edit:
 
 ```reg
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Bluetooth\Audio\AVRCP]
 "AvrcpTargetVersion"=dword:00000006
 ```
-Lets breakdown what you need in order to succeed
-AVCRP 1.6 on both devices. It can be enabled in dev options once and isnt affected by disabling dev options and is always set unnless you change it again
-AVCRP 1.6 on windows can be activated by using reg edits.
-Absolute Volume on Windows can be adjusted via registry settings or external tools like Bluetooth Tweaker.
 ## 🔄 LDAC Multipoint Stability Factors
 
-| Factor                       | Configuration Options                                           | Related Notes or Interactions                                     |
-|------------------------------|-----------------------------------------------------------------|-------------------------------------------------------------------|
-| Codec settings               | Mirror LDAC settings on both devices                            | Prevents codec renegotiation or fallback to SBC/AAC               |
-| Playback format              | Match sample rate and bit depth (e.g., 96 kHz / 24-bit)         | Avoids stutters and DSP resync delays                             |
-| Absolute Volume              | Use **ON on Windows**, **OFF on Android**                      | Maintains volume sync on Windows and codec control on Android      |
-| Volume level                 | Set the **same volume** on both devices (e.g., 85%)             | Prevents loudness jumps and smoothens handoff behavior            |
-| AVRCP version                | Use **1.6** on both Android and Windows                        | Ensures faster media control switching and improved metadata sync  |
-| Playback state coordination  | **Pause playback** on the inactive device                      | Prevents LDAC renegotiation and session fight during handoff       |
-| Fast Pair behavior           | Disable **"Automatically save devices"** in Android settings    | Prevents Fast Pair from reapplying stale codec/AV states          |
-| BCC timing logic             | Add **intermediate profile (e.g., SBC or LDAC 16-bit)** before final LDAC | Ensures clean codec handshake and profile lock-in       |          |
+| Factor                       | Configuration Options                                               | Related Notes or Interactions                                      |
+|------------------------------|---------------------------------------------------------------------|--------------------------------------------------------------------|
+| Codec settings               | Mirror **LDAC settings** on both devices                            | Prevents codec renegotiation or fallback to SBC/AAC                |
+| Playback format              | Match **sample rate** and **bit depth** (e.g., 96 kHz / 24-bit)     | Avoids stutters and DSP resync delays                              |
+| Absolute Volume              | Use **ON on Windows**, **OFF on Android**                           | Maintains volume sync on Windows and codec control on Android      |
+| Volume level                 | Set the **same volume** on both devices (e.g., 85%)                 | Prevents loudness jumps and smoothens handoff behavior             |
+| AVRCP version                | Use **1.6 on both Android and Windows**                             | Ensures faster media control switching and improved metadata sync  |
+| Playback state coordination  | **Pause playback** on the inactive device                           | Prevents LDAC renegotiation and session fight during handoff       |
+| Fast Pair behavior           | Disable **"Automatically save devices"** in Android settings        | Prevents Fast Pair from reapplying stale codec/AV states           |
+| BCC timing logic             | Add **intermediate profile** (e.g., SBC or LDAC 16-bit) before final LDAC | Ensures clean codec handshake and profile lock-in          |
 
+> ⚠️ **Note:** Switching from Absolute Volume OFF to ON (or vice versa) on **Windows** may require **re-pairing** the headphones for the setting to take full effect.
 
+> ⚠️ **Implementation details** of AVRCP 1.6 may vary between platforms. All testing was done using AVRCP **1.6**.
 
-reparing required to swtich from av off and on on windows
-Implementation details of AVRCP 1.6 may vary between platforms.
+---
 
 ## 🎧 Multipoint AV/AVRCP Combination Matrix (LDAC on Both Devices)
 
@@ -776,8 +791,8 @@ Implementation details of AVRCP 1.6 may vary between platforms.
 | 5 | Android + Windows  | Android  | Windows  | ON / ON                  | 1.6 / 1.6              |
 | 6 | Android + Windows  | Android  | Windows  | OFF / OFF                | 1.6 / 1.6              |
 | 7 | Android + Windows  | Android  | Windows  | ON / OFF                 | 1.6 / 1.6              |
-> ⚠️ **Note:** All combinations in this table were tested using **AVRCP 1.6** only.  
-> AVRCP 1.6 was used for all test configurations. Other versions were not evaluated.
+
+> ⚠️ **All configurations above were tested with AVRCP 1.6**. Other AVRCP versions were not evaluated and may yield different switching or stability behavior.
 
 
 
