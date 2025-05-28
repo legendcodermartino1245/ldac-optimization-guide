@@ -1016,6 +1016,19 @@ Sony’s WH-1000XM5 can **store only a limited set of codec settings** in firmwa
 | **Sample Rate**               | ❌ No              | Set by Android host at runtime    | ❌          | Always needs to be re-applied on connect (e.g., via BCC or UAPP)     |
 | **Bit Depth**                 | ❌ No              | Set by Android host at runtime    | ❌          | Cannot be stored in firmware                                         |
 
+### 📁 Firmware Persistence Table
+
+| Setting                                 | Stored in Headphones? | Survives Power Cycle? | Notes                                           |
+|-----------------------------------------|------------------------|------------------------|-------------------------------------------------|
+| **LDAC/SBC mode (Sound Quality / Stable)** | ✅ Yes                 | ✅ Yes                 | Stored via Sony Music Center with AV ON         |
+| **Sample Rate (e.g., 96kHz)**           | ❌ No                  | ❌ No                  | Always renegotiated per stream                  |
+| **Bit Depth (e.g., 24-bit)**            | ❌ No                  | ❌ No                  | Decided by app/player, not stored in firmware   |
+| **Developer Options codec**            | ❌ No                  | ❌ No                  | Reset on disconnect/reconnect                   |
+| **BCC profile (990 kbps etc.)**        | ❌ No                  | ❌ No                  | Session-only unless re-applied each reconnect   |
+
+
+
+
 📌 **Important:**  
 - **Sony Music Center** is the **only app** that can store the LDAC **quality mode** (not the bitrate itself).
 - **Sample rate and bit depth must always be forced** by the phone — either via:
