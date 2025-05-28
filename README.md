@@ -847,7 +847,8 @@ Absolute Volume on means it has to hit 85% of volume minimal
 
 
 ## Samsung Codec Behavior 
-Aac override is also always active right if LDac isn't enabled
+AAC override is also always active right if LDAC isn't enabled and does enable hd audio in dev settings.
+
 Sbc is never the first codec when paired in bluetooth settings on samsung
 
 
