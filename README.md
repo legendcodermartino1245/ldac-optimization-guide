@@ -1367,6 +1367,27 @@ filter option is set to show less in  connectivity labs
 
 
 
+## 🔒 What BCC Can and Cannot Store (Session vs Firmware)
+
+Bluetooth Codec Changer (BCC) can apply LDAC profiles during a Bluetooth session, but it cannot persist them across reconnects. Only Sony Music Center can store codec preferences in the headphone firmware.
+
+### 📁 Storage Capability Matrix
+
+| Component                         | Can Apply Codec? | Persists After Reconnect? | Stored in Headphones?     | Notes                                         |
+|----------------------------------|------------------|----------------------------|----------------------------|-----------------------------------------------|
+| **Bluetooth Codec Changer (BCC)**| ✅ Yes           | ❌ No                      | ❌ No                      | Session-only, needs AV ON to apply            |
+| **Sony Music Center**            | ✅ Yes           | ✅ Yes                     | ✅ Yes                     | Can store SBC / LDAC mode in firmware         |
+| **Developer Options**            | ✅ Yes           | ❌ No                      | ❌ No                      | UI-only, gets reset on reconnect              |
+| **Tasker (with BCC)**            | ✅ Yes           | ❌ No                      | ❌ No                      | Needs to trigger on every reconnect           |
+| **Android System (Samsung)**     | ✅ Yes (override)| ✅ Yes                     | ❌ No (stack memory)       | Persists until flushed manually               |
+
+---
+
+### 🧠 Key Takeaway
+
+> You cannot lock your own LDAC profile with BCC or Developer Options.  
+> Only **Music Center**, when used with **AV ON**, can store a profile that survives Bluetooth off/on, headphone reboot, or reconnect.  
+> ⚠️ **Sample rate and bit depth are never stored** — they are renegotiated per stream.
 
 
 
