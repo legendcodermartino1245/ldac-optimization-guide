@@ -913,6 +913,21 @@ Absolute Volume on means it has to hit 85% of volume minimal
 >
 > Opening Music Center **after a profile has been set by another app** will immediately trigger a renegotiation to the **currently selected LDAC mode inside the app**, overriding any prior configuration—even if BCC or UAPP had previously succeeded.
 
+
+> 🧠 **Default Behavior:**  
+> If you install and open Sony Music Center **without changing any codec settings**, it defaults to:
+>
+> - **LDAC Adaptive** mode  
+> - **96 kHz** sample rate  
+> - **Bitrate** dynamically adjusts between **330 / 660 / 990 kbps**, depending on link quality
+>
+> 📌 This means Music Center does **not** apply a fixed bitrate by default — it applies a **96 kHz Adaptive profile**, and lets LDAC decide between 330, 660, or 990 kbps in real time.
+
+
+
+
+
+
 ## 🔍 Additional Notes on Codec Storage and LDAC Behavior
 
 - **LDAC quality settings written by Music Center are not applied immediately.**  
