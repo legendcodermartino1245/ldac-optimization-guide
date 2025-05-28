@@ -893,7 +893,79 @@ Absolute Volume on means it has to hit 85% of volume minimal
 
 
 
+## ⚙️ Settings That Interfere with LDAC 990kbps
 
+These settings are known to interfere with LDAC 990kbps stability and should be disabled or adjusted:
+
+1. **Google Assistant**  
+   - Must be disabled both on the **headset** and the **phone itself**.  
+   - Don't just disable the Google app — instead, **grant Nearby Devices permission back**, then disable Google Assistant cleanly in settings.
+
+2. **Bluetooth and Wi-Fi Scanning**  
+   - Must be disabled completely to prevent background interference.  
+   - Includes Developer Option toggles **and** ADB permission removal for Google Play Services.
+
+3. **Hotspot Band**  
+   - Set your mobile hotspot to **5GHz**.  
+   - **2.4GHz hotspots** interfere with LDAC stability.
+
+4. **Wi-Fi Network Type**  
+   - If your network is **only 2.4GHz**, disable Wi-Fi entirely.
+
+5. **Music Sharing**  
+   - Disable Samsung’s **Bluetooth Music Sharing** feature.
+
+6. **Nearby Devices Scanning**  
+   - Disabling Nearby Devices permission **is not enough**.  
+   - Also turn off scanning under:  
+     `Settings > Google > Devices & Sharing > Nearby Share`
+
+7. **Smartwatch & BLE Companion Apps**  
+   - Uninstall apps like Galaxy Wearable, Zepp, etc.  
+   - Forget any unused **Bluetooth LE devices**.
+
+8. **Samsung-Specific Features**  
+   - Disable:
+     - **Samsung Nearby Devices**
+     - **Samsung Multi Control**
+
+9. **Google Location Accuracy**  
+   - Disable under:  
+     `Settings > Location > Location Services > Google Location Accuracy`
+
+10. **Saved Devices in Google Services**  
+    - Prevent Google from syncing or overriding LDAC profiles.
+
+11. **Switching to Better Networks**  
+    - Found in Wi-Fi settings under “Advanced.”  
+    - Disable to prevent mid-session access point switching.
+
+12. **NFC Usage**  
+    - Having **NFC enabled is fine**, but **using NFC during LDAC playback** (e.g., pairing via tap) causes codec renegotiation.  
+    - Avoid using NFC features while listening.
+
+---
+
+## 📱 ADB Optimization Strategy (for Google Play Services)
+
+> Keep **Location services and system scanning toggles ON**, but **disable Wi-Fi and Bluetooth scanning access specifically for Google Play Services** via ADB.  
+> This allows apps like Maps and Find My Device to work, while stabilizing LDAC 990kbps by preventing background codec interference.
+
+📌 **Recommended ADB one-liner:**
+```bash
+adb shell appops set com.google.android.gms NEARBY_WIFI_DEVICES ignore && adb shell appops set com.google.android.gms BLUETOOTH_SCAN ignore && adb shell appops set com.google.android.gms ACCESS_FINE_LOCATION ignore
+```
+## ⚙️ Settings That Dont Interfere with LDAC 990kbps
+1. 5 GHZ wi-fi.
+2. VoLTE 
+4. 5G
+5. Wifi calling
+6. Show Network quality info
+7. Prioritize real-time data
+8. Detect Suspicious networks 
+9. WiFi power saving off or on no difference 
+10. Nfc
+11. location services itself
 
 ## ⚙️ Settings That Interfere with LDAC 990kbps
 
@@ -957,17 +1029,7 @@ These settings are known to interfere with LDAC 990kbps stability and should be 
 adb shell appops set com.google.android.gms NEARBY_WIFI_DEVICES ignore && adb shell appops set com.google.android.gms BLUETOOTH_SCAN ignore && adb shell appops set com.google.android.gms ACCESS_FINE_LOCATION ignore
 ```
 
-Use of NFC chip interferers with ldac
-
-"Keep Location services and scanning toggles ON, but disable Wi-Fi and Bluetooth scanning access for Google Play Services via ADB to stabilize LDAC 990kbps without breaking smart features."Want the ADB commands in one line too? For apps with 24/7 location access, disable Wi-Fi scanning, Bluetooth scanning, and Google Location Accuracy to prevent interference with LDAC 990kbps stability. Or to prioritize LDAC stability, ignore Bluetooth and Wi-Fi scanning permissions for apps with 24/7 location access to prevent background interference, but allow active scanning when the app is in use.
-
-
-
-
-
-
-
-settings that don't interfere with ldac
+## ⚙️ Settings That Dont Interfere with LDAC 990kbps
 1. 5 GHZ wi-fi.
 2. VoLTE 
 4. 5G
@@ -977,23 +1039,16 @@ settings that don't interfere with ldac
 8. Detect Suspicious networks 
 9. WiFi power saving off or on no difference 
 10. Nfc
-
-
-
-
-
-
-
-
+11. location services itself
 
 ## Samsung Codec Behavior 
 AAC override is also always active right if LDAC isn't enabled and does enable hd audio in dev settings.
 
-Sbc is never the first codec when paired in bluetooth settings on samsung
+Sbc is never the first codec when paired in bluetooth settings on samsung.
 
 
 ## AV off the override block
-AV off can be utilized to block Samsung override
+AV off can be utilized to block Samsung override.
 
 
 
