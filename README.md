@@ -846,7 +846,8 @@ Absolute Volume on means it has to hit 85% of volume minimal
 > Opening Music Center **after a profile has been set by another app** will immediately trigger a renegotiation to the **currently selected LDAC mode inside the app**, overriding any prior configuration—even if BCC or UAPP had previously succeeded.
 
 
-
+## Samsung Codec Behavior 
+Aac override is also always active right if LDac isn't enabled
 
 
 
