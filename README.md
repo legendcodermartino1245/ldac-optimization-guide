@@ -989,10 +989,21 @@ These settings are known to interfere with LDAC 990kbps stability and should be 
 5. **Music Sharing**  
    - Disable Samsung’s **Bluetooth Music Sharing** feature.
 
-6. **Nearby Devices Scanning**  
-   - Disabling Nearby Devices permission **is not enough**.  
-   - Also turn off scanning under:  
-     `Settings > Google > Devices & Sharing > Nearby Share`
+6. **Nearby Devices & Saved Device Scanning**  
+   Disabling Nearby Devices **permission** is **not enough**. Google Play Services still performs background scanning and override syncing unless you explicitly disable both of the following:
+
+   ✅ Disable **Nearby device scanning** under:  
+   - `Settings > Google > Devices & Sharing > Devices > Scan for nearby devices`  
+     → **Turn this OFF**
+
+   ✅ Disable **Saved Devices auto-sync** under:  
+   - `Settings > Google > Devices & Sharing > Saved Devices`  
+     → Tap **︙ (3-dot menu)** and select **“Turn off Automatically Save Devices”**
+
+> 🔒 **Explanation:**  
+> Even with permission denied, Google may silently reassert Fast Pair metadata using background scan and sync logic.  
+> These toggles prevent both the **search for new nearby Bluetooth devices** *and* the **cloud syncing of stored override profiles**, which often reintroduce the Samsung LDAC default.
+
 
 7. **Smartwatch & BLE Companion Apps**  
    - Uninstall apps like Galaxy Wearable, Zepp, etc.  
