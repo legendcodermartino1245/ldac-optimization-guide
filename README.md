@@ -857,6 +857,23 @@ Absolute Volume on means it has to hit 85% of volume minimal
   The setting is written to firmware instantly — no need to wait 10+ seconds.  
   ➤ This enables faster and more reliable handshake training for override bypass strategies.
 
+### 🔄 LDAC Priority Setting Impact
+
+> 🎛️ Music Center's LDAC priority setting directly affects whether BCC can override the codec.
+
+- **Priority on Sound Quality**  
+  Forces LDAC (usually 990 kbps or 96 kHz Adaptive) via GATT.  
+  ➤ This setting **locks LDAC**, and BCC **cannot override** it — even if Auto Switch or Intermediate profiles are enabled.
+
+- **Priority on Stable Connection**  
+  Defaults to SBC or fallback modes.  
+  ➤ This setting **releases LDAC control**, allowing BCC or app-based renegotiation (UAPP, Neutron, etc.) to fully succeed after handshake.
+
+🔁 **To regain override control:**  
+Change Music Center to **Stable Connection**, then:
+1. Disconnect the headset.
+2. Optionally apply SBC via Developer Options or Music Center.
+3. Reconnect using BCC or Fast Pair (with override bypass).
 
 
 ## Usb Audio Player Pro
