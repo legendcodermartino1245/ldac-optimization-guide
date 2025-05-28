@@ -852,7 +852,8 @@ AAC override is also always active right if LDAC isn't enabled and does enable h
 Sbc is never the first codec when paired in bluetooth settings on samsung
 
 
-
+## AV off the override block
+AV off can be utilized to block Samsung override
 
 
 
