@@ -1052,6 +1052,12 @@ adb shell appops set com.google.android.gms NEARBY_WIFI_DEVICES ignore && adb sh
 10. Nfc
 11. location services itself
 
+
+## ⚙️ Settings That help with LDAC 990kbps
+Change scan interval is set to rarely in  connectivity labs 
+filter option is set to show less in  connectivity labs
+
+
 ## Samsung Codec Behavior 
 AAC override is also always active right if LDAC isn't enabled and does enable hd audio in dev settings.
 
