@@ -955,11 +955,11 @@ These settings are known to interfere with LDAC 990kbps stability and should be 
 📌 Optional ADB one-liner:
 ```bash
 adb shell appops set com.google.android.gms NEARBY_WIFI_DEVICES ignore && adb shell appops set com.google.android.gms BLUETOOTH_SCAN ignore && adb shell appops set com.google.android.gms ACCESS_FINE_LOCATION ignore
-
+```
 
 Use of NFC chip interferers with ldac
 
-"Keep Location services and scanning toggles ON, but disable Wi-Fi and Bluetooth scanning access for Google Play Services via ADB to stabilize LDAC 990kbps without breaking smart features."Want the ADB commands in one line too?For apps with 24/7 location access, disable Wi-Fi scanning, Bluetooth scanning, and Google Location Accuracy to prevent interference with LDAC 990kbps stability. Or to prioritize LDAC stability, ignore Bluetooth and Wi-Fi scanning permissions for apps with 24/7 location access to prevent background interference, but allow active scanning when the app is in use.
+"Keep Location services and scanning toggles ON, but disable Wi-Fi and Bluetooth scanning access for Google Play Services via ADB to stabilize LDAC 990kbps without breaking smart features."Want the ADB commands in one line too? For apps with 24/7 location access, disable Wi-Fi scanning, Bluetooth scanning, and Google Location Accuracy to prevent interference with LDAC 990kbps stability. Or to prioritize LDAC stability, ignore Bluetooth and Wi-Fi scanning permissions for apps with 24/7 location access to prevent background interference, but allow active scanning when the app is in use.
 
 
 
