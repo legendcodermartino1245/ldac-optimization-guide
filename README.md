@@ -847,19 +847,19 @@ Absolute Volume on means it has to hit 85% of volume minimal
 
 
 ## Usb Audio Player Pro
-Install uapp from play store.
-Open uapp.
-Allow to access music and audio.
-Click ok on release notes.
-Click on on file access warning.
-Add your folders with high res music if you have that i would highly recommend this app for that usecase.
-Click ok hint for metadata.
-Click close.
-Settings reset settings to be sure.
-settings internal audio driver hires direct driver.
-Settings system disable pause on audio focus loss to prevent stuttering when accessing other apps on your phone at the same time.
-Settings internal hires audio bit perfect mode on.
-Settings bluetooth audio enable use with the hires direct driver.
+1. Install uapp from play store.
+2. Open uapp.
+3. Allow to access music and audio.
+4. Click ok on release notes.
+5. Click on on file access warning.
+6. Add your folders with high res music if you have that i would highly recommend this app for that usecase.
+7. Click ok hint for metadata.
+8. Click close.
+9. Settings reset settings to be sure.
+10. Settings internal audio driver hires direct driver.
+11. Settings system disable pause on audio focus loss to prevent stuttering when accessing other apps on your phone at the same time.
+12. Settings internal hires audio bit perfect mode on.
+13. Settings bluetooth audio enable use with the hires direct driver.
 
 Settings bluetooth audio request bluetooth connect permission.
 Allow.
