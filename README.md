@@ -891,6 +891,60 @@ Absolute Volume on means it has to hit 85% of volume minimal
 9. Settings profile bit-perfect device choose headphones.
 10. Settings audio hardware generic driver high res bluetooth on.
 
+
+
+
+
+## Settings that interfere with Ldac 990 and not interfere:
+
+
+1. Google assistant on the headset must be off this is the real deal and on the phone itself. 
+2. Dont just disable google app and revoke nearby devices permission give permission back and disable google assistant on the phone.
+3. Disable Bleutooth and Wifi scanning.
+4. Set hotspot to 5 ghz.
+5. Disable wifi if your network is only 2.4 ghz.
+6. Disable music sharing.
+7. Disabling scan for nearby devices is not redundant if you disallowed the nearby devices permission.
+8. Uninstall smartwatch related apps and forget bleutooth devices related to it.
+9. Disable Samsung nearby devices.
+10. Disable Samsung multi control.
+11. Disable bleutooth scanning. 
+12. Disable WiFi scanning.
+13. Disable google location accuracy.
+14. Disable searching for nearby devices in Google services setttings.
+15. Disable saved devices in Google services.
+16. Disable Switching to better networks.
+
+
+Use of NFC chip interferers with ldac
+
+"Keep Location services and scanning toggles ON, but disable Wi-Fi and Bluetooth scanning access for Google Play Services via ADB to stabilize LDAC 990kbps without breaking smart features."Want the ADB commands in one line too?For apps with 24/7 location access, disable Wi-Fi scanning, Bluetooth scanning, and Google Location Accuracy to prevent interference with LDAC 990kbps stability. Or to prioritize LDAC stability, ignore Bluetooth and Wi-Fi scanning permissions for apps with 24/7 location access to prevent background interference, but allow active scanning when the app is in use.
+
+
+
+
+
+
+
+settings that don't interfere with ldac
+1. 5 GHZ wi-fi.
+2. VoLTE 
+4. 5G
+5. Wifi calling
+6. Show Network quality info
+7. Prioritize real-time data
+8. Detect Suspicious networks 
+9. WiFi power saving off or on no difference 
+10. Nfc
+
+
+
+
+
+
+
+
+
 ## Samsung Codec Behavior 
 AAC override is also always active right if LDAC isn't enabled and does enable hd audio in dev settings.
 
