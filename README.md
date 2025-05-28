@@ -173,34 +173,102 @@ LDAC supports both 16-bit and 24-bit input. But the encoder only uses what it re
 
 ✅ This fully clears Samsung’s override memory, ensuring a clean LDAC handshake window for hijack and BCC profile injection.
 
+
+## 🧠 Codec Negotiation Limits and Override Timing
+
+### 🔁 Samsung LDAC Override: Always Active
+
+Samsung’s Bluetooth stack **forces an LDAC override profile immediately** on connection — even **before** LDAC is explicitly enabled.
+
+- If you connect your headphones **without LDAC enabled**, the override profile is **still injected** (e.g., SBC/AAC override logic).
+- If you enable LDAC **after connecting**, it **still uses Samsung’s default LDAC profile** (typically 660 kbps Adaptive).
+- Even **first-time pairings** will fall back to Samsung’s default LDAC parameters unless a **clean handshake** is forced.
+
+📌 **Conclusion:**  
+You cannot assume LDAC settings are "clean" just because you've enabled it.  
+**Always perform a reset or handshake trick** (e.g., SBC → LDAC 16-bit → LDAC 990) if you're trying to apply your own BCC profile.
+
+
+
+
 ## Bluetooth Codec Changer (BCC)
 
-### Auto Switch
-BCC forces LDAC codec, sample rate, bit depth, and bitrate on connect. Settings are not persistent, so Auto Switch reapplies them with a user-defined delay.
+BCC allows you to force codec settings (LDAC, bitrate, sample rate, bit depth) **at runtime**.  
+These settings are not persistent — they must be applied on **every connection**.
 
-### 2-Step Switch
+---
+
+### 🔄 Auto Switch
+
+When enabled, Auto Switch:
+- Automatically applies your selected codec profile upon Bluetooth connection
+- Supports delay configuration to allow time for default codec to settle before override
+
+---
+
+### 🧪 2-Step Switch
 
 | Step | Description                         |
 |------|-------------------------------------|
 | 1    | Initial connection                  |
-| 2    | System selects default codec (LDAC) |
+| 2    | System selects default codec (usually LDAC or SBC) |
 | 3    | Force SBC to reset LDAC session     |
-| 4    | Delay (500–2000 ms)                |
+| 4    | Delay (e.g., 500–2000 ms)           |
 | 5    | Reapply LDAC with target profile    |
-| 6    | LDAC clean handshake achieved       |
+| 6    | Clean LDAC handshake achieved       |
 
-### Why 2-Step Doesn't Work on Samsung
-Samsung enforces LDAC **before** BCC acts. Step 3 (SBC switch) fails to reset the override. BCC GUI does show incorrect values. Workaround: apply profile twice or use Tasker automation.
+🧠 **Why 2-Step Doesn't Work Reliably on Samsung:**  
+Samsung forces its own LDAC profile **before BCC can act**.  
+This means:
+- Step 3 (SBC switch) may not reset the codec cleanly
+- GUI may show incorrect values
+- Your target LDAC profile may silently fall back to Samsung’s default
 
-## Intermediate Profile Switch
-In Auto Switch, there's an option called Intermediate Codec Profile.
-On Samsung devices, this should be set to SBC to correctly reset the LDAC handshake.
-If you skip this step, BCC may fail to override Samsung's default — resulting in your selected LDAC 44.1 kHz / 24-bit / 990 kbps profile falling back to 96 kHz / 24-bit / 990 kbps, or even SBC, depending on timing.
+✅ **Workaround:**  
+- Apply the profile **twice**  
+- Use **Tasker automation** to enforce SBC → LDAC switching manually
+- Or use **Intermediate Profile Switch**
 
+---
 
+### ⚙️ Intermediate Profile Switch
 
-## Working Two step and Intermediate Profile pairs
-Any codec switch away from LDAC — even if momentary — triggers a full renegotiation when switching back.
+In Auto Switch settings, enable **Intermediate Codec Profile** and set it to **SBC**.
+
+- Forces a temporary codec downgrade (SBC) before LDAC is reapplied
+- This triggers a **true renegotiation** and breaks Samsung’s override hold
+- Without this step, BCC may silently fail or default to 96 kHz LDAC
+
+📌 This is especially important when trying to apply:
+- 44.1 kHz / 24-bit / 990 kbps
+- Any sample rate that Samsung’s override would normally reject
+
+---
+
+### ✅ Verified 2-Step + Intermediate Profile Pairs
+
+Any switch **away from LDAC**, even briefly, forces the system to renegotiate LDAC cleanly:
+
+- `SBC → LDAC 16-bit → LDAC 990`: **Most reliable**
+- `SBC → LDAC 909`: works if your app doesn’t touch Developer Options
+- `LDAC Adaptive → SBC → LDAC Fixed`: may restore clean handshake
+
+---
+
+### ⚠️ BCC Limitation: LDAC Must Be Negotiated First
+
+Bluetooth Codec Changer **cannot switch to LDAC 990 kbps** unless LDAC has already been negotiated during the session.
+
+If the system is still in **SBC or AAC mode**, BCC cannot switch to LDAC.
+
+#### ✅ To ensure LDAC 990 can be applied via BCC:
+- Enable LDAC in Developer Options **before** connecting
+- Or use a handshake trick:  
+  `SBC → LDAC 16-bit → LDAC 990`
+- Or start playback in a hi-res audio app (like UAPP or Neutron)
+
+🧠 *BCC profiles are runtime-only. If LDAC hasn't been established yet, BCC cannot apply its profile.*
+
 
 
 
@@ -874,6 +942,26 @@ Change Music Center to **Stable Connection**, then:
 1. Disconnect the headset.
 2. Optionally apply SBC via Developer Options or Music Center.
 3. Reconnect using BCC or Fast Pair (with override bypass).
+
+
+## 🎧 Headphone Firmware Storage Behavior (Sony WH-1000XM5)
+
+Sony’s WH-1000XM5 can **store only a limited set of codec settings** in firmware between power cycles.
+
+| Parameter                      | Stored in Firmware | How It's Set                      | Persistent? | Notes                                                                 |
+|-------------------------------|--------------------|-----------------------------------|-------------|-----------------------------------------------------------------------|
+| **Codec** (SBC / LDAC)        | ✅ Yes             | Last active codec at power-off    | ✅          | The most recently used codec is remembered.                          |
+| **LDAC Quality Mode**         | ✅ Yes             | Only via Sony Music Center        | ✅          | "Priority on Sound Quality" = 990kbps<br>"Stable Connection" = Adaptive |
+| **Sample Rate**               | ❌ No              | Set by Android host at runtime    | ❌          | Always needs to be re-applied on connect (e.g., via BCC or UAPP)     |
+| **Bit Depth**                 | ❌ No              | Set by Android host at runtime    | ❌          | Cannot be stored in firmware                                         |
+
+📌 **Important:**  
+- **Sony Music Center** is the **only app** that can store the LDAC **quality mode** (not the bitrate itself).
+- **Sample rate and bit depth must always be forced** by the phone — either via:
+  - Bluetooth Codec Changer (BCC),
+  - Hi-res aware app (e.g., UAPP or Neutron),
+  - Or codec handshake tricks.
+
 
 
 ## Usb Audio Player Pro
