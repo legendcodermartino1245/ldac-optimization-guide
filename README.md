@@ -958,6 +958,42 @@ Change Music Center to **Stable Connection**, then:
 2. Optionally apply SBC via Developer Options or Music Center.
 3. Reconnect using BCC or Fast Pair (with override bypass).
 
+### 🛰️ Background Behavior — Music Center Codec Reassertion
+
+Sony Music Center doesn’t just apply codec settings once — it registers a background **Bluetooth service** that monitors codec state and may silently reassert its LDAC mode when:
+
+- 🔁 Headphones reconnect  
+- 🎚️ LDAC toggle is changed in system settings  
+- 🎵 A playback app (like UAPP or Neutron) triggers a new LDAC session
+
+📌 Even if you **swipe the app away**, these background receivers **remain active**.
+
+---
+
+### ✅ How to Stop Music Center from Overriding LDAC
+
+1. **Force stop** the app  
+   `Settings → Apps → Sony Music Center → Force Stop`
+
+2. *(Optional but recommended)*  
+   **Clear app storage** to remove any stored LDAC quality settings
+
+3. **Reconnect** or **power cycle** the headphones  
+   → Ensures your BCC or UAPP profile isn’t silently overwritten
+
+---
+
+### 🟡 What About the “Disconnect” Button?
+
+> The **“Disconnect”** button inside Sony Music Center temporarily halts codec control during that session  
+> — but it does **not stop** future LDAC overrides or wipe stored profiles.
+
+✅ Useful for quick testing  
+❌ Not a full solution — use **Force Stop** if you want permanent override prevention
+
+
+
+
 
 ## 🎧 Headphone Firmware Storage Behavior (Sony WH-1000XM5)
 
