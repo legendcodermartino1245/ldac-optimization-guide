@@ -845,6 +845,19 @@ Absolute Volume on means it has to hit 85% of volume minimal
 >
 > Opening Music Center **after a profile has been set by another app** will immediately trigger a renegotiation to the **currently selected LDAC mode inside the app**, overriding any prior configuration—even if BCC or UAPP had previously succeeded.
 
+## 🔍 Additional Notes on Codec Storage and LDAC Behavior
+
+- **LDAC quality settings written by Music Center are not applied immediately.**  
+  The selected codec (e.g., 990 kbps) is stored in the headset firmware, but it only takes effect **on the next Bluetooth connection**.  
+  Even then, due to the LDAC bug, the codec may **appear correct in dumpsys or the GUI** but still stream at the wrong quality.  
+  ➤ Always verify actual playback quality — never trust visuals alone.
+
+- **No delay is needed to store a codec profile.**  
+  After applying SBC or a 16-bit LDAC intermediate profile (via Music Center or BCC), you can **power off the headphones immediately**.  
+  The setting is written to firmware instantly — no need to wait 10+ seconds.  
+  ➤ This enables faster and more reliable handshake training for override bypass strategies.
+
+
 
 ## Usb Audio Player Pro
 1. Install uapp from play store.
