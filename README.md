@@ -847,56 +847,49 @@ Absolute Volume on means it has to hit 85% of volume minimal
 
 
 ## Usb Audio Player Pro
-Uapp
-Install uapp from play store
-Open uapp
-Allow to access music and audio
-Click ok on release notes
-Click on on file access warning
-Add your folders with high res music if you have that i would highly recommend this app for that usecase
-Click ok hint for metadata
-Click close
-Settings reset settings to be sure
-settings internal audio driver hires direct driver
-Settings system disable pause on audio focus loss to prevent stuttering when accessing other apps on your phone at the same time
-Settings internal hires audio bit perfect mode on
-Settings bluetooth audio enable use with the hires direct driver
+Install uapp from play store.
+Open uapp.
+Allow to access music and audio.
+Click ok on release notes.
+Click on on file access warning.
+Add your folders with high res music if you have that i would highly recommend this app for that usecase.
+Click ok hint for metadata.
+Click close.
+Settings reset settings to be sure.
+settings internal audio driver hires direct driver.
+Settings system disable pause on audio focus loss to prevent stuttering when accessing other apps on your phone at the same time.
+Settings internal hires audio bit perfect mode on.
+Settings bluetooth audio enable use with the hires direct driver.
 
-Settings bluetooth audio request bluetooth connect permission
-Allow
-Click ok
-Close app
-Reopen app
-Allow to access bluetooth headset when asked
-Click ok for release notes
-Click ok for internal hires dac detected
-Click ok for file access warning
-Settings bluetooth audio preferred bt codec ldac
-Settings bluetooth audio preferred bt sample  rate Change sample rate according to source
-Settings bluetooth audio LDAC quality Optimized audio quality
-Settings bluetooth audio LDAC resolution Use 24 if you want to play high res and use 16 bit if you want to play 16 bit bit perfect
-Verify the following settings
-Bt sample sample rate is set to change Sample rate according to source
-Ldac quality set to optimized sound quality 
-Ldac resolution 24 bit
-
-
+Settings bluetooth audio request bluetooth connect permission.
+Allow.
+Click ok.
+Close app.
+Reopen app.
+Allow to access bluetooth headset when asked.
+Click ok for release notes.
+Click ok for internal hires dac detected.
+Click ok for file access warning.
+Settings bluetooth audio preferred bt codec ldac.
+Settings bluetooth audio preferred bt sample  rate Change sample rate according to source.
+Settings bluetooth audio LDAC quality Optimized audio quality.
+Settings bluetooth audio LDAC resolution Use 24 if you want to play high res and use 16 bit if you want to play 16 bit bit perfect.
+Verify the following settings.
+Bt sample sample rate is set to change Sample rate according to source.
+Ldac quality set to optimized sound quality.
+Ldac resolution 24 bit.
 
 #Neutron Player
-Install neutron from Google play
-Open neutron
-Choose language 
-Audio file source automatic and show neutron player where your files are
-Let neutron scan audio file
-Enable high Resolution audio when asked
-Settings playback 64 bit processing on
-Settings playback resampling audiophile
-
-Settings profile bit-perfect device choose headphones
-
-Settings audio hardware generic driver high res bluetooth on![image](https://github.com/user-attachments/assets/c62f2108-81b6-4725-8cd7-517b81a6a819)
-
-
+Install neutron from Google play.
+Open neutron.
+Choose language.
+Audio file source automatic and show neutron player where your files are.
+Let neutron scan audio file.
+Enable high Resolution audio when asked.
+Settings playback 64 bit processing on.
+Settings playback resampling audiophile.
+Settings profile bit-perfect device choose headphones.
+Settings audio hardware generic driver high res bluetooth on.
 
 ## Samsung Codec Behavior 
 AAC override is also always active right if LDAC isn't enabled and does enable hd audio in dev settings.
