@@ -791,8 +791,62 @@ To ensure a smooth and stable LDAC multipoint experience:
 | 5 | Android + Windows  | Android  | Windows  | ON / ON                  | 1.6 / 1.6              |
 | 6 | Android + Windows  | Android  | Windows  | OFF / OFF                | 1.6 / 1.6              |
 | 7 | Android + Windows  | Android  | Windows  | ON / OFF                 | 1.6 / 1.6              |
-
 > ⚠️ **All configurations above were tested with AVRCP 1.6**. Other AVRCP versions were not evaluated and may yield different switching or stability behavior.
+## Absolute Volume
+Absolute Volume on means it has to hit 85% of volume minimal 
+
+## Music Center
+> 🎧 This table applies when using the volume slider inside the **Sony | Music Center** app with **Absolute Volume OFF**.  
+> Android system volume is ignored, and all volume control is handled by the headphones.
+
+| Step | Approx. % Volume |
+|------|------------------|
+| 1    | 3%               |
+| 2    | 7%               |
+| 3    | 10%              |
+| 4    | 13%              |
+| 5    | 17%              |
+| 6    | 20%              |
+| 7    | 23%              |
+| 8    | 27%              |
+| 9    | 30%              |
+| 10   | 33%              |
+| 11   | 37%              |
+| 12   | 40%              |
+| 13   | 43%              |
+| 14   | 47%              |
+| 15   | 50%              |
+| 16   | 53%              |
+| 17   | 57%              |
+| 18   | 60%              |
+| 19   | 63%              |
+| 20   | 67%              |
+| 21   | 70%              |
+| 22   | 73%              |
+| 23   | 77%              |
+| 24   | 80%              |
+| 25   | 83%              |
+| 26   | 87%              |
+| 27   | 90%              |
+| 28   | 93%              |
+| 29   | 97%              |
+| 30   | 100% (max)       |
+
+---
+
+> ⚠️ **Codec Behavior Note**  
+> The **Sony | Music Center** app can only switch between:
+>
+> - **SBC**
+> - **LDAC 96 kHz 32-bit Adaptive**
+> - **LDAC 96 kHz 32-bit 909/990 kbps (Fixed)**
+>
+> Once LDAC is locked by Music Center, **external tools like Bluetooth Codec Changer (BCC) and USB Audio Player PRO (UAPP) cannot override it** unless the codec is renegotiated via disconnection or an SBC handshake.
+>
+> Opening Music Center **after a profile has been set by another app** will immediately trigger a renegotiation to the **currently selected LDAC mode inside the app**, overriding any prior configuration—even if BCC or UAPP had previously succeeded.
+
+
+
 
 
 
