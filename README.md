@@ -879,7 +879,7 @@ Absolute Volume on means it has to hit 85% of volume minimal
 27. Ldac quality set to optimized sound quality.
 28. Ldac resolution 24 bit.
 
-#Neutron Player
+## Neutron Player
 1. Install neutron from Google play.
 2. Open neutron.
 3. Choose language.
@@ -895,25 +895,66 @@ Absolute Volume on means it has to hit 85% of volume minimal
 
 
 
-## Settings that interfere with Ldac 990 and not interfere:
+## ⚙️ Settings That Interfere with LDAC 990kbps
 
+These settings are known to interfere with LDAC 990kbps stability and should be disabled or adjusted:
 
-1. Google assistant on the headset must be off this is the real deal and on the phone itself. 
-2. Dont just disable google app and revoke nearby devices permission give permission back and disable google assistant on the phone.
-3. Disable Bleutooth and Wifi scanning.
-4. Set hotspot to 5 ghz.
-5. Disable wifi if your network is only 2.4 ghz.
-6. Disable music sharing.
-7. Disabling scan for nearby devices is not redundant if you disallowed the nearby devices permission.
-8. Uninstall smartwatch related apps and forget bleutooth devices related to it.
-9. Disable Samsung nearby devices.
-10. Disable Samsung multi control.
-11. Disable bleutooth scanning. 
-12. Disable WiFi scanning.
-13. Disable google location accuracy.
-14. Disable searching for nearby devices in Google services setttings.
-15. Disable saved devices in Google services.
-16. Disable Switching to better networks.
+1. **Google Assistant**  
+   - Must be disabled both on the **headset** and the **phone itself**.  
+   - Don't just disable the Google app — instead, **grant Nearby Devices permission back**, then disable Google Assistant cleanly in settings.
+
+2. **Bluetooth and Wi-Fi Scanning**  
+   - Must be disabled completely to prevent background interference.  
+   - Includes Developer Option toggles **and** ADB permission removal for Google Play Services.
+
+3. **Hotspot Band**  
+   - Set your mobile hotspot to **5GHz**.  
+   - **2.4GHz hotspots** interfere with LDAC stability.
+
+4. **Wi-Fi Network Type**  
+   - If your network is **only 2.4GHz**, disable Wi-Fi entirely.
+
+5. **Music Sharing**  
+   - Disable Samsung’s **Bluetooth Music Sharing** feature.
+
+6. **Nearby Devices Scanning**  
+   - Disabling Nearby Devices permission **is not enough**.  
+   - Also turn off scanning under:  
+     `Settings > Google > Devices & Sharing > Nearby Share`
+
+7. **Smartwatch & BLE Companion Apps**  
+   - Uninstall apps like Galaxy Wearable, Zepp, etc.  
+   - Forget any unused **Bluetooth LE devices**.
+
+8. **Samsung-Specific Features**  
+   - Disable:
+     - **Samsung Nearby Devices**
+     - **Samsung Multi Control**
+
+9. **Google Location Accuracy**  
+   - Disable under:  
+     `Settings > Location > Location Services > Google Location Accuracy`
+
+10. **Saved Devices in Google Services**  
+    - Prevent Google from syncing or overriding LDAC profiles.
+
+11. **Switching to Better Networks**  
+    - Found in Wi-Fi settings under “Advanced.”  
+    - Disable to prevent mid-session access point switching.
+
+12. **NFC Usage**  
+    - Having **NFC enabled is fine**, but **using NFC during LDAC playback** (e.g., pairing via tap) causes codec renegotiation.  
+    - Avoid using NFC features while listening.
+
+---
+
+## 📱 ADB Optimization Strategy (For Google Play Services)
+
+> “Keep Location services and scanning toggles ON, but disable Wi-Fi and Bluetooth scanning access for Google Play Services via ADB to stabilize LDAC 990kbps without breaking smart features.”
+
+📌 Optional ADB one-liner:
+```bash
+adb shell appops set com.google.android.gms NEARBY_WIFI_DEVICES ignore && adb shell appops set com.google.android.gms BLUETOOTH_SCAN ignore && adb shell appops set com.google.android.gms ACCESS_FINE_LOCATION ignore
 
 
 Use of NFC chip interferers with ldac
