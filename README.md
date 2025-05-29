@@ -1762,6 +1762,26 @@ When **AV is OFF**, Android no longer sends volume changes to the headset. As a 
 
 
 
+## 🔁 Is Switching to SBC Enough to Reset Samsung’s LDAC Override?
+
+Yes — switching the codec to **SBC** is the **only necessary step** to:
+
+- ✅ Flush Samsung's stored LDAC override from Developer Options
+- ✅ Trigger a fresh LDAC negotiation on next connection
+- ✅ Enable Bluetooth Codec Changer (BCC) to fully take control
+
+### Why This Works:
+Samsung caches your previous LDAC profile (sample rate, bit depth, mode) from Developer Options.  
+This override survives Developer Options being turned off — unless:
+
+> 🔄 You **manually switch to SBC first**, forcing a full codec reset handshake.
+
+### What You **Don’t** Need to Change:
+| Setting             | Required to reset override? | Why |
+|---------------------|-----------------------------|-----|
+| Sample Rate         | ❌ No                        | Ignored after codec changes to SBC |
+| Bit Depth           | ❌ No                        | Also ignored outside LDAC sessions |
+| HD Audio Toggle     | ❌ No                        | Disables LDAC but leaves override intact |
 
 
 
