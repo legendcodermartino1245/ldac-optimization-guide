@@ -1983,3 +1983,17 @@ This override survives Developer Options being turned off — unless:
 154. Enable adaptive sampling notification 
 155. Disable adaptive sampling and only enable when you really need it
 
+#### Google Play Services Interference Timing
+
+You do **not** need to disable Nearby Devices or revoke Find My Device permissions immediately.
+
+✅ During initial setup (SBC handshake, profile injection, LDAC training), Google’s override services do not interfere — as long as Developer Options are cleared and Music Center is inactive.
+
+Only after the LDAC 990 profile is confirmed and stored in firmware should you disable:
+
+- Nearby Devices for com.google.android.gms (via ADB or system settings)
+- Assistant and Find My Device background access (optional)
+
+This keeps device tracking and Assistant functional during initial setup.
+
+
