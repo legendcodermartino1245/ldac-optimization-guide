@@ -1986,6 +1986,64 @@ These apps **control the sample rate internally**, so BCC **cannot detect or fol
 > 🧪 For bit-perfect output with apps like UAPP or Neutron in Hi-Res mode, **disable Adaptive Sample Rate Switching** in BCC — let the app control LDAC directly.
 
 
+
+
+
+## 🛠️ Troubleshooting Tricks I Used
+
+These low-level techniques helped uncover hidden sources of LDAC interference.
+
+---
+
+### 🔍 Inspect Permission Usage to Detect LDAC Interference
+
+You can identify apps or system components that silently interfere with Bluetooth, Nearby Devices, or scanning features by checking **recent permission usage logs**.
+
+#### ✅ Step-by-Step
+
+1. Open **Settings**  
+   → `Settings → Security and privacy → Privacy`
+
+2. Tap **“Permission usage”** or **“Permission manager”**
+
+3. Look for the section:  
+   → **“Permissions used in last 24 hours”**
+
+4. Tap the following entries one by one:
+   - **Nearby Devices**
+   - **Bluetooth**
+   - **Location**
+
+5. Tap the **⋮ three-dot menu** in the top right  
+   → Enable **“Show system apps”**
+
+6. Carefully inspect which apps accessed these permissions.  
+   Look for **background services** or **Google/Samsung apps** that may cause interference.
+
+---
+
+### 🎯 What to Watch Out For
+
+| Permission        | Unexpected Offenders                    | Action to Take                         |
+|-------------------|------------------------------------------|----------------------------------------|
+| **Nearby Devices**| Google Play Services, Assistant          | Deny permission or use ADB `appops`    |
+| **Bluetooth**     | Music Center, Galaxy Wearable, GMS       | Force-stop or uninstall                |
+| **Location**      | SmartThings, Zepp, Health tracking apps  | Disable or deny permission             |
+
+---
+
+💡 *This method reveals hidden reconnections, override attempts, or scanning triggers — even after toggles have been turned off.*
+
+> ✅ Combine this technique with `dumpsys bluetooth_manager` or ADB log monitoring for full visibility.
+
+
+
+
+
+
+
+
+
 ## Basic setup from start
 1. Settings Google services all services devices enable scan for nearby devices
 
