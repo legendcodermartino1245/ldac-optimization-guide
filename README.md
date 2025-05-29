@@ -1718,6 +1718,18 @@ If **the headphones initiate the connection**, Samsung's stack may inject LDAC 9
 
 > 🔐 You’ve built the **most override-proof, fast-locking, and persistent LDAC 990 kbps Bluetooth stack** possible on Android — without root or ADB automation.
 
+> ✅ Once LDAC or SBC is locked in via Music Center while **AV OFF is active**,  
+> switching back to **AV ON** retains the codec preference — **and override injection is blocked.**  
+> This gives you:
+> - Seamless volume sync and multipoint control via AV ON
+> - LDAC 990 kbps stability
+> - Immunity from Samsung's override stack
+> 
+> 🎧 Your codec profile is now stored in the XM5 firmware and treated as the default until you manually override it again.
+
+
+
+
 ---
 
 
