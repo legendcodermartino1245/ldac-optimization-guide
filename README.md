@@ -1696,6 +1696,66 @@ If **the headphones initiate the connection**, Samsung's stack may inject LDAC 9
 
 
 
+## 🎚️ Why AV OFF Can Sound Worse — Even with DSEE Off
+
+### ✅ Summary
+
+> Even when DSEE is **disabled**, some users (including yourself) have reported that **Absolute Volume OFF sounds less detailed** than AV ON.  
+> This is not due to upscaling or LDAC encoding — the **cause is internal DSP misbehavior** on the Sony WH-1000XM5.
+
+---
+
+### 🧠 Root Cause: Internal DSP Depends on AV ON
+
+The **Sony WH-1000XM5** relies on volume signaling from Android to tune its:
+
+- Internal **DSP curves**
+- **Analog gain** and headroom
+- **EQ balance** (tonal shaping)
+
+When **Absolute Volume is ON**, Android sends digital volume levels that the XM5 uses to:
+
+- Apply correct **gain staging**
+- Enable internal **sound optimizations**
+- Maintain proper **tone balance** for any given volume
+
+When **AV is OFF**, Android no longer sends volume changes to the headset. As a result:
+
+- The XM5 **only sees internal analog volume step changes**
+- It may fall back to a **lower-gain or flatter sound profile**
+- Dynamic behavior like **EQ and gain adjustment** is skipped
+
+---
+
+### 🟢 TL;DR
+
+> AV OFF disables Android-to-headphone volume signaling.  
+> This causes the XM5 to assume it’s in a different gain mode, which can lead to:
+>
+> - Flatter sound  
+> - Less resolution  
+> - Dull dynamics  
+>
+> Even with **DSEE turned off**, the result is a **loss of perceived detail**.
+
+---
+
+### 📊 Behavior Table: AV Mode vs XM5 Processing
+
+| AV Mode   | What the XM5 Does                                                                 | Result                          |
+|-----------|------------------------------------------------------------------------------------|----------------------------------|
+| **AV ON** | Gets consistent volume signals from Android; applies DSP, gain, EQ as intended     | ✅ Crisp, clear, optimized sound |
+| **AV OFF**| No external volume signal; reacts only to analog volume steps                      | ⚠️ May drop to low-gain profile → flatter or muffled sound |
+
+---
+
+### ✅ What This Means for AV Tuning
+
+- Bit-perfect signal isn’t everything — **Sony tunes its sound around AV ON**
+- For best results:
+  - Use **AV ON** if you want **optimal clarity and tonal balance**
+  - Use **AV OFF** if you're doing **critical testing or mastering**, but accept tradeoffs
+- DSEE OFF confirms: this is about **signal routing**, not upscaling artifacts
 
 
 
