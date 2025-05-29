@@ -855,15 +855,17 @@ To ensure a smooth and stable LDAC multipoint experience:
 
 ## 🎧 Multipoint AV/AVRCP Combination Matrix (LDAC on Both Devices)
 
-| # | Setup Type         | Device A | Device B | Absolute Volume (A / B) | AVRCP Version (A / B) | Notes                                                    |
-|---|--------------------|----------|----------|--------------------------|------------------------|----------------------------------------------------------|
-| 1 | Android + Android  | Android  | Android  | ON / ON                  | 1.6 / 1.6              |                                                          |
-| 2 | Android + Android  | Android  | Android  | OFF / OFF                | 1.6 / 1.6              |                                                          |
-| 3 | Android + Android  | Android  | Android  | OFF / ON                 | 1.6 / 1.6              |                                                          |
-| 4 | Android + Windows  | Android  | Windows  | OFF / ON                 | 1.6 / 1.6              | Switching devices is with slight stuttering and switching devices isnt seamless |
-| 5 | Android + Windows  | Android  | Windows  | ON / ON                  | 1.6 / 1.6              | Switching devices is without stuttering                  |
-| 6 | Android + Windows  | Android  | Windows  | OFF / OFF                | 1.6 / 1.6              | Switching devices is with slight stuttering and switching devices isnt seamless |
-| 7 | Android + Windows  | Android  | Windows  | ON / OFF                 | 1.6 / 1.6              | Switching devices is with slight stuttering and switching devices isnt seamless |
+| # | Setup Type         | Device A | Device B | Absolute Volume (A / B) | AVRCP Version (A / B) | Notes                                                                 |
+|---|--------------------|----------|----------|--------------------------|------------------------|------------------------------------------------------------------------|
+| 1 | Android + Android  | Android  | Android  | ON / ON                  | 1.6 / 1.6              | Switching devices is without stuttering                                |
+| 2 | Android + Android  | Android  | Android  | OFF / OFF                | 1.6 / 1.6              | Switching devices is with slight stuttering and switching isn't seamless |
+| 3 | Android + Android  | Android  | Android  | OFF / ON                 | 1.6 / 1.6              | Switching devices is with slight stuttering and switching isn't seamless |
+| 4 | Android + Windows  | Android  | Windows  | OFF / ON                 | 1.6 / 1.6              | Switching devices is with slight stuttering and switching isn't seamless |
+| 5 | Android + Windows  | Android  | Windows  | ON / ON                  | 1.6 / 1.6              | Switching devices is without stuttering                                |
+| 6 | Android + Windows  | Android  | Windows  | OFF / OFF                | 1.6 / 1.6              | Switching devices is with slight stuttering and switching isn't seamless |
+| 7 | Android + Windows  | Android  | Windows  | ON / OFF                 | 1.6 / 1.6              | Switching devices is with slight stuttering and switching isn't seamless |
+| 8 | Android + Android  | Android  | Android  | ON / OFF                 | 1.6 / 1.6              | Switching devices is with slight stuttering and switching isn't seamless |
+
 > ⚠️ **All configurations above were tested with AVRCP 1.6**. Other AVRCP versions were not evaluated and may yield different switching or stability behavior.
 
 
