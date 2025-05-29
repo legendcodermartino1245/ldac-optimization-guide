@@ -1488,6 +1488,59 @@ You're getting:
 
 > **“85% volume with Absolute Volume ON is loud enough for full dynamics without distortion or compression — and still sounds 100% clean, even if not technically bit-perfect.”**
 
+## 🧩 Real-Time Behavior of AV ON/OFF Toggle (Developer Options)
+
+Yes — the AV ON/OFF setting applies instantly when toggled in Developer Options, **but** its effects depend on Bluetooth connection state.
+
+---
+
+### ⚡ Does AV ON/OFF Apply Instantly?
+
+| Condition                       | Instant Effect? | Notes                                                                 |
+|--------------------------------|------------------|-----------------------------------------------------------------------|
+| Toggle while connected          | ✅ Yes           | Volume control behavior changes immediately — no need to disconnect   |
+| Toggle while disconnected       | ✅ Yes           | Effect takes place on next connection                                 |
+| Codec behavior (DevOpts)       | ❌ No            | Codec isn't renegotiated automatically — handshake required           |
+| BCC profile status              | ✅/❌ Depends     | BCC may require reconnection to reassert profile post-toggle          |
+
+---
+
+### 🎧 Example 1: Toggle AV OFF While Headphones Are Connected
+
+- Android instantly hands volume control to the headphones  
+- Developer Option codec settings become **inactive**  
+- If LDAC was already active, it **remains in place** — no codec renegotiation
+
+---
+
+### 🎧 Example 2: Toggle AV ON While Connected
+
+- Android regains volume control  
+- Developer Option codec control becomes **active again**  
+- SBC/LDAC switching becomes possible (but handshake still required)
+
+---
+
+### 🧠 Important Subtleties
+
+- **Toggling AV ON/OFF does *not* renegotiate codec**  
+- To apply a new codec (e.g. SBC → LDAC), you must:
+  - Disconnect & reconnect  
+  - Or trigger handshake via **BCC**, **UAPP playback**, or **Media Audio toggle**
+
+- **Developer Options become active only when AV is ON**, but **codec settings don’t apply** until the **Bluetooth handshake** occurs again
+
+---
+
+### ✅ Safe Usage Tip
+
+When prepping for a reset or applying AV OFF:
+
+1. Toggle AV ON/OFF **while headphones are connected**  
+2. Trigger codec renegotiation (SBC trick or reconnect)  
+3. Confirm state using:
+   ```bash
+   adb shell dumpsys bluetooth_manager
 
 
 
