@@ -1427,4 +1427,235 @@ After first pairing:
 AV off can be utilized to block Samsung override.
 
 
+## Basic setup from start
+Settings Google services all services devices enable scan for nearby devices
+
+Settings Google services all services devices saved devices enable automatically save devices
+
+
+Settings Apps Search or find Google Play services open Permissions allow Nearby devices
+Disable google play services
+Stop google play services
+Enable google play services
+
+Settings developer options
+Disable Disable absolute volume 
+Disable usb debugging
+Disable developer options itself
+Set AVRCP version to 1.5 (default)
+Settings General Management Reset Reset Wi-Fi and Bluetooth settings
+Reset Mobile network settings
+Settings Connections Wi-Fi Three dots Intelligent Wi-Fi Connectivity labs Reset all labs settings
+
+Clear storage of following apps:
+- Sony Music Center
+- Sony Sound Connect
+- Bluetooth Codec Changer
+
+Settings Apps Sony Sound Connect storage Clear Data
+
+Settings Apps Bluetooth codec Changer storage Clear Data
+	
+Settings Apps Sony Music Center Storage Clear Data
+
+Settings Location Location Services make sure Wi-Fi scanning is on and Bluetooth scanning is on
+Location accuracy is on
+Earthquake alerts on
+Emergency location service on
+
+
+Settings Connections Wi-Fi three dots intelligent Wi-Fi Switch to better Wi-Fi networks on
+Turn Wi-Fi on/off automatically on
+Show Network quality info on
+Prioritize real-time data on
+Go back to W-iFi 
+Turn WiFi itself on
+Three dots intelligent Wi-Fi
+Switch to mobile data on
+Detect Suspicious networks on
+
+Settings Connections Mobile Networks VoLTE calls SIM 1 on
+Network mode 5G/4G/3G/2G (auto connect)
+Enable wifi scanning
+
+
+
+
+Enable Developer Options Settings About Phone Software information tap build number 7 times authenticate 
+Settings scroll down see developer options
+
+Settings developer options Disable absolute volume
+
+Settings developer options Bluetooth avcrp version AVCRP 1.6
+
+Settings Connections Wi-Fi three dots Intelligent Wi-Fi tap 7 times on Intelligent Wi-Fi Connectivity Labs appears click on it Customize Wi-Fi list settings show band information
+Settings Connections Bluetooth Forget headphones 
+
+Settings Google services all services devices saved devices disable automatically save devices
+
+Open find my device
+Find your headphones
+Click settings icon
+Remove from find my device
+Remove
+
+
+Re pair headphones using fast pair wait for popup
+Click connect
+Open sound connect
+Choose language and accept terms
+Next privacy policy
+Agree and proceed 3 times
+Close 
+Cannot connect to Bluetooth click ok
+Allow nearby devices permission 
+Choose name for headphones and click ok 
+Click later when trying to sign in
+Continue without restoring
+Setup next
+Ambient sound later
+Go to tutorial 
+Next
+Done
+Close
+Device settings
+System
+Initialize settings
+Initialize headphone settings
+Check one check box
+Click initialize
+Click ok
+Wait till reconnection
+
+
+
+After continuation of all apps:
+Settings Connections Disable Wifi 
+
+Settings Apps Search or find Google Play services open Permissions don't allow Nearby devices
+Disable google play services
+Stop google play services
+Enable google play services
+
+Settings Apps Search or find Google 
+services open Permissions don't allow Nearby devices
+Disable google 
+Stop google
+Enable google
+
+
+
+
+Download and install the following apps from Google play store:
+	- Sony Music Center
+	- Sony Sound Connect
+	- Bluetooth Codec Changer
+	- Find my device
+
+
+
+
+
+Enable developer options
+
+
+
+
+Forget headphones in settings
+
+
+2 routes to go from here based on the Disable absolute volume dev setting you set
+
+
+Settings developer options Disable absolute volume off
+
+Open Bluetooth Codec Changer 
+Buy Premium in the app
+Allow nearby devices
+Allow the connected headphones to be managed by bleutooth codec changer
+Click okay on the android 14 bleutooth warning 
+Click on okay about translating of the app
+Click settings
+Click profiles 
+Click enable codec profiles
+Click backup profiles
+Import backup file
+Select the file that is made for when the absolute volume setting is off
+Click home to verify the codec profiles are imported succesfully 
+When asked to disable battery optimization you do that for the Bluetooth codec changer app click on app's settings select battery select unrestricted
+Go back to the app settings advanced disable 2-step switch note seems to work for Samsung phones other phones are not tested do your own research
+Settings saved devices add conmected device
+Settings saved devices device control ok
+Settings auto switch add background service add service
+Grant notification permission grant and allow
+Default codec ldac
+Default codec option 44.1 24 stereo save
+LDAC playback quality optimized for sound quality (990 or 909kbps)
+Click execution delay click okay click save
+Volume control 100
+Close the app
+System settings developer options enable usb debugging
+Connect your phone using a usb cable with data capability to your pc
+Download ADB
+ adb shell appops set com.google.android.gms BLUETOOTH_SCAN ignore
+ adb shell appops set com.google.android.gms NEARBY_WIFI_DEVICES ignore
+ adb shell pm grant com.amrg.bluetooth_codec_converter android.permission.DUMP
+If you use powershell do this command now:
+while ($true) {
+    Clear-Host
+    adb shell dumpsys bluetooth_manager | Select-String "ldac"
+ Start-Sleep -Seconds 2
+}
+
+
+
+
+Open bleutooth codec changer
+settings ultra advanced enable adaptive sample rate beta click okay
+Enable lock bits per sample
+Enable adaptive sampling notification 
+Disable adaptive sampling and only enable when you really need it
+
+
+
+
+
+
+Settings developer options Disable absolute volume on
+Open Bluetooth Codec Changer 
+Buy Premium in the app
+Allow nearby devices
+Allow the connected headphones to be managed by bleutooth codec changer
+Click okay on the android 14 bleutooth warning 
+Click on okay about translating of the app
+Click settings
+Click profiles 
+Click enable codec profiles
+Click backup profiles
+Import backup file
+Select the file that is made for when the absolute volume setting is on
+Click home to verify the codec profiles are imported succesfully 
+When asked to disable battery optimization you do that for the Bluetooth codec changer app click on app's settings select battery select unrestricted
+Go back to the app settings advanced disable 2-step switch note seems to work for Samsung phones other phones are not tested do your own research
+Settings saved devices add conmected device
+Settings saved devices device control ok
+Settings auto switch add background service add service
+Grant notification permission grant and allow
+Default codec ldac
+Default codec option 44.1 24 stereo save
+LDAC playback quality optimized for sound quality (990 or 909kbps)
+Click execution delay click okay click save
+Volume control 100
+Close the app
+System settings developer options enable usb debugging
+Connect your phone using a usb cable with data capability to your pc
+Download ADB
+adb shell appops set com.google.android.gms BLUETOOTH_SCAN ignore
+ adb shell appops set com.google.android.gms NEARBY_WIFI_DEVICES ignore
+ adb shell pm grant com.amrg.bluetooth_codec_converter android.permission.DUMP
+Open bleutooth codec changer
+settings ultra advanced enable adaptive sample rate beta click okay
+Enable lock bits per sample
+Enable adaptive sampling notification 
+Disable adaptive sampling and only enable when you really need it
 
