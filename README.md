@@ -862,8 +862,8 @@ To ensure a smooth and stable LDAC multipoint experience:
 | 3 | Android + Android  | Android  | Android  | OFF / ON                 | 1.6 / 1.6              |                                                          |
 | 4 | Android + Windows  | Android  | Windows  | OFF / ON                 | 1.6 / 1.6              | Switching devices is with slight stuttering and switching devices isnt seamless |
 | 5 | Android + Windows  | Android  | Windows  | ON / ON                  | 1.6 / 1.6              | Switching devices is without stuttering                  |
-| 6 | Android + Windows  | Android  | Windows  | OFF / OFF                | 1.6 / 1.6              | Switching devices is with slight stuttering and switching devices isnt seamless |                                                         |
-| 7 | Android + Windows  | Android  | Windows  | ON / OFF                 | 1.6 / 1.6              | Switching devices is with slight stuttering and switching devices isnt seamless |                                                         |
+| 6 | Android + Windows  | Android  | Windows  | OFF / OFF                | 1.6 / 1.6              | Switching devices is with slight stuttering and switching devices isnt seamless |
+| 7 | Android + Windows  | Android  | Windows  | ON / OFF                 | 1.6 / 1.6              | Switching devices is with slight stuttering and switching devices isnt seamless |
 > ⚠️ **All configurations above were tested with AVRCP 1.6**. Other AVRCP versions were not evaluated and may yield different switching or stability behavior.
 
 
