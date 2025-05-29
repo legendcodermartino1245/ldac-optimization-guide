@@ -1542,7 +1542,7 @@ When prepping for a reset or applying AV OFF:
    ```bash
    adb shell dumpsys bluetooth_manager
 
-
+“Absolute Volume OFF disables Android’s codec negotiation authority. Without AV ON, SBC resets fail and override persists.”
 
 ## Basic setup from start
 1. Settings Google services all services devices enable scan for nearby devices
