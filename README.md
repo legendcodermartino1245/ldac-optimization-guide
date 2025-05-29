@@ -431,10 +431,6 @@ This table expands on the common ways to connect your headphones (from NFC to Fa
 
 ## ✅ Complete LDAC Codec Reset Matrix (v2025)
 
-### 🎧 HEADSET-SIDE RESETS (Sony WH-1000XM Series)
-
-## ✅ Complete LDAC Codec Reset Matrix (v2025)
-
 ---
 
 ### 🎧 HEADSET-SIDE RESETS (Sony WH-1000XM Series)
