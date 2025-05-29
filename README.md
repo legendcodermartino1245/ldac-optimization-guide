@@ -865,6 +865,35 @@ To ensure a smooth and stable LDAC multipoint experience:
 | 6 | Android + Windows  | Android  | Windows  | OFF / OFF                | 1.6 / 1.6              |                                                          |
 | 7 | Android + Windows  | Android  | Windows  | ON / OFF                 | 1.6 / 1.6              |                                                          |
 > ⚠️ **All configurations above were tested with AVRCP 1.6**. Other AVRCP versions were not evaluated and may yield different switching or stability behavior.
+
+
+
+## Windows volume level with AV on on both devices
+| Android Volume Step (%) | Approx. Matching Windows Volume (%) | Notes                                 |
+|--------------------------|--------------------------------------|---------------------------------------|
+| 0%                       | 0%                                   | Muted                                 |
+| 6%                       | 5%                                   | Very quiet                            |
+| 13%                      | 10–12%                               | Low; not recommended for LDAC         |
+| 20%                      | 15–20%                               | May trigger signal attenuation        |
+| 26%                      | 25%                                  | Soft, below stable handoff threshold  |
+| 33%                      | 30–35%                               | Minimum for casual listening          |
+| 40%                      | 40%                                  | Noticeable gain start                 |
+| 46%                      | 50%                                  | Beginning of stable range             |
+| 53%                      | 60%                                  | Entry-level for balanced switching    |
+| 60%                      | 68–70%                               | Near optimal for casual fidelity      |
+| 66%                      | 75–78%                               | Reliable balance for most setups      |
+| 73%                      | 80–85%                               | Recommended baseline for switching    |
+| 80%                      | 88–90%                               | Ideal for LDAC 990 fidelity matching  |
+| 86%                      | 92–94%                               | High detail, balanced control         |
+| 93%                      | 96–98%                               | Nearly full-scale                     |
+| 100%                     | 100%                                 | Bit-perfect full loudness             |
+
+
+
+
+
+
+
 ## Absolute Volume
 Absolute Volume on means it has to hit 85% of volume minimal 
 
