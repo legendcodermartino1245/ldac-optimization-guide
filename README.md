@@ -856,15 +856,15 @@ To ensure a smooth and stable LDAC multipoint experience:
 
 ## 🎧 Multipoint AV/AVRCP Combination Matrix (LDAC on Both Devices)
 
-| # | Setup Type         | Device A | Device B | Absolute Volume (A / B) | AVRCP Version (A / B) |
-|---|--------------------|----------|----------|--------------------------|------------------------|
-| 1 | Android + Android  | Android  | Android  | ON / ON                  | 1.6 / 1.6              |
-| 2 | Android + Android  | Android  | Android  | OFF / OFF                | 1.6 / 1.6              |
-| 3 | Android + Android  | Android  | Android  | OFF / ON                 | 1.6 / 1.6              |
-| 4 | Android + Windows  | Android  | Windows  | OFF / ON                 | 1.6 / 1.6              |
-| 5 | Android + Windows  | Android  | Windows  | ON / ON                  | 1.6 / 1.6              |
-| 6 | Android + Windows  | Android  | Windows  | OFF / OFF                | 1.6 / 1.6              |
-| 7 | Android + Windows  | Android  | Windows  | ON / OFF                 | 1.6 / 1.6              |
+| # | Setup Type         | Device A | Device B | Absolute Volume (A / B) | AVRCP Version (A / B) | Notes                                                    |
+|---|--------------------|----------|----------|--------------------------|------------------------|----------------------------------------------------------|
+| 1 | Android + Android  | Android  | Android  | ON / ON                  | 1.6 / 1.6              |                                                          |
+| 2 | Android + Android  | Android  | Android  | OFF / OFF                | 1.6 / 1.6              |                                                          |
+| 3 | Android + Android  | Android  | Android  | OFF / ON                 | 1.6 / 1.6              |                                                          |
+| 4 | Android + Windows  | Android  | Windows  | OFF / ON                 | 1.6 / 1.6              |                                                          |
+| 5 | Android + Windows  | Android  | Windows  | ON / ON                  | 1.6 / 1.6              | Switching devices is without stuttering with AV ON on both devices, two files can be pressed to be played at the same time if android is the one actually playing |
+| 6 | Android + Windows  | Android  | Windows  | OFF / OFF                | 1.6 / 1.6              |                                                          |
+| 7 | Android + Windows  | Android  | Windows  | ON / OFF                 | 1.6 / 1.6              |                                                          |
 > ⚠️ **All configurations above were tested with AVRCP 1.6**. Other AVRCP versions were not evaluated and may yield different switching or stability behavior.
 ## Absolute Volume
 Absolute Volume on means it has to hit 85% of volume minimal 
