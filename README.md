@@ -1937,7 +1937,53 @@ This:
 > Use tools like **Spek** on Windows to verify high-res masters.
 
 
+### 🎚️ Adaptive Sample Rate Switching in BCC — What It Actually Does
 
+When **Adaptive Sample Rate Switching** is enabled in **Bluetooth Codec Changer (BCC)**, it:
+
+- Monitors the **actual playback sample rate** from the **Android audio mixer**
+- Dynamically re-applies the LDAC codec profile using that exact sample rate
+- Ensures LDAC **matches the app’s output sample rate**, giving you sample-accurate playback without having to manually set it
+
+This allows LDAC to track **44.1 kHz**, **48 kHz**, or **96 kHz** content automatically — ideal for **streaming apps** that change resolution depending on the source.
+
+---
+
+### ✅ Works With These App Types
+
+Apps that use Android’s standard audio stack (non-exclusive mode):
+
+- YouTube Music  
+- Spotify  
+- Qobuz (standard mode)  
+- Tidal  
+- Samsung Music  
+- Sony Music Center  
+- BubbleUPnP  
+- Neutron (when 64-bit mode is **OFF**)
+
+---
+
+### ❌ Doesn’t Work With These Apps
+
+Apps that bypass the Android audio mixer via exclusive or Hi-Res mode:
+
+- USB Audio Player PRO (UAPP)  
+- Neutron (64-bit mode ON)  
+- Roon / Roon ARC  
+- Poweramp (Hi-Res mode)
+
+These apps **control the sample rate internally**, so BCC **cannot detect or follow** the actual playback resolution.
+
+---
+
+### 🧠 Key Takeaways
+
+- BCC Adaptive Sample Rate switching **does not change the codec** — only the **sample rate**.
+- It applies **after playback begins**, usually within **1–3 seconds**.
+- It's the best way to keep LDAC sample-accurate **without exclusive mode**, as long as the app doesn’t bypass the mixer.
+
+> 🧪 For bit-perfect output with apps like UAPP or Neutron in Hi-Res mode, **disable Adaptive Sample Rate Switching** in BCC — let the app control LDAC directly.
 
 
 ## Basic setup from start
