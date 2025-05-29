@@ -891,7 +891,153 @@ To ensure a smooth and stable LDAC multipoint experience:
 | 100%                     | 100%                                 | Bit-perfect full loudness             |
 
 
+# 🔧 Alternative A2DP Driver – Android + Windows LDAC Multipoint Notes
 
+## 🛒 Installation Steps
+
+1. **Buy license from:** [https://www.bluetoothgoodies.com/a2dp/](https://www.bluetoothgoodies.com/a2dp/)
+2. **Install the stable version of the software**
+3. **Configure the following:**
+   - Install the Alternative A2DP Driver
+4. **Optionally reboot after**
+
+---
+
+## 🎛 Optimal LDAC Settings (Windows A2DP Driver)
+
+### 🎵 Media Focus / CD Quality (for apps with exclusive access via WASAPI)
+
+- **Sample Rate:** 44.1 kHz or 48 kHz  
+- **Bit Depth:** 16-bit  
+- **Stereo Mode:** Stereo  
+- **Encode Quality:** High (HQ)  
+- **Adaptive Bitrate:** Disabled
+
+---
+
+### 🧠 High-Res Playback (for apps with exclusive access via WASAPI)
+
+- **Sample Rate:** 44.1 / 48 / 88.2 / 96 kHz  
+- **Bit Depth:** 24-bit  
+- **Stereo Mode:** Stereo  
+- **Encode Quality:** High (HQ)  
+- **Adaptive Bitrate:** Disabled
+
+---
+
+### 🎯 Bit Depth-Only Resampling (for high-res playback in exclusive mode)
+
+- **Only get depth rate resampling when playing high res**
+- Ensure exclusive mode is ON
+- Useful for apps that properly handle bit-perfect streams
+
+---
+
+## 🎶 Spotify Specific Behavior
+
+- **Spotify doesn’t support WASAPI**
+- Use 44.1 kHz, 16-bit LDAC profile
+- Avoid enabling exclusive mode or adaptive bitrate
+- Stick to media-optimized LDAC profile
+
+---
+
+## 🔄 AVRCP Behavior and Multipoint Issues
+
+- **AVRCP 1.6 on both Windows 11 and Android causes stuttering**
+  - Stutter occurs shortly after unlocking the phone
+- Even if **Windows is playing and using AVRCP 1.6 by itself**,  
+  it can stutter when Android is connected but idle — just because multipoint is active.
+- **Windows randomly pauses without reason** during multipoint playback.
+- **With AVRCP 1.5 on Windows**, Android still sees Windows as playing audio.
+- **More stuttering occurs when unlocking the phone** if AVRCP is switched to 1.5.
+
+---
+
+## 🪛 AVRCP Registry Setting on Windows
+
+> Windows 11 has a secret AVRCP version registry key.  
+> When both devices can play at the same time, **you've successfully activated it.**
+
+```reg
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\BthA2dp\Parameters]
+"AvrcpVersion"=dword:00000015
+```
+## 🔁 Multipoint + LDAC Dual Control Behavior
+
+- With AVRCP 1.6 on both devices:
+  - You can **press play on both Android and Windows**
+  - Audio from both can **attempt to play at the same time**
+  - If **Android is the active source**, stuttering is minimal
+  - If **Windows is the active source**, Android stops playback
+
+- Even **Windows randomly pauses** without any user interaction during multipoint
+- Android **still sees that Windows is playing audio**, even if Windows uses AVRCP 1.5
+
+---
+
+## 🧠 LDAC Control Roles
+
+> With correct setup:
+> - **Windows acts as the dominant LDAC controller**
+> - **Android behaves as an intelligent follower**
+> - **UAPP on Android** yields to Windows even when playing in high-res exclusive mode
+
+This behavior has been validated across:
+- Android 13 / 14 (One UI variants)
+- Windows 11 with AVRCP 1.5/1.6
+- LDAC fixed and adaptive configurations (mirrored)
+
+---
+
+## 📶 LDAC Multipoint Confirmation
+
+> Everything works in multi-control.  
+> All combinations of **fixed and adaptive** LDAC modes are valid  
+> **as long as both sides are mirrored.**
+
+- Do **not use 32-bit on Android**
+  - It adds **no audible benefit**
+  - It introduces instability in codec negotiation
+
+---
+
+## 🎉 Multipoint Works "As Intended" — But Isn't
+
+> LDAC Multipoint is **supported** — and it works.
+
+- Android and Windows can both stream audio over LDAC
+- You can **press play on both**, and both streams will try to take control
+- Audio stability depends on who initiates playback
+- This works despite not being **intended behavior** by most manufacturers
+
+---
+
+## 🧪 Final Test Results
+
+- When **Absolute Volume is ON**, and **Windows is playing**:
+  - You can still **press play on Android**
+  - Playback from Android stops silently
+  - No override happens unless Android is prioritized first
+- **Very little stuttering** when Android plays while Windows is still active
+- **Perfect behavior when Android is the audio source and Windows is idle**
+
+> “It only stutters **very little**”
+
+---
+
+## ✅ Final Takeaways
+
+- ✅ True **multi-control LDAC** is possible between Android and Windows
+- ✅ Works best when **Android is the primary source**
+- ✅ **Windows should use AVRCP 1.5**, but 1.6 works with more care
+- ✅ **Absolute Volume ON (Windows)** / **OFF (Android)** gives best sync
+- ✅ Android **intelligently yields** if Windows takes codec control
+- ✅ Pressing play on both works — **if Android is the one actually playing**
+- ✅ Mirrored profiles (fixed/adaptive) = most stable
+- ❌ Avoid 32-bit audio on Android — unnecessary and buggy
+
+---
 
 
 
