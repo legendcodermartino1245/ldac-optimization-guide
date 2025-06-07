@@ -977,6 +977,26 @@ The **only reliable way** to influence the AVRCP version used in **Windows** is 
 
 > 🔧 **Note**: AVRCP negotiation is unidirectional — **the lower of the two devices' supported versions wins**.
 
+## 🔁 LDAC Multipoint: What Actually Needs to Match
+
+| Parameter                                 | Must Match? |
+|-------------------------------------------|-------------|
+| **Codec Type (must be LDAC)**             | ✅ Yes      |
+| **Absolute Volume Setting**               | ❌ No*      |
+| **Bluetooth Connection Quality**          | ❌ No*      |
+| **LDAC Mode (Fixed vs Adaptive)**         | ❌ No       |
+| **LDAC Bitrate (e.g. 990 / 660 / 330)**   | ❌ No       |
+| **LDAC Bit Depth (16 / 24-bit)**          | ❌ No       |
+| **LDAC Sample Rate (44.1 / 48 / 96 kHz)** | ❌ No       |
+| **Source Media Format (FLAC, MP3, etc.)** | ❌ No       |
+| **Original Sample Rate / Bit Depth**      | ❌ No       |
+| **AVRCP Version (1.5 vs 1.6)**            | ❌ No       |
+| **Operating System (Android / Windows)**  | ❌ No       |
+| **Audio App (UAPP, Neutron, etc.)**       | ❌ No       |
+
+---
+
+\* Absolute Volume and Bluetooth signal quality **do not need to match** for codec compatibility, but aligning them can improve **connection stability** and reduce **stutter risk** in edge cases.
 
 
 
