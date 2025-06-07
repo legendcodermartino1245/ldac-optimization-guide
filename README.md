@@ -996,7 +996,7 @@ The **only reliable way** to influence the AVRCP version used in **Windows** is 
 
 ---
 
-\* Absolute Volume and Bluetooth signal quality **do not need to match** for codec compatibility, but aligning them can improve **connection stability** and reduce **stutter risk** in edge cases.
+\* Absolute Volume **doesnt need to match** for codec compatibility, but aligning them can improve **connection stability** and reduce **stutter risk** in edge cases.
 
 
 
