@@ -970,6 +970,27 @@ Modifying `AvrcpTargetVersion` in the Windows Registry has no effect on AVRCP be
 
 ---
 
+| Bluetooth Version | Default AVRCP Version(s) |
+|-------------------|--------------------------|
+| 2.0 + EDR         | 1.0–1.3                  |
+| 2.1 + EDR         | 1.3–1.4                  |
+| 3.0 + HS          | 1.4                      |
+| 4.0               | 1.4–1.5                  |
+| 4.1               | 1.5                      |
+| 4.2               | 1.5                      |
+| 5.0               | 1.6                      |
+| 5.1               | 1.6                      |
+| 5.2               | 1.6                      |
+| 5.3               | 1.6                      |
+| 5.4               | 1.6                      |
+
+
+---
+
+
+
+
+
 ## 🧠 LDAC Control Roles
 
 > With correct setup:
@@ -1030,6 +1051,28 @@ This behavior has been validated across:
 - ✅ Pressing play on both works — **if Android is the one actually playing**
 - ✅ Mirrored profiles (fixed/adaptive) = most stable
 - ❌ Avoid 32-bit audio on Android — unnecessary and buggy
+
+
+### 🔄 Windows + Android Multipoint Tips (LDAC / Bluetooth)
+
+#### ✅ View Codec Info via Android's Sound Assistant or Sound Connect While Playing from Windows
+When using **multipoint with Windows as the active audio source**, you can still:
+- Open **Sound Assistant** or **Sound Connect** on your Android device  
+- See the **active Bluetooth audio codec** (e.g. LDAC)  
+- Monitor connection state, device battery, and metadata (e.g. track title)
+
+🧠 **Why this works**: Android stays connected over control and data channels, even if it’s not playing audio. This allows apps like Sound Connect to report codec info live.
+
+#### 📌 Fix Device Selection in Sound Connect During Multipoint
+While LDAC multipoint is active:
+- Open **Sound Connect** on Android  
+- **Pin** or **lock** the headphones to Android within the app  
+- This ensures consistent codec visibility and device control
+
+> 🔒 Useful when switching sources frequently — it prevents Android from deprioritizing the device in the UI or misreporting connection status.
+
+
+
 
 ---
 
