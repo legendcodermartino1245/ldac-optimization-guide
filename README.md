@@ -982,6 +982,16 @@ Enable exclusive mode **only** inside apps like:
 
 ---
 
+### 🔁 Re-Apply After Every Re-Pair
+
+> ⚠️ **All Windows audio settings above must be manually re-applied after every Bluetooth re-pair.**
+
+When you re-pair LDAC headphones, Windows assigns a new audio device instance, which:
+- Resets **audio enhancements**, **spatial sound**, and **exclusive mode priority** settings
+- May label the device the same in name, but internally treats it as a **new endpoint**
+
+**Always revisit `Control Panel → Sound → Playback` and reconfigure all settings** for the newly paired instance to maintain optimal LDAC performance and multipoint stability.
+
 ## 🔄 AVRCP Behavior and Multipoint Issues
 
 - **AVRCP 1.6 on both Windows 11 and Android causes stuttering**
