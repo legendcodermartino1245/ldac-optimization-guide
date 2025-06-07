@@ -1073,8 +1073,11 @@ While LDAC multipoint is active:
 > - Playback interruptions
 > - Stuttering during multipoint with Android
 >
-> AVRCP 1.5 avoids these issues completely by keeping Windows passive in media control.  
-> ✅ Use a Bluetooth 4.2 (or lower) dongle to force AVRCP 1.5 on Windows.
+> ✅ **AVRCP 1.5 avoids these issues** by keeping Windows passive in media control and respecting Android’s LDAC session.
+>
+> 🔄 **Note:** Short, *predictable stuttering* may still occur during device switching — but it **recovers instantly without codec fallback**.
+>
+> 👉 To force AVRCP 1.5, use a **Bluetooth 4.2 (or lower)** dongle.
 
 ---
 
