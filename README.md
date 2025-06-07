@@ -1213,6 +1213,57 @@ AV OFF on Android fully eliminates unlock stutters with AVRCP 1.6.
 
 When using **AVRCP 1.6** in a multipoint LDAC setup, **matching audio format (sample rate and bit depth)** across devices becomes essential for preventing stutters, glitches, and renegotiations.
 
+
+## 🎧 AVRCP 1.6 Button Control Works — Even When Android Is the Active Source
+
+Contrary to common belief, **headset media buttons (play/pause/skip)** still work on **Windows with AVRCP 1.6**, **even when Android is currently streaming LDAC audio**.
+
+This proves AVRCP remains active and responsive on both connections during multipoint use — not just the one providing audio.
+
+---
+
+### ✅ Behavior Summary
+
+| Condition                         | Headset Button Works? | Behavior                                                                 |
+|----------------------------------|------------------------|--------------------------------------------------------------------------|
+| **Android streaming LDAC**       | ✅ Yes                 | Button press on headset **controls Windows apps** (Spotify, YouTube, etc.) |
+| **Windows not playing audio**    | ✅ Yes                 | Buttons **wake** MediaSession on Windows — playback resumes              |
+| **Both devices idle**            | ✅ Yes                 | First button press **awakens one side** — whichever responds first wins |
+| **Windows using AVRCP 1.5**      | ❌ No                  | Headset buttons **do not register** — Windows acts as passive target     |
+
+---
+
+### 🧠 Technical Explanation
+
+- **AVRCP 1.6 remains active**, even without an active A2DP stream
+- **Sony WH-1000XM5** headset sends commands across **both Bluetooth control channels**
+- **Windows listens** for media control events and resumes playback if a session exists
+- **Android does not block AVRCP role** when streaming LDAC
+
+> ✅ **Absolute Volume OFF** on Android does **not interfere** with this behavior  
+> ✅ **AVRCP 1.6** is required — **AVRCP 1.5 disables button functionality**
+
+---
+
+### 🔄 Practical Result: True Multi-Control Multipoint
+
+With proper configuration:
+
+- **Android streams LDAC**  
+- **Windows accepts media controls**  
+- Both devices **stay connected and responsive**  
+- You can press **play/pause/skip** on the headset at any time — no matter which device is active
+
+---
+
+### 📌 Addendum for Guide
+
+> ✅ **With AVRCP 1.6 on Windows, headset media buttons still function even when Android is the active audio source.**  
+> This confirms that **AVRCP control stays alive on both connections**, enabling **dual-device responsiveness** without requiring audio to be active on both ends.
+
+
+
+
 ---
 
 
