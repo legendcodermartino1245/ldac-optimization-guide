@@ -1209,6 +1209,9 @@ but it doesn’t stop the **broadcast loop initiated by Android.**
 
 
 
+### 🔁 Why Format Matching Matters with AVRCP 1.6 Multipoint
+
+When using **AVRCP 1.6** in a multipoint LDAC setup, **matching audio format (sample rate and bit depth)** across devices becomes essential for preventing stutters, glitches, and renegotiations.
 
 ---
 
