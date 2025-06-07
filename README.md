@@ -827,14 +827,6 @@ To ensure a smooth and stable LDAC multipoint experience:
 - **On Android:**
   - Enable AVRCP 1.6 once in Developer Options
   - **It persists even after Developer Options are turned off**
-  
-- **On Windows:**
-  - Set via registry edit:
-
-```reg
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Bluetooth\Audio\AVRCP]
-"AvrcpTargetVersion"=dword:00000006
-```
 ## 🔄 LDAC Multipoint Stability Factors
 
 | Factor                       | Configuration Options                                               | Related Notes or Interactions                                      |
