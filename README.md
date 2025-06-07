@@ -976,6 +976,9 @@ The **only reliable way** to influence the AVRCP version used in **Windows** is 
 
 > 🔧 **Note**: AVRCP negotiation is unidirectional — **the lower of the two devices' supported versions wins**.
 
+
+
+
 ---
 
 
@@ -1063,7 +1066,15 @@ While LDAC multipoint is active:
 > 🔒 Useful when switching sources frequently — it prevents Android from deprioritizing the device in the UI or misreporting connection status.
 
 
-
+> 🧠 **AVRCP 1.5 is more stable than 1.6 on Windows — period.**
+>
+> Using AVRCP 1.6 on Windows causes:
+> - Random pauses
+> - Playback interruptions
+> - Stuttering during multipoint with Android
+>
+> AVRCP 1.5 avoids these issues completely by keeping Windows passive in media control.  
+> ✅ Use a Bluetooth 4.2 (or lower) dongle to force AVRCP 1.5 on Windows.
 
 ---
 
