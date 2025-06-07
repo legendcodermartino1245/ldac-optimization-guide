@@ -1108,6 +1108,10 @@ While LDAC multipoint is active:
 > ✅ This ensures clean AVRCP session transfer  
 > ✅ Prevents renegotiation or fallback  
 > ✅ Maintains LDAC 990kbps without stutter
+>
+> Call Audio Always Takes Priority — But Doesn’t Affect LDAC Codec State
+> LDAC multipoint never causes fallback, even across mismatched bitrates or sample rates — as long as both devices use LDAC and only one plays at a time.
+
 
 
 
