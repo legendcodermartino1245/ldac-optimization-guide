@@ -1262,6 +1262,16 @@ With proper configuration:
 > This confirms that **AVRCP control stays alive on both connections**, enabling **dual-device responsiveness** without requiring audio to be active on both ends.
 
 
+### 🛑 Android Automatically Pauses When Windows Becomes Active
+
+With AVRCP 1.6 and multipoint active:
+
+- If **Windows starts playback** while **Android is actively streaming LDAC**,  
+- **Android will pause automatically**, without requiring user input or media button presses.
+
+This handoff is a result of **AVRCP media session priority negotiation** — not a bug.
+
+> ✅ Ensure Android has **Absolute Volume OFF** to prevent playback stalls or stutters during this transition.
 
 
 ---
