@@ -1207,6 +1207,7 @@ Even with Remote Control disabled:
 🧠 This setting only prevents **Windows from sending AVRCP commands**,  
 but it doesn’t stop the **broadcast loop initiated by Android.**
 
+AV OFF on Android fully eliminates unlock stutters with AVRCP 1.6.
 
 
 ### 🔁 Why Format Matching Matters with AVRCP 1.6 Multipoint
