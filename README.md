@@ -1078,6 +1078,17 @@ While LDAC multipoint is active:
 > 🔄 **Note:** Short, *predictable stuttering* may still occur during device switching — but it **recovers instantly without codec fallback**.
 >
 > 👉 To force AVRCP 1.5, use a **Bluetooth 4.2 (or lower)** dongle.
+> 🎯 **Tip for Seamless Multipoint Switching (No Stutter)**
+>
+> To avoid stutters during LDAC multipoint handoff:
+> - **Pause** playback on the currently active device
+> - **Then play** from the other device
+>
+> ✅ This ensures clean AVRCP session transfer  
+> ✅ Prevents renegotiation or fallback  
+> ✅ Maintains LDAC 990kbps without stutter
+
+
 
 ---
 
