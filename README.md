@@ -269,18 +269,6 @@ If the system is still in **SBC or AAC mode**, BCC cannot switch to LDAC.
 
 🧠 *BCC profiles are runtime-only. If LDAC hasn't been established yet, BCC cannot apply its profile.*
 
-
-
-
-
-💡 **Samsung Override Bypass Without SBC**
-
-If you want to apply **44.1 kHz / 24-bit / 990 kbps**, set the **Intermediate Profile** in BCC to:
-
-> `44.1 kHz / 16-bit / 990 kbps (Fixed)`
-
-This reliably forces a valid LDAC renegotiation that **bypasses Samsung’s override**, without requiring SBC.
-
 👁️ **BCC GUI Reflects External Codec Changes**
 
 As of the latest update, BCC’s GUI reflects LDAC codec changes made by **other apps or the system**, such as:
@@ -557,7 +545,7 @@ These steps **eliminate all stored codec profiles**, Fast Pair metadata, Develop
 9. **Clear Fast Pair Metadata**  
    `Settings → Google → Devices & Sharing → Saved Devices → [Headphones] → Remove`
 
-9b. **Temporarily enable Nearby Devices for Google Play Services**  
+9a. **Temporarily enable Nearby Devices for Google Play Services**  
    - `Settings → Apps → Google Play Services → Permissions → Nearby Devices`  
    - `This enables Fast Pair to show up during pairing`
 
