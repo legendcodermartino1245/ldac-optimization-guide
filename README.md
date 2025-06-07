@@ -962,6 +962,15 @@ Modifying `AvrcpTargetVersion` in the Windows Registry has no effect on AVRCP be
 
 ---
 
+### 🧠 Controlling AVRCP Version? You Can’t — Unless You Change Hardware
+
+The **only reliable way** to influence the AVRCP version used in **Windows** is to **buy a Bluetooth adapter with a specific Bluetooth version**.
+
+- Windows **ignores** the `AvrcpTargetVersion` registry key on all modern Bluetooth stacks (including the Bluetooth Goodies A2DP driver).
+- You **cannot downgrade or upgrade AVRCP** via software alone — the stack negotiates the **highest mutually supported version** between the dongle and the device.
+
+
+
 | Bluetooth Version | Default AVRCP Version(s) |
 |-------------------|--------------------------|
 | 2.0 + EDR         | 1.0–1.3                  |
@@ -976,6 +985,8 @@ Modifying `AvrcpTargetVersion` in the Windows Registry has no effect on AVRCP be
 | 5.3               | 1.6                      |
 | 5.4               | 1.6                      |
 
+
+> 🔧 **Note**: AVRCP negotiation is unidirectional — **the lower of the two devices' supported versions wins**.
 
 ---
 
