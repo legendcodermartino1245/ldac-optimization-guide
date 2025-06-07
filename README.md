@@ -1193,6 +1193,23 @@ This behavior can silently disrupt an active LDAC stream, especially at **990 kb
 - Windows (still paired) may respond with stale AVRCP 1.6 info
 - The Sony headphones renegotiate session state → **audio glitch**
 
+### 🚫 Disabling “Remote Control” in Windows Doesn’t Help
+
+You might think that disabling the **“Remote Control”** service in Windows (under `Bluetooth Services → Headphones`) would fix unlock-time stutters caused by **AVRCP 1.6**.
+
+> ❌ It doesn’t — and here’s why:
+
+Even with Remote Control disabled:
+- **Android still pushes MediaSession data via AVRCP 1.6**
+- **Headphones still detect session conflict**
+- **LDAC renegotiation still occurs**, triggering a brief audio drop
+
+🧠 This setting only prevents **Windows from sending AVRCP commands**,  
+but it doesn’t stop the **broadcast loop initiated by Android.**
+
+
+
+
 ---
 
 
