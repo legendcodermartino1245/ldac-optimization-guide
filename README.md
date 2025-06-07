@@ -1168,13 +1168,17 @@ While LDAC multipoint is active:
 > Call Audio Always Takes Priority — But Doesn’t Affect LDAC Codec State
 > LDAC multipoint never causes fallback, even across mismatched bitrates or sample rates — as long as both devices use LDAC and only one plays at a time.
 
+## 🎧 AVRCP 1.5 Limitation on Windows: Headset Buttons Do Not Work
 
+When **AVRCP 1.5** is used on Windows, **headset media buttons (play/pause/skip)** do **not** function to control playback on the PC.
 
+### ❌ Why?
+
+- Windows acts only as a **passive target (follower)** under AVRCP 1.5
+- The headset cannot send media control commands to the PC
+- You can control **the headset from Windows**, but **not Windows from the headset**
 
 ---
-
-
-
 
 ## Absolute Volume
 Absolute Volume on means it has to hit 85% of volume minimal 
@@ -1239,11 +1243,6 @@ Absolute Volume on means it has to hit 85% of volume minimal
 >
 > 📌 This means Music Center does **not** apply a fixed bitrate by default — it applies a **96 kHz Adaptive profile**, and lets LDAC decide between 330, 660, or 990 kbps in real time.
 
-
-
-
-
-
 ## 🔍 Additional Notes on Codec Storage and LDAC Behavior
 
 - **LDAC quality settings written by Music Center are not applied immediately.**  
@@ -1306,10 +1305,6 @@ Sony Music Center doesn’t just apply codec settings once — it registers a ba
 
 ✅ Useful for quick testing  
 ❌ Not a full solution — use **Force Stop** if you want permanent override prevention
-
-
-
-
 
 ## 🎧 Headphone Firmware Storage Behavior (Sony WH-1000XM5)
 
