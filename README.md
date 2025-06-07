@@ -811,7 +811,7 @@ A stable dual-LDAC setup requires careful tuning of:
 
 To ensure a smooth and stable LDAC multipoint experience:
 
-### ✅ AVRCP 1.6 on Both Devices
+### ✅ AVRCP 1.6 on Android
 
 - **On Android:**
   - Enable AVRCP 1.6 once in Developer Options
@@ -921,6 +921,64 @@ To ensure a smooth and stable LDAC multipoint experience:
 - Use 44.1 kHz, 16-bit LDAC profile
 - Avoid enabling exclusive mode or adaptive bitrate
 - Stick to media-optimized LDAC profile
+
+---
+
+## 🧼 Windows Audio: Clean Output Settings for LDAC Multipoint
+
+To ensure **LDAC 990 kbps stability**, **bit-perfect playback**, and **multipoint performance** without dropouts or codec renegotiation, configure your **Windows audio environment** using the following settings.
+
+---
+
+### ❌ Disable Audio Enhancements
+
+Prevents unwanted DSP (bass boost, loudness EQ, virtualization) from altering the signal before LDAC encoding.
+
+**Steps:**
+1. Open `Control Panel → Sound → Playback`
+2. Right-click your **Bluetooth headphones** → **Properties**
+3. Go to the **Enhancements** tab
+4. ✅ Check **“Disable all enhancements”**
+
+> ⚠️ If there's no Enhancements tab, go to **Advanced** instead and disable “Enable audio enhancements” if present.
+
+---
+
+### ❌ Disable Spatial Audio
+
+**Spatial Sound** adds unnecessary processing and may cause LDAC instability or resampling.
+
+**Steps:**
+1. Right-click the 🔊 **speaker icon** → **Sound settings**
+2. Under your Bluetooth output, click **Properties**
+3. Scroll to **Spatial Sound**
+4. Set to **Off**
+
+---
+
+### ❌ Disable “Give Exclusive Mode Applications Priority”
+
+This specific setting causes **LDAC session drops** and multipoint instability — especially with AVRCP 1.6.
+
+**Steps:**
+1. Open `Control Panel → Sound → Playback`
+2. Right-click your **Bluetooth LDAC device** → **Properties → Advanced tab**
+3. **Uncheck only**:
+   - ✅ **“Give exclusive mode applications priority”**
+
+> ✅ You may leave **“Allow applications to take exclusive control of this device”** **enabled** if using bit-perfect apps like **Roon** or **Neutron**.
+
+---
+
+### ✅ Use Exclusive Mode *Only* in Audio Players
+
+Leave system output non-exclusive to avoid interference.  
+Enable exclusive mode **only** inside apps like:
+
+- UAPP: `Hi-Res Direct Driver → Bit-Perfect Mode → ON`
+- Roon: `Exclusive Audio Access → ON` for WASAPI output
+
+> 🔧 This isolates the audio stream for direct LDAC delivery, bypassing Android-style mixers.
 
 ---
 
