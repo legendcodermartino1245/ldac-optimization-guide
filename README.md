@@ -1180,6 +1180,23 @@ When **AVRCP 1.5** is used on Windows, **headset media buttons (play/pause/skip)
 
 ---
 
+
+## 🔓 Android Unlock Stutters? The Hidden Cost of AVRCP 1.6
+
+If you're using **LDAC multipoint** (Android + Windows), and you notice a **brief stutter or glitch when unlocking your Android phone**, here's the reason:
+
+> 🧠 **AVRCP 1.6 on Android broadcasts media session updates on unlock** — even if Windows isn’t actively playing.
+
+This behavior can silently disrupt an active LDAC stream, especially at **990 kbps**, because:
+
+- Android resends metadata, playback state, or volume
+- Windows (still paired) may respond with stale AVRCP 1.6 info
+- The Sony headphones renegotiate session state → **audio glitch**
+
+---
+
+
+
 ## Absolute Volume
 Absolute Volume on means it has to hit 85% of volume minimal 
 
