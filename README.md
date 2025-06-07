@@ -2070,15 +2070,11 @@ When **Absolute Volume is ON**, Android sends digital volume levels that the XM5
 - Maintain proper **tone balance** for any given volume
 
 When **AV is OFF**, Android no longer sends volume changes to the headset. As a result:
-
 - The XM5 **only sees internal analog volume step changes**
 - It may fall back to a **lower-gain or flatter sound profile**
 - Dynamic behavior like **EQ and gain adjustment** is skipped
-
 ---
-
 ### 🟢 TL;DR
-
 > AV OFF disables Android-to-headphone volume signaling.  
 > This causes the XM5 to assume it’s in a different gain mode, which can lead to:
 >
@@ -2087,45 +2083,28 @@ When **AV is OFF**, Android no longer sends volume changes to the headset. As a 
 > - Dull dynamics  
 >
 > Even with **DSEE turned off**, the result is a **loss of perceived detail**.
-
 ---
-
 ### 📊 Behavior Table: AV Mode vs XM5 Processing
-
 | AV Mode   | What the XM5 Does                                                                 | Result                          |
 |-----------|------------------------------------------------------------------------------------|----------------------------------|
 | **AV ON** | Gets consistent volume signals from Android; applies DSP, gain, EQ as intended     | ✅ Crisp, clear, optimized sound |
 | **AV OFF**| No external volume signal; reacts only to analog volume steps                      | ⚠️ May drop to low-gain profile → flatter or muffled sound |
-
 ---
-
 ### ✅ What This Means for AV Tuning
-
 - Bit-perfect signal isn’t everything — **Sony tunes its sound around AV ON**
 - For best results:
   - Use **AV ON** if you want **optimal clarity and tonal balance**
   - Use **AV OFF** if you're doing **critical testing or mastering**, but accept tradeoffs
 - DSEE OFF confirms: this is about **signal routing**, not upscaling artifacts
-
-
-
-
-
-
 ## 🔁 Is Switching to SBC Enough to Reset Samsung’s LDAC Override?
-
 Yes — switching the codec to **SBC** is the **only necessary step** to:
-
 - ✅ Flush Samsung's stored LDAC override from Developer Options
 - ✅ Trigger a fresh LDAC negotiation on next connection
 - ✅ Enable Bluetooth Codec Changer (BCC) to fully take control
-
 ### Why This Works:
 Samsung caches your previous LDAC profile (sample rate, bit depth, mode) from Developer Options.  
 This override survives Developer Options being turned off — unless:
-
 > 🔄 You **manually switch to SBC first**, forcing a full codec reset handshake.
-
 ### What You **Don’t** Need to Change:
 | Setting             | Required to reset override? | Why |
 |---------------------|-----------------------------|-----|
@@ -2133,41 +2112,26 @@ This override survives Developer Options being turned off — unless:
 | Bit Depth           | ❌ No                        | Also ignored outside LDAC sessions |
 | HD Audio Toggle     | ❌ No                        | Disables LDAC but leaves override intact |
 
-
-
-
-
-
-
-
 ## 🎛️ 5. EQ Optimization (Wavelet Best Practices)
-
 For users who want to apply EQ while preserving LDAC 990 kbps playback, Wavelet is the safest option.
-
 ### 🛠️ Recommended EQ Setup
 Use **Wavelet** as your only EQ. Disable all other music app EQs:
-
 - ❌ Neutron DSP (if not using high-res bypass)
 - ❌ UAPP parametric EQ
 - ❌ Poweramp tone controls or presets
-
 ### ✅ Wavelet Settings for LDAC Stability
 | Setting         | Recommended Value                        |
 |----------------|-------------------------------------------|
 | Buffer Size     | **MAX** – Prevents dropouts and glitches |
 | Legacy Mode     | **OFF** (unless your phone requires it)  |
 | AutoEQ Profiles | **Enabled** – Clean tuning for most models |
-
 Grant DUMP permission for Wavelet to access the audio session:
 ```bash
 adb shell pm grant com.pittvandewitt.wavelet android.permission.DUMP
 ```
 
-
 ## 🎧 High-Resolution Audio Playback Tips
-
 ### 🔧 General Configuration Advice
-
 - **App-Specific Profiles in BCC** require **Usage Data Access** to function.
 - **64-bit mode in Neutron** breaks **BCC Adaptive Sample Rate Switching**.
 - Adaptive Sample Rate in BCC works on the **Android audio mixer**, not at app-level.
@@ -2176,11 +2140,8 @@ adb shell pm grant com.pittvandewitt.wavelet android.permission.DUMP
 - BCC Adaptive Sample Rate Switching shows full codec info in the notification:  
   `LDAC • 48000 • 16 • Stereo • Optimized for audio quality (990/909kbps) • S(48000 Hz)`
 - **Tasker cannot enhance Adaptive Sample Rate switching** — do not pursue this path.
-
 ---
-
 ### 🧠 Behavior of High-Res Audio Apps
-
 - **UAPP (USB Audio Player PRO)**:
   - Works best when LDAC is already set via BCC or Developer Options.
   - Opening the app resets the codec to **UAPP’s internal configuration**.
@@ -2188,22 +2149,16 @@ adb shell pm grant com.pittvandewitt.wavelet android.permission.DUMP
   - If BCC was active previously, you **must fully close and reopen UAPP** for it to take control of LDAC again.
   - **Auto Switch in BCC** interferes with UAPP — use App-Specific Profiles for all **other apps**, and **let UAPP handle its own LDAC settings**.
   - **Adaptive Sample Rate in BCC can crash UAPP** if LDAC settings are also active in BCC.
-
 - **Qobuz**:
   - Set streaming quality to **max 96 kHz** to avoid compatibility issues.
   - Adaptive Sample Rate should be enabled when **streaming or playing offline files**, so native track sample rate is used.
   - After offline listening, **disable Adaptive Sample Rate in BCC** for performance reasons.
-
 - **Neutron**:
   - Use **64-bit OFF** to allow BCC Adaptive Sample Rate to work.
   - With 64-bit ON, Neutron uses its own audio path, **bypassing BCC**.
-
 - **Roon / Roon ARC**: Not compatible with Adaptive Sample Rate switching in BCC.
-
 ---
-
 ### ✅ Apps Supported by BCC Adaptive Sample Rate Switching
-
 | Supported Apps             |
 |----------------------------|
 | YouTube Music              |
@@ -2215,31 +2170,23 @@ adb shell pm grant com.pittvandewitt.wavelet android.permission.DUMP
 | Samsung Music              |
 | Sony Music Center          |
 | Neutron Player (64-bit OFF)|
-
 ### ❌ Apps NOT Supported by Adaptive Sample Rate in BCC
-
 | Unsupported Apps                    |
 |-------------------------------------|
 | USB Audio Player PRO (UAPP)         |
 | Neutron Player (64-bit ON)          |
 | Roon                                |
 | Roon ARC                            |
-
 ---
-
 ### ⚠️ Adaptive Sample Rate Switching – Key Facts
-
 - Switching **does not change codec**, only sample rate.
 - Switching **takes 1–3 seconds** to apply after playback starts (in BCC).
 - In UAPP, **sample rate is applied instantly** at playback time.
 - Adaptive Sample Rate works **at connect-time** in BCC.
 - BCC is best used for **regular media apps**, not exclusive high-res output apps.
 - Use **App-Specific Profiles** in BCC for best LDAC 990 performance **outside UAPP**.
-
 ---
-
 ### 🧪 BCC App Delay Settings (Handshake Timing)
-
 | App                      | Delay Setting in BCC |
 |--------------------------|----------------------|
 | UAPP                     | Disable Delay        |
@@ -2250,161 +2197,99 @@ adb shell pm grant com.pittvandewitt.wavelet android.permission.DUMP
 | Tidal                    | Enable Delay         |
 | YouTube                  | Enable Delay         |
 | Netflix                  | Enable Delay         |
-
 > **Rule of Thumb:**  
 > - Hi-Res / Exclusive Output Apps → **Disable Delay**  
 > - Normal Streaming / Media Apps → **Enable Delay**
-
 ---
-
 ### 🔁 Codec Negotiation Strategy
-
 Use **Intermediate Profile Switching** in BCC:
 1. Connect as **SBC** to force a clean handshake.
 2. Immediately switch to **LDAC 990kbps** (or preferred fixed profile).
-
 This:
 - Cleans the override.
 - Trains the firmware profile.
 - Allows for stable codec persistence.
-
 ---
-
 ### 💡 Best Practices Summary
-
 - Only **one** hi-res player (UAPP or Neutron) should be open at a time.
 - Adaptive Sample Rate in BCC **doesn’t touch codec**, only sample rate.
 - UAPP’s Adaptive Switching **does change codec and sample rate** — preferred method.
 - Avoid App-Specific Profiles for **media apps** (Spotify, YouTube) — impractical.
 - Use App-Specific Profiles for **Qobuz, Tidal, etc.**, to ensure **CD-quality LDAC** outside UAPP.
-
 ---
-
 ### 📀 Mastering > Resolution
-
 > Great sound comes from **great mastering**, not just high-resolution formats.  
 > Only choose high-res audio if the **mastering is worth it**.  
 > Use tools like **Spek** on Windows to verify high-res masters.
-
-
 ### 🎚️ Adaptive Sample Rate Switching in BCC — What It Actually Does
-
 When **Adaptive Sample Rate Switching** is enabled in **Bluetooth Codec Changer (BCC)**, it:
-
 - Monitors the **actual playback sample rate** from the **Android audio mixer**
 - Dynamically re-applies the LDAC codec profile using that exact sample rate
 - Ensures LDAC **matches the app’s output sample rate**, giving you sample-accurate playback without having to manually set it
-
 This allows LDAC to track **44.1 kHz**, **48 kHz**, or **96 kHz** content automatically — ideal for **streaming apps** that change resolution depending on the source.
-
 ---
-
 ### ✅ Works With These App Types
-
 Apps that use Android’s standard audio stack (non-exclusive mode):
-
-- YouTube Music  
-- Spotify  
-- Qobuz (standard mode)  
-- Tidal  
-- Samsung Music  
-- Sony Music Center  
-- BubbleUPnP  
+- YouTube Music
+- Spotify
+- Qobuz (standard mode)
+- Tidal
+- Samsung Music
+- Sony Music Center
+- BubbleUPnP
 - Neutron (when 64-bit mode is **OFF**)
-
 ---
-
 ### ❌ Doesn’t Work With These Apps
-
 Apps that bypass the Android audio mixer via exclusive or Hi-Res mode:
-
 - USB Audio Player PRO (UAPP)  
 - Neutron (64-bit mode ON)  
 - Roon / Roon ARC  
 - Poweramp (Hi-Res mode)
-
 These apps **control the sample rate internally**, so BCC **cannot detect or follow** the actual playback resolution.
-
 ---
-
 ### 🧠 Key Takeaways
-
 - BCC Adaptive Sample Rate switching **does not change the codec** — only the **sample rate**.
 - It applies **after playback begins**, usually within **1–3 seconds**.
 - It's the best way to keep LDAC sample-accurate **without exclusive mode**, as long as the app doesn’t bypass the mixer.
-
 > 🧪 For bit-perfect output with apps like UAPP or Neutron in Hi-Res mode, **disable Adaptive Sample Rate Switching** in BCC — let the app control LDAC directly.
 
-
-
-
-
 ## 🛠️ Troubleshooting Tricks I Used
-
 These low-level techniques helped uncover hidden sources of LDAC interference.
-
 ---
-
 ### 🔍 Inspect Permission Usage to Detect LDAC Interference
-
 You can identify apps or system components that silently interfere with Bluetooth, Nearby Devices, or scanning features by checking **recent permission usage logs**.
-
 #### ✅ Step-by-Step
-
 1. Open **Settings**  
    → `Settings → Security and privacy → Privacy`
-
 2. Tap **“Permission usage”** or **“Permission manager”**
-
 3. Look for the section:  
    → **“Permissions used in last 24 hours”**
-
 4. Tap the following entries one by one:
    - **Nearby Devices**
    - **Bluetooth**
    - **Location**
-
 5. Tap the **⋮ three-dot menu** in the top right  
    → Enable **“Show system apps”**
-
 6. Carefully inspect which apps accessed these permissions.  
    Look for **background services** or **Google/Samsung apps** that may cause interference.
-
 ---
-
 ### 🎯 What to Watch Out For
-
 | Permission        | Unexpected Offenders                    | Action to Take                         |
 |-------------------|------------------------------------------|----------------------------------------|
 | **Nearby Devices**| Google Play Services, Assistant          | Deny permission or use ADB `appops`    |
 | **Bluetooth**     | Music Center, Galaxy Wearable, GMS       | Force-stop or uninstall                |
 | **Location**      | SmartThings, Zepp, Health tracking apps  | Disable or deny permission             |
-
 ---
-
 💡 *This method reveals hidden reconnections, override attempts, or scanning triggers — even after toggles have been turned off.*
-
 > ✅ Combine this technique with `dumpsys bluetooth_manager` or ADB log monitoring for full visibility.
-
-
-
-
-
-
-
-
 
 ## Basic setup from start
 1. Settings Google services all services devices enable scan for nearby devices
-
 2. Settings Google services all services devices saved devices enable automatically save devices
-
-
 3. Settings Apps Search or find Google Play services open Permissions allow Nearby devices
 3.1 Disable google play services
 3.2 Stop google play services
 3.3 Enable google play services
-
 4. Settings developer options
 5. Disable Disable absolute volume 
 6. Disable usb debugging
@@ -2531,16 +2416,11 @@ You can identify apps or system components that silently interfere with Bluetoot
     adb shell dumpsys bluetooth_manager | Select-String "ldac"
  Start-Sleep -Seconds 2
 }
-
-
-
-
 114. Open bleutooth codec changer
 115. settings ultra advanced enable adaptive sample rate beta click okay
 116. Enable lock bits per sample
 117. Enable adaptive sampling notification 
 118. Disable adaptive sampling and only enable when you really need it
-
 119. Settings developer options Disable absolute volume on
 120. Open Bluetooth Codec Changer 
 121. Buy Premium in the app
@@ -2580,16 +2460,9 @@ You can identify apps or system components that silently interfere with Bluetoot
 155. Disable adaptive sampling and only enable when you really need it
 
 #### Google Play Services Interference Timing
-
 You do **not** need to disable Nearby Devices or revoke Find My Device permissions immediately.
-
 ✅ During initial setup (SBC handshake, profile injection, LDAC training), Google’s override services do not interfere — as long as Developer Options are cleared and Music Center is inactive.
-
 Only after the LDAC 990 profile is confirmed and stored in firmware should you disable:
-
 - Nearby Devices for com.google.android.gms (via ADB or system settings)
 - Assistant and Find My Device background access (optional)
-
 This keeps device tracking and Assistant functional during initial setup.
-
-
