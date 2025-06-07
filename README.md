@@ -954,15 +954,9 @@ To ensure a smooth and stable LDAC multipoint experience:
 
 ---
 
-## 🪛 AVRCP Registry Setting on Windows
+### 🛑 Do Not Use Registry AVRCP Edits
 
-> Windows 11 has a secret AVRCP version registry key.  
-> When both devices can play at the same time, **you've successfully activated it.**
-
-```reg
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\BthA2dp\Parameters]
-"AvrcpVersion"=dword:00000015
-```
+Modifying `AvrcpTargetVersion` in the Windows Registry has no effect on AVRCP behavior with modern stacks (including Bluetooth Goodies). Windows 11 and 10 always uses AVRCP 1.4–1.6, and this cannot be changed manually. Metadata visibility and switching latency should be used to infer behavior instead.
 ## 🔁 Multipoint + LDAC Dual Control Behavior
 
 - With AVRCP 1.6 on both devices:
