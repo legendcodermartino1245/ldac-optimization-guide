@@ -2588,3 +2588,14 @@ Only after the LDAC 990 profile is confirmed and stored in firmware should you d
 - Nearby Devices for com.google.android.gms (via ADB or system settings)
 - Assistant and Find My Device background access (optional)
 This keeps device tracking and Assistant functional during initial setup.
+
+# macOS and iPhone – LDAC Status
+
+- **LDAC support:** ❌ **Not supported natively**
+- **Bluetooth stack modification:** ❌ **Not possible**  
+  macOS and iOS use a locked-down Bluetooth stack with **no access to codec-level customization** or third-party driver integration.
+- **Available codecs:** AAC (default), SBC — fixed by system
+- **Result:** You cannot enable LDAC, install alternative A2DP stacks, or override Apple’s default codec behavior.
+
+> 📌 **Summary:**  
+> **LDAC is fully unsupported** on both **macOS** and **iOS**, and there is no known workaround due to Apple’s closed ecosystem.
