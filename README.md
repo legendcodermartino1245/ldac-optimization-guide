@@ -1379,10 +1379,6 @@ Automatic pausing when a second device is active is a **platform-level feature**
 > In multipoint mode, Android can issue play/pause/skip commands to Windows directly through the Sony Headphones Connect app, while Windows is the active audio source.  
 > This confirms Windows fully acts as an AVRCP 1.6 Target, and Android as a Controller — beyond headset buttons alone.
 
----
-
-
-
 ## Absolute Volume
 Absolute Volume on means it has to hit 85% of volume minimal 
 
