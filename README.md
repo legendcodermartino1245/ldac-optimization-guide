@@ -1384,6 +1384,46 @@ Automatic pausing when a second device is active is a **platform-level feature**
 
 matching sample rate bit depth and bit rate is important for 1.6 not for 1.5
 
+
+## 🎛 Media Control Behavior Varies Across Apps
+
+Not all Windows audio players respond to Bluetooth media controls in the same way. This is due to differences in how each app interacts with Windows’ **Global Media Transport Control** system.
+
+### 🧠 Why This Matters
+
+Apps that fully integrate with the system:
+
+- ✅ Respond reliably to headset play/pause/skip buttons
+- ✅ Broadcast metadata (track name, artist, etc.) over AVRCP
+- ✅ Resume playback seamlessly after interruptions
+
+Apps that don’t integrate:
+
+- ❌ May ignore media buttons unless focused
+- ❌ Do not show metadata on headphones or connected devices
+- ❌ Require manual playback control and don’t resume automatically
+
+---
+
+### 🔄 LDAC Multipoint Implications
+
+When using **LDAC multipoint** (Android + Windows):
+
+- 🎧 Headset button behavior depends entirely on the media player’s system integration.
+- 🔁 Even with stable LDAC 990 kbps audio, some apps may not resume or respond without user interaction.
+- 📶 Metadata may be missing from Sony Headphones Connect or Android if the app does not expose it.
+
+---
+
+### ✅ Best Practice
+
+> For reliable multipoint performance:
+> - Use apps that integrate with Windows’ media transport session
+> - Keep the app open and in use to maintain session visibility
+> - If playback or media buttons don’t respond, it’s likely due to **app limitations**, not LDAC or Bluetooth issues
+
+
+
 ---
 
 ## Absolute Volume
