@@ -1045,7 +1045,7 @@ The **only reliable way** to influence the AVRCP version used in **Windows** is 
 
 > 🔧 **Note**: AVRCP negotiation is unidirectional — **the lower of the two devices' supported versions wins**.
 
-## 🔁 LDAC Multipoint: What Actually Needs to Match
+## 🔁 LDAC Multipoint: What Actually Needs to Match using AVCRP 1.5 
 
 | Parameter                                 | Must Match? |
 |-------------------------------------------|-------------|
