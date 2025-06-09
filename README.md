@@ -1358,6 +1358,7 @@ Even with confirmed **two-way AVRCP 1.6** support, playback handling differs bet
 
 Automatic pausing when a second device is active is a **platform-level feature**, not part of the AVRCP specification.
 
+
 ---
 
 ### ⚙️ OS Playback Policy Comparison
@@ -1367,7 +1368,7 @@ Automatic pausing when a second device is active is a **platform-level feature**
 | Android connects to Windows (already playing) | ✅ Auto-pauses Android    | 🔄 Continues playback     |
 | Windows connects to Android (already playing) | ❌ No auto-pause          | 🔄 Continues playback     |
 
----
+
 
 ### ✅ Conclusion
 
@@ -1378,6 +1379,12 @@ Automatic pausing when a second device is active is a **platform-level feature**
 > ✅ **AVRCP 1.6 Two-Way Control Confirmed**  
 > In multipoint mode, Android can issue play/pause/skip commands to Windows directly through the Sony Headphones Connect app, while Windows is the active audio source.  
 > This confirms Windows fully acts as an AVRCP 1.6 Target, and Android as a Controller — beyond headset buttons alone.
+
+
+
+matching sample rate bit depth and bit rate is important for 1.6 not for 1.5
+
+---
 
 ## Absolute Volume
 Absolute Volume on means it has to hit 85% of volume minimal 
