@@ -2576,8 +2576,11 @@ adb shell pm grant com.pittvandewitt.wavelet android.permission.DUMP
   - After offline listening, **disable Adaptive Sample Rate in BCC** for performance reasons.
 - **Neutron**:
   - Use **64-bit OFF** to allow BCC Adaptive Sample Rate to work.
+  - 64-bit mode uses its own direct audio engine, bypassing Android’s mixer entirely. This prevents BCC from seeing or adapting to the sample rate.
   - With 64-bit ON, Neutron uses its own audio path, **bypassing BCC**.
 - **Roon / Roon ARC**: Not compatible with Adaptive Sample Rate switching in BCC.
+- **Music Center**:
+  - If music center has got the capability to change codec you gave that permission it will override the uapp codec and bit rate by the setings set by msuic center as soon as you open music center 
 ---
 ### ✅ Apps Supported by BCC Adaptive Sample Rate Switching
 | Supported Apps             |
@@ -2673,6 +2676,16 @@ These apps **control the sample rate internally**, so BCC **cannot detect or fol
 - It applies **after playback begins**, usually within **1–3 seconds**.
 - It's the best way to keep LDAC sample-accurate **without exclusive mode**, as long as the app doesn’t bypass the mixer.
 > 🧪 For bit-perfect output with apps like UAPP or Neutron in Hi-Res mode, **disable Adaptive Sample Rate Switching** in BCC — let the app control LDAC directly.
+
+- **"Use What is Currently Active"** in UAPP under **Bluetooth Codec**, **BT Sample Rate**, **LDAC Quality**, and **LDAC Resolution** reflects the **codec settings that were last applied at the system level**.
+  - This includes any LDAC configuration previously set by **BCC**, **Developer Options**, or another app.
+  - UAPP does **not override** those settings unless it regains exclusive codec control — this usually requires **fully restarting UAPP** or **reconnecting the headphones** with UAPP already open.
+
+
+
+
+
+
 
 ## 🛠️ Troubleshooting Tricks I Used
 These low-level techniques helped uncover hidden sources of LDAC interference.
