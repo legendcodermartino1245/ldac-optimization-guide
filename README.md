@@ -825,7 +825,7 @@ To ensure a smooth and stable LDAC multipoint experience:
 | Absolute Volume              | Use **ON on Windows**, **OFF on Android**                           | Maintains volume sync on Windows and codec control on Android      |
 | Playback state coordination  | **Pause playback** on the inactive device                           | Prevents LDAC renegotiation and session fight during handoff       |
 | BCC timing logic             | Add **intermediate profile** (e.g., SBC or LDAC 16-bit) before final LDAC | Ensures clean codec handshake and profile lock-in          |
-| AVRCP version                | Use **1.6 on Android**, **1.5 on Windows**                          | 1.5 on Windows avoids playback interruptions; 1.6 on Android keeps fast metadata and control |
+| AVRCP version                | Use **1.6 on Android**, **1.6 on Windows**                          | 1.5 on Windows avoids playback interruptions; 1.6 on Android keeps fast metadata and control |
 
 
 > ⚠️ **Note:** Switching from Absolute Volume OFF to ON (or vice versa) on **Windows** may require **re-pairing** the headphones for the setting to take full effect.
