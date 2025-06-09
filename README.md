@@ -836,40 +836,18 @@ To ensure a smooth and stable LDAC multipoint experience:
 
 ## 🎧 Multipoint AV/AVRCP Combination Matrix (LDAC on Both Devices)
 
-| # | Setup Type         | Device A | Device B | Absolute Volume (A / B) | AVRCP Version (A / B) | Notes                                                                 |
+| # | Setup Type         | Device A | Device B | Absolute Volume (A / B) | AVRCP Version (A / B) | Notes                                                                    |
 |---|--------------------|----------|----------|--------------------------|------------------------|------------------------------------------------------------------------|
-| 1 | Android + Android  | Android  | Android  | ON / ON                  | 1.6 / 1.6              | Switching devices is without stuttering                                |
+| 1 | Android + Android  | Android  | Android  | ON / ON                  | 1.6 / 1.6              | Switching devices is with slight stuttering and switching isn't seamless |
 | 2 | Android + Android  | Android  | Android  | OFF / OFF                | 1.6 / 1.6              | Switching devices is with slight stuttering and switching isn't seamless |
 | 3 | Android + Android  | Android  | Android  | OFF / ON                 | 1.6 / 1.6              | Switching devices is with slight stuttering and switching isn't seamless |
-| 4 | Android + Windows  | Android  | Windows  | OFF / ON                 | 1.6 / 1.6              | Switching devices is with slight stuttering and switching isn't seamless |
-| 5 | Android + Windows  | Android  | Windows  | ON / ON                  | 1.6 / 1.6              | Switching devices is without stuttering                                |
+| 4 | Android + Windows  | Android  | Windows  | OFF / ON                 | 1.6 / 1.6              | Switching devices is without stuttering                                |
+| 5 | Android + Windows  | Android  | Windows  | ON / ON                  | 1.6 / 1.6              | Switching devices is with slight stuttering and switching isn't seamless |
 | 6 | Android + Windows  | Android  | Windows  | OFF / OFF                | 1.6 / 1.6              | Switching devices is with slight stuttering and switching isn't seamless |
 | 7 | Android + Windows  | Android  | Windows  | ON / OFF                 | 1.6 / 1.6              | Switching devices is with slight stuttering and switching isn't seamless |
 | 8 | Android + Android  | Android  | Android  | ON / OFF                 | 1.6 / 1.6              | Switching devices is with slight stuttering and switching isn't seamless |
 
 > ⚠️ **All configurations above were tested with AVRCP 1.6**. Other AVRCP versions were not evaluated and may yield different switching or stability behavior.
-
-
-
-## Windows volume level with AV on on both devices
-| Android Volume Step (%) | Approx. Matching Windows Volume (%) | Notes                                 |
-|--------------------------|--------------------------------------|---------------------------------------|
-| 0%                       | 0%                                   | Muted                                 |
-| 6%                       | 5%                                   | Very quiet                            |
-| 13%                      | 10–12%                               | Low; not recommended for LDAC         |
-| 20%                      | 15–20%                               | May trigger signal attenuation        |
-| 26%                      | 25%                                  | Soft, below stable handoff threshold  |
-| 33%                      | 30–35%                               | Minimum for casual listening          |
-| 40%                      | 40%                                  | Noticeable gain start                 |
-| 46%                      | 50%                                  | Beginning of stable range             |
-| 53%                      | 60%                                  | Entry-level for balanced switching    |
-| 60%                      | 68–70%                               | Near optimal for casual fidelity      |
-| 66%                      | 75–78%                               | Reliable balance for most setups      |
-| 73%                      | 80–85%                               | Recommended baseline for switching    |
-| 80%                      | 88–90%                               | Ideal for LDAC 990 fidelity matching  |
-| 86%                      | 92–94%                               | High detail, balanced control         |
-| 93%                      | 96–98%                               | Nearly full-scale                     |
-| 100%                     | 100%                                 | Bit-perfect full loudness             |
 
 
 # 🔧 Alternative A2DP Driver – Android + Windows LDAC Multipoint Notes
@@ -1583,14 +1561,33 @@ This is due to:
 | Both paused manually       | ✅ Last interacted |
 
 > 🧠 If neither app is open or has a visible session, **nothing happens** when play is pressed.
-
-
-
-
 ---
+
 
 ## Absolute Volume
 Absolute Volume on means it has to hit 85% of volume minimal 
+
+## Windows volume level with AV on on both devices
+| Android Volume Step (%) | Approx. Matching Windows Volume (%) | Notes                                 |
+|--------------------------|--------------------------------------|---------------------------------------|
+| 0%                       | 0%                                   | Muted                                 |
+| 6%                       | 5%                                   | Very quiet                            |
+| 13%                      | 10–12%                               | Low; not recommended for LDAC         |
+| 20%                      | 15–20%                               | May trigger signal attenuation        |
+| 26%                      | 25%                                  | Soft, below stable handoff threshold  |
+| 33%                      | 30–35%                               | Minimum for casual listening          |
+| 40%                      | 40%                                  | Noticeable gain start                 |
+| 46%                      | 50%                                  | Beginning of stable range             |
+| 53%                      | 60%                                  | Entry-level for balanced switching    |
+| 60%                      | 68–70%                               | Near optimal for casual fidelity      |
+| 66%                      | 75–78%                               | Reliable balance for most setups      |
+| 73%                      | 80–85%                               | Recommended baseline for switching    |
+| 80%                      | 88–90%                               | Ideal for LDAC 990 fidelity matching  |
+| 86%                      | 92–94%                               | High detail, balanced control         |
+| 93%                      | 96–98%                               | Nearly full-scale                     |
+| 100%                     | 100%                                 | Bit-perfect full loudness             |
+
+
 
 ## Music Center
 > 🎧 This table applies when using the volume slider inside the **Sony | Music Center** app with **Absolute Volume OFF**.  
