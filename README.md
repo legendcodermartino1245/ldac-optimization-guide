@@ -1028,19 +1028,124 @@ The **only reliable way** to influence the AVRCP version used in **Windows** is 
 
 
 
-| Bluetooth Version | Default AVRCP Version(s) |
-|-------------------|--------------------------|
-| 2.0 + EDR         | 1.0–1.3                  |
-| 2.1 + EDR         | 1.3–1.4                  |
-| 3.0 + HS          | 1.4                      |
-| 4.0               | 1.4–1.5                  |
-| 4.1               | 1.5                      |
-| 4.2               | 1.5                      |
-| 5.0               | 1.6                      |
-| 5.1               | 1.6                      |
-| 5.2               | 1.6                      |
-| 5.3               | 1.6                      |
-| 5.4               | 1.6                      |
+# 🎧 AVRCP Version Support Matrix and OS Behavior
+
+This section explains how **AVRCP (Audio/Video Remote Control Profile)** version support varies by **Bluetooth version**, **Windows version**, and **Android** — along with which system factors actually control what you get in practice.
+
+---
+
+## 📶 Bluetooth Version vs AVRCP Compatibility (with OS Notes)
+
+| Bluetooth Version | Default AVRCP Version(s) | Windows 10 Support         | Windows 11 Support (22H2+) | Android Support               |
+|-------------------|---------------------------|-----------------------------|-----------------------------|-------------------------------|
+| 2.0 + EDR         | 1.0–1.3                   | ❌ No usable AVRCP          | ❌ No usable AVRCP          | ⚠️ Legacy only                |
+| 2.1 + EDR         | 1.3–1.4                   | ✅ AVRCP 1.3–1.4            | ✅ AVRCP 1.4                | ✅ AVRCP 1.4                  |
+| 3.0 + HS          | 1.4                       | ✅ AVRCP 1.4                | ✅ AVRCP 1.4                | ✅ AVRCP 1.4                  |
+| 4.0               | 1.4–1.5                   | ✅ AVRCP 1.4                | ✅ AVRCP 1.5                | ✅ AVRCP 1.5                  |
+| 4.1               | 1.5                       | ✅ AVRCP 1.5                | ✅ AVRCP 1.5                | ✅ AVRCP 1.5                  |
+| 4.2               | 1.5                       | ✅ AVRCP 1.5                | ✅ AVRCP 1.5                | ✅ AVRCP 1.5                  |
+| 5.0               | 1.6                       | ✅ AVRCP 1.5                | ✅ AVRCP 1.6                | ✅ 1.5 default, 1.6 supported  |
+| 5.1               | 1.6                       | ✅ AVRCP 1.5                | ✅ AVRCP 1.6                | ✅ 1.5 default, 1.6 supported  |
+| 5.2               | 1.6                       | ✅ AVRCP 1.5                | ✅ AVRCP 1.6                | ✅ 1.5 default, 1.6 supported  |
+| 5.3               | 1.6                       | ✅ AVRCP 1.5                | ✅ AVRCP 1.6                | ✅ 1.5 default, 1.6 supported  |
+| 5.4               | 1.6                       | ✅ AVRCP 1.5                | ✅ AVRCP 1.6                | ✅ 1.5 default, 1.6 supported  |
+
+---
+
+### 🧠 Notes
+
+- ✅ **Windows 10**
+  - AVRCP 1.3: Basic metadata (track title, artist)
+  - AVRCP 1.4: Media browsing and playback status
+  - AVRCP 1.5: From version 1803 onward
+  - ❌ AVRCP 1.6: Not implemented in any version
+
+- ✅ **Windows 11**
+  - AVRCP 1.5 in 21H2
+  - AVRCP 1.6 starting from **22H2**
+  - Maintained in 23H2 and 24H2
+
+- ✅ **Android**
+  - AVRCP **1.5 is the default** even in Android 10+
+  - **AVRCP 1.6 is supported** from Android 10 onward
+  - OEMs like **Pixel, Samsung, OnePlus** often enable 1.6 via stack config override
+
+---
+
+## ⚙️ How AVRCP Support Is Determined
+
+> AVRCP version support depends **first on the OS's Bluetooth stack**, then on the capabilities of the Bluetooth adapter and its driver.
+
+### 🔢 Priority of Influence
+
+| Priority | Factor                       | Why It Matters                                                                 |
+|----------|------------------------------|---------------------------------------------------------------------------------|
+| **1**    | **Bluetooth Stack (OS-level)** | Sets the **maximum AVRCP version** available (e.g. 1.5 on Win10, 1.6 on Win11) |
+| **2**    | **Bluetooth Adapter Version** | Determines **base protocol support**, but doesn’t control AVRCP version alone  |
+| **3**    | **Driver / Stack Vendor**     | Some drivers (Intel, CSR, Generic) limit or extend access to AVRCP features    |
+
+---
+
+### 🔍 Real-World Example
+
+> A **Bluetooth 2.1 + EDR** adapter:
+- On **Windows 10**: Limited to **AVRCP 1.5**
+- On **Windows 11 (22H2+)**: Gains **AVRCP 1.6**, even with the **same adapter**, because the OS stack supports it
+
+---
+
+### ✅ Summary Rule
+
+> **AVRCP Version = MIN(Bluetooth Stack Capability, Adapter Driver Capability)**
+
+So:
+- A modern OS like Windows 11 can unlock AVRCP 1.6 on older adapters (if the driver allows)
+- But a Bluetooth 5.4 dongle on Windows 10 will still be limited to AVRCP 1.5
+
+---
+
+## 🕒 Windows 10 AVRCP Version Timeline
+
+| Windows 10 Version     | AVRCP Version | Changes Introduced                                                                 |
+|------------------------|----------------|--------------------------------------------------------------------------------------|
+| **1507 – 1709**         | 1.3–1.4         | Basic metadata and media browsing support                                           |
+| **1803 (April 2018)**   | ✅ **1.5**       | 🚀 Full AVRCP 1.5 support:  
+- Absolute volume  
+- `SetAddressedPlayer`  
+- Better headset media control |
+| **1903 – 21H2**         | 1.5             | No AVRCP upgrades — only Bluetooth stack refinements                                |
+
+---
+
+## 🕒 Windows 11 AVRCP Version Timeline
+
+| Windows 11 Version     | AVRCP Version | Changes Introduced                                                                 |
+|------------------------|----------------|--------------------------------------------------------------------------------------|
+| **21H2 (Initial release)** | 1.5             | Inherited Windows 10 stack — no AVRCP 1.6                                           |
+| **22H2 (2022 Update)**     | ✅ **1.6**       | 🚀 Full AVRCP 1.6 support:  
+- Two-way metadata sync  
+- Headset ↔ PC control  
+- Player application settings |
+| **23H2 and 24H2**          | 1.6             | Maintains AVRCP 1.6 — driver and stability improvements only                        |
+
+---
+
+## 🕹️ Android AVRCP Behavior by Version
+
+| Android Version | Default AVRCP | AVRCP 1.6 Support | Notes                                                                 |
+|------------------|----------------|--------------------|------------------------------------------------------------------------|
+| Android 8.0–9     | 1.5            | ⚠️ Optional         | Some OEMs (e.g., Sony, Samsung) enabled 1.6 manually                   |
+| Android 10+       | 1.5            | ✅ Supported        | AVRCP 1.6 supported, but **1.5 still default** in AOSP config          |
+| Android 12+       | OEM-dependent  | ✅ Enabled by OEMs  | Most flagships (Pixel, Samsung, OnePlus) override default to 1.6      |
+
+---
+
+### 💡 Why Android Defaults to AVRCP 1.5
+
+Even in Android 10 and above, the Bluetooth stack in AOSP is configured to use **AVRCP 1.5 by default**.
+
+This setting is defined internally in the system configuration file (`bluetooth_stack.conf`). Unless the device manufacturer (like Samsung, Google, or OnePlus) explicitly overrides this, the system will continue using AVRCP 1.5 — even though AVRCP 1.6 is fully supported by the platform.
+
 
 
 > 🔧 **Note**: AVRCP negotiation is unidirectional — **the lower of the two devices' supported versions wins**.
@@ -1061,18 +1166,9 @@ The **only reliable way** to influence the AVRCP version used in **Windows** is 
 | **AVRCP Version (1.5 vs 1.6)**            | ❌ No       |
 | **Operating System (Android / Windows)**  | ❌ No       |
 | **Audio App (UAPP, Neutron, etc.)**       | ❌ No       |
-
----
-
 \* Absolute Volume **doesnt need to match** for codec compatibility, but aligning them can improve **connection stability** and reduce **stutter risk** in edge cases.
 
-
-
 ---
-
-
-
-
 
 ## 🧠 LDAC Control Roles
 
@@ -1193,7 +1289,7 @@ When **AVRCP 1.5** is used on Windows, **headset media buttons (play/pause/skip)
 ---
 
 
-## 🔓 Android Unlock Stutters? The Hidden Cost of AVRCP 1.6
+## 🔓 Android Unlock Stutters? The Hidden Cost of AVRCP 1.6 With AV ON
 
 If you're using **LDAC multipoint** (Android + Windows), and you notice a **brief stutter or glitch when unlocking your Android phone**, here's the reason:
 
