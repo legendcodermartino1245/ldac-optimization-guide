@@ -1424,6 +1424,73 @@ When using **LDAC multipoint** (Android + Windows):
 
 
 
+## 🔁 Does Android Auto-Resume if Windows Stops Playing?
+
+> ❌ No — Android does **not** automatically resume playback when Windows stops.
+
+### 🔍 Observed Behavior
+
+- When **Android is actively streaming LDAC** and **Windows starts playing**,  
+  → **Android auto-pauses** without user input (as documented).
+
+- But when **Windows stops or is paused**,  
+  → **Android does not resume playback** automatically.
+
+### 🧠 Why?
+
+- Android respects AVRCP session priority — but **does not reclaim it** unless playback is manually triggered.
+- No media session arbitration or resume logic is built into the AVRCP protocol itself.
+- Android sees the stream as "inactive," but doesn’t assume control unless explicitly told to.
+
+---
+
+### ✅ Manual Resume Required
+
+To switch playback back to Android:
+1. Pause playback on Windows
+2. Manually press play on:
+   - Your Android media player
+   - Or the headset button
+
+Only then will Android take over the LDAC stream.
+
+> 🧠 LDAC codec remains active — but **A2DP session control** is idle until reassigned.
+
+
+## 🔁 What Happens if Both Devices Are Paused?
+
+> 🤔 Scenario: You pause playback on both Android and Windows.  
+> Then, you press ▶️ on the headset.
+
+### 🎯 Result
+
+- ✅ **The last device you manually started playback on will resume**
+- ❌ The other device stays paused
+- 🧠 This happens **even if that device wasn’t the last to play audio**
+
+### 🧠 Why?
+
+This is due to:
+- The **AVRCP media session history** stored by the headset
+- Headphones "remember" the **last playback command origin**, not just audio output
+- Pressing ▶️ sends a **generic play command** to all connected AVRCP sessions
+- The **most recently active session** wins arbitration
+
+---
+
+### ✅ Practical Implication for LDAC Multipoint
+
+| State                       | Headset ▶️ Resumes |
+|----------------------------|--------------------|
+| Android last pressed play  | ✅ Android         |
+| Windows last pressed play  | ✅ Windows         |
+| Both paused manually       | ✅ Last interacted |
+
+> 🧠 If neither app is open or has a visible session, **nothing happens** when play is pressed.
+
+
+
+
 ---
 
 ## Absolute Volume
