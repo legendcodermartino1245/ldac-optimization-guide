@@ -1589,483 +1589,6 @@ Absolute Volume on means it has to hit 85% of volume minimal
 
 
 
-## Music Center
-> 🎧 This table applies when using the volume slider inside the **Sony | Music Center** app with **Absolute Volume OFF**.  
-> Android system volume is ignored, and all volume control is handled by the headphones.
-
-| Step | Approx. % Volume |
-|------|------------------|
-| 1    | 3%               |
-| 2    | 7%               |
-| 3    | 10%              |
-| 4    | 13%              |
-| 5    | 17%              |
-| 6    | 20%              |
-| 7    | 23%              |
-| 8    | 27%              |
-| 9    | 30%              |
-| 10   | 33%              |
-| 11   | 37%              |
-| 12   | 40%              |
-| 13   | 43%              |
-| 14   | 47%              |
-| 15   | 50%              |
-| 16   | 53%              |
-| 17   | 57%              |
-| 18   | 60%              |
-| 19   | 63%              |
-| 20   | 67%              |
-| 21   | 70%              |
-| 22   | 73%              |
-| 23   | 77%              |
-| 24   | 80%              |
-| 25   | 83%              |
-| 26   | 87%              |
-| 27   | 90%              |
-| 28   | 93%              |
-| 29   | 97%              |
-| 30   | 100% (max)       |
-
----
-
-> ⚠️ **Codec Behavior Note**  
-> The **Sony | Music Center** app can only switch between:
->
-> - **SBC**
-> - **LDAC 96 kHz 32-bit Adaptive**
-> - **LDAC 96 kHz 32-bit 909/990 kbps (Fixed)**
->
-> Once LDAC is locked by Music Center, **external tools like Bluetooth Codec Changer (BCC) and USB Audio Player PRO (UAPP) cannot override it** unless the codec is renegotiated via disconnection or an SBC handshake.
->
-> Opening Music Center **after a profile has been set by another app** will immediately trigger a renegotiation to the **currently selected LDAC mode inside the app**, overriding any prior configuration—even if BCC or UAPP had previously succeeded.
-
-
-> 🧠 **Default Behavior:**  
-> If you install and open Sony Music Center **without changing any codec settings**, it defaults to:
->
-> - **LDAC Adaptive** mode  
-> - **96 kHz** sample rate  
-> - **Bitrate** dynamically adjusts between **330 / 660 / 990 kbps**, depending on link quality
->
-> 📌 This means Music Center does **not** apply a fixed bitrate by default — it applies a **96 kHz Adaptive profile**, and lets LDAC decide between 330, 660, or 990 kbps in real time.
-
-## 🔍 Additional Notes on Codec Storage and LDAC Behavior
-
-- **LDAC quality settings written by Music Center are not applied immediately.**  
-  The selected codec (e.g., 990 kbps) is stored in the headset firmware, but it only takes effect **on the next Bluetooth connection**.  
-  Even then, due to the LDAC bug, the codec may **appear correct in dumpsys or the GUI** but still stream at the wrong quality.  
-  ➤ Always verify actual playback quality — never trust visuals alone.
-
-- **No delay is needed to store a codec profile.**  
-  After applying SBC or a 16-bit LDAC intermediate profile (via Music Center or BCC), you can **power off the headphones immediately**.  
-  The setting is written to firmware instantly — no need to wait 10+ seconds.  
-  ➤ This enables faster and more reliable handshake training for override bypass strategies.
-
-### 🔄 LDAC Priority Setting Impact
-
-> 🎛️ Music Center's LDAC priority setting directly affects whether BCC can override the codec.
-
-- **Priority on Sound Quality**  
-  Forces LDAC (usually 990 kbps or 96 kHz Adaptive) via GATT.  
-  ➤ This setting **locks LDAC**, and BCC **cannot override** it — even if Auto Switch or Intermediate profiles are enabled.
-
-- **Priority on Stable Connection**  
-  Defaults to SBC or fallback modes.  
-  ➤ This setting **releases LDAC control**, allowing BCC or app-based renegotiation (UAPP, Neutron, etc.) to fully succeed after handshake.
-
-🔁 **To regain override control:**  
-Change Music Center to **Stable Connection**, then:
-1. Disconnect the headset.
-2. Optionally apply SBC via Developer Options or Music Center.
-3. Reconnect using BCC or Fast Pair (with override bypass).
-
-### 🛰️ Background Behavior — Music Center Codec Reassertion
-
-Sony Music Center doesn’t just apply codec settings once — it registers a background **Bluetooth service** that monitors codec state and may silently reassert its LDAC mode when:
-
-- 🔁 Headphones reconnect  
-- 🎚️ LDAC toggle is changed in system settings  
-- 🎵 A playback app (like UAPP or Neutron) triggers a new LDAC session
-
-📌 Even if you **swipe the app away**, these background receivers **remain active**.
-
----
-
-### ✅ How to Stop Music Center from Overriding LDAC
-
-1. **Force stop** the app  
-   `Settings → Apps → Sony Music Center → Force Stop`
-
-2. *(Optional but recommended)*  
-   **Clear app storage** to remove any stored LDAC quality settings
-
-3. **Reconnect** or **power cycle** the headphones  
-   → Ensures your BCC or UAPP profile isn’t silently overwritten
-
----
-
-### 🟡 What About the “Disconnect” Button?
-
-> The **“Disconnect”** button inside Sony Music Center temporarily halts codec control during that session  
-> — but it does **not stop** future LDAC overrides or wipe stored profiles.
-
-✅ Useful for quick testing  
-❌ Not a full solution — use **Force Stop** if you want permanent override prevention
-
-## 🎧 Headphone Firmware Storage Behavior (Sony WH-1000XM5)
-
-Sony’s WH-1000XM5 can **store only a limited set of codec settings** in firmware between power cycles.
-
-| Parameter                      | Stored in Firmware | How It's Set                      | Persistent? | Notes                                                                 |
-|-------------------------------|--------------------|-----------------------------------|-------------|-----------------------------------------------------------------------|
-| **Codec** (SBC / LDAC)        | ✅ Yes             | Last active codec at power-off    | ✅          | The most recently used codec is remembered.                          |
-| **LDAC Quality Mode**         | ✅ Yes             | Only via Sony Music Center        | ✅          | "Priority on Sound Quality" = 990kbps<br>"Stable Connection" = Adaptive |
-| **Sample Rate**               | ❌ No              | Set by Android host at runtime    | ❌          | Always needs to be re-applied on connect (e.g., via BCC or UAPP)     |
-| **Bit Depth**                 | ❌ No              | Set by Android host at runtime    | ❌          | Cannot be stored in firmware                                         |
-
-### 📁 Firmware Persistence Table
-
-| Setting                                 | Stored in Headphones? | Survives Power Cycle? | Notes                                           |
-|-----------------------------------------|------------------------|------------------------|-------------------------------------------------|
-| **LDAC/SBC mode (Sound Quality / Stable)** | ✅ Yes                 | ✅ Yes                 | Stored via Sony Music Center with AV ON         |
-| **Sample Rate (e.g., 96kHz)**           | ❌ No                  | ❌ No                  | Always renegotiated per stream                  |
-| **Bit Depth (e.g., 24-bit)**            | ❌ No                  | ❌ No                  | Decided by app/player, not stored in firmware   |
-| **Developer Options codec**            | ❌ No                  | ❌ No                  | Reset on disconnect/reconnect                   |
-| **BCC profile (990 kbps etc.)**        | ❌ No                  | ❌ No                  | Session-only unless re-applied each reconnect   |
-
-
-
-
-📌 **Important:**  
-- **Sony Music Center** is the **only app** that can store the LDAC **quality mode** (not the bitrate itself).
-- **Sample rate and bit depth must always be forced** by the phone — either via:
-  - Bluetooth Codec Changer (BCC),
-  - Hi-res aware app (e.g., UAPP or Neutron),
-  - Or codec handshake tricks.
-
-
-
-## Usb Audio Player Pro
-1. Install uapp from play store.
-2. Open uapp.
-3. Allow to access music and audio.
-4. Click ok on release notes.
-5. Click on on file access warning.
-6. Add your folders with high res music if you have that i would highly recommend this app for that usecase.
-7. Click ok hint for metadata.
-8. Click close.
-9. Settings reset settings to be sure.
-10. Settings internal audio driver hires direct driver.
-11. Settings system disable pause on audio focus loss to prevent stuttering when accessing other apps on your phone at the same time.
-12. Settings internal hires audio bit perfect mode on.
-13. Settings bluetooth audio enable use with the hires direct driver.
-
-14. Settings bluetooth audio request bluetooth connect permission.
-14.1 Allow.
-14.2 Click ok.
-15. Close app.
-16. Reopen app.
-17. Allow to access bluetooth headset when asked.
-18. Click ok for release notes.
-19. Click ok for internal hires dac detected.
-20. Click ok for file access warning.
-21. Settings bluetooth audio preferred bt codec ldac.
-22. Settings bluetooth audio preferred bt sample  rate Change sample rate according to source.
-23. Settings bluetooth audio LDAC quality Optimized audio quality.
-24. Settings bluetooth audio LDAC resolution Use 24 if you want to play high res and use 16 bit if you want to play 16 bit bit perfect.
-25. Verify the following settings.
-26. Bt sample sample rate is set to change Sample rate according to source.
-27. Ldac quality set to optimized sound quality.
-28. Ldac resolution 24 bit.
-
-## Neutron Player
-1. Install neutron from Google play.
-2. Open neutron.
-3. Choose language.
-4. Audio file source automatic and show neutron player where your files are.
-5. Let neutron scan audio file.
-6. Enable high Resolution audio when asked.
-7. Settings playback 64 bit processing on.
-8. Settings playback resampling audiophile.
-9. Settings profile bit-perfect device choose headphones.
-10. Settings audio hardware generic driver high res bluetooth on.
-
-## ⚙️ Settings That Dont Interfere with LDAC 990kbps
-1. 5 GHZ wi-fi.
-2. VoLTE 
-4. 5G
-5. Wifi calling
-6. Show Network quality info
-7. Prioritize real-time data
-8. Detect Suspicious networks 
-9. WiFi power saving off or on no difference 
-10. Nfc
-11. location services itself
-
-## ⚙️ Settings That Interfere with LDAC 990kbps
-
-These settings are known to interfere with LDAC 990kbps stability and should be disabled or adjusted:
-
-1. **Google Assistant**  
-   - Must be disabled both on the **headset** and the **phone itself**.  
-   - Don't just disable the Google app — instead, **grant Nearby Devices permission back**, then disable Google Assistant cleanly in settings.
-
-2. **Bluetooth and Wi-Fi Scanning**  
-   - Must be disabled completely to prevent background interference.  
-   - Includes Developer Option toggles **and** ADB permission removal for Google Play Services.
-
-3. **Hotspot Band**  
-   - Set your mobile hotspot to **5GHz**.  
-   - **2.4GHz hotspots** interfere with LDAC stability.
-
-4. **Wi-Fi Network Type**  
-   - If your network is **only 2.4GHz**, disable Wi-Fi entirely.
-
-5. **Music Sharing**  
-   - Disable Samsung’s **Bluetooth Music Sharing** feature.
-
-6. **Nearby Devices & Saved Device Scanning**  
-   Disabling Nearby Devices **permission** is **not enough**. Google Play Services still performs background scanning and override syncing unless you explicitly disable both of the following:
-
-   ✅ Disable **Nearby device scanning** under:  
-   - `Settings > Google > Devices & Sharing > Devices > Scan for nearby devices`  
-     → **Turn this OFF**
-
-   ✅ Disable **Saved Devices auto-sync** under:  
-   - `Settings > Google > Devices & Sharing > Saved Devices`  
-     → Tap **︙ (3-dot menu)** and select **“Turn off Automatically Save Devices”**
-
-> 🔒 **Explanation:**  
-> Even with permission denied, Google may silently reassert Fast Pair metadata using background scan and sync logic.  
-> These toggles prevent both the **search for new nearby Bluetooth devices** *and* the **cloud syncing of stored override profiles**, which often reintroduce the Samsung LDAC default.
-
-
-7. **Smartwatch & BLE Companion Apps**  
-   - Uninstall apps like Galaxy Wearable, Zepp, etc.  
-   - Forget any unused **Bluetooth LE devices**.
-
-8. **Samsung-Specific Features**  
-   - Disable:
-     - **Samsung Nearby Devices**
-     - **Samsung Multi Control**
-
-9. **Google Location Accuracy**  
-   - Disable under:  
-     `Settings > Location > Location Services > Google Location Accuracy`
-
-10. **Saved Devices in Google Services**  
-    - Prevent Google from syncing or overriding LDAC profiles.
-
-11. **Switching to Better Networks**  
-    - Found in Wi-Fi settings under “Advanced.”  
-    - Disable to prevent mid-session access point switching.
-
-12. **NFC Usage**  
-    - Having **NFC enabled is fine**, but **using NFC during LDAC playback** (e.g., pairing via tap) causes codec renegotiation.  
-    - Avoid using NFC features while listening.
-
----
-
-## 📱 ADB Optimization Strategy (For Google Play Services)
-
-> “Keep Location services and scanning toggles ON, but disable Wi-Fi and Bluetooth scanning access for Google Play Services via ADB to stabilize LDAC 990kbps without breaking smart features.”
-
-📌 Optional ADB one-liner:
-```bash
-adb shell appops set com.google.android.gms NEARBY_WIFI_DEVICES ignore && adb shell appops set com.google.android.gms BLUETOOTH_SCAN ignore && adb shell appops set com.google.android.gms ACCESS_FINE_LOCATION ignore
-```
-
-## ⚙️ Settings That Dont Interfere with LDAC 990kbps
-1. 5 GHZ wi-fi.
-2. VoLTE 
-4. 5G
-5. Wifi calling
-6. Show Network quality info
-7. Prioritize real-time data
-8. Detect Suspicious networks 
-9. WiFi power saving off or on no difference 
-10. Nfc
-11. location services itself
-
-
-## ⚙️ Settings That help with LDAC 990kbps
-Change scan interval is set to rarely in  connectivity labs 
-filter option is set to show less in  connectivity labs
-
-
-
-## 🎛️ LDAC Codec Negotiation & Profile Generation
-
-> Everything that determines which codec (SBC, LDAC 330/660/990) gets selected during Bluetooth connection.  
-> This list is 100% focused on **connection-time behaviors** — not post-connection bitrate changes or audio stability.
-
----
-
-### 🎧 Headphone & Device Factors
-
-- ✅ **Power cycling headphones**  
-  → Clears stored codec profile in the headphone’s memory.  
-  → Allows a new profile (e.g., LDAC 990) to be stored on next clean connection.
-
-- ✅ **Multipoint pairing active**  
-  → Prevents LDAC negotiation entirely.  
-  → Defaults to SBC or AAC to maintain multipoint compatibility.
-
-- ✅ **AVRCP version mismatch**  
-  → May block proper Absolute Volume detection.  
-  → Can disrupt handshake logic or GUI sync.
-
-- ✅ **Absolute Volume ON vs OFF**  
-  - **AV ON**: Android controls headphone volume directly. Can block SBC → LDAC profile switching.  
-  - **AV OFF**: Required for proper manual profile chaining, BCC override, and stored profile training.  
-    → Disables Android volume sync interference, enabling clean codec negotiation.
-
----
-
-### 📱 Phone Settings That Affect Codec Negotiation
-
-- ✅ **LDAC toggle in Developer Options**  
-  → Activates Samsung’s LDAC override stack.  
-  → Must be followed by SBC reset and Developer Options OFF to stop override.
-
-- ✅ **Developer Options open during connection**  
-  → Re-applies override logic immediately if LDAC is selected.  
-  → Avoid opening Dev Options during or right before pairing.
-
-- ✅ **HD Audio toggle in Bluetooth device settings**  
-  → Triggers full codec renegotiation.  
-  → May allow or re-trigger override stack.
-
-- ✅ **Nearby Devices permission** (e.g., Music Center, GMS)  
-  → Enables silent override via GATT.  
-  → Reapplies stored codec profiles without user interaction.  
-  → Must be revoked or app force-stopped to disable.
-
-- ✅ **Connection method: Quick Settings vs Power-On**  
-  → Reconnecting via **Quick Settings** toggle: more likely to honor stored (trained) profile.  
-  → Reconnecting via **powering on headphones**: often re-triggers Samsung override.
-
-- ✅ **Disabling Developer Options while disconnected**  
-  → Leaves override state intact — no reset occurs.
-
-- ✅ **Disabling Developer Options while connected**  
-  → Clears override state immediately, allowing your codec profile to apply.
-
----
-
-### 🧠 System Stack Behavior & Profile Storage
-
-- ✅ **Samsung LDAC override stack**  
-  → Automatically activates if LDAC is used in Developer Options.  
-  → Always forces Samsung’s preferred LDAC mode unless bypassed.
-
-- ✅ **Absolute Volume status**  
-  - **AV ON**: Volume sync events can re-trigger override or block codec switching.  
-  - **AV OFF**: Required for successful intermediate profile chaining and GUI desync repair.  
-    → Prevents Android-side volume control from interfering with profile logic.
-
-- ✅ **Fast Pair timing**  
-  → Determines which profile wins: Samsung override or user-defined profile.  
-  → Override usually applies within 1–2 seconds unless interrupted by SBC chaining.
-
-- ✅ **Intermediate profile chaining**  
-  → Example: SBC → LDAC 16-bit → LDAC 24-bit 990  
-  → Bypasses override stack when done early and with AV OFF.  
-  → Essential to force LDAC 990 without triggering Samsung override.
-
-- ✅ **Waiting 10+ seconds post-handshake (no override)**  
-  → Locks negotiated profile into headset firmware (WH-1000XM5/XM3).  
-  → Overrides won’t reapply unless retriggered.
-
-- ✅ **GUI desync between Developer Options and BCC**  
-  → Happens if override or stack race condition occurs.  
-  → Solved by double-applying the BCC profile and using AV OFF.
-
-- ✅ **Codec override persists across reboots**  
-  → Only cleared via SBC handshake followed by Developer Options OFF during active connection.
-
----
-
-### 📲 App Behavior That Influences Codec Negotiation
-
-- ✅ **Sony | Music Center**  
-  → With Nearby Devices permission: silently re-applies LDAC profile at connection.  
-  → Override happens even if you only changed volume.  
-  → Must be force-stopped or stripped of permission to prevent interference.
-
-- ✅ **Bluetooth Codec Changer (BCC)**  
-  → Defeats Samsung override using profile chaining:  
-    - SBC → LDAC 16-bit → LDAC 24-bit 990  
-  → Must apply within 1–2 seconds of connection.  
-  → Double-apply profile to fix GUI mismatch.
-
-- ✅ **USB Audio Player PRO (UAPP)**  
-  → May re-trigger codec negotiation at playback start.  
-  → Can override or conflict with BCC if launched too early.  
-  → Best practice: allow BCC to finish first, then launch UAPP.
-
-- ✅ **Google Play Services (GMS)**  
-  → With Nearby Devices permission: silently applies stored override.  
-  → Often triggered during Fast Pair.  
-  → Disable permission to stop this.
-
-- ✅ **Tasker (Bluetooth connect triggers)**  
-  → Can switch to SBC or intermediate LDAC profiles instantly at connect.  
-  → Must run before override logic executes (within ~1–2s).  
-  → Used to automate profile chaining for override bypass.
-
-- ✅ **“Automatically save devices” in Fast Pair**  
-  → If enabled, GMS syncs override profiles to the cloud.  
-  → Reapplies LDAC override silently after reset or on new device.  
-  → Must be turned OFF to prevent Samsung override returning.
-
----
-
-
-
-## 🔒 What BCC Can and Cannot Store (Session vs Firmware)
-
-Bluetooth Codec Changer (BCC) can apply LDAC profiles during a Bluetooth session, but it cannot persist them across reconnects. Only Sony Music Center can store codec preferences in the headphone firmware.
-
-### 📁 Storage Capability Matrix
-
-| Component                         | Can Apply Codec? | Persists After Reconnect? | Stored in Headphones?     | Notes                                         |
-|----------------------------------|------------------|----------------------------|----------------------------|-----------------------------------------------|
-| **Bluetooth Codec Changer (BCC)**| ✅ Yes           | ❌ No                      | ❌ No                      | Session-only, needs AV ON to apply            |
-| **Sony Music Center**            | ✅ Yes           | ✅ Yes                     | ✅ Yes                     | Can store SBC / LDAC mode in firmware         |
-| **Developer Options**            | ✅ Yes           | ❌ No                      | ❌ No                      | UI-only, gets reset on reconnect              |
-| **Tasker (with BCC)**            | ✅ Yes           | ❌ No                      | ❌ No                      | Needs to trigger on every reconnect           |
-| **Android System (Samsung)**     | ✅ Yes (override)| ✅ Yes                     | ❌ No (stack memory)       | Persists until flushed manually               |
-
----
-
-### 🧠 Key Takeaway
-
-> You cannot lock your own LDAC profile with BCC or Developer Options.  
-> Only **Music Center**, when used with **AV ON**, can store a profile that survives Bluetooth off/on, headphone reboot, or reconnect.  
-> ⚠️ **Sample rate and bit depth are never stored** — they are renegotiated per stream.
-
-
-
-
-
-## Samsung Codec Behavior 
-AAC override is also always active right if LDAC isn't enabled and does enable hd audio in dev settings.
-
-Sbc is never the first codec when paired in bluetooth settings on samsung.
-
-### AAC ≠ Neutral on Reconnect — It's Just Another Override Pathway
-
-After first pairing:
-
-- **AAC is no longer a passive fallback.**
-- It becomes just another codec Samsung temporarily switches through on its way to enforcing **LDAC**.
-- 📌 **It is not an opportunity** — it’s part of the automatic override stack.
-
-> Even if you see AAC after a reconnect, Samsung will often switch to LDAC automatically within seconds — unless the override is actively blocked or interrupted (e.g., via SBC or intermediate profile tricks).
-
-
-
 ## 🔊 Absolute Volume: ON vs OFF — Full Comparison
 
 | Feature / Behavior                     | **AV ON**                                                | **AV OFF**                                                  |
@@ -2250,6 +1773,539 @@ When prepping for a reset or applying AV OFF:
    adb shell dumpsys bluetooth_manager
 
 “Absolute Volume OFF disables Android’s codec negotiation authority. Without AV ON, SBC resets fail and override persists.”
+
+
+
+
+
+
+
+
+
+
+
+## Music Center
+> 🎧 This table applies when using the volume slider inside the **Sony | Music Center** app with **Absolute Volume OFF**.  
+> Android system volume is ignored, and all volume control is handled by the headphones.
+
+| Step | Approx. % Volume |
+|------|------------------|
+| 1    | 3%               |
+| 2    | 7%               |
+| 3    | 10%              |
+| 4    | 13%              |
+| 5    | 17%              |
+| 6    | 20%              |
+| 7    | 23%              |
+| 8    | 27%              |
+| 9    | 30%              |
+| 10   | 33%              |
+| 11   | 37%              |
+| 12   | 40%              |
+| 13   | 43%              |
+| 14   | 47%              |
+| 15   | 50%              |
+| 16   | 53%              |
+| 17   | 57%              |
+| 18   | 60%              |
+| 19   | 63%              |
+| 20   | 67%              |
+| 21   | 70%              |
+| 22   | 73%              |
+| 23   | 77%              |
+| 24   | 80%              |
+| 25   | 83%              |
+| 26   | 87%              |
+| 27   | 90%              |
+| 28   | 93%              |
+| 29   | 97%              |
+| 30   | 100% (max)       |
+
+---
+
+> ⚠️ **Codec Behavior Note**  
+> The **Sony | Music Center** app can only switch between:
+>
+> - **SBC**
+> - **LDAC 96 kHz 32-bit Adaptive**
+> - **LDAC 96 kHz 32-bit 909/990 kbps (Fixed)**
+>
+> Once LDAC is locked by Music Center, **external tools like Bluetooth Codec Changer (BCC) and USB Audio Player PRO (UAPP) cannot override it** unless the codec is renegotiated via disconnection or an SBC handshake.
+>
+> Opening Music Center **after a profile has been set by another app** will immediately trigger a renegotiation to the **currently selected LDAC mode inside the app**, overriding any prior configuration—even if BCC or UAPP had previously succeeded.
+
+
+> 🧠 **Default Behavior:**  
+> If you install and open Sony Music Center **without changing any codec settings**, it defaults to:
+>
+> - **LDAC Adaptive** mode  
+> - **96 kHz** sample rate  
+> - **Bitrate** dynamically adjusts between **330 / 660 / 990 kbps**, depending on link quality
+>
+> 📌 This means Music Center does **not** apply a fixed bitrate by default — it applies a **96 kHz Adaptive profile**, and lets LDAC decide between 330, 660, or 990 kbps in real time.
+
+## 🔍 Additional Notes on Codec Storage and LDAC Behavior
+
+- **LDAC quality settings written by Music Center are not applied immediately.**  
+  The selected codec (e.g., 990 kbps) is stored in the headset firmware, but it only takes effect **on the next Bluetooth connection**.  
+  Even then, due to the LDAC bug, the codec may **appear correct in dumpsys or the GUI** but still stream at the wrong quality.  
+  ➤ Always verify actual playback quality — never trust visuals alone.
+
+- **No delay is needed to store a codec profile.**  
+  After applying SBC or a 16-bit LDAC intermediate profile (via Music Center or BCC), you can **power off the headphones immediately**.  
+  The setting is written to firmware instantly — no need to wait 10+ seconds.  
+  ➤ This enables faster and more reliable handshake training for override bypass strategies.
+
+### 🔄 LDAC Priority Setting Impact
+
+> 🎛️ Music Center's LDAC priority setting directly affects whether BCC can override the codec.
+
+- **Priority on Sound Quality**  
+  Forces LDAC (usually 990 kbps or 96 kHz Adaptive) via GATT.  
+  ➤ This setting **locks LDAC**, and BCC **cannot override** it — even if Auto Switch or Intermediate profiles are enabled.
+
+- **Priority on Stable Connection**  
+  Defaults to SBC or fallback modes.  
+  ➤ This setting **releases LDAC control**, allowing BCC or app-based renegotiation (UAPP, Neutron, etc.) to fully succeed after handshake.
+
+🔁 **To regain override control:**  
+Change Music Center to **Stable Connection**, then:
+1. Disconnect the headset.
+2. Optionally apply SBC via Developer Options or Music Center.
+3. Reconnect using BCC or Fast Pair (with override bypass).
+
+### 🛰️ Background Behavior — Music Center Codec Reassertion
+
+Sony Music Center doesn’t just apply codec settings once — it registers a background **Bluetooth service** that monitors codec state and may silently reassert its LDAC mode when:
+
+- 🔁 Headphones reconnect  
+- 🎚️ LDAC toggle is changed in system settings  
+- 🎵 A playback app (like UAPP or Neutron) triggers a new LDAC session
+
+📌 Even if you **swipe the app away**, these background receivers **remain active**.
+
+---
+
+### ✅ How to Stop Music Center from Overriding LDAC
+
+1. **Force stop** the app  
+   `Settings → Apps → Sony Music Center → Force Stop`
+
+2. *(Optional but recommended)*  
+   **Clear app storage** to remove any stored LDAC quality settings
+
+3. **Reconnect** or **power cycle** the headphones  
+   → Ensures your BCC or UAPP profile isn’t silently overwritten
+
+---
+
+### 🟡 What About the “Disconnect” Button?
+
+> The **“Disconnect”** button inside Sony Music Center temporarily halts codec control during that session  
+> — but it does **not stop** future LDAC overrides or wipe stored profiles.
+
+✅ Useful for quick testing  
+❌ Not a full solution — use **Force Stop** if you want permanent override prevention
+
+## 🎧 Headphone Firmware Storage Behavior (Sony WH-1000XM5)
+
+Sony’s WH-1000XM5 can **store only a limited set of codec settings** in firmware between power cycles.
+
+| Parameter                      | Stored in Firmware | How It's Set                      | Persistent? | Notes                                                                 |
+|-------------------------------|--------------------|-----------------------------------|-------------|-----------------------------------------------------------------------|
+| **Codec** (SBC / LDAC)        | ✅ Yes             | Last active codec at power-off    | ✅          | The most recently used codec is remembered.                          |
+| **LDAC Quality Mode**         | ✅ Yes             | Only via Sony Music Center        | ✅          | "Priority on Sound Quality" = 990kbps<br>"Stable Connection" = Adaptive |
+| **Sample Rate**               | ❌ No              | Set by Android host at runtime    | ❌          | Always needs to be re-applied on connect (e.g., via BCC or UAPP)     |
+| **Bit Depth**                 | ❌ No              | Set by Android host at runtime    | ❌          | Cannot be stored in firmware                                         |
+
+### 📁 Firmware Persistence Table
+
+| Setting                                 | Stored in Headphones? | Survives Power Cycle? | Notes                                           |
+|-----------------------------------------|------------------------|------------------------|-------------------------------------------------|
+| **LDAC/SBC mode (Sound Quality / Stable)** | ✅ Yes                 | ✅ Yes                 | Stored via Sony Music Center with AV ON         |
+| **Sample Rate (e.g., 96kHz)**           | ❌ No                  | ❌ No                  | Always renegotiated per stream                  |
+| **Bit Depth (e.g., 24-bit)**            | ❌ No                  | ❌ No                  | Decided by app/player, not stored in firmware   |
+| **Developer Options codec**            | ❌ No                  | ❌ No                  | Reset on disconnect/reconnect                   |
+| **BCC profile (990 kbps etc.)**        | ❌ No                  | ❌ No                  | Session-only unless re-applied each reconnect   |
+
+
+
+
+📌 **Important:**  
+- **Sony Music Center** is the **only app** that can store the LDAC **quality mode** (not the bitrate itself).
+- **Sample rate and bit depth must always be forced** by the phone — either via:
+  - Bluetooth Codec Changer (BCC),
+  - Hi-res aware app (e.g., UAPP or Neutron),
+  - Or codec handshake tricks.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Usb Audio Player Pro
+1. Install uapp from play store.
+2. Open uapp.
+3. Allow to access music and audio.
+4. Click ok on release notes.
+5. Click on on file access warning.
+6. Add your folders with high res music if you have that i would highly recommend this app for that usecase.
+7. Click ok hint for metadata.
+8. Click close.
+9. Settings reset settings to be sure.
+10. Settings internal audio driver hires direct driver.
+11. Settings system disable pause on audio focus loss to prevent stuttering when accessing other apps on your phone at the same time.
+12. Settings internal hires audio bit perfect mode on.
+13. Settings bluetooth audio enable use with the hires direct driver.
+
+14. Settings bluetooth audio request bluetooth connect permission.
+14.1 Allow.
+14.2 Click ok.
+15. Close app.
+16. Reopen app.
+17. Allow to access bluetooth headset when asked.
+18. Click ok for release notes.
+19. Click ok for internal hires dac detected.
+20. Click ok for file access warning.
+21. Settings bluetooth audio preferred bt codec ldac.
+22. Settings bluetooth audio preferred bt sample  rate Change sample rate according to source.
+23. Settings bluetooth audio LDAC quality Optimized audio quality.
+24. Settings bluetooth audio LDAC resolution Use 24 if you want to play high res and use 16 bit if you want to play 16 bit bit perfect.
+25. Verify the following settings.
+26. Bt sample sample rate is set to change Sample rate according to source.
+27. Ldac quality set to optimized sound quality.
+28. Ldac resolution 24 bit.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Neutron Player
+1. Install neutron from Google play.
+2. Open neutron.
+3. Choose language.
+4. Audio file source automatic and show neutron player where your files are.
+5. Let neutron scan audio file.
+6. Enable high Resolution audio when asked.
+7. Settings playback 64 bit processing on.
+8. Settings playback resampling audiophile.
+9. Settings profile bit-perfect device choose headphones.
+10. Settings audio hardware generic driver high res bluetooth on.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## ⚙️ Settings That Dont Interfere with LDAC 990kbps
+1. 5 GHZ wi-fi.
+2. VoLTE 
+4. 5G
+5. Wifi calling
+6. Show Network quality info
+7. Prioritize real-time data
+8. Detect Suspicious networks 
+9. WiFi power saving off or on no difference 
+10. Nfc
+11. location services itself
+
+
+
+
+
+
+
+
+
+## ⚙️ Settings That Interfere with LDAC 990kbps
+
+These settings are known to interfere with LDAC 990kbps stability and should be disabled or adjusted:
+
+1. **Google Assistant**  
+   - Must be disabled both on the **headset** and the **phone itself**.  
+   - Don't just disable the Google app — instead, **grant Nearby Devices permission back**, then disable Google Assistant cleanly in settings.
+
+2. **Bluetooth and Wi-Fi Scanning**  
+   - Must be disabled completely to prevent background interference.  
+   - Includes Developer Option toggles **and** ADB permission removal for Google Play Services.
+
+3. **Hotspot Band**  
+   - Set your mobile hotspot to **5GHz**.  
+   - **2.4GHz hotspots** interfere with LDAC stability.
+
+4. **Wi-Fi Network Type**  
+   - If your network is **only 2.4GHz**, disable Wi-Fi entirely.
+
+5. **Music Sharing**  
+   - Disable Samsung’s **Bluetooth Music Sharing** feature.
+
+6. **Nearby Devices & Saved Device Scanning**  
+   Disabling Nearby Devices **permission** is **not enough**. Google Play Services still performs background scanning and override syncing unless you explicitly disable both of the following:
+
+   ✅ Disable **Nearby device scanning** under:  
+   - `Settings > Google > Devices & Sharing > Devices > Scan for nearby devices`  
+     → **Turn this OFF**
+
+   ✅ Disable **Saved Devices auto-sync** under:  
+   - `Settings > Google > Devices & Sharing > Saved Devices`  
+     → Tap **︙ (3-dot menu)** and select **“Turn off Automatically Save Devices”**
+
+> 🔒 **Explanation:**  
+> Even with permission denied, Google may silently reassert Fast Pair metadata using background scan and sync logic.  
+> These toggles prevent both the **search for new nearby Bluetooth devices** *and* the **cloud syncing of stored override profiles**, which often reintroduce the Samsung LDAC default.
+
+
+7. **Smartwatch & BLE Companion Apps**  
+   - Uninstall apps like Galaxy Wearable, Zepp, etc.  
+   - Forget any unused **Bluetooth LE devices**.
+
+8. **Samsung-Specific Features**  
+   - Disable:
+     - **Samsung Nearby Devices**
+     - **Samsung Multi Control**
+
+9. **Google Location Accuracy**  
+   - Disable under:  
+     `Settings > Location > Location Services > Google Location Accuracy`
+
+10. **Saved Devices in Google Services**  
+    - Prevent Google from syncing or overriding LDAC profiles.
+
+11. **Switching to Better Networks**  
+    - Found in Wi-Fi settings under “Advanced.”  
+    - Disable to prevent mid-session access point switching.
+
+12. **NFC Usage**  
+    - Having **NFC enabled is fine**, but **using NFC during LDAC playback** (e.g., pairing via tap) causes codec renegotiation.  
+    - Avoid using NFC features while listening.
+
+---
+
+## 📱 ADB Optimization Strategy (For Google Play Services)
+
+> “Keep Location services and scanning toggles ON, but disable Wi-Fi and Bluetooth scanning access for Google Play Services via ADB to stabilize LDAC 990kbps without breaking smart features.”
+
+📌 Optional ADB one-liner:
+```bash
+adb shell appops set com.google.android.gms NEARBY_WIFI_DEVICES ignore && adb shell appops set com.google.android.gms BLUETOOTH_SCAN ignore && adb shell appops set com.google.android.gms ACCESS_FINE_LOCATION ignore
+```
+
+
+
+
+
+
+## ⚙️ Settings That help with LDAC 990kbps
+Change scan interval is set to rarely in  connectivity labs 
+filter option is set to show less in  connectivity labs
+
+
+
+
+
+
+
+
+
+## 🎛️ LDAC Codec Negotiation & Profile Generation
+
+> Everything that determines which codec (SBC, LDAC 330/660/990) gets selected during Bluetooth connection.  
+> This list is 100% focused on **connection-time behaviors** — not post-connection bitrate changes or audio stability.
+
+---
+
+### 🎧 Headphone & Device Factors
+
+- ✅ **Power cycling headphones**  
+  → Clears stored codec profile in the headphone’s memory.  
+  → Allows a new profile (e.g., LDAC 990) to be stored on next clean connection.
+
+- ✅ **Multipoint pairing active**  
+  → Prevents LDAC negotiation entirely.  
+  → Defaults to SBC or AAC to maintain multipoint compatibility.
+
+- ✅ **AVRCP version mismatch**  
+  → May block proper Absolute Volume detection.  
+  → Can disrupt handshake logic or GUI sync.
+
+- ✅ **Absolute Volume ON vs OFF**  
+  - **AV ON**: Android controls headphone volume directly. Can block SBC → LDAC profile switching.  
+  - **AV OFF**: Required for proper manual profile chaining, BCC override, and stored profile training.  
+    → Disables Android volume sync interference, enabling clean codec negotiation.
+
+---
+
+### 📱 Phone Settings That Affect Codec Negotiation
+
+- ✅ **LDAC toggle in Developer Options**  
+  → Activates Samsung’s LDAC override stack.  
+  → Must be followed by SBC reset and Developer Options OFF to stop override.
+
+- ✅ **Developer Options open during connection**  
+  → Re-applies override logic immediately if LDAC is selected.  
+  → Avoid opening Dev Options during or right before pairing.
+
+- ✅ **HD Audio toggle in Bluetooth device settings**  
+  → Triggers full codec renegotiation.  
+  → May allow or re-trigger override stack.
+
+- ✅ **Nearby Devices permission** (e.g., Music Center, GMS)  
+  → Enables silent override via GATT.  
+  → Reapplies stored codec profiles without user interaction.  
+  → Must be revoked or app force-stopped to disable.
+
+- ✅ **Connection method: Quick Settings vs Power-On**  
+  → Reconnecting via **Quick Settings** toggle: more likely to honor stored (trained) profile.  
+  → Reconnecting via **powering on headphones**: often re-triggers Samsung override.
+
+- ✅ **Disabling Developer Options while disconnected**  
+  → Leaves override state intact — no reset occurs.
+
+- ✅ **Disabling Developer Options while connected**  
+  → Clears override state immediately, allowing your codec profile to apply.
+
+---
+
+### 🧠 System Stack Behavior & Profile Storage
+
+- ✅ **Samsung LDAC override stack**  
+  → Automatically activates if LDAC is used in Developer Options.  
+  → Always forces Samsung’s preferred LDAC mode unless bypassed.
+
+- ✅ **Absolute Volume status**  
+  - **AV ON**: Volume sync events can re-trigger override or block codec switching.  
+  - **AV OFF**: Required for successful intermediate profile chaining and GUI desync repair.  
+    → Prevents Android-side volume control from interfering with profile logic.
+
+- ✅ **Fast Pair timing**  
+  → Determines which profile wins: Samsung override or user-defined profile.  
+  → Override usually applies within 1–2 seconds unless interrupted by SBC chaining.
+
+- ✅ **Intermediate profile chaining**  
+  → Example: SBC → LDAC 16-bit → LDAC 24-bit 990  
+  → Bypasses override stack when done early and with AV OFF.  
+  → Essential to force LDAC 990 without triggering Samsung override.
+
+- ✅ **Waiting 10+ seconds post-handshake (no override)**  
+  → Locks negotiated profile into headset firmware (WH-1000XM5/XM3).  
+  → Overrides won’t reapply unless retriggered.
+
+- ✅ **GUI desync between Developer Options and BCC**  
+  → Happens if override or stack race condition occurs.  
+  → Solved by double-applying the BCC profile and using AV OFF.
+
+- ✅ **Codec override persists across reboots**  
+  → Only cleared via SBC handshake followed by Developer Options OFF during active connection.
+
+---
+
+### 📲 App Behavior That Influences Codec Negotiation
+
+- ✅ **Sony | Music Center**  
+  → With Nearby Devices permission: silently re-applies LDAC profile at connection.  
+  → Override happens even if you only changed volume.  
+  → Must be force-stopped or stripped of permission to prevent interference.
+
+- ✅ **Bluetooth Codec Changer (BCC)**  
+  → Defeats Samsung override using profile chaining:  
+    - SBC → LDAC 16-bit → LDAC 24-bit 990  
+  → Must apply within 1–2 seconds of connection.  
+  → Double-apply profile to fix GUI mismatch.
+
+- ✅ **USB Audio Player PRO (UAPP)**  
+  → May re-trigger codec negotiation at playback start.  
+  → Can override or conflict with BCC if launched too early.  
+  → Best practice: allow BCC to finish first, then launch UAPP.
+
+- ✅ **Google Play Services (GMS)**  
+  → With Nearby Devices permission: silently applies stored override.  
+  → Often triggered during Fast Pair.  
+  → Disable permission to stop this.
+
+- ✅ **Tasker (Bluetooth connect triggers)**  
+  → Can switch to SBC or intermediate LDAC profiles instantly at connect.  
+  → Must run before override logic executes (within ~1–2s).  
+  → Used to automate profile chaining for override bypass.
+
+- ✅ **“Automatically save devices” in Fast Pair**  
+  → If enabled, GMS syncs override profiles to the cloud.  
+  → Reapplies LDAC override silently after reset or on new device.  
+  → Must be turned OFF to prevent Samsung override returning.
+
+---
+
+
+
+## 🔒 What BCC Can and Cannot Store (Session vs Firmware)
+
+Bluetooth Codec Changer (BCC) can apply LDAC profiles during a Bluetooth session, but it cannot persist them across reconnects. Only Sony Music Center can store codec preferences in the headphone firmware.
+
+### 📁 Storage Capability Matrix
+
+| Component                         | Can Apply Codec? | Persists After Reconnect? | Stored in Headphones?     | Notes                                         |
+|----------------------------------|------------------|----------------------------|----------------------------|-----------------------------------------------|
+| **Bluetooth Codec Changer (BCC)**| ✅ Yes           | ❌ No                      | ❌ No                      | Session-only, needs AV ON to apply            |
+| **Sony Music Center**            | ✅ Yes           | ✅ Yes                     | ✅ Yes                     | Can store SBC / LDAC mode in firmware         |
+| **Developer Options**            | ✅ Yes           | ❌ No                      | ❌ No                      | UI-only, gets reset on reconnect              |
+| **Tasker (with BCC)**            | ✅ Yes           | ❌ No                      | ❌ No                      | Needs to trigger on every reconnect           |
+| **Android System (Samsung)**     | ✅ Yes (override)| ✅ Yes                     | ❌ No (stack memory)       | Persists until flushed manually               |
+
+---
+
+### 🧠 Key Takeaway
+
+> You cannot lock your own LDAC profile with BCC or Developer Options.  
+> Only **Music Center**, when used with **AV ON**, can store a profile that survives Bluetooth off/on, headphone reboot, or reconnect.  
+> ⚠️ **Sample rate and bit depth are never stored** — they are renegotiated per stream.
+
+
+
+
+
+## Samsung Codec Behavior 
+AAC override is also always active right if LDAC isn't enabled and does enable hd audio in dev settings.
+
+Sbc is never the first codec when paired in bluetooth settings on samsung.
+
+### AAC ≠ Neutral on Reconnect — It's Just Another Override Pathway
+
+After first pairing:
+
+- **AAC is no longer a passive fallback.**
+- It becomes just another codec Samsung temporarily switches through on its way to enforcing **LDAC**.
+- 📌 **It is not an opportunity** — it’s part of the automatic override stack.
+
+> Even if you see AAC after a reconnect, Samsung will often switch to LDAC automatically within seconds — unless the override is actively blocked or interrupted (e.g., via SBC or intermediate profile tricks).
 
 
 
