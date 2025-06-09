@@ -1332,7 +1332,48 @@ Modern builds of Windows 11 paired with the WH-1000XM5 demonstrate **fully worki
 
 
 
+## 🎮 Play/Pause Behavior – Android vs Windows
 
+Even with confirmed **two-way AVRCP 1.6** support, playback handling differs between platforms during multipoint use.
+
+---
+
+### 🔄 Observed Behavior
+
+- When **Android connects** to **Windows** (which is already playing):  
+  ✅ **Android auto-pauses** its playback immediately.
+
+- When **Windows connects** to **Android** (which is already playing):  
+  ❌ **Windows does not pause**, and both devices may play simultaneously.
+
+---
+
+### 🧠 Why This Happens
+
+> **AVRCP 1.6 does not define playback arbitration.**  
+> It provides:
+> - Media controls (Play, Pause, Next, Previous)
+> - Metadata exchange
+> - Volume synchronization
+
+Automatic pausing when a second device is active is a **platform-level feature**, not part of the AVRCP specification.
+
+---
+
+### ⚙️ OS Playback Policy Comparison
+
+| Scenario                                       | Android Behavior         | Windows Behavior         |
+|-----------------------------------------------|--------------------------|--------------------------|
+| Android connects to Windows (already playing) | ✅ Auto-pauses Android    | 🔄 Continues playback     |
+| Windows connects to Android (already playing) | ❌ No auto-pause          | 🔄 Continues playback     |
+
+---
+
+### ✅ Conclusion
+
+- **AVRCP 1.6 two-way control is fully working** on both Android and Windows.
+- **Android actively manages media sessions** and pauses itself to avoid conflict.
+- **Windows lacks multipoint-aware session handling**, so playback continues.
 
 
 ---
