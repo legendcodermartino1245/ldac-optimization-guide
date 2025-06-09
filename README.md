@@ -2643,3 +2643,6 @@ This keeps device tracking and Assistant functional during initial setup.
 
 > 📌 **Summary:**  
 > **LDAC is fully unsupported** on both **macOS** and **iOS**, and there is no known workaround due to Apple’s closed ecosystem.
+
+# Linux
+Dont use Pulseaudio use Pipewire instead
