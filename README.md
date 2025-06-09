@@ -1144,8 +1144,8 @@ This setting is defined internally in the system configuration file (`bluetooth_
 | **AVRCP Version (1.5 vs 1.6)**            | ❌ No       |
 | **Operating System (Android / Windows)**  | ❌ No       |
 | **Audio App (UAPP, Neutron, etc.)**       | ❌ No       |
+---
 \* Absolute Volume **doesnt need to match** for codec compatibility, but aligning them can improve **connection stability** and reduce **stutter risk** in edge cases.
-
 ---
 
 ## 🧠 LDAC Control Roles
