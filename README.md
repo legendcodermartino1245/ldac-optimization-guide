@@ -1375,6 +1375,9 @@ Automatic pausing when a second device is active is a **platform-level feature**
 - **Android actively manages media sessions** and pauses itself to avoid conflict.
 - **Windows lacks multipoint-aware session handling**, so playback continues.
 
+> ✅ **AVRCP 1.6 Two-Way Control Confirmed**  
+> In multipoint mode, Android can issue play/pause/skip commands to Windows directly through the Sony Headphones Connect app, while Windows is the active audio source.  
+> This confirms Windows fully acts as an AVRCP 1.6 Target, and Android as a Controller — beyond headset buttons alone.
 
 ---
 
