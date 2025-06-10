@@ -1678,6 +1678,65 @@ This is due to:
 ---
 
 
+
+
+# 🎧 Bluetooth A2DP Codec Support on Windows
+
+## Overview
+
+| **Codec**         | **Windows 10 (Default Stack)**                              | **Windows 11 (Default Stack)**                                      | **Alternative A2DP Driver (Win 10 & 11)**                          |
+|-------------------|-------------------------------------------------------------|----------------------------------------------------------------------|--------------------------------------------------------------------|
+| **SBC**           | ✅ Native support                                            | ✅ Native support                                                     | ✅ Yes — fully configurable                                         |
+| **AAC**           | ❌ Not supported                                             | ✅ Native since Windows 11 21H2                                       | ✅ Yes — with AAC-support edition license                          |
+| **aptX Classic**  | ⚠️ Only via OEM/chipset drivers (e.g., Qualcomm stack)       | ⚠️ Only via OEM/chipset drivers                                      | ✅ Yes                                                              |
+| **aptX HD**       | ❌ Not supported                                             | ❌ Not supported                                                      | ✅ Yes                                                              |
+| **aptX LL**       | ❌ Not supported                                             | ❌ Not supported                                                      | ✅ Yes                                                              |
+| **aptX Adaptive** | ❌ Not supported                                             | ⚠️ Supported only on select Qualcomm PCs with Windows 11 24H2+       | ❌ Not supported                                                    |
+| **LDAC**          | ❌ Not supported                                             | ❌ Not supported                                                      | ✅ Yes                                                              |
+
+---
+
+## ✅ Key Facts
+
+- Windows does **not officially support aptX**. Any aptX use comes from **OEM-provided Bluetooth drivers** (e.g., Qualcomm), **not Microsoft**.
+- **Windows 11 21H2 and later** natively supports **AAC** over Bluetooth A2DP.
+- **aptX Adaptive** is supported only on select **Qualcomm-powered Windows 11 (24H2+) devices**.
+- The **Alternative A2DP Driver** (by BluetoothGoodies) provides:
+  - ✅ SBC (fully configurable)
+  - ✅ AAC (licensed edition)
+  - ✅ aptX (Classic, HD, LL)
+  - ✅ LDAC (configurable bitrate/mode)
+  - ✅ **Per-device codec profile storage** — each paired device can retain its own preferred codec and settings.
+
+---
+
+## 🔎 Summary
+
+| **OS/Driver**      | **SBC** | **AAC** | **aptX** | **aptX HD** | **aptX LL** | **aptX Adaptive** | **LDAC** | **Per-Device Profiles** |
+|--------------------|--------|--------|---------|-------------|-------------|--------------------|----------|--------------------------|
+| Windows 10         | ✅     | ❌     | ⚠️ OEM | ❌          | ❌          | ❌                 | ❌       | ❌                       |
+| Windows 11         | ✅     | ✅     | ⚠️ OEM | ❌          | ❌          | ⚠️ 24H2+ OEM       | ❌       | ❌                       |
+| Alt. A2DP Driver   | ✅     | ✅*    | ✅      | ✅          | ✅          | ❌                 | ✅       | ✅                       |
+
+> *AAC support in Alternative A2DP Driver requires a purchased AAC-enabled edition.
+
+---
+
+## 🛠️ Want to verify or install?
+
+You can:
+- Use **Bluetooth Tweaker** to verify active codec
+- Use the **Alternative A2DP Driver** for full codec control
+- Check if your OEM has provided aptX/aptX Adaptive-capable drivers
+
+
+
+
+
+
+
+
+
 ## Absolute Volume
 Absolute Volume on means it has to hit 85% of volume minimal 
 
