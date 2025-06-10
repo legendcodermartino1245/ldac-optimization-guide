@@ -3074,6 +3074,166 @@ Only after the LDAC 990 profile is confirmed and stored in firmware should you d
 - Assistant and Find My Device background access (optional)
 This keeps device tracking and Assistant functional during initial setup.
 
+## 🎙️ LDAC Kills Your Mic — Use AAC or SBC If You Speak
+
+LDAC is excellent for high-resolution playback — but it completely **breaks microphone functionality** on Sony WH-1000XM series.
+
+This isn’t a bug. It’s **by design.**  
+Sony’s firmware and Android’s Bluetooth stack **do not support bidirectional LDAC**.
+
+---
+
+### 🔧 What Actually Happens
+
+When using LDAC:
+- 🛑 Your mic is **disabled**
+- 📉 If you try to use voice input, take a call, or launch Google Assistant:
+  - Android **silently falls back to SBC or AAC**
+  - LDAC is **aborted mid-session**, often without warning
+- 🧪 Verified in:
+  - `dumpsys bluetooth_manager`
+  - Bluetooth Codec Changer logs
+  - Real-world mic failure scenarios (e.g. no voice input detected)
+
+---
+
+### 🎧 Codec Mic Support Table
+
+| Codec | Mic Support | Audio Quality | Notes |
+|-------|-------------|----------------|-------|
+| **LDAC** | ❌ **None** | 🎵 Excellent (playback only) | Mic input disabled; triggers codec fallback |
+| **AAC**  | ✅ **Wideband** | 🎵 Good (up to ~250 kbps) | Best mic+media balance on Android |
+| **SBC**  | ✅ **Narrowband** | 🎵 Low (~328 kbps) | Mic always works; acceptable fallback |
+| **AptX** (XM3 only) | ❌ None | 🎵 Good | Mic unavailable in A2DP mode; fallback triggers HFP |
+
+---
+
+### 📱 Real-World Behavior (Multipoint or Single Device)
+
+| Use Case | Result (with LDAC active) |
+|----------|---------------------------|
+| Voice Assistant (e.g. Google) | ❌ Mic won’t activate or triggers fallback |
+| Voice memo / WhatsApp | ❌ No audio recorded or distorted |
+| Incoming call | 🔄 LDAC drops, SBC or AAC silently enabled |
+| Zoom / Meet | ❌ Mic doesn’t work (unless codec is pre-switched) |
+| Press mic button on headset | Often does nothing unless codec has already downgraded |
+
+---
+
+### ✅ What You Should Use Instead (When Mic Is Needed)
+
+| Scenario | Recommended Codec |
+|----------|-------------------|
+| Any call, voice assistant, or voice note | **AAC** |
+| Multipoint (Android + Windows) with voice usage | **AAC on Android**, SBC on Windows |
+| Maximum mic reliability with lowest complexity | **SBC** |
+
+---
+
+### 🔄 How to Handle This in Practice
+
+- If mic is critical:
+  - Don’t use LDAC
+  - Set Android to **AAC or SBC** via Bluetooth Codec Changer
+- If LDAC is needed **only for music**:
+  - Use a **profile chain** to force fallback (e.g. Tasker detects call → switch to AAC)
+  - Use **SBC or AAC for voice-focused apps** (e.g. WhatsApp, Meet)
+
+---
+
+### 🧠 Why This Happens
+
+LDAC uses nearly all Bluetooth A2DP bandwidth for high-fidelity **outbound audio**.  
+There’s no room left for the **inbound mic channel** — it’s disabled entirely.
+
+This is a limitation of:
+- The **A2DP profile**
+- The **LDAC codec itself**
+- And **Sony’s firmware design**
+
+> 🔥 Nobody documents this clearly — but now it’s here.
+
+---
+
+### ✅ Bottom Line
+
+If you need to speak — use **AAC or SBC**.  
+If you only want to listen — **LDAC is fine**.  
+But you can’t have both at the same time.
+
+
+
+## 🎧 Multipoint Codec Matrix (Android: LDAC / AAC / SBC | Windows: AAC / SBC / AptX)
+
+This section documents all valid multipoint codec combinations when:
+
+- ✅ Android may use **LDAC**, **AAC**, or **SBC**
+- ❌ Windows **cannot** use LDAC
+- 🎙️ Microphone may or may not work depending on the codec
+
+---
+
+### 🔄 Full Compatibility Matrix
+
+| Android Codec       | Windows Codec     | Mic Support (Android) | Mic Support (Windows) | Media Quality (A/W)     | Resume Stability        | Notes |
+|---------------------|-------------------|------------------------|------------------------|--------------------------|--------------------------|-------|
+| **LDAC (Fixed)**     | **SBC**           | ❌ None               | ✅ Basic              | ✅ Excellent / ⚠️ Low     | ✅ High                 | Safest LDAC multipoint; no mic on Android |
+| **LDAC (Fixed)**     | **AAC**           | ❌ None               | ✅ Excellent          | ✅ Excellent / ✅ Good     | ⚠️ Medium              | AVRCP conflict if Windows resumes first |
+| **LDAC (Fixed)**     | **AptX** (XM3)    | ❌ None               | ❌ None               | ✅ Excellent / ✅ Good     | ✅ High                 | Media-only setup; no mic on either side |
+| **LDAC (Adaptive)**  | **SBC**           | ⚠️ Sometimes          | ✅ Basic              | ⚠️ Variable / ⚠️ Low       | ✅ High                 | Mic may briefly work (e.g. Assistant) |
+| **LDAC (Adaptive)**  | **AAC**           | ⚠️ Sometimes          | ✅ Excellent          | ⚠️ Variable / ✅ Good      | ⚠️ Medium              | May silently fallback under the hood |
+| **AAC**             | **SBC**           | ✅ Excellent          | ✅ Basic              | ✅ Good / ⚠️ Low           | ✅ High                 | Great mic + stability balance |
+| **AAC**             | **AAC**           | ✅ Excellent          | ✅ Excellent          | ✅ Good / ✅ Good          | ⚠️ Medium              | Great mic; resume desync risk possible |
+| **AAC**             | **AptX** (XM3)    | ✅ Excellent          | ❌ None               | ✅ Good / ✅ Good          | ✅ High                 | Android mic OK; Windows mic off |
+| **SBC**             | **SBC**           | ✅ Basic              | ✅ Basic              | ⚠️ Low / ⚠️ Low            | ✅✅ Max Stability      | Best fallback combo for switching speed |
+| **SBC**             | **AAC**           | ✅ Basic              | ✅ Excellent          | ⚠️ Low / ✅ Good           | ✅ High                 | Works best when Android is mic-secondary |
+| **SBC**             | **AptX** (XM3)    | ✅ Basic              | ❌ None               | ⚠️ Low / ✅ Good           | ✅ High                 | Windows media-only use, no mic
+
+---
+
+### 🎙 Mic Behavior Reference
+
+| Codec               | Mic Support | Notes |
+|---------------------|-------------|-------|
+| **LDAC (Fixed)**     | ❌ None     | Mic disabled by firmware |
+| **LDAC (Adaptive)**  | ⚠️ Inconsistent | Mic may work briefly, but is unstable |
+| **AAC**             | ✅ Excellent | Wideband, ideal for voice + media |
+| **SBC**             | ✅ Basic     | Narrowband, stable but low fidelity |
+| **AptX**            | ❌ None     | Unsupported on Sony headphones for mic use |
+
+---
+
+### 🧠 Best Combos by Use Case
+
+#### 🎵 **High-Quality Media (No Mic)**
+
+- Android: **LDAC (Fixed)**
+- Windows: **AAC** or **AptX** (XM3)
+
+#### 🗣 **Calls, Assistant, Voice Notes**
+
+- Android: **AAC**
+- Windows: **AAC** or **SBC**
+
+#### 🔁 **Most Reliable Resume and Handoff**
+
+- Android: **SBC**
+- Windows: **SBC**
+
+#### ⚖️ **Balanced Setup (Mic on Android, Light Media on Windows)**
+
+- Android: **AAC**
+- Windows: **SBC**
+
+---
+
+
+
+
+
+
+
+
 # macOS and iPhone – LDAC Status
 
 - **LDAC support:** ❌ **Not supported natively**
