@@ -3212,6 +3212,139 @@ Supports:
 
 
 
+## 🪟 Windows 11 "Unified Audio Endpoint" Feature
+
+Many people have had trouble configuring Bluetooth audio devices for video conferencing in Windows. To improve the user experience, **Windows 11 introduced a feature called _Unified Audio Endpoint_**.
+
+---
+
+### 🔧 What Does It Do?
+
+Traditionally, Windows showed two separate playback endpoints for Bluetooth headsets:
+
+- `Headphones (Stereo)` — for **A2DP** media playback  
+- `Headset (Hands-Free Audio)` — for **HFP** voice calls + mic
+
+With **Unified Audio Endpoint**, Windows 11 now exposes only one endpoint:
+
+- ✅ `Headphones` (Unified)
+
+> 🎯 **Behind the scenes**, Windows routes audio dynamically based on whether the mic is in use.
+
+---
+
+### 🧠 Routing Behavior Overview
+
+If the mic is **inactive**:
+- Audio is routed through **A2DP**
+- Full **stereo, high-quality playback**
+
+If the mic is **active** (calls, voice chat, voice typing):
+- Audio is routed through **HFP**
+- Playback is forcibly converted to **mono**, **16-bit**, **16 kHz**
+- Quality drops drastically due to SCO limitations
+
+---
+
+### 🧩 Architecture Diagram (in Markdown)
+
+```text
+[User-Visible Endpoints]
+ ├── Speaker (Unified)
+ └── Microphone (Unified)
+         │
+         ▼
+[Windows 11 Unified Audio Endpoint]
+ ├── Redirects to:
+ │   ├── Headphone Speaker (A2DP)
+ │   └── Headset Speaker (HFP)
+ └── Converts to mono 16kHz 16-bit if HFP is active
+         │
+         ▼
+[Internal Audio Endpoints]
+ ├── Headphone Speaker
+ ├── Headset Speaker
+ └── Headset Microphone
+         │
+         ▼
+[Windows Bluetooth Stack]
+ ├── A2DP Driver (Stereo)
+ └── HFP Driver (Mono + Mic)
+         │
+         ▼
+[Bluetooth Profile in Use]
+ ├── A2DP (Advanced Audio Distribution Profile)
+ └── HFP (Hands-Free Profile via SCO Codec)
+
+## 🧪 How to Detect When Windows Switches to HFP
+
+Windows does **not expose** the active Bluetooth profile (A2DP vs HFP) directly in the UI.  
+However, you can detect the fallback through these methods:
+
+### 🔍 Symptoms of HFP Fallback
+
+- 🎧 Audio becomes **mono and muffled**
+- 🎙 Mic starts working (e.g., in Zoom or Teams)
+- 🔇 Equalizers or spatial audio options are **disabled**
+- 🟡 Volume control becomes **inconsistent** or jumps
+- ⚙️ Sample rate in Sound Control Panel shows **16 kHz**
+
+---
+
+### 🛠 Tools to Detect the Switch
+
+| Tool                      | What to Look For                            |
+|---------------------------|---------------------------------------------|
+| **Sound Control Panel**   | Playback device shows 16 kHz sample rate    |
+| **LatencyMon**            | HFP/SCO driver loaded                       |
+| **Bluetooth Tweaker**     | Shows A2DP vs SCO status (if supported)     |
+| **Device Manager (DevMgmt)** | View active Bluetooth audio class driver |
+
+---
+
+## 🐞 Known Issues With Profile Switching in Windows 11
+
+| Issue                                                | Description                                                               |
+|------------------------------------------------------|---------------------------------------------------------------------------|
+| **Stuck in HFP mode after call**                     | Device doesn’t return to A2DP even after mic usage ends                  |
+| **Zoom/Teams lock device in mono mode**              | App continues to hold SCO profile after session                          |
+| **No manual override**                               | You cannot force Windows back to A2DP without reconnecting               |
+| **Auto resume broken**                               | Music doesn’t resume in high quality after mic use                       |
+| **Sound settings lie**                               | UI may still show “Stereo” even when output is mono via SCO              |
+
+---
+
+## ✅ Best Practices for High-Quality Audio on Windows 11
+
+| Scenario                         | Recommendation                                                              |
+|----------------------------------|------------------------------------------------------------------------------|
+| **Listening only (no mic)**      | Disable mic access for the headset, or use Alternative A2DP Driver          |
+| **Voice calls + music needed**   | Use a **wired mic** + Bluetooth headset (A2DP-only)                         |
+| **Presentation or streaming**    | Use a **USB mic** and separate DAC or high-fidelity Bluetooth config        |
+| **Gaming or editing audio**      | Avoid Bluetooth headset entirely; use wired or low-latency USB solution     |
+
+---
+
+## 🧠 Why This Still Matters
+
+Even in 2025, the **Bluetooth spec** remains the bottleneck:
+- A2DP and HFP **cannot operate concurrently**
+- SCO (used by HFP) is a **legacy telephony codec**
+- No current OS can force true stereo playback while the mic is active over Bluetooth
+
+---
+
+> 💬 If you’ve ever asked:  
+> “Why does my Bluetooth audio suddenly sound like a bad phone call?”  
+>  
+> ✅ Now you know — it’s **HFP profile fallback**, and Unified Audio Endpoint hides it.
+
+
+
+
+
+
+
 
 # macOS and iPhone – LDAC Status
 **macOS** and **iOS**, and there is no known workaround due to Apple’s closed ecosystem.
