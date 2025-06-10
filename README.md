@@ -3163,69 +3163,66 @@ But you can’t have both at the same time.
 
 
 
-## 🎧 Multipoint Codec Matrix (Android: LDAC / AAC / SBC | Windows: AAC / SBC / AptX)
+## 🎧 Multipoint Codec Matrix no 2 ldac at one time
+(Android: LDAC / AAC / SBC | Windows: AAC / SBC / AptX)
 
-This section documents all valid multipoint codec combinations when:
-
-- ✅ Android may use **LDAC**, **AAC**, or **SBC**
+This matrix documents all valid multipoint codec combinations when:
+- ✅ Android uses **LDAC**, **AAC**, or **SBC**
 - ❌ Windows **cannot** use LDAC
-- 🎙️ Microphone may or may not work depending on the codec
+- 🎙️ Microphone availability varies by codec and OS interaction
 
 ---
 
 ### 🔄 Full Compatibility Matrix
 
-| Android Codec       | Windows Codec     | Mic Support (Android) | Mic Support (Windows) | Media Quality (A/W)     | Resume Stability        | Notes |
-|---------------------|-------------------|------------------------|------------------------|--------------------------|--------------------------|-------|
-| **LDAC (Fixed)**     | **SBC**           | ❌ None               | ✅ Basic              | ✅ Excellent / ⚠️ Low     | ✅ High                 | Safest LDAC multipoint; no mic on Android |
-| **LDAC (Fixed)**     | **AAC**           | ❌ None               | ✅ Excellent          | ✅ Excellent / ✅ Good     | ⚠️ Medium              | AVRCP conflict if Windows resumes first |
-| **LDAC (Fixed)**     | **AptX** (XM3)    | ❌ None               | ❌ None               | ✅ Excellent / ✅ Good     | ✅ High                 | Media-only setup; no mic on either side |
-| **LDAC (Adaptive)**  | **SBC**           | ⚠️ Sometimes          | ✅ Basic              | ⚠️ Variable / ⚠️ Low       | ✅ High                 | Mic may briefly work (e.g. Assistant) |
-| **LDAC (Adaptive)**  | **AAC**           | ⚠️ Sometimes          | ✅ Excellent          | ⚠️ Variable / ✅ Good      | ⚠️ Medium              | May silently fallback under the hood |
-| **AAC**             | **SBC**           | ✅ Excellent          | ✅ Basic              | ✅ Good / ⚠️ Low           | ✅ High                 | Great mic + stability balance |
-| **AAC**             | **AAC**           | ✅ Excellent          | ✅ Excellent          | ✅ Good / ✅ Good          | ⚠️ Medium              | Great mic; resume desync risk possible |
-| **AAC**             | **AptX** (XM3)    | ✅ Excellent          | ❌ None               | ✅ Good / ✅ Good          | ✅ High                 | Android mic OK; Windows mic off |
-| **SBC**             | **SBC**           | ✅ Basic              | ✅ Basic              | ⚠️ Low / ⚠️ Low            | ✅✅ Max Stability      | Best fallback combo for switching speed |
-| **SBC**             | **AAC**           | ✅ Basic              | ✅ Excellent          | ⚠️ Low / ✅ Good           | ✅ High                 | Works best when Android is mic-secondary |
-| **SBC**             | **AptX** (XM3)    | ✅ Basic              | ❌ None               | ⚠️ Low / ✅ Good           | ✅ High                 | Windows media-only use, no mic
+| Android Codec      | Windows Codec     | Mic Support (Android)     | Mic Support (Windows)     | Media Quality (A / W)     | Resume Stability         | Notes                                                  |
+|--------------------|-------------------|----------------------------|----------------------------|----------------------------|---------------------------|--------------------------------------------------------|
+| **LDAC (Fixed)**    | **SBC**           | ❌ None                    | ✅ Basic                   | ✅ Excellent / ⚠️ Low       | ✅ High                  | Safest LDAC multipoint combo                           |
+| **LDAC (Fixed)**    | **AAC**           | ❌ None                    | ✅ Excellent               | ✅ Excellent / ✅ Good       | ⚠️ Medium               | May stutter if Windows resumes first                   |
+| **LDAC (Fixed)**    | **AptX** (XM3)    | ❌ None                    | ❌ None                    | ✅ Excellent / ✅ Good       | ✅ High                  | Media-only; no mic                                     |
+| **LDAC (Adaptive)** | **SBC**           | ⚠️ Unstable                | ✅ Basic                   | ⚠️ Variable / ⚠️ Low         | ✅ High                  | Mic may briefly activate                               |
+| **LDAC (Adaptive)** | **AAC**           | ⚠️ Unstable                | ✅ Excellent               | ⚠️ Variable / ✅ Good        | ⚠️ Medium               | Hidden fallback risk                                   |
+| **AAC**            | **SBC**           | ✅ Excellent               | ✅ Basic                   | ✅ Good / ⚠️ Low             | ✅ High                  | Android handles voice; Windows stable fallback         |
+| **AAC**            | **AAC**           | ⚠️ One at a time           | ⚠️ One at a time           | ✅ Good / ✅ Good            | ⚠️ Medium               | ❗ Mic collision risk; avoid voice use on both          |
+| **AAC**            | **AptX** (XM3)    | ✅ Excellent               | ❌ None                    | ✅ Good / ✅ Good            | ✅ High                  | Android handles voice; Windows playback only           |
+| **SBC**            | **SBC**           | ✅ Basic                   | ✅ Basic                   | ⚠️ Low / ⚠️ Low              | ✅✅ Max Stability       | Fallback-safe; perfect resume behavior                 |
+| **SBC**            | **AAC**           | ✅ Basic                   | ✅ Excellent               | ⚠️ Low / ✅ Good             | ✅ High                  | Android mic safe; Windows audio quality improves       |
+| **SBC**            | **AptX** (XM3)    | ✅ Basic                   | ❌ None                    | ⚠️ Low / ✅ Good             | ✅ High                  | Windows playback only; Android voice fallback          |
 
 ---
 
 ### 🎙 Mic Behavior Reference
 
-| Codec               | Mic Support | Notes |
-|---------------------|-------------|-------|
-| **LDAC (Fixed)**     | ❌ None     | Mic disabled by firmware |
-| **LDAC (Adaptive)**  | ⚠️ Inconsistent | Mic may work briefly, but is unstable |
-| **AAC**             | ✅ Excellent | Wideband, ideal for voice + media |
-| **SBC**             | ✅ Basic     | Narrowband, stable but low fidelity |
-| **AptX**            | ❌ None     | Unsupported on Sony headphones for mic use |
+| Codec               | Mic Support          | Notes                                          |
+|---------------------|----------------------|------------------------------------------------|
+| **LDAC (Fixed)**     | ❌ None              | Mic disabled at negotiation                    |
+| **LDAC (Adaptive)**  | ⚠️ Inconsistent      | Mic may activate briefly; unreliable           |
+| **AAC**              | ✅ Excellent (solo)  | One mic active at a time; conflict if both try |
+| **SBC**              | ✅ Basic             | Narrowband; works reliably                     |
+| **AptX**             | ❌ None              | Mic unsupported in A2DP mode on Sony XM series |
 
 ---
 
-### 🧠 Best Combos by Use Case
+## 🧠 Same-Codec Multipoint — Special Case
 
-#### 🎵 **High-Quality Media (No Mic)**
-
-- Android: **LDAC (Fixed)**
-- Windows: **AAC** or **AptX** (XM3)
-
-#### 🗣 **Calls, Assistant, Voice Notes**
-
-- Android: **AAC**
-- Windows: **AAC** or **SBC**
-
-#### 🔁 **Most Reliable Resume and Handoff**
-
-- Android: **SBC**
-- Windows: **SBC**
-
-#### ⚖️ **Balanced Setup (Mic on Android, Light Media on Windows)**
-
-- Android: **AAC**
-- Windows: **SBC**
+| Codec   | Android | Windows | Mic Support          | Mic Conflict Risk       | Media Switching         | Notes                                        |
+|---------|---------|---------|----------------------|--------------------------|--------------------------|----------------------------------------------|
+| **AAC** | ✅ Yes  | ✅ Yes  | ⚠️ One at a time     | ❌ Mic conflict possible | ⚠️ Resume may desync    | Media OK; voice on both = unreliable         |
+| **SBC** | ✅ Yes  | ✅ Yes  | ✅ On both            | ✅ No conflict           | ✅ Seamless              | Safest multipoint fallback                   |
 
 ---
+
+## ✅ Use Case Summary
+
+| Use Case                          | Android Codec | Windows Codec | Why                                                                 |
+|----------------------------------|----------------|----------------|----------------------------------------------------------------------|
+| 🎵 Hi-Fi Music (No Mic)           | LDAC (Fixed)   | SBC or AptX    | Best fidelity on Android; fallback-safe on Windows                  |
+| 🗣 Voice Use (Android Only)       | AAC            | SBC            | Full Android mic support; Windows passive                           |
+| 🗣 Voice Use (Windows Only)       | SBC            | AAC            | Full Windows mic support; Android passive                           |
+| ⚠️ Avoid Simultaneous Voice Use   | AAC            | AAC            | ❌ One mic at a time — causes hidden lockups                        |
+| 🔁 Seamless Resume & Switching    | SBC            | SBC            | ✅ Most stable fallback; perfect switching behavior                  |
+| ⚖️ Balanced Playback + Voice Use  | AAC            | SBC            | Android voice access + Windows playback — no conflict              |
+
 
 
 
