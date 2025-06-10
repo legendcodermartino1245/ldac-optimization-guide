@@ -3275,7 +3275,7 @@ If the mic is **active** (calls, voice chat, voice typing):
 [Bluetooth Profile in Use]
  ├── A2DP (Advanced Audio Distribution Profile)
  └── HFP (Hands-Free Profile via SCO Codec)
-
+```
 ## 🧪 How to Detect When Windows Switches to HFP
 
 Windows does **not expose** the active Bluetooth profile (A2DP vs HFP) directly in the UI.  
