@@ -3345,6 +3345,90 @@ Even in 2025, the **Bluetooth spec** remains the bottleneck:
 
 
 
+## ⚡ Fastest Possible LDAC Override Defeat Method (Samsung Only)
+
+Samsung's Bluetooth stack **always asserts a default LDAC override** 1–2 seconds after connecting — even when Developer Options are disabled.
+
+This override:
+- Forces **adaptive LDAC** (usually 660–909 kbps)
+- Can override **Bluetooth Codec Changer (BCC)** if the profile switch is delayed
+- Reapplies on every connection unless explicitly defeated
+
+---
+
+### ✅ The Solution: Outpace the Override Stack
+
+You can’t prevent the override from firing — but you **can beat it to the handshake**.
+
+### 📋 Required Setup
+
+| Setting | Value |
+|--------|-------|
+| Auto Switch | ✅ ON |
+| Intermediate Profile | `SBC (44.1kHz / 16-bit)` |
+| Final Profile | `LDAC 990 (44.1 or 96kHz / 24-bit)` |
+| Auto Switch Delay | `0 ms` |
+| 2-Step Switching | ❌ OFF |
+| Music Center | ❌ Must be **closed** or **force-stopped** |
+
+---
+
+### 🧠 Why This Works
+
+Samsung's override stack asserts a fallback LDAC profile **~1.2–1.8 seconds after connection**.  
+By forcing:
+1. **SBC** → breaks any previous LDAC session or Developer Option override
+2. **Immediate LDAC 990 handshake (0ms delay)** → applies your codec profile *before* Samsung can override
+
+The override still fires — but it **backs off silently** when it sees LDAC already locked in.
+
+---
+
+### 🧪 Optional: LDAC 16-bit "Priming" (First-Time Only)
+
+On a fresh reset, you may optionally:
+- Manually switch to `LDAC 16-bit / 990 kbps` once before enabling Auto Switch
+- This primes the headphone firmware to treat LDAC 990 as a valid profile
+- Subsequent SBC → LDAC 990 chains will succeed without needing the intermediate 16-bit handshake
+
+---
+
+### 🧼 Additional Protections
+
+- **Disable “Automatically Save Devices”** in Android’s Fast Pair settings before pairing
+- **Use Tasker to refresh GUI and BCC codec display**, preventing UI desync after fast switches
+- **Never toggle LDAC manually via Developer Options** after training — it re-triggers the override
+
+---
+
+### ✅ Summary
+
+> With this setup, you create a **stable, override-free LDAC 990 session in under 1.5 seconds** —  
+> fully automated, GUI-synced, no root, and no Music Center required.
+
+This is the fastest, cleanest LDAC override bypass method available on Samsung.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # macOS and iPhone – LDAC Status
 **macOS** and **iOS**, and there is no known workaround due to Apple’s closed ecosystem.
