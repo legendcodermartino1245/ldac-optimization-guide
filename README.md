@@ -1267,6 +1267,11 @@ To ensure a smooth and stable LDAC multipoint experience:
 | 16  | Android  | Android | OFF / OFF  | 1.5 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
 
 
+⚠ Adaptive LDAC Warning:  
+Resume stability and stutter tolerance may degrade when Adaptive mode is active, especially in multipoint scenarios.
+
+
+
 ## 🎧 AVRCP Role Detection — Testing Methodology
 
 To determine AVRCP Controller (CT) and Target (TG) roles during multipoint LDAC operation, the following non-invasive test procedure was used:
@@ -3645,118 +3650,31 @@ This isn’t a bug — it’s **by design**, due to the **Bluetooth A2DP specifi
 
 ---
 
-### 🔧 What Actually Happens
-
-When using any A2DP codec (LDAC, AAC, SBC):
-- 🛑 Your **Bluetooth mic is disabled**
-- 🎙 Voice input (e.g., calls, Assistant) causes Android to:
-  - **Abort the current A2DP session**
-  - **Switch silently to HSP/HFP (SCO)**
-  - Audio quality drops to **mono, low bitrate**
-- 🧪 Verified via:
-  - `dumpsys bluetooth_manager`
-  - Bluetooth Codec Changer logs
-  - Real-world behavior across call, voice note, and Assistant usage
-
----
-
-### 🎧 Bluetooth Codec Mic Support Table (Corrected)
-
-| Codec              | Mic Support | Profile Used        | Notes                                   |
-|-------------------|-------------|---------------------|-----------------------------------------|
-| **LDAC (Fixed)**   | ❌ None     | A2DP                | Playback only                           |
-| **LDAC (Adaptive)**| ❌ None     | A2DP                | Mic triggers fallback                   |
-| **AAC**            | ❌ None     | A2DP                | Mic triggers fallback to SCO            |
-| **SBC (A2DP)**     | ❌ None     | A2DP                | Playback only; fallback hidden          |
-| **SCO (CVSD/mSBC)**| ✅ Yes      | HSP / HFP (not A2DP)| Mono audio + mic; poor quality          |
-| **aptX (Classic)** | ❌ None     | A2DP                | Same fallback behavior                  |
-
----
-
-### 📱 Real-World Mic Behavior
-
-| Action                            | Result (Any A2DP Codec Active)       |
-|----------------------------------|--------------------------------------|
-| Google Assistant / Voice Input   | ❌ Mic fails or triggers SCO fallback |
-| Voice Memo / WhatsApp Message    | ❌ No audio or extremely low quality  |
-| Incoming Call                    | 🔄 Codec drops to SCO silently        |
-| Zoom / Meet Call                 | ❌ Mic unusable unless pre-switched   |
-| Headset Mic Button               | ⚠️ Often ignored unless fallback occurs |
-
----
-
-### ✅ What to Use When Mic Is Needed
-
-| Scenario                          | Bluetooth Profile     | Notes                         |
-|----------------------------------|------------------------|-------------------------------|
-| Voice assistant, calls, voice notes | **HSP/HFP (SCO)**     | Always mono, poor quality     |
-| High-quality playback only         | **A2DP (LDAC, AAC, SBC)** | Mic completely disabled     |
-
----
-
-## 🎧 Multipoint Codec Matrix (No LDAC on Both)
+### 🎧 Multipoint Codec Matrix (No LDAC on Both)
 
 Supports:
 - ✅ Android → LDAC / AAC / SBC  
 - ✅ Windows → AAC / SBC / aptX  
 - ❌ No LDAC on Windows  
-- 🎙 Mic **only** works via HSP/HFP fallback (SCO)
+- 🎙 Mic only works via HSP/HFP fallback (SCO, one active SCO link only)
 
 ---
 
-### 🔄 Full Compatibility Matrix (Corrected)
+### 🔄 Full Compatibility Matrix
 
-| Android Codec      | Windows Codec     | Mic Works on Android? | Mic Works on Windows? | Media Quality (A / W)     | Resume Stability | Notes |
-|--------------------|-------------------|------------------------|------------------------|----------------------------|------------------|-------|
-| **LDAC (Fixed)**    | **SBC**           | ❌ No (A2DP only)       | ✅ (via SCO)           | ✅ Excellent / ⚠️ Low       | ✅ High           | High fidelity for Android; fallback on Windows |
-| **LDAC (Fixed)**    | **AAC**           | ❌ No                   | ✅ (via SCO)           | ✅ Excellent / ✅ Good       | ⚠️ Medium         | Mic forces fallback |
-| **LDAC (Fixed)**    | **aptX** (XM3)    | ❌ No                   | ❌ No                   | ✅ Excellent / ✅ Good       | ✅ High           | No mic on either side |
-| **LDAC (Adaptive)** | **SBC**           | ❌ No (fallback unstable)| ✅ (via SCO)           | ⚠️ Variable / ⚠️ Low         | ✅ High           | Audio drops during mic activity |
-| **LDAC (Adaptive)** | **AAC**           | ❌ No                   | ✅ (via SCO)           | ⚠️ Variable / ✅ Good        | ⚠️ Medium         | Risky for mic usage |
-| **AAC (A2DP)**      | **SBC**           | ❌ No (fallback to SCO) | ✅ (via SCO)           | ✅ Good / ⚠️ Low             | ✅ High           | Voice triggers profile swap |
-| **AAC (A2DP)**      | **AAC (A2DP)**    | ❌ No (conflict)        | ❌ No (conflict)        | ✅ Good / ✅ Good            | ⚠️ Medium         | Mic not supported; fallback risky |
-| **AAC (A2DP)**      | **aptX** (XM3)    | ❌ No                   | ❌ No                   | ✅ Good / ✅ Good            | ✅ High           | Playback only; mic = fallback |
-| **SBC (A2DP)**      | **SBC (A2DP)**    | ❌ No                   | ❌ No                   | ⚠️ Low / ⚠️ Low              | ✅✅ Max          | Playback only; no mic |
-| **SBC (A2DP)**      | **AAC (A2DP)**    | ❌ No                   | ❌ No                   | ⚠️ Low / ✅ Good             | ✅ High           | Playback only |
-| **SBC (A2DP)**      | **aptX** (XM3)    | ❌ No                   | ❌ No                   | ⚠️ Low / ✅ Good             | ✅ High           | Playback only |
+| Android Codec | Windows Codec | Media Quality (A / W) | Resume Stability | Notes |
+|----------------|----------------|------------------------|-------------------|-------|
+| LDAC (Fixed)    | SBC           | ✅ Excellent / ⚠ Low    | ✅ High           | Hi-Fi Android, SBC fallback |
+| LDAC (Fixed)    | AAC           | ✅ Excellent / ✅ Good   | ⚠ Medium         | Mic fallback triggers |
+| LDAC (Fixed)    | aptX          | ✅ Excellent / ✅ Good   | ✅ High           | Playback only |
+| AAC (A2DP)      | SBC           | ✅ Good / ⚠ Low         | ✅ High           | Voice triggers profile swap |
+| AAC (A2DP)      | AAC (A2DP)    | ✅ Good / ✅ Good        | ⚠ Medium         | No mic support |
+| AAC (A2DP)      | aptX          | ✅ Good / ✅ Good        | ✅ High           | Playback only |
+| SBC (A2DP)      | SBC (A2DP)    | ⚠ Low / ⚠ Low          | ✅ Max            | Playback only; lowest denominator |
+| SBC (A2DP)      | AAC (A2DP)    | ⚠ Low / ✅ Good         | ✅ High           | Playback stable |
+| SBC (A2DP)      | aptX          | ⚠ Low / ✅ Good         | ✅ High           | Playback stable |
 
 ---
-
-### 🎙 Mic Behavior Reference (Corrected)
-
-| Codec               | Mic Support        | Profile Used   | Notes                                     |
-|---------------------|--------------------|----------------|-------------------------------------------|
-| **LDAC (Fixed)**     | ❌ None            | A2DP           | Mic input completely disabled             |
-| **LDAC (Adaptive)**  | ❌ None            | A2DP           | Mic triggers fallback; unstable switching |
-| **AAC (A2DP)**       | ❌ None            | A2DP           | Triggers fallback when mic needed         |
-| **SBC (A2DP)**       | ❌ None            | A2DP           | Misleading; no real mic support           |
-| **SCO (CVSD/mSBC)**  | ✅ Yes             | HSP/HFP        | Mono only; used for all voice input       |
-| **aptX (A2DP)**      | ❌ None            | A2DP           | No mic in A2DP; switches to SCO if needed |
-
----
-
-## 🧠 Same-Codec Multipoint — Still No Mic Support
-
-| Codec   | Android | Windows | Mic Support?        | Mic Conflict Risk | Media Switching | Notes |
-|---------|---------|---------|---------------------|-------------------|------------------|-------|
-| **AAC** | ✅ Yes  | ✅ Yes  | ❌ No               | ❌ Yes            | ⚠️ Medium        | Mic = fallback on one side |
-| **SBC** | ✅ Yes  | ✅ Yes  | ❌ No               | ✅ No             | ✅ High          | Misleading; no A2DP mic ever |
-
----
-
-## ✅ Use Case Summary (Revised)
-
-| Use Case                          | Android Codec | Windows Codec | Mic Functional? | Why                                                                 |
-|----------------------------------|----------------|----------------|------------------|----------------------------------------------------------------------|
-| 🎵 Hi-Fi Music (No Mic)           | LDAC (Fixed)   | SBC or aptX    | ❌               | Best sound; mic not needed                                          |
-| 🗣 Voice Use (Android Only)       | SCO (HSP/HFP)  | SBC (A2DP)     | ✅ Android only  | Mic works, audio quality reduced                                   |
-| 🗣 Voice Use (Windows Only)       | SBC (A2DP)     | SCO (HSP/HFP)  | ✅ Windows only  | Mic works on Windows via fallback                                  |
-| ⚠️ Avoid Mic Use on Both          | AAC or SBC     | AAC or SBC     | ❌               | Mic not available on either side                                   |
-| 🔁 Seamless Resume & Switching    | SBC (A2DP)     | SBC (A2DP)     | ❌               | Stable playback, but no mic                                        |
-| ⚖️ Balanced Playback Only         | AAC            | SBC or aptX    | ❌               | Playback is fine; mic fallback kills codec                         |
-
-
-
 
 ## 🪟 Windows 11 "Unified Audio Endpoint" Feature
 
