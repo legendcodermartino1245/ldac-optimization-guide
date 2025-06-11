@@ -3352,63 +3352,97 @@ Samsung's Bluetooth stack **always asserts a default LDAC override** 1–2 secon
 This override:
 - Forces **adaptive LDAC** (usually 660–909 kbps)
 - Can override **Bluetooth Codec Changer (BCC)** if the profile switch is delayed
-- Reapplies on every connection unless explicitly defeated
+- **Writes its profile to the headphone firmware** and reapplies on every connection
 
 ---
 
-### ✅ The Solution: Outpace the Override Stack
+### ✅ The Solution: Override the Override (Not Prevent It)
 
-You can’t prevent the override from firing — but you **can beat it to the handshake**.
+You **cannot stop Samsung’s override from firing** or being stored in the headphone's firmware.  
+But you **can cleanly replace it in the current session** before it reasserts or causes GUI desync.
+
+---
 
 ### 📋 Required Setup
 
-| Setting | Value |
-|--------|-------|
-| Auto Switch | ✅ ON |
-| Intermediate Profile | `SBC (44.1kHz / 16-bit)` |
-| Final Profile | `LDAC 990 (44.1 or 96kHz / 24-bit)` |
-| Auto Switch Delay | `0 ms` |
-| 2-Step Switching | ❌ OFF |
-| Music Center | ❌ Must be **closed** or **force-stopped** |
+| Setting              | Value                                                                 |
+|----------------------|-----------------------------------------------------------------------|
+| Auto Switch          | ✅ ON                                                                 |
+| Intermediate Profile | `SBC (44.1kHz / 16-bit)`                                              |
+| Final Profile        | `LDAC 990 (44.1 or 96kHz / 24-bit)`                                   |
+| Auto Switch Delay    | `0 ms`                                                                |
+| 2-Step Switching     | ❌ OFF                                                                |
+| Music Center         | ❌ Must be **closed** or **force-stopped**                            |
+| Absolute Volume      | ❌ Must be **OFF** in Developer Options *(required for full control)* |
 
----
+> ⚠️ **Note:** AV OFF is critical. It disables Android’s volume-sync-based override logic and prevents Sony’s Music Center from reasserting its own LDAC profile silently after connection.
 
 ---
 
 ### 🧠 Why This Works
 
-Samsung's override stack applies its fallback LDAC profile **immediately after connection** — often before BCC is even triggered.
+Samsung's override stack applies its fallback LDAC profile **immediately after connection** — and it **writes that profile to the headphone's firmware**.
 
-But here's the trick:
+But here’s the trick:
 
-1. **SBC handshake** forces a codec break from any prior LDAC state
-2. **BCC’s LDAC 16-bit → LDAC 990 sequence** begins *after* Samsung has already applied its override
-3. Your chain **reasserts LDAC manually**, and Samsung **backs off silently** when it detects an active, stable LDAC session
+1. **SBC handshake** forces a clean break from previous LDAC sessions.
+2. **BCC’s LDAC 16-bit → LDAC 990 sequence** starts after Samsung’s override, not before.
+3. BCC **takes back control of the active codec session**, replacing the override profile in memory — even though the firmware already contains Samsung’s default.
 
-This isn't preemption — it's a **clean post-override takeover**.  
-Samsung applies LDAC, but your chain **replaces it fast enough** that the system doesn’t force another override.
-
----
-
-### ✅ Summary
-
-> With this setup, you create a **stable, override-free LDAC 990 session even after the override has applied** —  
-> fully automated, GUI-synced, no root, and no Music Center required.
-
-This is the fastest, cleanest LDAC override *correction* method available on Samsung.
+This isn’t preemption — it’s a **controlled post-override correction**.  
+Samsung applies LDAC, but your BCC sequence **asserts a new session profile** fast enough to hold codec stability until disconnection.
 
 ---
 
 ### ⚠️ Timing Matters: Why `0ms` Is the Most Reliable Configuration
 
-The SBC → LDAC 16-bit → LDAC 990kbps handshake chain **can work** with small delays — *but*:
+The SBC → LDAC 16-bit → LDAC 990kbps handshake chain **does not stop Samsung’s override** — and that’s by design.
 
-- **`0ms` switch time** ensures your override **reapplies LDAC faster than Samsung can lock its fallback in place**.
-- Even if Samsung has already applied its LDAC profile, your BCC chain **takes priority** if it’s fast and complete.
-- In testing, `0ms` switching consistently replaces the override without causing renegotiation stutter or fallback.
+Instead:
 
-✅ You’re free to test short delays, but for guaranteed override correction:  
-→ **Set Auto-Switch = ON, Intermediate = LDAC 16, Delay = 0ms**
+- Samsung’s override always fires after connection and stores its LDAC profile into your headphone’s firmware.
+- Your goal is to **override that session state quickly enough** that Samsung does **not re-trigger another override** based on media activity or system events (e.g. unlock, playback, etc.).
+- Using `0ms` Auto Switch Delay ensures BCC asserts its full profile before those re-triggers occur.
+
+> 🧠 **Key Insight:** You’re **not defeating Samsung’s override stack** — you’re **replacing the override session profile** before it locks in at runtime.
+
+✅ You may experiment with small delays, but for the most **reliable, repeatable override correction**:  
+→ **Auto Switch = ON**, **Intermediate = LDAC 16-bit**, **Delay = 0ms**, **2-Step = OFF**
+
+---
+
+### ⚡ AV OFF Fast Override Shortcut (No SBC Needed)
+
+If you're using **AV OFF**, there's an even faster and cleaner method — without needing SBC:
+
+- **Auto Switch: ✅ ON**
+- **Intermediate Profile: `LDAC 990 (16-bit)`**
+- **Final Profile: `LDAC 990 (16-bit)`**
+- **Delay: `0 ms`**
+- **2-Step Switching: ❌ OFF**
+
+AV OFF prevents both Android and Sony from interfering mid-session.  
+LDAC 16-bit acts as both the handshake trigger **and** final override — skipping SBC entirely.
+
+> ⚠️ **Does not work with AV ON.** If you leave Absolute Volume enabled, **use the SBC method instead** to guarantee a proper handshake break.
+
+---
+
+### ✅ Summary
+
+> This isn’t about “beating” Samsung — it’s about **reasserting control** *after* Samsung finishes its override.
+
+With this setup, you:
+- Create a **stable, override-free LDAC 990 session**
+- Avoid GUI desync or fallback
+- Eliminate the need for Developer Options, root, or codec toggling
+- **Preserve full automation** using Bluetooth Codec Changer
+
+This is the **cleanest, fastest** LDAC override correction strategy available on Samsung devices — especially when combined with AV OFF.
+
+
+
+
 
 
 
