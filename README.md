@@ -3,7 +3,7 @@
 - [LDAC Done Right](#ldac-done-right)
   - [My setup and the hardware I used during the making of this guide:](#my-setup-and-the-hardware-i-used-during-the-making-of-this-guide)
   - [Inner workings of LDAC](#inner-workings-of-ldac)
-    - [ LDAC Configuration Matrix Fixed](#-ldac-configuration-matrix-fixed)
+    - [ LDAC Configuration Matrix Fixed](#ldac-configuration-matrix-fixed)
     - [ LDAC Configuration Matrix Adaptive](#-ldac-configuration-matrix-adaptive)
   - [The Real LDAC Bug: Quality Settings Don’t Apply on Their Own](#the-real-ldac-bug-quality-settings-dont-apply-on-their-own)
     - [What Triggers a Real Codec Reset?](#what-triggers-a-real-codec-reset)
