@@ -879,7 +879,7 @@ To ensure a smooth and stable LDAC multipoint experience:
 
 | #  | Device A | Device B     | Stack      | AV (A / B) | AVRCP (A / B) | CT/TG Role        | Notes |
 |----|----------|--------------|------------|------------|----------------|--------------------|--------|
-| 1  | Android  | Windows 11   | Alt Driver | ON / ON    | 1.6 / 1.6      | ❓                  | ❓     |
+| 1  | Android  | Windows 11   | Alt Driver | ON / ON    | 1.6 / 1.6      | ❓                  | Cant use headphone buttons to pause windows anymore and phone unlock stutters     |
 | 2  | Android  | Windows 11   | Alt Driver | OFF / ON   | 1.6 / 1.6      | ✅ CT + TG (inferred) | ✅     |
 | 3  | Android  | Windows 11   | Alt Driver | ON / OFF   | 1.6 / 1.6      | ❓                  | ❓     |
 | 4  | Android  | Windows 11   | Alt Driver | OFF / OFF  | 1.6 / 1.6      | ❓                  | ❓     |
@@ -1675,7 +1675,71 @@ This is due to:
 | Both paused manually       | ✅ Last interacted |
 
 > 🧠 If neither app is open or has a visible session, **nothing happens** when play is pressed.
+
+
+
+## 🔄 Multipoint AVRCP Conflict with LDAC and AV ON — Advanced Edge Case
+
+When using multipoint LDAC with **Absolute Volume ON on both Android and Windows**, you may encounter an AVRCP Controller (CT) role conflict which affects metadata updates and playback controls.
+
 ---
+
+### 🎯 Conditions
+
+| Parameter       | Configuration              |
+|------------------|-----------------------------|
+| Codec            | LDAC (any profile: fixed/adaptive) |
+| Absolute Volume  | ON (both Android and Windows) |
+| AVRCP Version    | 1.5 or 1.6 |
+| Multipoint Mode  | Active |
+
+---
+
+### 🛑 Symptoms
+
+- ❌ Metadata not updating on Android (track info frozen, stale, or blank).
+- ❌ Playback controls (play, pause, skip) in Sony Headphones app unresponsive.
+- ✅ Audio playback itself fully works on both devices.
+- ❌ Metadata may still reflect the last known song before conflict occurred.
+
+---
+
+### 🧪 Root Cause
+
+- AVRCP Controller (CT) role arbitration is **not properly negotiated** when both devices hold AV ON.
+- Windows often holds CT role longer after playback activity.
+- Android fails to reclaim CT role when resuming playback while Windows remains paired.
+- Sony WH-1000XM5 firmware prioritizes stability and disables metadata/control updates when AVRCP conflict is detected.
+
+---
+
+### 🛠 Workarounds
+
+| Method                 | Effect                          |
+|-------------------------|-----------------------------------|
+| Disable AV on Android   | Android fully takes CT role |
+| Disable AV on Windows   | Windows releases CT role cleanly |
+| Connect Android first   | Higher chance Android owns CT |
+| Power cycle headphones  | Full role reset |
+
+---
+
+### ✅ Not a Codec Problem
+
+- This behavior is **not related to LDAC stability**.
+- It occurs even with correct LDAC negotiation and 990kbps active.
+- This is strictly **AVRCP control layer arbitration** under multipoint.
+
+
+
+
+
+---
+
+
+
+
+
 
 
 
