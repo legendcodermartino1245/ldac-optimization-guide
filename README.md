@@ -3526,13 +3526,12 @@ Any of the following LDAC profiles can defeat Samsung’s override if:
 
 ## 🧪 Summary Takeaway:
 
-> **Bitrate is irrelevant. Override defeat depends entirely on bit depth (16-bit), codec ownership (not system default), and AV OFF.**
+> **Bitrate is irrelevant. Override defeat depends entirely on bit depth (16-bit), codec ownership (not system default), and AV OFF.*
 
 
+headphone initiated connect doesn't support the 16 bit ldac ocverride
 
-
-
-
+it always became 96000 16 Default so I used tasker and autonotificion to override it with the SBC trick
 
 
 
