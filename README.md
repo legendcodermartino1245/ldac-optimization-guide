@@ -1802,6 +1802,20 @@ You can:
 
 
 ## Absolute Volume
+
+⚠ **Absolute Volume Switching Rule**
+
+- You can safely change Absolute Volume ON ↔ OFF at any time.
+- However:  
+   - The Bluetooth stack will only apply the new AV state after a full reconnect.
+   - Always **disable and re-enable Bluetooth after changing AV setting** to ensure correct stack initialization.
+- Skipping this step may cause:
+   - Codec override failures
+   - Incorrect intermediate profile selection
+   - GUI desync between BCC and Developer Options
+
+
+
 Absolute Volume on means it has to hit 85% of volume minimal 
 
 ## Windows volume level with AV on on both devices
