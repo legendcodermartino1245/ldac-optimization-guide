@@ -1174,24 +1174,33 @@ To ensure a smooth and stable LDAC multipoint experience:
 
 ## 🪟 Windows 11 – Alternative A2DP Driver
 
-| #  | Device A | Device B     | Stack      | AV (A / B) | AVRCP (A / B) | CT/TG Role        | Notes |
-|----|----------|--------------|------------|------------|----------------|--------------------|--------|
-| 1  | Android  | Windows 11   | Alt Driver | ON / ON    | 1.6 / 1.6      | AVRCP CT Role Retention Conflict | Cant use headphone buttons to pause windows anymore and phone unlock stutters metadata shows correctly |
-| 2  | Android  | Windows 11   | Alt Driver | OFF / ON   | 1.6 / 1.6      | ✅ CT + TG (inferred) | ✅     |
-| 4  | Android  | Windows 11   | Alt Driver | OFF / OFF  | 1.6 / 1.6      | ✅ CT + TG (inferred) | phone unlock stutters only |
-| 4  | Android  | Windows 11   | Alt Driver | OFF / OFF  | 1.6 / 1.6      | ✅ CT + TG (inferred) | phone unlock stutters only |
-| 5  | Android  | Windows 11   | Alt Driver | ON / ON    | 1.6 / 1.5      | ❓                  | ❓     |
-| 6  | Android  | Windows 11   | Alt Driver | OFF / ON   | 1.6 / 1.5      | ❓                  | ❓     |
-| 7  | Android  | Windows 11   | Alt Driver | ON / OFF   | 1.6 / 1.5      | ❓                  | ❓     |
-| 8  | Android  | Windows 11   | Alt Driver | OFF / OFF  | 1.6 / 1.5      | ❓                  | ❓     |
-| 9  | Android  | Windows 11   | Alt Driver | ON / ON    | 1.5 / 1.6      | ❓                  | ❓     |
-| 10 | Android  | Windows 11   | Alt Driver | OFF / ON   | 1.5 / 1.6      | ❓                  | ❓     |
-| 11 | Android  | Windows 11   | Alt Driver | ON / OFF   | 1.5 / 1.6      | ❓                  | ❓     |
-| 12 | Android  | Windows 11   | Alt Driver | OFF / OFF  | 1.5 / 1.6      | ❓                  | ❓     |
-| 13 | Android  | Windows 11   | Alt Driver | ON / ON    | 1.5 / 1.5      | ❓                  | ❓     |
-| 14 | Android  | Windows 11   | Alt Driver | OFF / ON   | 1.5 / 1.5      | ❓                  | ❓     |
-| 15 | Android  | Windows 11   | Alt Driver | ON / OFF   | 1.5 / 1.5      | ❓                  | ❓     |
-| 16 | Android  | Windows 11   | Alt Driver | OFF / OFF  | 1.5 / 1.5      | ❓                  | ❓     |
+## 🪟 Windows 11 – Alternative A2DP Driver – Full AVRCP Matrix with Behavior Columns
+
+## 🪟 Windows 11 – Alt Driver – AVRCP Multipoint Behavior Matrix (Strict Alignment)
+
+## 🪟 Windows 11 – Alt Driver – AVRCP Multipoint Behavior Matrix (Full Companion Format)
+
+| #   | Device A | Device B   | Stack      | AV (A / B) | AVRCP (A / B) | CT Role                   | 🎧 Buttons | 📝 Meta | 🔓 Stutter |
+|-----|----------|------------|------------|------------|----------------|----------------------------|------------|---------|------------|
+| 1   | Android  | Windows 11 | Alt Driver | ON / ON    | 1.6 / 1.6      | CT Role Retention Conflict | ❌         | ❓       | ❓         |
+| 2   | Android  | Windows 11 | Alt Driver | OFF / ON   | 1.6 / 1.6      | ✅ CT + TG (inferred)      | ✅         | ✅       | ❌         |
+| 2   | Android  | Windows 11 | Alt Driver | ON / OFF   | 1.6 / 1.6      | ✅ CT + TG (inferred)      | ✅         | ✅       | ✅         |
+| 4   | Android  | Windows 11 | Alt Driver | OFF / OFF  | 1.6 / 1.6      | ✅ CT + TG (inferred)      | ✅         | ✅       |✅          |
+| 5   | Android  | Windows 11 | Alt Driver | ON / ON    | 1.6 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 6   | Android  | Windows 11 | Alt Driver | OFF / ON   | 1.6 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 7   | Android  | Windows 11 | Alt Driver | ON / OFF   | 1.6 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 8   | Android  | Windows 11 | Alt Driver | OFF / OFF  | 1.6 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 9   | Android  | Windows 11 | Alt Driver | ON / ON    | 1.5 / 1.6      | ❓                          | ❓         | ❓       | ❓         |
+| 10  | Android  | Windows 11 | Alt Driver | OFF / ON   | 1.5 / 1.6      | ❓                          | ❓         | ❓       | ❓         |
+| 11  | Android  | Windows 11 | Alt Driver | ON / OFF   | 1.5 / 1.6      | ❓                          | ❓         | ❓       | ❓         |
+| 12  | Android  | Windows 11 | Alt Driver | OFF / OFF  | 1.5 / 1.6      | ❓                          | ❓         | ❓       | ❓         |
+| 13  | Android  | Windows 11 | Alt Driver | ON / ON    | 1.5 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 14  | Android  | Windows 11 | Alt Driver | OFF / ON   | 1.5 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 15  | Android  | Windows 11 | Alt Driver | ON / OFF   | 1.5 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 16  | Android  | Windows 11 | Alt Driver | OFF / OFF  | 1.5 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+
+
+
 
 
 
