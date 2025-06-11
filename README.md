@@ -1734,6 +1734,78 @@ When using multipoint LDAC with **Absolute Volume ON on both Android and Windows
 
 
 
+
+
+
+## 🔄 Absolute Volume Toggle Desync (AVRCP Role Conflict)
+
+### 🧬 Background
+
+When switching Absolute Volume (AV) between ON and OFF during multipoint testing, **Bluetooth stack-level AVRCP role state may desynchronize** even if system settings reflect the change.
+
+This desync can occur due to:
+
+- Cached AVRCP CT/TG role negotiation state not resetting cleanly
+- Incomplete AV role renegotiation when Bluetooth remains active during setting changes
+- AVRCP 1.6 hardening behavior in Sony firmware expecting full AV synchronization across multipoint peers
+
+---
+
+### ⚠ Symptoms
+
+- Multipoint LDAC behavior unstable after AV toggles
+- Metadata stalls or fails to update on one device
+- Headphone buttons stop controlling Windows playback
+- Unlock stutter or pause glitches on Android when resuming
+- Audio control priority incorrectly shifts between Android and Windows
+
+---
+
+### 🔬 Root Cause
+
+Absolute Volume setting changes require **full Bluetooth stack reload** to properly reset AVRCP role negotiation.  
+When AV is toggled without fully disabling Bluetooth:
+
+- AVRCP Controller (CT) role may remain partially cached
+- Headset firmware sees conflicting AV role states between Android and Windows
+
+---
+
+### 🛠 Recovery Procedure
+
+Whenever Absolute Volume settings are modified:
+
+1. **Fully disable Bluetooth on Android**
+2. **Disable Bluetooth on Windows**
+3. (Optional: Clear recent devices on Android Bluetooth menu)
+4. **Re-enable Bluetooth** on both devices
+5. **Reconnect multipoint pairing**
+
+This ensures clean AVRCP role synchronization during initial multipoint handshake.
+
+---
+
+### 🔎 Engineering Note
+
+- This is not a defect — it’s stack-level AVRCP negotiation behavior under 1.6 spec.
+- Only occurs when AV settings are toggled mid-session.
+- If AV settings remain stable, no desync occurs.
+
+---
+
+✅ Including this procedure ensures maximum stability when experimenting with multipoint, Tasker automation, and BCC profile chaining across mixed AV configurations.
+
+
+
+
+
+
+
+
+
+
+
+
 ---
 
 
