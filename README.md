@@ -3448,6 +3448,98 @@ This is the **cleanest, fastest** LDAC override correction strategy available on
 
 
 
+## 🧠 LDAC Quality ≠ Override Protection — Why Bitrate Doesn’t Matter
+
+A common misunderstanding is that defeating Samsung’s override depends on using a specific LDAC bitrate (for example: 909 kbps or 990 kbps).
+
+✅ This is incorrect.
+
+---
+
+### ✅ What Actually Matters: Bit Depth + Who Negotiates the Codec
+
+Samsung’s override logic is triggered based on:
+
+- Whether the codec selection comes from **Samsung's default Bluetooth stack (Developer Options, HD Audio toggle, etc.)**
+- Whether **Absolute Volume is ON**
+- Whether the initial codec session starts in **Adaptive 24-bit** (the default fallback state)
+
+---
+
+## 🔍 Key Distinction: Samsung "Default" ≠ Adaptive LDAC (BCC)
+
+| Mode Source               | LDAC Type        | Override Triggered? | Why |
+|---------------------------|------------------|----------------------|------|
+| Developer Options         | Adaptive         | ✅ Yes              | Treated as default override path |
+| Bluetooth Settings (HD Audio) | Adaptive     | ✅ Yes              | Triggers fallback override stack |
+| **BCC Final Profile (Adaptive)**  | Adaptive     | ❌ No *(if applied fast enough)* | Treated as user-controlled |
+| **BCC Final Profile (Fixed)**     | Fixed         | ❌ No              | Treated as fully manual selection |
+
+> ✅ **Key:** Samsung override is not triggered simply because Adaptive is used — it's triggered if Adaptive is applied via the default system negotiation.
+
+---
+
+### ✅ Bitrate Does Not Matter — Any LDAC 16-bit Defeats Override
+
+Any of the following LDAC profiles can defeat Samsung’s override if:
+
+- Applied early (within ~2s window)
+- Negotiated outside of default stack (via BCC Auto Switch)
+- Absolute Volume is OFF
+
+| LDAC Mode | Bitrate | Bit Depth | Override Defeat? |
+|-----------|---------|-----------|-------------------|
+| LDAC 303  | 303 kbps | 16-bit | ✅ Yes |
+| LDAC 606  | 606 kbps | 16-bit | ✅ Yes |
+| LDAC 660  | 660 kbps | 16-bit | ✅ Yes |
+| LDAC 909  | 909 kbps | 16-bit | ✅ Yes |
+| **LDAC Adaptive (BCC, 16-bit)** | 660–909 kbps | 16-bit | ✅ Yes *(if applied fast enough, AV OFF required)* |
+
+---
+
+## 🔧 Verified Working Setup (Adaptive 16-bit Defeat)
+
+| Setting              | Value                                |
+|----------------------|---------------------------------------|
+| Intermediate Profile | `SBC (44.1kHz / 16-bit)` or `LDAC 660` |
+| Final Profile        | `LDAC Adaptive (48kHz / 16-bit)`     |
+| Auto Switch Delay    | `0 ms`                               |
+| Absolute Volume      | ❌ OFF *(required)*                  |
+| Developer Options    | ❌ OFF *(required)*                  |
+| Music Center         | ❌ Force-stopped *(required)*        |
+
+✅ If applied correctly, Samsung’s override stack never fires.  
+✅ Adaptive 16-bit remains fully stable for entire session.
+
+---
+
+## ⚠️ What Will Fail
+
+| Scenario                     | Override Fires? | Why |
+|--------------------------------|----------------|------|
+| Adaptive LDAC via Developer Options | ✅ Yes | Treated as fallback default |
+| Adaptive LDAC via HD Audio toggle   | ✅ Yes | Treated as system default |
+| Adaptive LDAC via BCC (24-bit) | ⚠️ Unreliable | May trigger fallback on some firmware |
+| BCC Adaptive 16-bit + AV ON  | ✅ Yes | AV ON allows system override to re-trigger |
+
+---
+
+## 🧪 Summary Takeaway:
+
+> **Bitrate is irrelevant. Override defeat depends entirely on bit depth (16-bit), codec ownership (not system default), and AV OFF.**
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
