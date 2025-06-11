@@ -1178,8 +1178,8 @@ To ensure a smooth and stable LDAC multipoint experience:
 |----|----------|--------------|------------|------------|----------------|--------------------|--------|
 | 1  | Android  | Windows 11   | Alt Driver | ON / ON    | 1.6 / 1.6      | AVRCP CT Role Retention Conflict | Cant use headphone buttons to pause windows anymore and phone unlock stutters metadata shows correctly |
 | 2  | Android  | Windows 11   | Alt Driver | OFF / ON   | 1.6 / 1.6      | ✅ CT + TG (inferred) | ✅     |
-| 3  | Android  | Windows 11   | Alt Driver | ON / OFF   | 1.6 / 1.6      | ❓                  | ❓     |
-| 4  | Android  | Windows 11   | Alt Driver | OFF / OFF  | 1.6 / 1.6      | ✅ CT + TG (inferred) | Cant use headphone buttons to pause windows anymore and phone unlock stutters metadata does not show correctly |
+| 4  | Android  | Windows 11   | Alt Driver | OFF / OFF  | 1.6 / 1.6      | ✅ CT + TG (inferred) | phone unlock stutters only |
+| 4  | Android  | Windows 11   | Alt Driver | OFF / OFF  | 1.6 / 1.6      | ✅ CT + TG (inferred) | phone unlock stutters only |
 | 5  | Android  | Windows 11   | Alt Driver | ON / ON    | 1.6 / 1.5      | ❓                  | ❓     |
 | 6  | Android  | Windows 11   | Alt Driver | OFF / ON   | 1.6 / 1.5      | ❓                  | ❓     |
 | 7  | Android  | Windows 11   | Alt Driver | ON / OFF   | 1.6 / 1.5      | ❓                  | ❓     |
