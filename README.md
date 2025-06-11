@@ -2283,7 +2283,6 @@ Sony’s WH-1000XM5 can **store only a limited set of codec settings** in firmwa
 
 
 
-
 ## ⚙️ Settings That Interfere with LDAC 990kbps
 
 These settings are known to interfere with LDAC 990kbps stability and should be disabled or adjusted:
@@ -2321,7 +2320,6 @@ These settings are known to interfere with LDAC 990kbps stability and should be 
 > Even with permission denied, Google may silently reassert Fast Pair metadata using background scan and sync logic.  
 > These toggles prevent both the **search for new nearby Bluetooth devices** *and* the **cloud syncing of stored override profiles**, which often reintroduce the Samsung LDAC default.
 
-
 7. **Smartwatch & BLE Companion Apps**  
    - Uninstall apps like Galaxy Wearable, Zepp, etc.  
    - Forget any unused **Bluetooth LE devices**.
@@ -2346,20 +2344,15 @@ These settings are known to interfere with LDAC 990kbps stability and should be 
     - Having **NFC enabled is fine**, but **using NFC during LDAC playback** (e.g., pairing via tap) causes codec renegotiation.  
     - Avoid using NFC features while listening.
 
+13. **Spotify Nearby Devices Permission**  
+    - Disable Spotify’s **Nearby Devices** permission under:  
+      `Settings > Apps > Spotify > Permissions > Nearby Devices → Deny`  
+    - Explanation:  
+      - Spotify periodically performs **background device discovery** to detect Cast devices, Spotify Connect speakers, and other targets.
+      - These discovery scans occur over BLE and 2.4GHz, which directly interfere with **LDAC 990kbps transmission stability**.
+      - Disabling this permission minimizes background scanning load during LDAC playback.
+
 ---
-
-## 📱 ADB Optimization Strategy (For Google Play Services)
-
-> “Keep Location services and scanning toggles ON, but disable Wi-Fi and Bluetooth scanning access for Google Play Services via ADB to stabilize LDAC 990kbps without breaking smart features.”
-
-📌 Optional ADB one-liner:
-```bash
-adb shell appops set com.google.android.gms NEARBY_WIFI_DEVICES ignore && adb shell appops set com.google.android.gms BLUETOOTH_SCAN ignore && adb shell appops set com.google.android.gms ACCESS_FINE_LOCATION ignore
-```
-
-
-
-
 
 
 ## ⚙️ Settings That help with LDAC 990kbps
