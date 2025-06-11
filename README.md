@@ -2132,6 +2132,59 @@ This ensures clean AVRCP role synchronization during initial multipoint handshak
 
 
 
+## 🔄 Multipoint Stability — AVRCP 1.6 Idle Auto-Pause Behavior (Windows 11)
+
+### 🧭 Observed Behavior
+
+When using **LDAC multipoint** across Android + Windows 11, the following edge case may occur under certain AVRCP combinations:
+
+- Windows 11 uses AVRCP **1.6** (Default Microsoft stack or Alt Driver with forced 1.6 registry)
+- Android is actively streaming LDAC (primary A2DP session)
+- Windows holds open but idle media sessions (Spotify, VLC, Tidal, etc.)
+- After several seconds of Windows A2DP inactivity, Windows **auto-pauses** media playback
+
+---
+
+### ⚙️ Root Cause Explanation
+
+| Layer | Behavior |
+|-------|----------|
+| **Windows AVRCP 1.6 Controller** | Keeps active playback state (CT role) even while not streaming A2DP audio |
+| **Android AVRCP 1.6 Controller** | Controls active LDAC stream |
+| **XM5 Multipoint Firmware** | Holds dual CT roles (Windows + Android) simultaneously |
+| **Windows A2DP Session Manager** | Detects A2DP idle timeout → triggers auto-pause → updates Windows media session state |
+
+---
+
+### 🔬 Why This Only Occurs with AVRCP 1.6
+
+- AVRCP 1.6 adds full playback synchronization (media position, state tracking, resume signals).
+- Windows tries to maintain active CT role even while not streaming.
+- Idle A2DP session triggers system-level media session pause to clear inactive state.
+- AVRCP 1.5 does **not** synchronize playback state fully → Windows stays passive.
+
+---
+
+### ✅ Stability Solutions
+
+| Fix | Method | Result |
+|-----|--------|--------|
+| ✅ **Fix #1 — Downgrade Windows AVRCP to 1.5 (Recommended)** | Use Alt Driver + registry override | Prevents Windows session auto-pause completely |
+| ✅ **Fix #2 — Fully Close Media Apps Before Switching Playback** | Manually stop media apps (Spotify, VLC, Tidal) | No open media sessions = no auto-pause event triggered |
+
+---
+
+### 🧪 Verified Resolution Path
+
+- ✅ **Closing media apps on Windows before switching playback** fully prevents the issue.
+- ✅ **AVRCP 1.5 downgrade** remains the most stable long-term solution across all multipoint sessions.
+- ✅ Android remains fully stable at AVRCP 1.6 throughout.
+
+
+
+
+
+
 
 
 
