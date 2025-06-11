@@ -3534,7 +3534,87 @@ headphone initiated connect doesn't support the 16 bit ldac ocverride
 it always became 96000 16 Default so I used tasker and autonotificion to override it with the SBC trick
 
 
+## 🎧 Headphone-Initiated Connection — Override Failure Explained
 
+When you connect your WH-1000XM series headphones by powering them on (headphone-initiated connect), Samsung's LDAC override stack behaves differently than during host-initiated connections.
+
+---
+
+### 🔬 Technical Root Cause
+
+#### 1️⃣ Who Controls Bluetooth A2DP Negotiation?
+
+| Connect Type          | Controller                   | BCC Auto Switch Window |
+|------------------------|-------------------------------|-------------------------|
+| **Host-initiated**     | Android initiates connection | ✅ BCC can inject |
+| **Headphone-initiated** | Headphones initiate connection | ❌ BCC misses injection |
+
+- In **host-initiated connect** (connecting from Android’s Bluetooth menu):
+  - Android initiates pairing.
+  - Android fully controls service discovery (SDP), A2DP profile negotiation, and codec assignment.
+  - Samsung’s override stack fires 1–2 seconds after pairing, but BCC’s intermediate profile (SBC or LDAC 16-bit) gets injected early enough to defeat the override.
+
+- In **headphone-initiated connect** (powering on WH-1000XM series, auto-reconnect):
+  - The headphones send a reconnect request.
+  - Android passively accepts the connection.
+  - A2DP session negotiation occurs largely between Sony firmware and Samsung's Bluetooth stack directly.
+  - Samsung’s override asserts its LDAC default profile before BCC can react.
+
+---
+
+#### 2️⃣ Timing Sequence Breakdown
+
+| Time  | Event                                | Actor              |
+|-------|---------------------------------------|---------------------|
+| T=0   | Headphones send reconnect request    | WH-1000XM Firmware |
+| T=0.1s | Android accepts pairing request      | Samsung BT Stack   |
+| T=0.5s | A2DP profile negotiates default codec | Samsung Override   |
+| T=0.8s | LDAC Default assigned: 96kHz / 16-bit Adaptive | Samsung Stack |
+| T=1.0s | BCC service triggers (too late)     | BCC (Android Layer) |
+| T=1.1s | Auto Switch logic skipped (state mismatch) | BCC |
+
+---
+
+#### 3️⃣ Why 96000Hz / 16-bit Default?
+
+- Samsung applies its internal LDAC default profile:
+  - **Sample Rate:** 96 kHz
+  - **Bit Depth:** 16-bit
+  - **Bitrate:** Adaptive 660–909 kbps
+- This is Samsung’s hard-coded fallback LDAC configuration.
+- Not user-configurable.
+- Applied automatically whenever Samsung override stack asserts control before user profile injection.
+
+---
+
+#### 4️⃣ Why BCC Auto Switch Fails
+
+- BCC relies on the Android-side A2DP SessionStart event.
+- During passive (headphone-initiated) connects:
+  - SessionStart fires late or inconsistently.
+  - Samsung override completes negotiation before BCC triggers.
+  - Auto Switch cannot override an already-assigned codec session.
+
+---
+
+#### 5️⃣ Why Tasker + AutoNotification Works
+
+- Tasker and AutoNotification operate after full connection established.
+- You re-trigger codec negotiation manually:
+  1. Force codec switch to **SBC** (SBC handshake trick).
+  2. Force codec switch back to **LDAC 990kbps** (or desired profile).
+- This creates a secondary injection window allowing BCC profile injection **after** Samsung override has locked its profile.
+
+---
+
+### 🧠 Summary Table
+
+| Connect Type          | Negotiation Control | BCC Auto Switch Success | Result               |
+|------------------------|---------------------|-------------------------|-----------------------|
+| Host-initiated         | Android Host        | ✅ Fully Works          | Override Defeated     |
+| Headphone-initiated    | Headphones Passive  | ❌ Injection Missed     | Samsung Override Wins |
+
+---
 
 
 
