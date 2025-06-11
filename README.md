@@ -4090,7 +4090,25 @@ Dont use Pulseaudio use Pipewire instead
 
 
 # 🎯 LDAC Done Right — Engineering Companion (Protocol Layer Extraction)
+# 📑 Table of Contents — Engineering Companion (Protocol Layer Extraction)
 
+- [🎯 LDAC Done Right — Engineering Companion (Protocol Layer Extraction)](#ldac-done-right--engineering-companion-protocol-layer-extraction)
+  - [🔧 Why This Companion Exists](#why-this-companion-exists)
+  - [🧠 Extracted Protocol Control Layers](#extracted-protocol-control-layers)
+  - [🔬 Protocol Stack Ownership Summary](#protocol-stack-ownership-summary)
+  - [🧪 Samsung LDAC Override Layer (Handshake Pre-Negotiation)](#samsung-ldac-override-layer-handshake-pre-negotiation)
+  - [🧪 Google Play Services Override Layer (Fast Pair Inject Timing)](#google-play-services-override-layer-fast-pair-inject-timing)
+  - [🧪 Developer Options Codec Memory Layer](#developer-options-codec-memory-layer)
+  - [🧪 Firmware-Level Codec Storage Layer (Sony WH-1000XM Series)](#firmware-level-codec-storage-layer-sony-wh-1000xm-series)
+  - [🧪 Bluetooth Codec Changer (BCC) Runtime Layer](#bluetooth-codec-changer-bcc-runtime-layer)
+  - [🧪 App-Triggered Negotiation Hooks (UAPP / Neutron / System Mixer)](#app-triggered-negotiation-hooks-uapp--neutron--system-mixer)
+  - [🔀 LDAC Codec Renegotiation Triggers Summary](#ldac-codec-renegotiation-triggers-summary)
+  - [⚠ Override Race Timing Windows](#override-race-timing-windows)
+  - [🧠 Profile Persistence vs Session-Based Overrides](#profile-persistence-vs-session-based-overrides)
+  - [🎯 Session Ownership — Who Negotiates What](#session-ownership--who-negotiates-what)
+  - [📊 Control Layer Resolution Table](#control-layer-resolution-table)
+  - [🛠 Engineering Debug Layer: Detecting Current State](#engineering-debug-layer-detecting-current-state)
+  - [✅ Core Companion Summary Rules](#core-companion-summary-rules)
 ---
 
 ## 🔧 Why This Companion Exists
