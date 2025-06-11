@@ -964,6 +964,40 @@ To ensure a smooth and stable LDAC multipoint experience:
 | 16 | Android  | Android    | Android   | OFF / OFF  | 1.5 / 1.5      | ❓                 | ❓     |
 
 
+## 🎧 AVRCP Role Detection — Testing Methodology
+
+To determine AVRCP Controller (CT) and Target (TG) roles during multipoint LDAC operation, the following non-invasive test procedure was used:
+
+### 🔬 Test Signals Used
+
+| Signal | Purpose | Role Inference |
+|--------|---------|----------------|
+| 🎧 **Headset Play/Pause/Next Buttons** | Determine which device accepts AVRCP control from headset | Confirms AVRCP Controller (CT) assignment |
+| 🎵 **Metadata Display (Sound Connect Android)** | Identify which device is supplying metadata to the headset | Confirms AVRCP Target (TG) assignment |
+| 🎛 **Playback Status with Headset Controls** | Observe which device resumes playback upon button press | Verifies active AVRCP CT priority |
+
+### ⚙️ Tools Used
+
+- **Sound Connect (Samsung) — Android App**  
+  - For live metadata transfer and AVRCP role monitoring.
+
+- **Headset Hardware Buttons**  
+  - Play / Pause / Next buttons used for active control arbitration.
+
+### 🚫 No additional debugging tools used:
+
+- No Bluetooth sniffers.
+- No root-level packet inspection.
+- No developer debug logs.
+- All tests performed under real-world operating conditions.
+
+---
+
+✅ This method allows fully sufficient AVRCP CT/TG role detection for the LDAC multipoint protocol matrix.
+
+
+
+
 # 🔧 Alternative A2DP Driver – Android + Windows LDAC Multipoint Notes
 
 ## 🛒 Installation Steps
