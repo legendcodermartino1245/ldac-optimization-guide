@@ -1151,53 +1151,50 @@ To ensure a smooth and stable LDAC multipoint experience:
 
 ## 🪟 Windows 11 – Default Stack
 
-| #  | Device A | Device B     | Stack    | AV (A / B) | AVRCP (A / B) | CT/TG Role | Notes |
-|----|----------|--------------|----------|------------|----------------|-------------|--------|
-| 1  | Android  | Windows 11   | Default | ON / ON    | 1.6 / 1.6      | ❓           | ❓     |
-| 2  | Android  | Windows 11   | Default | OFF / ON   | 1.6 / 1.6      | ❓           | ❓     |
-| 3  | Android  | Windows 11   | Default | ON / OFF   | 1.6 / 1.6      | ❓           | ❓     |
-| 4  | Android  | Windows 11   | Default | OFF / OFF  | 1.6 / 1.6      | ❓           | ❓     |
-| 5  | Android  | Windows 11   | Default | ON / ON    | 1.6 / 1.5      | ❓           | ❓     |
-| 6  | Android  | Windows 11   | Default | OFF / ON   | 1.6 / 1.5      | ❓           | ❓     |
-| 7  | Android  | Windows 11   | Default | ON / OFF   | 1.6 / 1.5      | ❓           | ❓     |
-| 8  | Android  | Windows 11   | Default | OFF / OFF  | 1.6 / 1.5      | ❓           | ❓     |
-| 9  | Android  | Windows 11   | Default | ON / ON    | 1.5 / 1.6      | ❓           | ❓     |
-| 10 | Android  | Windows 11   | Default | OFF / ON   | 1.5 / 1.6      | ❓           | ❓     |
-| 11 | Android  | Windows 11   | Default | ON / OFF   | 1.5 / 1.6      | ❓           | ❓     |
-| 12 | Android  | Windows 11   | Default | OFF / OFF  | 1.5 / 1.6      | ❓           | ❓     |
-| 13 | Android  | Windows 11   | Default | ON / ON    | 1.5 / 1.5      | ❓           | ❓     |
-| 14 | Android  | Windows 11   | Default | OFF / ON   | 1.5 / 1.5      | ❓           | ❓     |
-| 15 | Android  | Windows 11   | Default | ON / OFF   | 1.5 / 1.5      | ❓           | ❓     |
-| 16 | Android  | Windows 11   | Default | OFF / OFF  | 1.5 / 1.5      | ❓           | ❓     |
+| #   | Device A | Device B   | AV (A / B) | AVRCP (A / B) | CT Role                   | 🎧 Buttons | 📝 Meta | 🔓 Stutter |
+|-----|----------|------------|------------|----------------|----------------------------|------------|---------|------------|
+| 1   | Android  | Windows 11 | ON / ON    | 1.6 / 1.6      | ❓                         | ❓         | ❓       | ❓         |
+| 2   | Android  | Windows 11 | OFF / ON   | 1.6 / 1.6      | ❓                         | ❓         | ❓       | ❓         |
+| 2   | Android  | Windows 11 | ON / OFF   | 1.6 / 1.6      | ❓                         | ❓         | ❓       | ❓         |
+| 4   | Android  | Windows 11 | OFF / OFF  | 1.6 / 1.6      | ❓                          | ❓         | ❓       | ❓         |
+| 5   | Android  | Windows 11 | ON / ON    | 1.6 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 6   | Android  | Windows 11 | OFF / ON   | 1.6 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 7   | Android  | Windows 11 | ON / OFF   | 1.6 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 8   | Android  | Windows 11 | OFF / OFF  | 1.6 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 9   | Android  | Windows 11 | ON / ON    | 1.5 / 1.6      | ❓                          | ❓         | ❓       | ❓         |
+| 10  | Android  | Windows 11 | OFF / ON   | 1.5 / 1.6      | ❓                          | ❓         | ❓       | ❓         |
+| 11  | Android  | Windows 11 | ON / OFF   | 1.5 / 1.6      | ❓                          | ❓         | ❓       | ❓         |
+| 12  | Android  | Windows 11 | OFF / OFF  | 1.5 / 1.6      | ❓                          | ❓         | ❓       | ❓         |
+| 13  | Android  | Windows 11 | ON / ON    | 1.5 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 14  | Android  | Windows 11 | OFF / ON   | 1.5 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 15  | Android  | Windows 11 | ON / OFF   | 1.5 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 16  | Android  | Windows 11 | OFF / OFF  | 1.5 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
 
 ---
 
 ## 🪟 Windows 11 – Alternative A2DP Driver
 
-## 🪟 Windows 11 – Alternative A2DP Driver – Full AVRCP Matrix with Behavior Columns
+## 🪟 Windows 11 – Alt Driver – AVRCP Multipoint Behavior Matrix (Stack Column Removed)
 
-## 🪟 Windows 11 – Alt Driver – AVRCP Multipoint Behavior Matrix (Strict Alignment)
+| #   | Device A | Device B   | AV (A / B) | AVRCP (A / B) | CT Role                   | 🎧 Buttons | 📝 Meta | 🔓 Stutter |
+|-----|----------|------------|------------|----------------|----------------------------|------------|---------|------------|
+| 1   | Android  | Windows 11 | ON / ON    | 1.6 / 1.6      | ✅ CT + TG (inferred)      | ✅         | ✅       | ✅         |
+| 2   | Android  | Windows 11 | OFF / ON   | 1.6 / 1.6      | ✅ CT + TG (inferred)      | ✅         | ✅       | ❌         |
+| 2   | Android  | Windows 11 | ON / OFF   | 1.6 / 1.6      | ✅ CT + TG (inferred)      | ✅         | ✅       | ✅         |
+| 4   | Android  | Windows 11 | OFF / OFF  | 1.6 / 1.6      | ✅ CT + TG (inferred)      | ✅         | ✅       | ✅         |
+| 5   | Android  | Windows 11 | ON / ON    | 1.6 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 6   | Android  | Windows 11 | OFF / ON   | 1.6 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 7   | Android  | Windows 11 | ON / OFF   | 1.6 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 8   | Android  | Windows 11 | OFF / OFF  | 1.6 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 9   | Android  | Windows 11 | ON / ON    | 1.5 / 1.6      | ❓                          | ❓         | ❓       | ❓         |
+| 10  | Android  | Windows 11 | OFF / ON   | 1.5 / 1.6      | ❓                          | ❓         | ❓       | ❓         |
+| 11  | Android  | Windows 11 | ON / OFF   | 1.5 / 1.6      | ❓                          | ❓         | ❓       | ❓         |
+| 12  | Android  | Windows 11 | OFF / OFF  | 1.5 / 1.6      | ❓                          | ❓         | ❓       | ❓         |
+| 13  | Android  | Windows 11 | ON / ON    | 1.5 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 14  | Android  | Windows 11 | OFF / ON   | 1.5 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 15  | Android  | Windows 11 | ON / OFF   | 1.5 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 16  | Android  | Windows 11 | OFF / OFF  | 1.5 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
 
-## 🪟 Windows 11 – Alt Driver – AVRCP Multipoint Behavior Matrix (Full Companion Format)
-
-| #   | Device A | Device B   | Stack      | AV (A / B) | AVRCP (A / B) | CT Role                   | 🎧 Buttons | 📝 Meta | 🔓 Stutter |
-|-----|----------|------------|------------|------------|----------------|----------------------------|------------|---------|------------|
-| 1   | Android  | Windows 11 | Alt Driver | ON / ON    | 1.6 / 1.6      | CT Role Retention Conflict | ❌         | ❓       | ❓         |
-| 2   | Android  | Windows 11 | Alt Driver | OFF / ON   | 1.6 / 1.6      | ✅ CT + TG (inferred)      | ✅         | ✅       | ❌         |
-| 2   | Android  | Windows 11 | Alt Driver | ON / OFF   | 1.6 / 1.6      | ✅ CT + TG (inferred)      | ✅         | ✅       | ✅         |
-| 4   | Android  | Windows 11 | Alt Driver | OFF / OFF  | 1.6 / 1.6      | ✅ CT + TG (inferred)      | ✅         | ✅       |✅          |
-| 5   | Android  | Windows 11 | Alt Driver | ON / ON    | 1.6 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
-| 6   | Android  | Windows 11 | Alt Driver | OFF / ON   | 1.6 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
-| 7   | Android  | Windows 11 | Alt Driver | ON / OFF   | 1.6 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
-| 8   | Android  | Windows 11 | Alt Driver | OFF / OFF  | 1.6 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
-| 9   | Android  | Windows 11 | Alt Driver | ON / ON    | 1.5 / 1.6      | ❓                          | ❓         | ❓       | ❓         |
-| 10  | Android  | Windows 11 | Alt Driver | OFF / ON   | 1.5 / 1.6      | ❓                          | ❓         | ❓       | ❓         |
-| 11  | Android  | Windows 11 | Alt Driver | ON / OFF   | 1.5 / 1.6      | ❓                          | ❓         | ❓       | ❓         |
-| 12  | Android  | Windows 11 | Alt Driver | OFF / OFF  | 1.5 / 1.6      | ❓                          | ❓         | ❓       | ❓         |
-| 13  | Android  | Windows 11 | Alt Driver | ON / ON    | 1.5 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
-| 14  | Android  | Windows 11 | Alt Driver | OFF / ON   | 1.5 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
-| 15  | Android  | Windows 11 | Alt Driver | ON / OFF   | 1.5 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
-| 16  | Android  | Windows 11 | Alt Driver | OFF / OFF  | 1.5 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
 
 
 
@@ -1206,68 +1203,68 @@ To ensure a smooth and stable LDAC multipoint experience:
 
 ## 🪟 Windows 10 – Default Stack
 
-| #  | Device A | Device B     | Stack    | AV (A / B) | AVRCP (A / B) | CT/TG Role | Notes |
-|----|----------|--------------|----------|------------|----------------|-------------|--------|
-| 1  | Android  | Windows 10   | Default | ON / ON    | 1.6 / 1.6      | ❓          | ❓     |
-| 2  | Android  | Windows 10   | Default | OFF / ON   | 1.6 / 1.6      | ❓          | ❓     |
-| 3  | Android  | Windows 10   | Default | ON / OFF   | 1.6 / 1.6      | ❓          | ❓     |
-| 4  | Android  | Windows 10   | Default | OFF / OFF  | 1.6 / 1.6      | ❓          | ❓     |
-| 5  | Android  | Windows 10   | Default | ON / ON    | 1.6 / 1.5      | ❓          | ❓     |
-| 6  | Android  | Windows 10   | Default | OFF / ON   | 1.6 / 1.5      | ❓          | ❓     |
-| 7  | Android  | Windows 10   | Default | ON / OFF   | 1.6 / 1.5      | ❓          | ❓     |
-| 8  | Android  | Windows 10   | Default | OFF / OFF  | 1.6 / 1.5      | ❓          | ❓     |
-| 9  | Android  | Windows 10   | Default | ON / ON    | 1.5 / 1.6      | ❓          | ❓     |
-| 10 | Android  | Windows 10   | Default | OFF / ON   | 1.5 / 1.6      | ❓          | ❓     |
-| 11 | Android  | Windows 10   | Default | ON / OFF   | 1.5 / 1.6      | ❓          | ❓     |
-| 12 | Android  | Windows 10   | Default | OFF / OFF  | 1.5 / 1.6      | ❓          | ❓     |
-| 13 | Android  | Windows 10   | Default | ON / ON    | 1.5 / 1.5      | ❓          | ❓     |
-| 14 | Android  | Windows 10   | Default | OFF / ON   | 1.5 / 1.5      | ❓          | ❓     |
-| 15 | Android  | Windows 10   | Default | ON / OFF   | 1.5 / 1.5      | ❓          | ❓     |
-| 16 | Android  | Windows 10   | Default | OFF / OFF  | 1.5 / 1.5      | ❓          | ❓     |
+| #   | Device A | Device B   | AV (A / B) | AVRCP (A / B) | CT Role                   | 🎧 Buttons | 📝 Meta | 🔓 Stutter |
+|-----|----------|------------|------------|----------------|----------------------------|------------|---------|------------|
+| 1   | Android  | Windows 10 | ON / ON    | 1.6 / 1.6      | ❓                         | ❓         | ❓       | ❓         |
+| 2   | Android  | Windows 10 | OFF / ON   | 1.6 / 1.6      | ❓                         | ❓         | ❓       | ❓         |
+| 2   | Android  | Windows 10 | ON / OFF   | 1.6 / 1.6      | ❓                         | ❓         | ❓       | ❓         |
+| 4   | Android  | Windows 10 | OFF / OFF  | 1.6 / 1.6      | ❓                          | ❓         | ❓       | ❓         |
+| 5   | Android  | Windows 10 | ON / ON    | 1.6 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 6   | Android  | Windows 10 | OFF / ON   | 1.6 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 7   | Android  | Windows 10 | ON / OFF   | 1.6 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 8   | Android  | Windows 10 | OFF / OFF  | 1.6 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 9   | Android  | Windows 10 | ON / ON    | 1.5 / 1.6      | ❓                          | ❓         | ❓       | ❓         |
+| 10  | Android  | Windows 10 | OFF / ON   | 1.5 / 1.6      | ❓                          | ❓         | ❓       | ❓         |
+| 11  | Android  | Windows 10 | ON / OFF   | 1.5 / 1.6      | ❓                          | ❓         | ❓       | ❓         |
+| 12  | Android  | Windows 10 | OFF / OFF  | 1.5 / 1.6      | ❓                          | ❓         | ❓       | ❓         |
+| 13  | Android  | Windows 10 | ON / ON    | 1.5 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 14  | Android  | Windows 10 | OFF / ON   | 1.5 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 15  | Android  | Windows 10 | ON / OFF   | 1.5 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 16  | Android  | Windows 10 | OFF / OFF  | 1.5 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
 
 ## 🪟 Windows 10 – Alternative A2DP Driver
 
-| #  | Device A | Device B     | Stack      | AV (A / B) | AVRCP (A / B) | CT/TG Role | Notes |
-|----|----------|--------------|------------|------------|----------------|-------------|--------|
-| 1  | Android  | Windows 10   | Alt Driver | ON / ON    | 1.6 / 1.6      | ❓          | ❓     |
-| 2  | Android  | Windows 10   | Alt Driver | OFF / ON   | 1.6 / 1.6      | ❓          | ❓     |
-| 3  | Android  | Windows 10   | Alt Driver | ON / OFF   | 1.6 / 1.6      | ❓          | ❓     |
-| 4  | Android  | Windows 10   | Alt Driver | OFF / OFF  | 1.6 / 1.6      | ❓          | ❓     |
-| 5  | Android  | Windows 10   | Alt Driver | ON / ON    | 1.6 / 1.5      | ❓          | ❓     |
-| 6  | Android  | Windows 10   | Alt Driver | OFF / ON   | 1.6 / 1.5      | ❓          | ❓     |
-| 7  | Android  | Windows 10   | Alt Driver | ON / OFF   | 1.6 / 1.5      | ❓          | ❓     |
-| 8  | Android  | Windows 10   | Alt Driver | OFF / OFF  | 1.6 / 1.5      | ❓          | ❓     |
-| 9  | Android  | Windows 10   | Alt Driver | ON / ON    | 1.5 / 1.6      | ❓          | ❓     |
-| 10 | Android  | Windows 10   | Alt Driver | OFF / ON   | 1.5 / 1.6      | ❓          | ❓     |
-| 11 | Android  | Windows 10   | Alt Driver | ON / OFF   | 1.5 / 1.6      | ❓          | ❓     |
-| 12 | Android  | Windows 10   | Alt Driver | OFF / OFF  | 1.5 / 1.6      | ❓          | ❓     |
-| 13 | Android  | Windows 10   | Alt Driver | ON / ON    | 1.5 / 1.5      | ❓          | ❓     |
-| 14 | Android  | Windows 10   | Alt Driver | OFF / ON   | 1.5 / 1.5      | ❓          | ❓     |
-| 15 | Android  | Windows 10   | Alt Driver | ON / OFF   | 1.5 / 1.5      | ❓          | ❓     |
-| 16 | Android  | Windows 10   | Alt Driver | OFF / OFF  | 1.5 / 1.5      | ❓          | ❓     |
+| #   | Device A | Device B   | AV (A / B) | AVRCP (A / B) | CT Role                   | 🎧 Buttons | 📝 Meta | 🔓 Stutter |
+|-----|----------|------------|------------|----------------|----------------------------|------------|---------|------------|
+| 1   | Android  | Windows 10 | ON / ON    | 1.6 / 1.6      | ❓                         | ❓         | ❓       | ❓         |
+| 2   | Android  | Windows 10 | OFF / ON   | 1.6 / 1.6      | ❓                         | ❓         | ❓       | ❓         |
+| 2   | Android  | Windows 10 | ON / OFF   | 1.6 / 1.6      | ❓                         | ❓         | ❓       | ❓         |
+| 4   | Android  | Windows 10 | OFF / OFF  | 1.6 / 1.6      | ❓                          | ❓         | ❓       | ❓         |
+| 5   | Android  | Windows 10 | ON / ON    | 1.6 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 6   | Android  | Windows 10 | OFF / ON   | 1.6 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 7   | Android  | Windows 10 | ON / OFF   | 1.6 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 8   | Android  | Windows 10 | OFF / OFF  | 1.6 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 9   | Android  | Windows 10 | ON / ON    | 1.5 / 1.6      | ❓                          | ❓         | ❓       | ❓         |
+| 10  | Android  | Windows 10 | OFF / ON   | 1.5 / 1.6      | ❓                          | ❓         | ❓       | ❓         |
+| 11  | Android  | Windows 10 | ON / OFF   | 1.5 / 1.6      | ❓                          | ❓         | ❓       | ❓         |
+| 12  | Android  | Windows 10 | OFF / OFF  | 1.5 / 1.6      | ❓                          | ❓         | ❓       | ❓         |
+| 13  | Android  | Windows 10 | ON / ON    | 1.5 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 14  | Android  | Windows 10 | OFF / ON   | 1.5 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 15  | Android  | Windows 10 | ON / OFF   | 1.5 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 16  | Android  | Windows 10 | OFF / OFF  | 1.5 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
 
 
 
 
 ## 🪟 Android + Android
-| #  | Device A | Device B   | Stack     | AV (A / B) | AVRCP (A / B) | CT/TG Role        | Notes |
-|----|----------|------------|-----------|------------|----------------|--------------------|--------|
-| 1  | Android  | Android    | Android   | ON / ON    | 1.6 / 1.6      | ❓                 | ❓     |
-| 2  | Android  | Android    | Android   | OFF / ON   | 1.6 / 1.6      | ❓                 | ❓     |
-| 3  | Android  | Android    | Android   | ON / OFF   | 1.6 / 1.6      | ❓                 | ❓     |
-| 4  | Android  | Android    | Android   | OFF / OFF  | 1.6 / 1.6      | ❓                 | ❓     |
-| 5  | Android  | Android    | Android   | ON / ON    | 1.6 / 1.5      | ❓                 | ❓     |
-| 6  | Android  | Android    | Android   | OFF / ON   | 1.6 / 1.5      | ❓                 | ❓     |
-| 7  | Android  | Android    | Android   | ON / OFF   | 1.6 / 1.5      | ❓                 | ❓     |
-| 8  | Android  | Android    | Android   | OFF / OFF  | 1.6 / 1.5      | ❓                 | ❓     |
-| 9  | Android  | Android    | Android   | ON / ON    | 1.5 / 1.6      | ❓                 | ❓     |
-| 10 | Android  | Android    | Android   | OFF / ON   | 1.5 / 1.6      | ❓                 | ❓     |
-| 11 | Android  | Android    | Android   | ON / OFF   | 1.5 / 1.6      | ❓                 | ❓     |
-| 12 | Android  | Android    | Android   | OFF / OFF  | 1.5 / 1.6      | ❓                 | ❓     |
-| 13 | Android  | Android    | Android   | ON / ON    | 1.5 / 1.5      | ❓                 | ❓     |
-| 14 | Android  | Android    | Android   | OFF / ON   | 1.5 / 1.5      | ❓                 | ❓     |
-| 15 | Android  | Android    | Android   | ON / OFF   | 1.5 / 1.5      | ❓                 | ❓     |
-| 16 | Android  | Android    | Android   | OFF / OFF  | 1.5 / 1.5      | ❓                 | ❓     |
+| #   | Device A | Device B   | AV (A / B) | AVRCP (A / B) | CT Role                   | 🎧 Buttons | 📝 Meta | 🔓 Stutter |
+|-----|----------|------------|------------|----------------|----------------------------|------------|---------|------------|
+| 1   | Android  | Android | ON / ON    | 1.6 / 1.6      | ❓                         | ❓         | ❓       | ❓         |
+| 2   | Android  | Android | OFF / ON   | 1.6 / 1.6      | ❓                         | ❓         | ❓       | ❓         |
+| 2   | Android  | Android | ON / OFF   | 1.6 / 1.6      | ❓                         | ❓         | ❓       | ❓         |
+| 4   | Android  | Android | OFF / OFF  | 1.6 / 1.6      | ❓                          | ❓         | ❓       | ❓         |
+| 5   | Android  | Android | ON / ON    | 1.6 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 6   | Android  | Android | OFF / ON   | 1.6 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 7   | Android  | Android | ON / OFF   | 1.6 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 8   | Android  | Android | OFF / OFF  | 1.6 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 9   | Android  | Android | ON / ON    | 1.5 / 1.6      | ❓                          | ❓         | ❓       | ❓         |
+| 10  | Android  | Android | OFF / ON   | 1.5 / 1.6      | ❓                          | ❓         | ❓       | ❓         |
+| 11  | Android  | Android | ON / OFF   | 1.5 / 1.6      | ❓                          | ❓         | ❓       | ❓         |
+| 12  | Android  | Android | OFF / OFF  | 1.5 / 1.6      | ❓                          | ❓         | ❓       | ❓         |
+| 13  | Android  | Android | ON / ON    | 1.5 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 14  | Android  | Android | OFF / ON   | 1.5 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 15  | Android  | Android | ON / OFF   | 1.5 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
+| 16  | Android  | Android | OFF / OFF  | 1.5 / 1.5      | ❓                          | ❓         | ❓       | ❓         |
 
 
 ## 🎧 AVRCP Role Detection — Testing Methodology
