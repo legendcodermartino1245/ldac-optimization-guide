@@ -4059,6 +4059,11 @@ When you connect your WH-1000XM series headphones by powering them on (headphone
 
 ---
 
+# macOS and iPhone – LDAC Status
+**macOS** and **iOS**, and there is no known workaround due to Apple’s closed ecosystem.
+
+# Linux
+Dont use Pulseaudio use Pipewire instead
 
 # Tasker Profile Legend
 
@@ -4082,28 +4087,6 @@ When you connect your WH-1000XM series headphones by powering them on (headphone
 | Location_Off.tsk.xml | `Location_Off.tsk.xml` |
 | Location_On.tsk.xml | `Location_On.tsk.xml` |
 | Override_Codec.tsk.xml | `Override_Codec.tsk.xml` |
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# macOS and iPhone – LDAC Status
-**macOS** and **iOS**, and there is no known workaround due to Apple’s closed ecosystem.
-
-# Linux
-Dont use Pulseaudio use Pipewire instead
-
-
 
 
 # Engineering Companion
