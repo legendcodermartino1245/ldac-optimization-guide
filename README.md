@@ -282,6 +282,7 @@
     - [Summary Table](#summary-table)
 - [macOS and iPhone – LDAC Status](#macos-and-iphone--ldac-status)
 - [Linux](#linux)
+- [Tasker Profile Legend](#tasker-profile-legend)
 - [Engineering Companion](#engineering-companion)
   * [Why This Companion Exists](#why-this-companion-exists)
   * [Extracted Protocol Control Layers](#extracted-protocol-control-layers)
@@ -4059,7 +4060,7 @@ When you connect your WH-1000XM series headphones by powering them on (headphone
 ---
 
 
-# 📋 Tasker Profile Legend
+# Tasker Profile Legend
 
 ## Profiles
 
