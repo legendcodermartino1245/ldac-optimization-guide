@@ -4059,6 +4059,28 @@ When you connect your WH-1000XM series headphones by powering them on (headphone
 ---
 
 
+# 📋 Tasker Profile Legend
+
+## Profiles
+
+| Profile Name | File |
+|--------------|------|
+| BCC_Aac_Override.prf.xml | `BCC_Aac_Override.prf.xml` |
+| BCC_Sbc_Override.prf.xml | `BCC_Sbc_Override.prf.xml` |
+| Bbc_Maps.prf.xml | `Bbc_Maps.prf.xml` |
+| Bcc_Gui_Sync.prf.xml | `Bcc_Gui_Sync.prf.xml` |
+| Xm5_Connected.prf.xml | `Xm5_Connected.prf.xml` |
+| Xm5_Disconnect.prf.xml | `Xm5_Disconnect.prf.xml` |
+
+## Tasks
+
+| Task Name | File |
+|-----------|------|
+| Auto_Play_When_Paused.tsk.xml | `Auto_Play_When_Paused.tsk.xml` |
+| Ldac_660.tsk.xml | `Ldac_660.tsk.xml` |
+| Location_Off.tsk.xml | `Location_Off.tsk.xml` |
+| Location_On.tsk.xml | `Location_On.tsk.xml` |
+| Override_Codec.tsk.xml | `Override_Codec.tsk.xml` |
 
 
 
