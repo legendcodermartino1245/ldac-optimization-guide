@@ -294,7 +294,7 @@
 
 There is a lot of misconception about LDAC and how to properly configure it on different operating systems (Windows and Android for example.) This guide will focus on both and will include strategies which help you get the best sound possible. I tried to make it as practical as possible to replicate. To make troubleshooting easier I have clearly documented the steps needed to set everything back to defaults for full transparency.
 
-## My setup and the hardware I used during the making of this guide:
+## My setup and the hard and software I used during the making of this guide:
 
 | Device              | OS / Firmware             | Supported Codecs                        | Bluetooth Version     |
 |---------------------|---------------------------|-----------------------------------------|------------------------|
@@ -305,6 +305,20 @@ There is a lot of misconception about LDAC and how to properly configure it on d
 | **Windows 10**       | Version 22H2               | AAC, SBC *(LDAC not supported natively)* | **Depends on adapter** |
 | **Sony WH-1000XM5**  | Firmware 2.4.1             | LDAC, AAC, SBC                           | **Bluetooth 5.2**      |
 | **Sony WH-1000XM3**  | Firmware 4.5.2             | LDAC, AptX, AAC, SBC                     | **Bluetooth 4.2**      |
+
+| Application | Version Tested |
+|--------------|----------------|
+| Bluetooth Codec Changer (BCC) | 1.7.1 |
+| Sony Headphones Connect | 12.1.0 |
+| Sony Music Center | 7.5.1 |
+| Tasker | 6.5.9 |
+| Tasker Settings | 1.7.1 |
+| AutoNotification | 4.3.1 |
+| Neutron Player | 2.26.0 |
+| USB Audio Player PRO (UAPP) | 7.0.6.7 |
+| Wavelet | 25.03 |
+| BluetoothGoodies Alt Driver | 1.6.0.54 (Preview) |
+| Bluetooth Tweaker | 1.4.8.1 |
 
 >  *Note: On Windows, LDAC support requires specific Bluetooth drivers or third-party implementations (e.g. CSR Harmony stack or alternative USB dongles). This guide focuses on standard OS behavior unless otherwise noted.*
 
