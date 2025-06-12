@@ -284,12 +284,6 @@
 - [Linux](#linux)
 - [LDAC Done Right — Engineering Companion (Protocol Layer Extraction)](#ldac-done-right--engineering-companion-protocol-layer-extraction)
   - [Why This Companion Exists](#why-this-companion-exists)
-  - [Extracted Protocol Control Layers](#extracted-protocol-control-layers)
-    - [Samsung Override Stack](#samsung-override-stack)
-    - [Developer Options Codec Memory](#developer-options-codec-memory)
-    - [Fast Pair Override Injection](#fast-pair-override-injection)
-  - [Practical Reset and Override Workflow](#practical-reset-and-override-workflow)
-  - [Summary and Next Steps](#summary-and-next-steps)
 
 
 There is a lot of misconception about LDAC and how to properly configure it on different operating systems (Windows and Android for example.) This guide will focus on both and will include strategies which help you get the best sound possible. I tried to make it as practical as possible to replicate. To make troubleshooting easier I have clearly documented the steps needed to set everything back to defaults for full transparency.
