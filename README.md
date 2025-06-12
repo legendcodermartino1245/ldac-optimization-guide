@@ -274,11 +274,11 @@
   - [Summary Takeaway:](#summary-takeaway)
   - [Headphone-Initiated Connection — Override Failure Explained](#headphone-initiated-connection--override-failure-explained)
     - [Technical Root Cause](#technical-root-cause)
-      - [1⃣ Who Controls Bluetooth A2DP Negotiation?](#1-who-controls-bluetooth-a2dp-negotiation)
-      - [2⃣ Timing Sequence Breakdown](#2-timing-sequence-breakdown)
-      - [3⃣ Why 96000Hz / 16-bit Default?](#3-why-96000hz--16-bit-default)
-      - [4⃣ Why BCC Auto Switch Fails](#4-why-bcc-auto-switch-fails)
-      - [5⃣ Why Tasker + AutoNotification Works](#5-why-tasker--autonotification-works)
+      - [Who Controls Bluetooth A2DP Negotiation?](#who-controls-bluetooth-a2dp-negotiation)
+      - [Timing Sequence Breakdown](#timing-sequence-breakdown)
+      - [Why 96000Hz / 16-bit Default?](#why-96000hz--16-bit-default)
+      - [Why BCC Auto Switch Fails](#why-bcc-auto-switch-fails)
+      - [Why Tasker + AutoNotification Works](#why-tasker--autonotification-works)
     - [Summary Table](#summary-table)
 - [macOS and iPhone – LDAC Status](#macos-and-iphone--ldac-status)
 - [Linux](#linux)
@@ -3985,7 +3985,7 @@ When you connect your WH-1000XM series headphones by powering them on (headphone
 
 ###  Technical Root Cause
 
-#### 1⃣ Who Controls Bluetooth A2DP Negotiation?
+#### Who Controls Bluetooth A2DP Negotiation?
 
 | Connect Type          | Controller                   | BCC Auto Switch Window |
 |------------------------|-------------------------------|-------------------------|
@@ -4005,7 +4005,7 @@ When you connect your WH-1000XM series headphones by powering them on (headphone
 
 ---
 
-#### 2⃣ Timing Sequence Breakdown
+#### Timing Sequence Breakdown
 
 | Time  | Event                                | Actor              |
 |-------|---------------------------------------|---------------------|
@@ -4018,7 +4018,7 @@ When you connect your WH-1000XM series headphones by powering them on (headphone
 
 ---
 
-#### 3⃣ Why 96000Hz / 16-bit Default?
+#### Why 96000Hz / 16-bit Default?
 
 - Samsung applies its internal LDAC default profile:
   - **Sample Rate:** 96 kHz
@@ -4030,7 +4030,7 @@ When you connect your WH-1000XM series headphones by powering them on (headphone
 
 ---
 
-#### 4⃣ Why BCC Auto Switch Fails
+#### Why BCC Auto Switch Fails
 
 - BCC relies on the Android-side A2DP SessionStart event.
 - During passive (headphone-initiated) connects:
@@ -4040,7 +4040,7 @@ When you connect your WH-1000XM series headphones by powering them on (headphone
 
 ---
 
-#### 5⃣ Why Tasker + AutoNotification Works
+#### Why Tasker + AutoNotification Works
 
 - Tasker and AutoNotification operate after full connection established.
 - You re-trigger codec negotiation manually:
