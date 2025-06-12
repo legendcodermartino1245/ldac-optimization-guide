@@ -3335,6 +3335,7 @@ adb shell pm grant com.pittvandewitt.wavelet android.permission.DUMP
   - Works best when LDAC is already set via BCC or Developer Options.
   - Opening the app resets the codec to **UAPP’s internal configuration**.
   - Let UAPP handle **automatic sample rate switching** — disable Adaptive Sample Rate in BCC.
+  - Set UAPP LDAC resolution to 24 bit
   - If BCC was active previously, you **must fully close and reopen UAPP** for it to take control of LDAC again.
   - **Auto Switch in BCC** interferes with UAPP — use App-Specific Profiles for all **other apps**, and **let UAPP handle its own LDAC settings**.
   - **Adaptive Sample Rate in BCC can crash UAPP** if LDAC settings are also active in BCC.
