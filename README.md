@@ -292,7 +292,7 @@
   - [Absolute Volume Stack (AV ON/OFF)](#absolute-volume-stack-av-onoff)
   - [AVRCP Role Arbitration](#avrcp-role-arbitration)
   - [Multipoint Arbitration Layer](#multipoint-arbitration-layer)
-  - [Firmware Profile Storage (XM5/XM3)](#firmware-profile-storage-xm5xm3)
+  - [Firmware Profile Storage XM5XM3](#firmware-profile-storage-xm5xm3)
 - [Testing Philosophy Summary](#testing-philosophy-summary)
   - [Legacy Testing Model](#legacy-testing-model)
   - [Engineering Companion Approach](#engineering-companion-approach)
