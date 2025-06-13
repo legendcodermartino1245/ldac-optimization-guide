@@ -2536,6 +2536,14 @@ When using **LDAC multipoint** across Android + Windows 11, the following edge c
 
 
 
+## ✅ Multipoint Feeding Chain — Protocol Rule (AVRCP 1.6)
+
+- Under AVRCP 1.6, LDAC codec profiles do not have to match across devices.
+- Each A2DP session negotiates codec parameters independently inside the headset firmware.
+- Windows may negotiate e.g. 96/24 Adaptive while Android negotiates 44.1/24 Fixed.
+- Sony WH-1000XM firmware maintains isolated codec states for both active A2DP sessions.
+- Stability holds as long as timing windows are respected during active master switching.
+- AVRCP governs media control roles, not codec layer negotiation directly.
 
 
 
