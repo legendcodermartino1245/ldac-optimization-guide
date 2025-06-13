@@ -2547,6 +2547,33 @@ When using **LDAC multipoint** across Android + Windows 11, the following edge c
 
 
 
+### Hands-Free Telephony Conflict Mitigation (Windows)
+- In rare cases, Windows may hold active A2DP state even when idle due to HFP profile interference.
+- Disable "Hands-Free Telephony" in:
+  - `Control Panel → Devices and Printers → WH-1000XM5 → Services`
+- This ensures Windows cannot request SCO profile, preserving clean multipoint A2DP priority handoff.
+
+
+### DSP Feeding Rule with Absolute Volume
+- Sony WH-1000XM5 DSP pipeline assumes Absolute Volume ON with full digital headroom.
+- AV OFF may result in device-side digital attenuation prior to Bluetooth encoding.
+- Recommended:
+  - With AV ON: Source volume ≥85% yields optimal LDAC quantization.
+  - With AV OFF: Carefully match Android player gain to avoid accidental bit-depth compression.
+
+
+### No Auto-Resume Logic in AVRCP
+- AVRCP protocol does not define resume priority.
+- When one device stops, the other remains idle until playback is manually resumed.
+- Last interacted AVRCP session is remembered by headset firmware to resolve next play command.
+
+
+### VLC Media Session Limitation (Windows)
+- VLC may not respond to AVRCP headset buttons while minimized.
+- Lacks full Windows MediaSession integration unless configured.
+- Use Spotify, Tidal, or Windows Media Player for full AVRCP multipoint integration.
+
+![image](https://github.com/user-attachments/assets/059b5155-c9cd-4ba7-b3e3-74d9773d53c5)
 
 
 
