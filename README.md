@@ -642,11 +642,6 @@ This combination represents the highest achievable LDAC configuration on Android
 > Neither tool substitutes the other.  
 > **Maximum LDAC stability and fidelity only exist when both are combined.**
 
-![image](https://github.com/user-attachments/assets/95e92a1a-7e04-4517-b457-cb29e5a0a148)
-
-
-
-
 ###  LDAC Configuration Matrix Fixed
 
 | Sample Rate | Bit Depth | Bitrate (kbps) | Mode             |
