@@ -1342,7 +1342,7 @@ To determine AVRCP Controller (CT) and Target (TG) roles during multipoint LDAC 
 ###  Media Focus / CD Quality (for apps with exclusive access via WASAPI)
 
 - **Sample Rate:** 44.1 kHz or 48 kHz  
-- **Bit Depth:** 16-bit  
+- **Bit Depth:** 24 bit  
 - **Stereo Mode:** Stereo  
 - **Encode Quality:** High (HQ)  
 - **Adaptive Bitrate:** Disabled
@@ -1370,7 +1370,7 @@ To determine AVRCP Controller (CT) and Target (TG) roles during multipoint LDAC 
 ##  Spotify Specific Behavior
 
 - **Spotify doesn’t support WASAPI**
-- Use 44.1 kHz, 16-bit LDAC profile
+- Use 44.1 kHz, 24 bit LDAC profile
 - Avoid enabling exclusive mode or adaptive bitrate
 - Stick to media-optimized LDAC profile
 
@@ -2814,7 +2814,7 @@ Sony’s WH-1000XM5 can **store only a limited set of codec settings** in firmwa
 21. Settings bluetooth audio preferred bt codec ldac.
 22. Settings bluetooth audio preferred bt sample  rate Change sample rate according to source.
 23. Settings bluetooth audio LDAC quality Optimized audio quality.
-24. Settings bluetooth audio LDAC resolution Use 24 if you want to play high res and use 16 bit if you want to play 16 bit bit perfect.
+24. Settings bluetooth audio LDAC resolution Use 24.
 25. Verify the following settings.
 26. Bt sample sample rate is set to change Sample rate according to source.
 27. Ldac quality set to optimized sound quality.
