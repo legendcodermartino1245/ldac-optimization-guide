@@ -3211,6 +3211,49 @@ A potential firmware-class failure was evaluated to determine whether simultaneo
 - All buffer desynchronization failures remain fully captured under **Firmware Desync Class #1**.
 - Firmware arbitration layer coverage is now complete and fully exhausted for multipoint LDAC operation on WH-1000XM5.
 
+## 🔬 Multipoint Adaptive LDAC — Firmware Window Lock Behavior
+
+### Firmware Window Lock (Verified Behavior)
+
+- When Adaptive LDAC profiles are fully mirrored (sample rate, bit depth, Adaptive mode) on both Android and Windows, the headset firmware creates a synchronized negotiation window.
+- Once this window is locked, renegotiation spikes are fully suppressed even when switching playback between Android and Windows.
+- Firmware caching ensures stability across:
+  - CT/TG role swaps
+  - Android unlock events
+  - AVRCP 1.6 triggers
+  - Playback handoffs between hosts
+
+### Adaptive Bitrate Adjustment Stability
+
+- Adaptive bitrate recalculations reflect normal RF-based Adaptive behavior, not renegotiation.
+- Android playback:
+  - `adaptive bit rate adjustments: 0` initially (perfect RF conditions).
+  - Later sessions observed multiple adjustments (`12`), fully contained inside the negotiation window.
+- Windows playback:
+  - Observed up to `5` adaptive adjustments during link stabilization.
+- Both platforms maintained fully synchronized Adaptive windows throughout.
+
+### Shared Firmware State Across Hosts
+
+- Even while Android is playing, Windows Alternative A2DP Driver continuously polls and displays real-time Adaptive bitrate from firmware.
+- Windows reported values like `452 kbps` while Android actively played.
+- This confirms that both hosts share the same firmware-managed Adaptive state without renegotiation.
+
+### Adaptive Bitrate Encode Quality Index Mapping (Observed)
+
+| Platform | Adaptive Quality Index | Behavior |
+|----------|------------------------|----------|
+| Android | `-1` | Full firmware control |
+| Windows (A2DP Driver) | `1` → `3` | Driver-controlled quality window sync |
+
+- Both still negotiate identical codec capability (CCOD `64`, PCOD `66`), allowing full cross-platform synchronization.
+
+### Practical Outcome
+
+- ✅ Adaptive LDAC can reach Fixed-mode stability under fully mirrored profiles.
+- ✅ Renegotiation spikes (bitrate recalculation triggers from system events) are fully suppressed.
+- ✅ Adaptive bitrate continues to dynamically adjust based on RF conditions inside the locked firmware window.
+- ✅ Firmware window lock allows stable multipoint playback even under AVRCP 1.6 CT/TG swaps, Android unlocks, and host handoffs.
 
 
 ## Absolute Volume
