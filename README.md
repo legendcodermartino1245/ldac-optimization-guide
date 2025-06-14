@@ -3256,6 +3256,90 @@ A potential firmware-class failure was evaluated to determine whether simultaneo
 - ✅ Firmware window lock allows stable multipoint playback even under AVRCP 1.6 CT/TG swaps, Android unlocks, and host handoffs.
 
 
+# LDAC Done Right — Verification Methods
+
+This module documents how to verify actual live LDAC codec behavior during playback. These tools allow full experimental monitoring of bitrate, adaptive negotiation, and firmware state across Android and Windows.
+
+---
+
+## 🔧 Android — ADB Dumpsys Verification (Primary Live Method)
+
+On Android, system UI, Developer Options, and BCC GUI do not reflect actual real-time LDAC bitrate during playback. Only ADB dumpsys exposes live negotiated bitrate and adaptive state.
+
+### Command (Bluetooth Stack Dependent)
+
+```bash
+adb shell dumpsys bluetooth_manager
+```
+
+### Key Output Fields
+
+| Field | Description |
+|-------|-------------|
+| LDAC transmission bitrate (kbps) | Current negotiated bitrate |
+| LDAC adaptive bit rate adjustments | Number of bitrate recalculations |
+| LDAC quality mode : ABR | Adaptive mode active confirmation |
+| Adaptive bit rate encode quality mode index | Platform adaptive mode index |
+| CCOD / PCOD | Codec capability negotiation window |
+
+✅ Dumpsys is mandatory for all Adaptive multipoint firmware testing.
+
+---
+
+## 🔧 Android — Bluetooth Codec Changer (BCC) Limitations
+
+- BCC correctly reports applied profile at connection time.
+- BCC does not display live adaptive bitrate negotiation during playback.
+- For Adaptive verification, always combine BCC with dumpsys.
+
+---
+
+## 🔧 Windows — Alternative A2DP Driver Bitrate Display
+
+The Alternative A2DP Driver (BluetoothGoodies) exposes full live Adaptive bitrate telemetry during playback:
+
+- GUI reports live firmware bitrate negotiation.
+- Even during multipoint, Windows polls headset firmware for current adaptive bitrate, even if Android is actively playing.
+
+✅ Use this to observe firmware-shared state across hosts.
+
+---
+
+## 🔧 Windows — Default Bluetooth Stack Limitations
+
+- The Windows Default Bluetooth stack does not expose any live bitrate telemetry.
+- Use Alternative A2DP Driver for any Windows-side Adaptive bitrate verification.
+
+---
+
+## 🔧 Summary Table — LDAC Verification Methods
+
+| Platform | Method | Live Bitrate Accuracy |
+|----------|--------|-----------------------|
+| Android | ADB dumpsys | ✅ Fully accurate |
+| Android | BCC App | ⚠ Profile only |
+| Windows | Alternative A2DP Driver | ✅ Fully accurate |
+| Windows | Default Bluetooth Stack | ❌ No live reporting |
+
+---
+
+## 🔧 Importance for Adaptive Multipoint Testing
+
+These verification methods are essential for:
+
+- Adaptive firmware window lock validation.
+- Renegotiation spike immunity testing.
+- CT/TG ownership swap analysis.
+- Full Adaptive bitrate fluctuation monitoring.
+
+✅ All Adaptive multipoint firmware experiments in this guide require these tools for accurate real-time validation.
+
+
+
+
+
+
+
 ## Absolute Volume
 
  **Absolute Volume Switching Rule**
