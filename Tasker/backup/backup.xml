@@ -2316,7 +2316,6 @@ When
 		<edate>1749725148680</edate>
 		<flags>10</flags>
 		<id>25</id>
-		<limit>true</limit>
 		<mid0>102</mid0>
 		<nme>LDAC_44100_24_909</nme>
 		<State sr="con0" ve="2">
@@ -5566,7 +5565,6 @@ Could be 'classic', 'le', 'dual' or 'unknown'&lt;/_array_net.dinglisch.android.t
 		<edate>1749725143804</edate>
 		<flags>10</flags>
 		<id>40</id>
-		<limit>true</limit>
 		<mid0>102</mid0>
 		<nme>LDAC_48000_24_990</nme>
 		<State sr="con0" ve="2">
@@ -7283,10 +7281,9 @@ When
 	</Profile>
 	<Profile sr="prof49" ve="2">
 		<cdate>1749694868711</cdate>
-		<edate>1749720693306</edate>
+		<edate>1749914115367</edate>
 		<flags>10</flags>
 		<id>49</id>
-		<limit>true</limit>
 		<mid0>48</mid0>
 		<nme>Bcc Gui Sync</nme>
 		<State sr="con0" ve="2">
@@ -8280,7 +8277,6 @@ When
 		<edate>1749725138595</edate>
 		<flags>10</flags>
 		<id>53</id>
-		<limit>true</limit>
 		<mid0>102</mid0>
 		<nme>LDAC_88200_24_909</nme>
 		<State sr="con0" ve="2">
@@ -10546,7 +10542,6 @@ When
 		<edate>1749725128694</edate>
 		<flags>10</flags>
 		<id>62</id>
-		<limit>true</limit>
 		<mid0>102</mid0>
 		<nme>LDAC_96000_24_990</nme>
 		<State sr="con0" ve="2">
@@ -13248,10 +13243,11 @@ When
 	</Profile>
 	<Profile sr="prof72" ve="2">
 		<cdate>1749764948342</cdate>
-		<edate>1749766251767</edate>
+		<edate>1749914148474</edate>
 		<flags>10</flags>
 		<id>72</id>
 		<mid0>73</mid0>
+		<nme>UAPP Disable Bcc Profiles</nme>
 		<App sr="con0" ve="2">
 			<cls0>com.extreamsd.usbaudioplayershared.ScreenSlidePagerActivity</cls0>
 			<flags>2</flags>
@@ -13261,10 +13257,11 @@ When
 	</Profile>
 	<Profile sr="prof75" ve="2">
 		<cdate>1749766368682</cdate>
-		<edate>1749766368682</edate>
+		<edate>1749914129949</edate>
 		<flags>8</flags>
 		<id>75</id>
 		<mid0>74</mid0>
+		<nme>Qobuz Enable Bcc Profiles</nme>
 		<App sr="con0" ve="2">
 			<cls0>com.qobuz.android.mobile.app.refont.screen.launch.LauncherActivity</cls0>
 			<flags>2</flags>
@@ -13380,7 +13377,7 @@ Could be 'classic', 'le', 'dual' or 'unknown'&lt;/_array_net.dinglisch.android.t
 	</Profile>
 	<Project sr="proj0" ve="2">
 		<cdate>1682640254068</cdate>
-		<mdate>1749766768786</mdate>
+		<mdate>1749914208620</mdate>
 		<name>Base</name>
 		<pids>6,4,8,9,7,49,14,63,64,44,62,61,60,47,46,65,50,51,52,53,54,56,57,58,59,41,42,43,40,39,38,37,36,33,27,32,31,25,28,30,24,20,12,55,11,16,18,19,29,34,66,67,68,69,70,71,72,75</pids>
 		<tids>3,5,102,15,17,23,48,73,74</tids>
@@ -14656,7 +14653,7 @@ true if it after the action the setting is enabled, false if not&lt;/_array_net.
 	</Variable>
 	<Variable sr="vars26">
 		<n>%LDAC_PROFILE</n>
-		<v>LDAC_96000_16_Optimized for audio quality (990/909kbps)</v>
+		<v>LDAC_96000_16_Balanced audio and connection quality (660/606kbps)</v>
 	</Variable>
 	<Variable sr="vars27">
 		<n>%Spotify</n>
@@ -14664,7 +14661,7 @@ true if it after the action the setting is enabled, false if not&lt;/_array_net.
 	</Variable>
 	<Variable sr="vars28">
 		<n>%LDAC_QUALITY</n>
-		<v>Optimized for audio quality (990/909kbps)</v>
+		<v>Balanced audio and connection quality (660/606kbps)</v>
 	</Variable>
 	<Variable sr="vars29">
 		<n>%LDAC_INFO2</n>
@@ -14684,7 +14681,7 @@ true if it after the action the setting is enabled, false if not&lt;/_array_net.
 	</Variable>
 	<Variable sr="vars32">
 		<n>%LDAC_INFO5</n>
-		<v> Optimized for audio quality (990/909kbps)</v>
+		<v> Balanced audio and connection quality (660/606kbps)</v>
 	</Variable>
 	<Variable sr="vars33">
 		<n>%LDAC_SR</n>
@@ -14716,7 +14713,7 @@ true if it after the action the setting is enabled, false if not&lt;/_array_net.
 	</Variable>
 	<Variable sr="vars8">
 		<n>%LDAC_INFO</n>
-		<v>LDAC • 96000 • 16 • Stereo • Optimized for audio quality (990/909kbps)</v>
+		<v>LDAC • 96000 • 16 • Stereo • Balanced audio and connection quality (660/606kbps)</v>
 	</Variable>
 	<Variable sr="vars9">
 		<n>%DONE</n>
