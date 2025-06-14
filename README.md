@@ -928,6 +928,12 @@ This fully prevents Samsung override engagement.
 
 ---
 
+- When Absolute Volume is **ON**, Samsung's override stack remains fully active.
+- Samsung override enforces its own LDAC sample rate negotiation during the initial handshake.
+- BCC cannot directly change the sample rate while Samsung override is active.
+- Applying a BCC profile with a different sample rate will not take effect unless the override has been fully defeated.
+
+
 ## Bluetooth Codec Changer (BCC)
 
 BCC allows you to force codec settings (LDAC, bitrate, sample rate, bit depth) **at runtime**.  
