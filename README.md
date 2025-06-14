@@ -46,6 +46,15 @@
   - [Developer Options: Bit Depth Misconceptions](#developer-options-bit-depth-misconceptions)
   - [Codec Negotiation Limits and Override Timing](#codec-negotiation-limits-and-override-timing)
     - [Samsung LDAC Override: Always Active](#samsung-ldac-override-always-active)
+  - [Samsung Override Behavior — Master Control Logic](#samsung-override-behavior--master-control-logic)
+    - [Core Override Stack Rules](#core-override-stack-rules)
+    - [Music Center — Critical Codec Management Rule](#music-center--critical-codec-management-rule)
+    - [Bluetooth Reconnect Behavior](#bluetooth-reconnect-behavior)
+    - [Verified Override Sources](#verified-override-sources)
+    - [Timing-Sensitive Override Suppression Rule](#timing-sensitive-override-suppression-rule)
+    - [Full Override Suppression Workflow](#full-override-suppression-workflow)
+    - [Samsung Override Master Logic Table — AV ON vs AV OFF](#samsung-override-master-logic-table--av-on-vs-av-off)
+    - [Samsung Override Activation Matrix](#samsung-override-activation-matrix)
   - [Bluetooth Codec Changer (BCC)](#bluetooth-codec-changer-bcc)
     - [Auto Switch](#auto-switch)
     - [2-Step Switch](#2-step-switch)
@@ -818,8 +827,122 @@ Samsung’s Bluetooth stack **forces an LDAC override profile immediately** on c
 You cannot assume LDAC settings are "clean" just because you've enabled it.  
 **Always perform a reset or handshake trick** (e.g., SBC → LDAC 16-bit → LDAC 990) if you're trying to apply your own BCC profile.
 
+# Samsung Override Behavior — Master Control Logic
 
+Samsung's Bluetooth stack contains multiple override entry points that attempt to enforce its default LDAC profile.  
+Override defeat relies entirely on **Absolute Volume state** combined with correct **Bluetooth Codec Changer (BCC) chaining logic**.
 
+Sony Music Center contains its own override layer that must be fully avoided when using BCC chaining.
+
+---
+
+## 🔑 Core Override Stack Rules
+
+- **Absolute Volume OFF is itself an override suppression trigger.**
+  - With AV OFF active, Samsung's override stack is fully suppressed.
+  - BCC chaining (`SBC → LDAC 16 → LDAC 990`) may proceed directly or be skipped entirely.
+  - AV OFF must be active *before* initiating BCC chaining to ensure override bypass stability.
+
+- **Absolute Volume ON leaves override stack fully active.**
+  - Samsung will attempt to enforce its default profile.
+  - In this state, BCC chaining must start with SBC as initial profile before switching to LDAC 16 and finally LDAC 990 to successfully bypass override.
+
+- **Adaptive LDAC behaves identically to Fixed for override defeat.**
+  - Once initial chaining completes, Adaptive mode holds stability equal to Fixed mode.
+  - No special chaining modifications required for Adaptive profiles.
+
+---
+
+## 🔧 Music Center — Critical Codec Management Rule
+
+- Never adjust LDAC Audio Quality settings inside Music Center while using BCC chaining.
+- Any interaction with LDAC quality inside Music Center injects an internal override layer that conflicts with BCC control.
+- The only safe interaction inside Music Center is disabling LDAC entirely (*turning LDAC OFF inside the app*), which clears override state.
+- After disabling LDAC inside Music Center, fully clear pairing and reapply BCC chaining for a clean start.
+- BCC must always handle 100% of codec negotiation to maintain override stability.
+
+---
+
+## 🔁 Bluetooth Reconnect Behavior
+
+| Reconnect Scenario  | AV OFF Behavior | AV ON Behavior | Notes |
+|----------------------|-----------------|-----------------|-------|
+| Passive Reconnection | ✅ Profile often retained | ❌ Override likely retriggered | AV OFF reduces Samsung override triggers |
+| Active BCC Rechain   | ✅ Always safe  | ✅ Safe with full SBC → LDAC chaining | BCC chaining works universally |
+| Music Center Trigger | ❌ Never        | ❌ Never         | MC LDAC controls remain forbidden |
+
+---
+
+## ✅ Verified Override Sources
+
+| Override Source      | Role                  | Notes |
+|-----------------------|------------------------|-------|
+| Samsung Override Stack | Default platform override | Fully active under AV ON, fully suppressed under AV OFF |
+| Sony Music Center     | App-level override     | Never change LDAC quality inside Music Center with BCC active |
+| BCC (Bluetooth Codec Changer) | Full external override | Enforces target codec profile regardless of Samsung or MC |
+| Firmware Codec Memory | Passive profile persistence | Headphone firmware may retain prior negotiated profile |
+| Google Fast Pair Restore | Cloud-level override (disabled) | Can inject synced LDAC configs if enabled |
+
+---
+
+## 🔬 Timing-Sensitive Override Suppression Rule
+
+Samsung's override stack activates *at the moment* Bluetooth initializes A2DP.  
+To ensure full suppression:
+
+- Apply AV OFF **before** Bluetooth is powered on.
+- Restart Bluetooth stack after AV OFF toggle.
+- Initiate BCC chaining only after clean stack state.
+
+✅ This fully prevents Samsung override engagement.
+
+---
+
+### ✅ Full Override Suppression Workflow
+
+1️⃣ **Set Absolute Volume OFF**  
+2️⃣ **Disable Bluetooth fully**  
+3️⃣ **Re-enable Bluetooth**  
+4️⃣ **Connect and apply BCC chaining**  
+
+⚠ **Timing Rule:**  
+> AV OFF must be set *before* stack initialization.  
+> If applied after stack load, partial override suppression risk remains.
+
+---
+
+# 🔒 Samsung Override Master Logic Table — AV ON vs AV OFF
+
+| Condition              | AV OFF Behavior       | AV ON Behavior        |
+|------------------------|------------------------|------------------------|
+| Samsung Override Stack | ✅ Fully suppressed    | ⚠ Fully active         |
+| Initial LDAC Seed      | ✅ Always safe         | ⚠ Always triggers override |
+| Non-LDAC Seed (SBC/AAC)| ✅ Always safe         | ✅ Always safe          |
+| BCC Chaining Recommended? | ✅ Optional (stability only) | ✅ Mandatory |
+| Required Chain Structure | Direct LDAC or Non-LDAC → LDAC 990 | SBC → LDAC 16 → LDAC 990 |
+| Adaptive Mode Stability | ✅ Fully stable after chaining | ✅ Fully stable after chaining |
+| Fast Pair Impact       | 🚫 No impact if cloud disabled | 🚫 No impact if cloud disabled |
+| Developer Options Impact | 🚫 No longer needed  | 🚫 No longer needed     |
+| Music Center LDAC Quality | 🚫 Forbidden         | 🚫 Forbidden             |
+| Tasker Automation Logic | ✅ Active              | ✅ Active                |
+
+✅ **Universal Summary Rule:**  
+> Samsung override is fully neutralized if:  
+> - AV OFF is active (seed codec irrelevant), or  
+> - AV ON is active with non-LDAC seed used.
+
+---
+
+# 🔒 Samsung Override Activation Matrix
+
+| Absolute Volume | Initial Codec Negotiated | Override Activation? | Chaining Requirement? |
+|------------------|--------------------------|-----------------------|-----------------------|
+| AV OFF           | LDAC (any mode)         | 🚫 No override        | 🔧 Chaining optional (stability only) |
+| AV OFF           | Non-LDAC (SBC/AAC)      | 🚫 No override        | 🔧 Chaining optional (stability only) |
+| AV ON            | LDAC (any mode)         | ⚠ Override activates  | ✅ Chaining mandatory |
+| AV ON            | Non-LDAC (SBC/AAC)      | 🚫 No override        | ✅ Chaining recommended (for stability) |
+
+---
 
 ## Bluetooth Codec Changer (BCC)
 
