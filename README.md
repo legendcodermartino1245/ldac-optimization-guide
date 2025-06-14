@@ -4636,7 +4636,14 @@ Extra:  com.amrg.bluetooth_codec_converter.extra.PROFILE_NAME:<Profile_Name>
 
 
 
+## 303 only profiles for battery optimized setup
+a profile that is used for applications that only need 44.1 khz 24 at 303 bitrate
 
+## Profiles that enable and disable bcc switching when uapp is active
+no conflict between bcc and uapp while combining the two
+
+## Profile for location services
+profile that switches to 44.1 khz 24 bit 606 because apps that need bluetooth scanning wifi scanning and location services make 909 stutter
 
 # Engineering Companion
 
