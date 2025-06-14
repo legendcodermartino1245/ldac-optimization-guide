@@ -44,7 +44,7 @@
   - [Developer Options Are Safe — If You Clean Up Properly](#developer-options-are-safe--if-you-clean-up-properly)
     - [Correct Reset Procedure](#correct-reset-procedure)
   - [Developer Options: Bit Depth Misconceptions](#developer-options-bit-depth-misconceptions)
-  - [Samsung Override Behavior — Master Control Logic](#samsung-override-behavior-master-control-logic)
+  - [Samsung Override Behavior](#samsung-override-behavior)
     - [Core Override Stack Rules](#core-override-stack-rules)
     - [Music Center — Critical Codec Management Rule](#music-center--critical-codec-management-rule)
     - [Bluetooth Reconnect Behavior](#bluetooth-reconnect-behavior)
@@ -811,7 +811,7 @@ However:
 -  This makes Developer Options useful for *triggering codec behavior changes*, but not for controlling the bit depth directly.
 
 
-# Samsung Override Behavior — Master Control Logic
+# Samsung Override Behavior
 
 Samsung's Bluetooth stack contains multiple override entry points that attempt to enforce its default LDAC profile.  
 Override defeat relies entirely on **Absolute Volume state** combined with correct **Bluetooth Codec Changer (BCC) chaining logic**.
