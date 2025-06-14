@@ -813,20 +813,6 @@ However:
 -  This makes Developer Options useful for *triggering codec behavior changes*, but not for controlling the bit depth directly.
 
 
-##  Codec Negotiation Limits and Override Timing
-
-###  Samsung LDAC Override: Always Active
-
-Samsung’s Bluetooth stack **forces an LDAC override profile immediately** on connection — even **before** LDAC is explicitly enabled.
-
-- If you connect your headphones **without LDAC enabled**, the override profile is **still injected** (e.g., SBC/AAC override logic).
-- If you enable LDAC **after connecting**, it **still uses Samsung’s default LDAC profile** (typically 660 kbps Adaptive).
-- Even **first-time pairings** will fall back to Samsung’s default LDAC parameters unless a **clean handshake** is forced.
-
- **Conclusion:**  
-You cannot assume LDAC settings are "clean" just because you've enabled it.  
-**Always perform a reset or handshake trick** (e.g., SBC → LDAC 16-bit → LDAC 990) if you're trying to apply your own BCC profile.
-
 # Samsung Override Behavior — Master Control Logic
 
 Samsung's Bluetooth stack contains multiple override entry points that attempt to enforce its default LDAC profile.  
@@ -836,7 +822,7 @@ Sony Music Center contains its own override layer that must be fully avoided whe
 
 ---
 
-## 🔑 Core Override Stack Rules
+## Core Override Stack Rules
 
 - **Absolute Volume OFF is itself an override suppression trigger.**
   - With AV OFF active, Samsung's override stack is fully suppressed.
@@ -853,7 +839,7 @@ Sony Music Center contains its own override layer that must be fully avoided whe
 
 ---
 
-## 🔧 Music Center — Critical Codec Management Rule
+## Music Center — Critical Codec Management Rule
 
 - Never adjust LDAC Audio Quality settings inside Music Center while using BCC chaining.
 - Any interaction with LDAC quality inside Music Center injects an internal override layer that conflicts with BCC control.
@@ -863,7 +849,7 @@ Sony Music Center contains its own override layer that must be fully avoided whe
 
 ---
 
-## 🔁 Bluetooth Reconnect Behavior
+## Bluetooth Reconnect Behavior
 
 | Reconnect Scenario  | AV OFF Behavior | AV ON Behavior | Notes |
 |----------------------|-----------------|-----------------|-------|
@@ -873,7 +859,7 @@ Sony Music Center contains its own override layer that must be fully avoided whe
 
 ---
 
-## ✅ Verified Override Sources
+## Verified Override Sources
 
 | Override Source      | Role                  | Notes |
 |-----------------------|------------------------|-------|
@@ -885,7 +871,7 @@ Sony Music Center contains its own override layer that must be fully avoided whe
 
 ---
 
-## 🔬 Timing-Sensitive Override Suppression Rule
+## Timing-Sensitive Override Suppression Rule
 
 Samsung's override stack activates *at the moment* Bluetooth initializes A2DP.  
 To ensure full suppression:
@@ -894,24 +880,24 @@ To ensure full suppression:
 - Restart Bluetooth stack after AV OFF toggle.
 - Initiate BCC chaining only after clean stack state.
 
-✅ This fully prevents Samsung override engagement.
+This fully prevents Samsung override engagement.
 
 ---
 
-### ✅ Full Override Suppression Workflow
+### Full Override Suppression Workflow
 
-1️⃣ **Set Absolute Volume OFF**  
-2️⃣ **Disable Bluetooth fully**  
-3️⃣ **Re-enable Bluetooth**  
-4️⃣ **Connect and apply BCC chaining**  
+1. **Set Absolute Volume OFF**  
+2. **Disable Bluetooth fully**  
+3. **Re-enable Bluetooth**  
+4. **Connect and apply BCC chaining**  
 
-⚠ **Timing Rule:**  
+**Timing Rule:**  
 > AV OFF must be set *before* stack initialization.  
 > If applied after stack load, partial override suppression risk remains.
 
 ---
 
-# 🔒 Samsung Override Master Logic Table — AV ON vs AV OFF
+# Samsung Override Master Logic Table — AV ON vs AV OFF
 
 | Condition              | AV OFF Behavior       | AV ON Behavior        |
 |------------------------|------------------------|------------------------|
@@ -926,14 +912,14 @@ To ensure full suppression:
 | Music Center LDAC Quality | 🚫 Forbidden         | 🚫 Forbidden             |
 | Tasker Automation Logic | ✅ Active              | ✅ Active                |
 
-✅ **Universal Summary Rule:**  
+**Universal Summary Rule:**  
 > Samsung override is fully neutralized if:  
 > - AV OFF is active (seed codec irrelevant), or  
 > - AV ON is active with non-LDAC seed used.
 
 ---
 
-# 🔒 Samsung Override Activation Matrix
+# Samsung Override Activation Matrix
 
 | Absolute Volume | Initial Codec Negotiated | Override Activation? | Chaining Requirement? |
 |------------------|--------------------------|-----------------------|-----------------------|
