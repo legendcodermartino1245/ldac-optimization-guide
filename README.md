@@ -2788,6 +2788,72 @@ Supports:
 ---
 
 
+## 🆕 Formal AVRCP 1.6 Safe Deployment Conditions
+
+AVRCP 1.6 can be safely used for multipoint only if:
+
+| Condition | Requirement |
+|------------|-------------|
+| Codec Profiles | Fully mirrored across devices (`LDAC 44100 16 909 kbps`) |
+| Tasker Override | SBC → LDAC 16 → LDAC 990 chaining active |
+| Firmware Storage | Profile fully trained and stored (idle 10+ sec) |
+| Google Device Sync | Disabled (`Auto Save Devices OFF`) |
+| Nearby Device Permissions | Fully revoked |
+| Windows Driver | Alternative A2DP Driver recommended |
+| Windows Audio | WASAPI Exclusive |
+| Android Unlock Timing | Avoid unlocking Android while Windows is actively streaming |
+
+---
+
+## 🆕 AVRCP 1.5 vs 1.6 Stability Tradeoff Table
+
+| Behavior | AVRCP 1.5 | AVRCP 1.6 |
+|----------|-----------|-----------|
+| Override Control Stability | ✅ Stable | ✅ Stable |
+| Codec Negotiation Stability | ✅ Stable | ⚠ May renegotiate on unlock |
+| Multipoint Unlock Stutter | ❌ None | ✅ Possible |
+| Metadata Sync Features | Basic | Extended |
+| Multipoint Switching Speed | ✅ Instant | ✅ Instant |
+| Media Control | ✅ Reliable | ✅ Reliable |
+
+---
+
+## 🆕 Formal Multipoint Passive Role Rule
+
+- Android operates best as passive controller while Windows holds active playback.
+- Avoid media activity on Android while Windows is playing to minimize role switching.
+- Android will automatically resume if Windows pauses.
+
+---
+
+## 🆕 Multipoint Failure Scenario Table
+
+| Trigger | Failure Mode |
+|---------|--------------|
+| Codec profile mismatch | LDAC fallback to SBC |
+| AVRCP version mismatch | Unexpected renegotiation |
+| Android AV ON | Samsung override may re-trigger |
+| Fast Pair Device Sync enabled | Google override reassertion |
+| Unlock Android during Windows idle | AVRCP 1.6 renegotiation → brief stutter |
+
+---
+
+## 🆕 Master Multipoint Startup Flow
+
+1️⃣ Complete override defeat chain via Tasker.  
+2️⃣ Disable Google Fast Pair Device Sync (`Auto Save Devices OFF`).  
+3️⃣ Verify LDAC 44100 16 909 active on both devices.  
+4️⃣ Set AVRCP version (`1.5` for stability, `1.6` only if fully hardened).  
+5️⃣ Connect multipoint (Windows active first, Android passive).  
+6️⃣ Avoid Android unlock while Windows is streaming.
+
+---
+
+## 🆕 Master Stability Rule
+
+> Multipoint stability depends on fully mirrored codec profiles, AVRCP version alignment, proper override defeat chaining, firmware profile persistence, and correct unlock behavior timing.
+
+---
 
 
 
