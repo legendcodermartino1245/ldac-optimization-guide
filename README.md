@@ -2788,23 +2788,6 @@ Supports:
 ---
 
 
-## 🆕 Formal AVRCP 1.6 Safe Deployment Conditions
-
-AVRCP 1.6 can be safely used for multipoint only if:
-
-| Condition | Requirement |
-|------------|-------------|
-| Codec Profiles | Fully mirrored across devices (`LDAC 44100 16 909 kbps`) |
-| Tasker Override | SBC → LDAC 16 → LDAC 990 chaining active |
-| Firmware Storage | Profile fully trained and stored (idle 10+ sec) |
-| Google Device Sync | Disabled (`Auto Save Devices OFF`) |
-| Nearby Device Permissions | Fully revoked |
-| Windows Driver | Alternative A2DP Driver recommended |
-| Windows Audio | WASAPI Exclusive |
-| Android Unlock Timing | Avoid unlocking Android while Windows is actively streaming |
-
----
-
 ## 🆕 AVRCP 1.5 vs 1.6 Stability Tradeoff Table
 
 | Behavior | AVRCP 1.5 | AVRCP 1.6 |
@@ -2855,6 +2838,310 @@ AVRCP 1.6 can be safely used for multipoint only if:
 
 ---
 
+
+
+## 🆕 Multipoint Codec Profile Mirror Rule (AVRCP 1.6 Dependency)
+
+**Tier:** S — Core Stability Rule
+
+**Description:**
+
+Multipoint operation under AVRCP 1.6 requires both devices to fully mirror their A2DP codec profile parameters.  
+While AVRCP 1.6 itself does not negotiate codec settings, the headset firmware expects stable codec alignment to prevent renegotiation or stream dropouts when switching control roles.
+
+**Formal Rule:**
+
+> Multipoint is unstable with AVRCP 1.6 unless codec profiles fully align across both devices.
+
+**Stability Requirements:**
+
+| Parameter | Required Value |
+|-----------|------------------|
+| Codec | LDAC |
+| Sample Rate | 44100 Hz |
+| Bit Depth | 16-bit |
+| Bitrate | 909 kbps (or mirrored target) |
+| LDAC Mode | Fixed (or identically adaptive) |
+| Override Stack | Fully defeated via BCC chaining |
+| Passive Role | Android connects first, Windows second |
+
+**Why This Rule Exists:**
+
+- AVRCP 1.6 handles playback control signaling but is unaware of codec state.
+- The Sony WH-1000XM firmware operates one shared codec negotiation session for both A2DP connections.
+- Misaligned codec profiles force renegotiation during role switches, leading to stutter, latency, or complete stream dropouts.
+
+**Your Guide Compliance:**
+
+✅ This rule is fully respected across your override chain:
+
+- BCC chaining ensures Android profile alignment.
+- Alternative A2DP Driver ensures Windows profile alignment.
+- Firmware handshake training ensures persistent codec state.
+- Passive role rule ensures stable AVRCP handoff behavior.
+- AV OFF suppresses AVRCP sync renegotiation signals during Android wake.
+
+## 🆕 AVRCP 1.5 vs 1.6 Multipoint Alignment Table (Strict Protocol Dependencies — Fully Locked Edition)
+
+| Parameter | AVRCP 1.5 (as you documented) | AVRCP 1.6 (as you documented) |
+|------------|--------------------------------|--------------------------------|
+| Sample Rate Alignment | ✅ Required | 🔒 Mandatory |
+| Bit Depth Alignment | ✅ Required | 🔒 Mandatory |
+| Bitrate Alignment | ✅ Recommended | 🔒 Mandatory |
+| LDAC Mode (Fixed vs Adaptive — must be mirrored) | ✅ Fixed recommended | 🔒 Mandatory (both devices must match: Fixed or Adaptive) |
+| AV OFF Use (Android) | ✅ Used to simplify override | 🔒 Required to eliminate unlock stutter |
+
+
+## ✅ Absolute Volume Alignment Rule
+
+Absolute Volume settings do not need to match across Android and Windows for multipoint LDAC stability.
+
+- A2DP codec negotiation is fully independent of Absolute Volume state.
+- Use **AV OFF on Android** to fully suppress Samsung override stack and allow stable BCC chaining.
+- Use **AV ON on Windows** to maintain volume synchronization and stable AVRCP control behavior.
+- Codec handshake, profile mirroring, and multipoint switching remain fully stable regardless of AV mismatch.
+
+This rule holds for both Fixed and Adaptive LDAC modes as long as profiles are mirrored across both devices.
+
+
+## ✅ Independent A2DP Codec State Rule
+
+The Sony WH-1000XM5 headset maintains fully independent codec state for each A2DP connection during multipoint operation.
+
+- Android and Windows negotiate LDAC codec parameters independently when connecting.
+- The headset firmware preserves both negotiated A2DP codec profiles in parallel.
+- Profile mirroring across devices ensures seamless multipoint switching without renegotiation.
+- If profiles are mismatched, codec renegotiation may occur during role switching or unlock events.
+
+A2DP codec negotiation is isolated from AVRCP control roles and Absolute Volume state.
+
+
+## ✅ AVRCP CT/TG Role Assignment Rule
+
+AVRCP Controller (CT) and Target (TG) roles are assigned dynamically based on active media session ownership, not pairing order.
+
+- The device actively playing audio during initial connection typically takes CT role.
+- CT role may shift when playback resumes or switches between devices.
+- Metadata sync and headset button control follow CT ownership.
+- Pairing sequence has no fixed effect on CT/TG assignment once media sessions initialize.
+- Both devices may hold CT or TG roles in parallel depending on media session state under AVRCP 1.6 multipoint.
+
+Headset behavior remains stable as long as codec profiles are mirrored and CT/TG transitions occur cleanly.
+
+
+## ✅ LDAC Bit Depth Independence Rule (Multipoint)
+
+Bit depth does not affect LDAC multipoint stability as long as sample rate, LDAC mode, and codec type are fully mirrored.
+
+- A2DP codec negotiation is independent for each device.
+- The headset firmware maintains separate codec state per A2DP session.
+- 16-bit and 24-bit profiles may coexist without renegotiation or stream drops.
+- Bit depth mismatches have no impact on CT/TG role switching or unlock stability.
+
+This rule applies to both Fixed and Adaptive LDAC modes.
+
+
+ ## ✅ Fast Pair Cloud Sync Neutralization Rule (Multipoint)
+
+- BCC profile chaining overrides any Fast Pair Device Sync cloud profile assertion during multipoint A2DP negotiation.
+- Cloud profile resynchronization does not interfere with codec stability once BCC chaining is active.
+- Multipoint codec stability remains fully controlled by BCC profile mirroring, independent of Fast Pair state.
+
+
+Adaptive 44.1kHz Multipoint Stability
+
+- Full profile mirroring at Adaptive 44.1kHz across Android + Windows is stable.
+- No renegotiation under unlock, role switching, or stream switching with AVRCP 1.6.
+- Both 16-bit and 24-bit versions validated as stable.
+- No longer classified as unstable or edge-case dependent.
+
+### ✅ Target 2 — Adaptive 88.2kHz Multipoint Stability
+
+- Adaptive 88.2kHz profiles are semi-stable across multipoint when profiles are fully mirrored.
+- Stability is highly dependent on RF environment quality and link budget.
+- Unlock, resume, and role switching remain stable under ideal RF conditions.
+- Minor bitrate negotiation drops may occur in degraded RF scenarios but do not trigger full codec renegotiation if profiles remain matched.
+- Both 16-bit and 24-bit variants tested with consistent behavior.
+
+## 🆕 Windows — Alternative A2DP Driver: Full LDAC Control Logic
+
+The Alternative A2DP Driver on Windows exposes full LDAC control, allowing independent selection of:
+
+- Sample rate
+- Channel count
+- Bit depth
+- Codec mode (Fixed vs Adaptive)
+- Encoding quality (bitrate control)
+
+The Alternative A2DP Driver uniquely allows creation of an Adaptive LDAC *ceiling* by modifying Encode Quality — something not exposed on Android or stock Windows Bluetooth stacks.
+
+---
+
+### 1️⃣ LDAC Mode Selection (Fixed vs Adaptive)
+
+The following checkbox directly toggles LDAC operating mode:
+
+> **Automatically reduce the encoding quality when the radio quality is poor**
+
+| Checkbox State | LDAC Mode |
+|----------------|-----------|
+| ✅ Checked | Adaptive Mode |
+| ❌ Unchecked | Fixed Mode |
+
+---
+
+### 2️⃣ Encode Quality Behavior (Sample Rate Dependent)
+
+The `Encode Quality` setting defines LDAC transmission bitrate, controlled separately for each sample rate group.
+
+#### LDAC Fixed Mode — Explicit Bitrate Mapping
+
+| Sample Rate | Encode Quality: Low | Mid | High |
+|--------------|---------------------|-----|------|
+| 44.1 / 88.2 kHz | 303 kbps | 606 kbps | 909 kbps |
+| 48 / 96 kHz | 330 kbps | 660 kbps | 990 kbps |
+
+#### LDAC Adaptive Mode — Maximum Bitrate Ceilings
+
+| Sample Rate | Encode Quality: Low | Mid | High |
+|--------------|---------------------|-----|------|
+| 44.1 / 88.2 kHz | ≤ ~303 kbps | ≤ ~606 kbps | ≤ ~909 kbps |
+| 48 / 96 kHz | ≤ ~330 kbps | ≤ ~660 kbps | ≤ ~990 kbps |
+
+> 🔬 *Adaptive dynamically lowers bitrate depending on radio conditions, but Encode Quality defines the ceiling.*
+
+---
+
+✅ **Key Summary**
+
+- LDAC bitrate is grouped into 44.1 kHz family and 48 kHz family buckets.
+- Alternative A2DP Driver applies these mappings behind the UI based on selected sample rate.
+- Sample rate, bit depth, and channel count are manually selectable.
+- Encode Quality provides precise control over Adaptive ceilings — useful for multipoint or unstable RF environments.
+- This fine-grained control is exclusive to the Alternative A2DP Driver.
+
+---
+
+📌 **Note:**  
+This mechanism is a direct Windows-side equivalent of what Android lacks: external control over Adaptive ceilings via codec profile logic.
+
+---
+
+### 🔬 Live Adaptive Bitrate Feedback
+
+When using Adaptive Mode, the Alternative A2DP Driver exposes real-time bitrate updates:
+
+- The displayed quality value actively reflects the **current negotiated bitrate** during playback.
+- As RF conditions fluctuate, the bitrate indicator updates dynamically.
+- The `Encode Quality` setting still controls the maximum ceiling, but actual bitrate varies live below that ceiling.
+- This behavior allows direct observation of Adaptive scaling behavior in real time.
+
+| Platform | Adaptive Quality Display | Behavior |
+|----------|---------------------------|----------|
+| Windows (Alternative A2DP Driver) | ✅ Real-time bitrate updates | Live adaptive bitrate feedback shown |
+| Android | ❌ No live updates | Only static codec mode shown |
+
+> 📝 Note: This live feedback is unique to the Alternative A2DP Driver and not available on Android.
+
+## 🔬 Adaptive Bitrate Display Validation Rule (Alternative A2DP Driver)
+
+> ⚠️ **Important:** Always measure Adaptive bitrate ceilings while audio is actively playing.
+
+### 🎯 Why This Rule Exists
+
+- LDAC Adaptive bitrate is dynamically negotiated during active audio playback.
+- The Alternative A2DP Driver GUI only displays correct Adaptive bitrate values when:
+  - Audio is actively streaming over A2DP
+  - The encoder is actively negotiating RF link quality
+- When audio is paused or idle:
+  - The GUI may display stale, cached, or default bitrate values.
+  - These values do not reflect actual adaptive negotiation state.
+
+### 🔧 Measurement Rule
+
+| Playback State | Bitrate Display Valid? |
+|-----------------|------------------------|
+| ✅ Audio actively playing | ✅ Accurate real-time bitrate |
+| ❌ Audio paused or idle | ❌ Invalid / stale bitrate display |
+
+### 🧪 Testing Procedure Addition
+
+To ensure valid Adaptive bitrate ceiling measurements:
+
+1. Use **lossless high-bitrate test content** (e.g., FLAC / WAV files).
+2. Enable **WASAPI Exclusive Mode** (if supported by player) to avoid resampling.
+3. Start audio playback at target sample rate and bit depth.
+4. Let playback stabilize for at least **10 seconds**.
+5. Observe the **real-time bitrate quality readout** inside the Alternative A2DP Driver GUI.
+6. Record highest stable bitrate observed during active playback.
+
+### 🔬 Why This Rule Is Critical
+
+- Prevents false conclusions due to idle-state display artifacts.
+- Guarantees scientifically valid Adaptive ceiling mapping results.
+- Ensures hardware adaptive behavior is accurately captured.
+
+---
+
+> ✅ Always verify adaptive bitrate while streaming live audio — never trust idle GUI readouts.
+
+
+## 🔬 LDAC Bitrate Display Validation Rules (Alternative A2DP Driver)
+
+> ⚠️ **Important:** The Alternative A2DP Driver GUI behaves differently depending on whether you are using Adaptive or Fixed Mode. Understanding these differences is critical when measuring bitrate ceilings.
+
+---
+
+### 🔧 Key Differences: Adaptive vs Fixed Mode
+
+| Mode | Negotiation Behavior | GUI Display Behavior | When to Measure |
+|------|-----------------------|-----------------------|------------------|
+| **Adaptive Mode** | Dynamic — bitrate constantly adjusts based on RF link quality during playback. | Displays *real-time negotiated bitrate* during active playback. Displays stale or default values when idle. | Always measure bitrate during active playback. |
+| **Fixed Mode** | Static — bitrate is configured during connection and remains constant unless renegotiation is triggered by link failure. | Displays configured bitrate even when idle. No real-time negotiation occurs after connection. | Still verify during playback to ensure no silent fallback occurred. |
+
+---
+
+### 🔬 Adaptive Mode — Measurement Rule
+
+- Adaptive bitrate is actively negotiated only during playback.
+- Idle GUI values are often stale, cached, or meaningless.
+- Always test Adaptive Mode while audio is actively streaming.
+
+| Playback State | Adaptive Bitrate Display Valid? |
+|-----------------|----------------------------------|
+| ✅ Audio actively playing | ✅ Accurate |
+| ❌ Audio paused or idle | ❌ Invalid |
+
+---
+
+### 🔬 Fixed Mode — Measurement Rule
+
+- Fixed Mode bitrate is configured during connection and remains locked unless renegotiation is forced by RF failure.
+- GUI displays configured bitrate even when idle.
+- However, link renegotiation or codec fallback can still occur under certain RF failures.
+- Therefore, it’s best practice to validate Fixed Mode bitrate during active playback.
+
+| Playback State | Fixed Bitrate Display Valid? |
+|-----------------|------------------------------|
+| ✅ Audio actively playing | ✅ Valid — confirms active transmission |
+| ✅ Audio idle | ✅ Reflects profile setting — but may not guarantee active link state |
+
+---
+
+### 🧪 Testing Procedure Summary
+
+To ensure scientifically valid Adaptive and Fixed bitrate ceiling measurements:
+
+1. Use **lossless high-bitrate test content** (e.g., FLAC / WAV).
+2. Enable **WASAPI Exclusive Mode** (if available) to avoid resampling.
+3. Start playback at desired sample rate and bit depth.
+4. Allow playback to stabilize for ~10 seconds.
+5. Observe real-time bitrate in the Alternative A2DP Driver GUI.
+6. Record highest stable bitrate observed during active playback.
+
+---
+
+> ✅ Always verify both Adaptive and Fixed bitrate while audio is actively streaming to ensure valid and accurate ceiling measurements.
 
 
 
