@@ -3193,6 +3193,23 @@ At the moment of controller role swap, the XM5 firmware must realign A2DP buffer
 
 This issue is a **pure XM5 firmware-level multipoint arbitration defect**. It cannot be mitigated via BCC, Developer Options, AV settings, or Bluetooth stack tuning.
 
+## 🔬 Multipoint Simultaneous Resume Conflict — Timing Dependency Audit
+
+### Background
+A potential firmware-class failure was evaluated to determine whether simultaneous resume (Play) commands across Android and Windows could independently trigger LDAC buffer desynchronization during multipoint operation.
+
+### Timing-Dependent Behavior Observed
+- When both resume commands are triggered **near-perfectly simultaneously**, the Sony WH-1000XM5 firmware temporarily allows both A2DP streams to coexist without immediate desync or stutter.
+- This demonstrates that the internal A2DP buffer arbitration system has short-term tolerance for dual Controller (CT) role conflicts.
+- When resume commands are triggered **with slight timing offset (even 100–300ms)**, the firmware may prematurely enter Controller Role arbitration, increasing the chance of **immediate buffer desync and permanent stuttering**.
+- This failure pathway feeds directly into the previously documented **Firmware Desync Class #1 (AVRCP 1.6 Controller Role Swap Buffer Desync)**.
+
+### Conclusion
+- **Simultaneous resume behavior is fully timing-sensitive.**
+- No independent Firmware Desync Class #2 exists.
+- All buffer desynchronization failures remain fully captured under **Firmware Desync Class #1**.
+- Firmware arbitration layer coverage is now complete and fully exhausted for multipoint LDAC operation on WH-1000XM5.
+
 
 
 ## Absolute Volume
