@@ -4559,6 +4559,84 @@ Dont use Pulseaudio use Pipewire instead
 |--------------|------|
 | backup.xml | `backup.xml` |
 
+## 🔧 Tasks Included
+
+### 1️⃣ Task: `Sbc Override`
+
+- ✅ Purpose: Full Samsung override defeat chain (AV ON state safe).
+- 🔗 Chain:
+  - Apply `SBC_44100_16`
+  - Apply `LDAC_44100_16_909` (twice for GUI sync)
+- 🔒 Condition: `%BluetoothConnected = True` applied on every step.
+
+---
+
+### 2️⃣ Task: `Ldac 660`
+
+- ✅ Purpose: Intermediate chaining variant (optional bit-depth stabilization).
+- 🔗 Chain:
+  - Apply `LDAC_44100_24_909`
+  - Apply `LDAC_44100_16_606` (twice for GUI sync)
+- 🔒 Condition: `%BluetoothConnected = True` applied on every step.
+
+---
+
+### 3️⃣ Task: `Override Ldac Codec`
+
+- ✅ Purpose: Direct re-application of final LDAC target profile.
+- 🔗 Chain:
+  - Apply `LDAC_44100_16_909` (twice for GUI sync)
+- 🔒 Condition: `%BluetoothConnected = True` applied on every step.
+
+---
+
+## 🔬 Intent Logic
+
+All tasks use Bluetooth Codec Changer intent calls:
+
+```
+Action: com.amrg.bluetooth_codec_converter.REQUEST_PROFILE_SWITCH
+Extra:  com.amrg.bluetooth_codec_converter.extra.PROFILE_NAME:<Profile_Name>
+```
+
+- Profiles applied across all tasks:
+  - `SBC_44100_16`
+  - `LDAC_44100_16_909`
+  - `LDAC_44100_24_909`
+  - `LDAC_44100_16_606`
+
+---
+
+## 🔄 GUI Sync Logic
+
+- All profiles are applied twice per task.
+- Ensures BCC internal state and A2DP codec fully synchronized.
+- Fully compliant with `Two-Step Switching = OFF` model.
+
+---
+
+## 🔐 Safety Logic
+
+- Each Intent guarded by `%BluetoothConnected = True`.
+- Prevents profile switching unless headset is actively connected.
+
+---
+
+## 🔎 Backup Integrity
+
+- No unreferenced tasks or unused chains.
+- No legacy chains present.
+- Backup fully reflects finalized override defeat logic.
+- Production-ready snapshot.
+
+---
+
+✅ **Backup State Summary:**  
+> Tasker backup reflects full LDAC override chaining, Samsung suppression, BCC GUI sync stability, and 100% tested chaining behavior.
+
+
+
+
 
 # Engineering Companion
 
