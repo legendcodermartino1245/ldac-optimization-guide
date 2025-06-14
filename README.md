@@ -360,6 +360,7 @@ There is a lot of misconception about LDAC and how to properly configure it on d
 | Wavelet | 25.03 |
 | BluetoothGoodies Alt Driver | 1.6.0.54 (Preview) |
 | Bluetooth Tweaker | 1.4.8.1 |
+| Spek | 0.8.5 |
 
 >  *Note: On Windows, LDAC support requires specific Bluetooth drivers or third-party implementations (e.g. CSR Harmony stack or alternative USB dongles). This guide focuses on standard OS behavior unless otherwise noted.*
 
