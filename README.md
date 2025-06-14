@@ -3143,6 +3143,55 @@ To ensure scientifically valid Adaptive and Fixed bitrate ceiling measurements:
 
 > ✅ Always verify both Adaptive and Fixed bitrate while audio is actively streaming to ensure valid and accurate ceiling measurements.
 
+## 🚩 Multipoint Firmware Limitation — AVRCP 1.6 Controller Role Swap LDAC Buffer Desync
+
+### Description
+
+A critical firmware-level limitation exists on Sony WH-1000XM5 multipoint operation when using AVRCP 1.6 across multiple devices. Under certain playback handoff conditions, the headset's internal stream buffer manager fails to fully synchronize LDAC A2DP buffers during cross-device controller role transitions, resulting in permanent stuttering.
+
+### Trigger Condition
+
+This issue is not dependent on Adaptive vs Fixed LDAC mode — it affects both modes:
+
+- Both Android and Windows are connected via multipoint using AVRCP 1.6.
+- One device is actively playing.
+- Playback is paused on Device A.
+- Playback is resumed on Device B.
+- Playback is paused again on Device B.
+- Playback is resumed on Device A.
+
+At the moment of controller role swap, the XM5 firmware must realign A2DP buffer pointers to the new AVRCP Controller (CT). Under certain timing conditions, this realignment fails, desynchronizing the LDAC stream buffers.
+
+### Technical Root Cause
+
+- The XM5 firmware fails to properly resynchronize A2DP LDAC stream buffers when AVRCP 1.6 Controller role transitions occur during active multipoint sessions.
+- The A2DP data path (LDAC stream) becomes permanently misaligned with the controller state machine after CT/TG role changes.
+- Once triggered, stuttering is permanent for the session and only fully disconnecting both devices resets the internal buffer state.
+- Additional CT role swaps after the desync (via play/pause across devices) do not restore buffer alignment. The control layer continues functioning independently from the broken data path.
+
+### Key Facts
+
+- ✅ Occurs in both Fixed and Adaptive LDAC modes.
+- ✅ Confirmed at Fixed 88.2 kHz / 24-bit LDAC.
+- ✅ Wi-Fi or RF conditions are not involved.
+- ✅ Metadata, play/pause, and browsing functions remain fully functional via AVRCP control plane.
+- ✅ Headphone physical buttons continue to work normally and can control both devices after stutter begins.
+- ✅ Repeated play/pause swaps across devices after desync have no effect on restoring stream alignment.
+- ✅ Only cross-device play/pause handoffs combined with AVRCP 1.6 CT swaps trigger the condition.
+- ✅ AVRCP 1.5 fully avoids this condition due to simpler controller role handling.
+
+### Mitigation Strategies
+
+| Mitigation | Explanation |
+|-------------|-------------|
+| Avoid cross-device play/pause handoffs | Prevents CT role swaps that can trigger buffer desync |
+| Use AVRCP 1.5 on Windows | AVRCP 1.5 role handling is safer for multipoint |
+| Use Fixed LDAC 48 kHz / 96 kHz | Wider buffer margin reduces sensitivity |
+| Limit multipoint playback to one active device at a time | Eliminates role swap risks |
+
+### Firmware Class
+
+This issue is a **pure XM5 firmware-level multipoint arbitration defect**. It cannot be mitigated via BCC, Developer Options, AV settings, or Bluetooth stack tuning.
 
 
 
