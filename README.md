@@ -762,22 +762,53 @@ LDAC settings like bitrate, sample rate, and bit depth are **only renegotiated**
 
 >  This is a bug in Android's Bluetooth stack. UI updates don't guarantee actual codec reconfiguration. Bitrate must always be reapplied after reconnection — it is never saved.
 
-##  Samsung LDAC Override Stack
+## 📦 Samsung LDAC Override Stack — Core Behavioral Model
 
-Samsung **injects its own LDAC codec profile at the very start of the Bluetooth handshake**:
+Samsung injects its own LDAC codec profile at the very start of every Bluetooth handshake. This override occurs **before any user-defined codec preference applies**, and operates entirely within Samsung’s Bluetooth stack logic.
 
 - **Sample Rate:** 96 kHz  
-- **Bit Depth:** 32-bit  
-- **Bitrate:** Default (330–990 kbps)
+- **Bit Depth:** 32-bit (stack-reported)  
+- **Bitrate:** Default — practically Adaptive
 
-This override happens **before** your device finishes establishing the Bluetooth session.  
-However, it can be **reliably bypassed** by forcing a full codec renegotiation after connection, see  The Real LDAC Bug section on how to do it
 
- BCC and other apps **can override** Samsung's initial profile — but only if they trigger a full codec reset after the override is applied.
 
- *Samsung’s override is not permanent — it’s just the default LDAC handshake. What matters is whether your LDAC session gets renegotiated correctly after that handshake.*
+### 🔧 Override Injection Behavior
 
-> Developer Options may temporarily display "Playback Quality: Default" when Samsung’s override is active.
+- **Injection Timing:**  
+  Immediately during A2DP session open (handshake phase).
+
+- **Injection Priority:**  
+  - Always applies at connect.
+  - Can only be cleared post-handshake via controlled codec renegotiation.
+  - Applies independently of any stored LDAC profile inside the headphone firmware, but firmware profiles may still influence the final codec state after negotiation depending on training and handshake timing.
+
+- **Firmware Persistence:**  
+  - The override itself is not firmware-persistent.
+  - It applies dynamically at every Bluetooth connect event.
+  - Headphone firmware profile storage operates separately and may reassert codec parameters after override injection.
+
+- **Negotiation Level:**  
+  - Override operates **below** Android A2DP codec negotiation APIs.
+  - Developer Options LDAC settings have no effect at handshake.
+  - BCC and system APIs cannot preempt override at connect — only post-handshake renegotiation is possible.
+
+- **Controlled Override Defeat:**  
+  - Override remains active until renegotiation occurs during the active connection.
+
+---
+
+✅ **Core Principle:**  
+> Samsung Override = Handshake Default → Defeat requires codec renegotiation after handshake.
+
+> ⚠ **Samsung Override Display Behavior:**
+>
+> - At handshake:  
+>    - **Developer Options = Best Effort (Adaptive Bit Rate)**  
+>    - **Bluetooth Codec Changer = Default**
+
+
+
+
 
 ##  Developer Options Are Safe — If You Clean Up Properly
 
