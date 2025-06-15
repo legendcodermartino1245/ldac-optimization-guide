@@ -762,15 +762,13 @@ LDAC settings like bitrate, sample rate, and bit depth are **only renegotiated**
 
 >  This is a bug in Android's Bluetooth stack. UI updates don't guarantee actual codec reconfiguration. Bitrate must always be reapplied after reconnection — it is never saved.
 
-## 📦 Samsung LDAC Override Stack — Core Behavioral Model
+## Samsung LDAC Override Stack
 
 Samsung injects its own LDAC codec profile at the very start of every Bluetooth handshake. This override occurs **before any user-defined codec preference applies**, and operates entirely within Samsung’s Bluetooth stack logic.
 
 - **Sample Rate:** 96 kHz  
 - **Bit Depth:** 32-bit (stack-reported)  
 - **Bitrate:** Default — practically Adaptive
-
-
 
 ### 🔧 Override Injection Behavior
 
