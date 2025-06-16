@@ -229,15 +229,10 @@
     - [System Stack Behavior & Profile Storage](#system-stack-behavior--profile-storage)
     - [App Behavior That Influences Codec Negotiation](#app-behavior-that-influences-codec-negotiation)
   - [What BCC Can and Cannot Store (Session vs Firmware)](#what-bcc-can-and-cannot-store-session-vs-firmware)
-    - [Storage Capability Matrix](#storage-capability-matrix)
+    - [Storage Capability Matrix](#storage-capability-matrixLegend
     - [Key Takeaway](#key-takeaway)
   - [Samsung Codec Behavior](#samsung-codec-behavior)
     - [AAC ≠ Neutral on Reconnect — It's Just Another Override Pathway](#aac--neutral-on-reconnect--its-just-another-override-pathway)
-  - [Absolute Volume OFF – Final Override Strategy (Samsung)](#absolute-volume-off--final-override-strategy-samsung)
-    - [What AV OFF Actually Blocks — and What It Doesn’t](#what-av-off-actually-blocks--and-what-it-doesnt)
-    - [AV OFF Codec Lock Workflow (Final Form)](#av-off-codec-lock-workflow-final-form)
-      - [Starting From AV ON](#starting-from-av-on)
-    - [Component Behavior Matrix (AV OFF Active)](#component-behavior-matrix-av-off-active)
   - [What’s Actually Stored in Sony Headphones vs What’s Host-Controlled](#whats-actually-stored-in-sony-headphones-vs-whats-host-controlled)
   - [Headphone-Initiated vs Manual Reconnect Behavior](#headphone-initiated-vs-manual-reconnect-behavior)
   - [Dual SBC Trigger Stack — Music Center + Tasker](#dual-sbc-trigger-stack--music-center--tasker)
@@ -4457,43 +4452,13 @@ Even in 2025, the **Bluetooth spec** remains the bottleneck:
 # Linux
 Dont use Pulseaudio use Pipewire instead
 
-# Tasker Legend
+# Tasker Profile Legend
 
 ## Backup
 
 | Backup Name | File |
 |--------------|------|
 | backup.xml | `backup.xml` |
-
-## 🔧 Tasks Included
-
-### 1️⃣ Task: `Sbc Override`
-
-- ✅ Purpose: Full Samsung override defeat chain (AV ON state safe).
-- 🔗 Chain:
-  - Apply `SBC_44100_16`
-  - Apply `LDAC_44100_16_909` (twice for GUI sync)
-- 🔒 Condition: `%BluetoothConnected = True` applied on every step.
-
----
-
-### 2️⃣ Task: `Ldac 660`
-
-- ✅ Purpose: Intermediate chaining variant (optional bit-depth stabilization).
-- 🔗 Chain:
-  - Apply `LDAC_44100_24_909`
-  - Apply `LDAC_44100_16_606` (twice for GUI sync)
-- 🔒 Condition: `%BluetoothConnected = True` applied on every step.
-
----
-
-### 3️⃣ Task: `Override Ldac Codec`
-
-- ✅ Purpose: Direct re-application of final LDAC target profile.
-- 🔗 Chain:
-  - Apply `LDAC_44100_16_909` (twice for GUI sync)
-- 🔒 Condition: `%BluetoothConnected = True` applied on every step.
-
 ---
 
 ## 🔬 Intent Logic
