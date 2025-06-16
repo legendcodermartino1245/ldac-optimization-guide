@@ -661,3 +661,12 @@ Samsung’s override injection can be fully healed using only BCC Auto Switch wi
 ### 🔬 Summary:
 
 > **Auto Switch-Only Healing defeats Samsung's override injection fully and instantly, provided BCC executes immediately after injection. Intermediate Profiles are optional for additional stability margin but not required for core defeat.**
+
+
+### 5c — Passive Self-Healing Override Defeat
+
+- Samsung injects override normally.
+- Auto Switch triggers healing after injection.
+- Healing remains fully effective as long as playback has not yet started.
+- Fully automated healing without requiring intermediate profile or instant reaction.
+- Relies on LDAC’s A2DP renegotiation window staying open.
