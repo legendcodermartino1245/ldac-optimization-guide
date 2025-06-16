@@ -1,0 +1,36 @@
+###  Override Acceleration Triggers
+
+These actions cause Samsung’s LDAC override (96 kHz / 32-bit / Default bitrate) to apply faster than BCC or any other app can intervene.
+
+| Condition / Action                | Override Speed |
+|-----------------------------------|----------------|
+| Fast Pair Notification Tap        | **Instant**     |
+| Quick Settings Connect            | **Instant**     |
+| Bluetooth Settings UI Reconnect  | **Immediate**   |
+| Developer Options not reset       | **Immediate**   |
+| Media Audio Toggle (OFF → ON)                | **Immediate**       |
+| Bluetooth toggled (while headphones stay on) | **Immediate**       |
+
+##  Valid LDAC Codec Preference Reset Strategies (Ranked)
+
+| Rank | Strategy                                | Scope of Reset                            | Destructiveness        | Reliability   | Notes                                                 |
+|------|-----------------------------------------|--------------------------------------------|-------------------------|----------------|--------------------------------------------------------|
+| 1    | **Forget Device**                       | Full codec + pairing + override wipe       | **High**                | **100%**        | Cleanest method; use when override is stuck           |
+| 2    | **Clear Music Center Data / Uninstall** | Wipes persistent LDAC override             | **Medium**              | **Very High**   | Needed if MC or Sound Connect was ever used           |
+| 3    | **Hardware Reset (Headphones)**         | Wipes stored codec + multipoint config     | **Medium**              | **Very High**   | Crucial when firmware stores override                 |
+| 4    | **Set LDAC to 660 kbps in Music Center**| Cancels 990/SBC override pre-uninstall     | **None**                | **High**        | Must be done *before* removing Music Center           |
+| 5    | **LDAC Toggle (Off → Wait → On)**       | Triggers fresh codec negotiation           | **Low**                 | **High**        | Works well for override correction                    |
+| 6    | **Reset Developer Options**             | Removes Dev Option codec override          | **Low**                 | **High**        | Always disable after setting to default               |
+| 7    | **Sound Connect Software Reset**        | Clears stored app settings                 | **Low**                 | **Medium**      | Optional support step if still installed              |
+| 8    | **Reset Network Settings**              | Wipes Bluetooth + Wi-Fi                    | **Very High**           | **High**        | Last resort only                                      |
+
+
+
+##  False Resets & Misleading Behaviors (Do Not Work)
+
+| # | Feature                     | Why It Seems Useful                         | Why It Fails                                               | Verdict                                            |
+|---|-----------------------------|---------------------------------------------|-------------------------------------------------------------|----------------------------------------------------|
+| 1 | **HD Audio (LDAC) Toggle**  | Appears to trigger codec renegotiation      | Just re-enables Samsung's default LDAC override             | **False reset** — reasserts override profile       |
+| 2 | **Input Device Toggle**     | Seems like it influences audio routing      | Only toggles HFP profile (mic/remote), not A2DP             | **Unrelated** — no codec impact                    |
+| 3 | **Fast Pair Notification Tap** | Looks like a clean connection method     | Requires manual confirmation, then applies override profile | **Misleading** — not auto, and reuses LDAC state   |
+| 4 | **Music Center Disconnect Button** | Feels like a proper disconnection method     | Only performs a UI-level disconnect, no codec reset or override clear | **Misleading** — does not renegotiate or reset LDAC |
