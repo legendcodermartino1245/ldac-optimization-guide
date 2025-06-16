@@ -854,4 +854,47 @@ This is possible because Samsung's override operates purely as a one-time inject
 
 ✅ **All other apps are codec-passive and cannot issue valid codec negotiation commands.**
 
+# 🔬 Universal Samsung Override Physics — A2DP Injection Model
+
+Samsung’s LDAC override operates purely as a connection-time injection event inside the A2DP codec negotiation layer.  
+It is not codec-locked — it is negotiation-state dependent.
+
+---
+
+## 🧠 Governing Override Displacement Rule
+
+**Any valid LDAC renegotiation fully displaces Samsung’s injected override profile.**
+
+- Samsung injects its override profile once during initial LDAC negotiation on connection.
+- After connection, any valid LDAC renegotiation displaces Samsung’s override immediately.
+- This holds true for any renegotiation involving:
+  - Bitrate change
+  - Bit depth change
+  - Sample rate change
+  - LDAC quality mode change
+  - Non-LDAC codec switch (SBC, AAC, aptX)
+  - BCC Auto Switch profile trigger
+  - Developer Options LDAC parameter change
+
+---
+
+## 🔧 Override Defeat Triggers
+
+| Action | Override Defeat |
+|--------|------------------|
+| Switch to non-LDAC codec (SBC, AAC, aptX) | ✅ |
+| Switch LDAC bitrate (606 ↔ 909 ↔ 990 kbps) | ✅ |
+| Switch LDAC bit depth (16-bit ↔ 24-bit) | ✅ |
+| Switch LDAC sample rate (44.1 ↔ 48 ↔ 96 kHz) | ✅ |
+| Switch LDAC quality mode (Adaptive ↔ Quality) | ✅ |
+| Trigger Auto Switch via BCC | ✅ |
+| Change Developer Options LDAC parameters | ✅ |
+| Manual BCC profile switching | ✅ |
+
+---
+
+✅ This displacement rule is fully universal across:
+- Samsung’s override stack
+- All known WH-1000XM firmware generations
+- All Android system versions tested
 
