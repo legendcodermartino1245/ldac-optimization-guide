@@ -751,3 +751,90 @@ All override behavior can be fully defeated through a single governing principle
 ---
 
 
+# 🔬 Universal LDAC Override Physics — Samsung A2DP Injection Model
+
+Samsung’s LDAC override operates purely as a connection-time injection event within the A2DP codec negotiation layer.  
+It is not codec-locked, but negotiation-state dependent.
+
+**Unlike normal codec profiles, Samsung override attaches as a transient state inside the A2DP negotiation layer. Its authority ends immediately when any valid codec renegotiation occurs, even within LDAC itself.**
+
+---
+
+## 🧠 Governing Override Displacement Rule
+
+**Any valid LDAC renegotiation fully displaces Samsung’s injected override profile.**
+
+---
+
+## 🔧 What Triggers Override Displacement
+
+| Action | Override Defeat |
+|--------|------------------|
+| Switch to non-LDAC codec (SBC/AAC/aptX) | ✅ |
+| Switch to any other LDAC bitrate (909/990/606) | ✅ |
+| Switch LDAC bit depth (16-bit ↔ 24-bit) | ✅ |
+| Switch LDAC sample rate (44.1 ↔ 48 ↔ 96 kHz) | ✅ |
+| Switch LDAC quality mode (Adaptive ↔ Quality) | ✅ |
+| Trigger Auto Switch via BCC | ✅ |
+| Trigger AutoNotification correction | ✅ |
+| Change Developer Options LDAC parameters | ✅ |
+| Manual BCC profile switching | ✅ |
+
+---
+
+## 🔬 Core Principle
+
+- Override is injected once at connection.
+- Override authority ends upon any codec renegotiation event.
+- No delay is required — override collapses instantly when renegotiation completes.
+- The actual codec profile applied after renegotiation determines active state.
+- Default LDAC profile state in GUI is cosmetic — true codec state is controlled by final negotiation result.
+
+---
+
+## 🛑 What Does Not Work to Prevent Override
+
+| Action | Effect |
+|--------|--------|
+| Selecting Default LDAC in Developer Options | ❌ Does not prevent override |
+| Pre-matching Samsung’s override parameters manually | ❌ Does not prevent injection |
+| Disabling HD Audio while disconnected | ❌ Has no effect |
+| Using fixed quality in BCC *before* connection | ❌ Cannot block injection |
+
+---
+
+## 🧠 Simplified Override Collapse Law
+
+> **Override = Temporary Injection State  
+> Renegotiation = Override Collapse**
+
+---
+
+## 🔬 System Model Flow
+
+1️⃣ Bluetooth connects  
+2️⃣ Samsung injects override profile  
+3️⃣ A2DP session opens under override  
+4️⃣ User or automation triggers renegotiation  
+5️⃣ Override state collapses  
+6️⃣ Target profile remains active
+
+---
+
+## 🔬 Why SBC and Bit Depth Downgrade Still Exist
+
+- SBC Reset and 16-bit Downgrade allow **pre-connection prevention**, stopping override injection before it attaches.
+- Once override has attached, these methods are not required — any renegotiation path inside LDAC remains fully valid.
+
+---
+
+## 🔬 Absolute Volume (AV) Context
+
+- AV OFF prevents certain injection scenarios entirely at capability layer.
+- AV ON allows injection but leaves renegotiation pathways fully open.
+- Override defeat logic operates independently of AV state once renegotiation occurs.
+
+---
+
+
+
