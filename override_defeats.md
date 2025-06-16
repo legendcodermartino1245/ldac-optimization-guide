@@ -836,5 +836,22 @@ It is not codec-locked, but negotiation-state dependent.
 
 ---
 
+## 🎯 LDAC Codec Negotiation Authority — Complete List
+
+Only the following apps and system layers have true codec negotiation authority on Android:
+
+| App / Layer | Codec Negotiation Supported? |
+|--------------|------------------------------|
+| **Developer Options (Bluetooth Audio Settings)** | ✅ |
+| **Bluetooth Codec Changer (BCC)** | ✅ |
+| **Sony Music Center** | ✅ |
+| **USB Audio Player Pro (UAPP)** | ✅ |
+
+> **Important:**  
+> If any of these apps or layers successfully trigger a valid codec renegotiation (bitrate, bit depth, sample rate, or quality mode change), it will immediately displace and fully defeat Samsung’s LDAC override injection — even if override was active at connection time.
+
+This is possible because Samsung's override operates purely as a one-time injection during A2DP connection. Any subsequent valid renegotiation issued by these apps replaces the override profile with the newly negotiated codec parameters.
+
+✅ **All other apps are codec-passive and cannot issue valid codec negotiation commands.**
 
 
