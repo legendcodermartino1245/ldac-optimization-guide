@@ -246,12 +246,13 @@ This combination represents the highest achievable LDAC configuration on Android
 
 ### UAPP Settings
 
-| UAPP Setting | Recommended | Rationale |
-|---------------|-------------|------------|
+| UAPP Setting           | Recommended            | Rationale                                  |
+|------------------------|------------------------|---------------------------------------------|
 | Preferred Bluetooth Codec | Use what is currently active | Defers full codec control to BCC |
-| Bluetooth Sample Rate | Follow source material | Preserves original sampling |
-| Bluetooth LDAC Quality | Optimized Audio Quality | BCC governs actual bitrate |
-| Bluetooth LDAC Resolution | 24-bit | Matches LDAC codec quantization depth |
+| Bluetooth Sample Rate  | Follow source material | Preserves original sampling                |
+| Bluetooth LDAC Quality | Optimized Audio Quality | BCC governs actual bitrate                 |
+| Bluetooth LDAC Resolution | 24-bit               | Matches LDAC codec quantization depth      |
+| Bit Perfect            | Enabled                | Ensures UAPP bypasses Android mixer        |
 
 ### BCC Settings
 
