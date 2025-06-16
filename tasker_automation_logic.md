@@ -122,3 +122,15 @@
   - 2-Step: Off
 
 ---
+
+## 🗒️ Bluetooth Codec Changer (BCC) Internal Logs
+
+- BCC maintains **internal logs** that record profile switching events, codec negotiation attempts, and any applied self-healing triggers.
+- These logs are extremely useful for:
+  - Verifying Tasker automation correctness.
+  - Debugging profile application order.
+  - Detecting unexpected renegotiation events.
+- Logs can be accessed directly from within BCC under the `Logs` or `Debug` section (depending on version).
+- Ideal for verifying whether intermediate profile chaining or override defeats executed as intended.
+
+
