@@ -346,7 +346,9 @@ There is a lot of misconception about LDAC and how to properly configure it on d
 | **Windows 10**       | Version 22H2               | AAC, SBC *(LDAC not supported natively)* | **Depends on adapter** |
 | **Sony WH-1000XM5**  | Firmware 2.4.1             | LDAC, AAC, SBC                           | **Bluetooth 5.2**      |
 | **Sony WH-1000XM3**  | Firmware 4.5.2             | LDAC, AptX, AAC, SBC                     | **Bluetooth 4.2**      |
+>  *Note: On Windows, LDAC support requires specific Bluetooth drivers or third-party implementations (e.g. CSR Harmony stack or alternative USB dongles). This guide focuses on standard OS behavior unless otherwise noted.*
 
+---
 | Application | Version Tested |
 |--------------|----------------|
 | Bluetooth Codec Changer (BCC) | 1.7.1 |
@@ -361,8 +363,8 @@ There is a lot of misconception about LDAC and how to properly configure it on d
 | BluetoothGoodies Alt Driver | 1.6.0.54 (Preview) |
 | Bluetooth Tweaker | 1.4.8.1 |
 | Spek | 0.8.5 |
+---
 
->  *Note: On Windows, LDAC support requires specific Bluetooth drivers or third-party implementations (e.g. CSR Harmony stack or alternative USB dongles). This guide focuses on standard OS behavior unless otherwise noted.*
 
 ## Inner workings of LDAC
 
@@ -375,15 +377,14 @@ LDAC supports sample rates ranging from **44.1 kHz to 96 kHz**, quality modes of
 | **Any source + DSP (EQ, gain, fades)**     | 24-bit              | 24-bit                         | Provides headroom for processing; avoids rounding errors during DSP before LDAC encoding.        |
 | **Non–bit-perfect apps (mixed to 16-bit)** | 16-bit              | 16-bit (or "System Selection") | Reflects the actual 16-bit data the mixer delivers; keeps your settings honest about input depth. |
 
-
 >  **Clarification:**  
-> LDAC **does not always encode at 24-bit**. It encodes audio at **the bit-depth it receives** — 16-bit or 24-bit PCM.  
+> LDAC **does not upscale or convert bit-depth**. It encodes audio at **the bit-depth it receives** — 16-bit or 24-bit PCM.  
 > Android’s Bluetooth stack forwards the player's output to LDAC without automatic upsampling.  
 > -  If the player outputs 16-bit PCM (e.g., CD-quality), LDAC encodes it directly as 16-bit.  
 > -  If the player outputs 24-bit PCM, LDAC uses full 24-bit encoding.  
 > -  If the player outputs 32-bit float, Android truncates it to 24-bit PCM before LDAC sees it.  
 
->  Android typically **resamples audio to a single global sample rate**, such as 48 kHz or 96 kHz — unless you’re using a bit-perfect player like UAPP or Neutron in exclusive mode. That system-wide output is what LDAC actually encodes — not necessarily the source file’s native format.
+>  Android typically **resamples audio to a global sample rate**, such as 48 kHz or 96 kHz — unless you’re using a bit-perfect player like UAPP or Neutron in exclusive mode. That system-wide output is what LDAC actually encodes — not necessarily the source file’s native format.
 
 >  **The 32-bit setting in Developer Options or BCC is not for LDAC itself**, but for internal processing in apps like UAPP or Neutron, which operate at 32-bit float for DSP. It provides internal headroom but has **no effect on the final transmitted resolution**, which is max 24-bit.
 
@@ -841,223 +842,14 @@ However:
 -  This makes Developer Options useful for *triggering codec behavior changes*, but not for controlling the bit depth directly.
 
 
-# Samsung Override Behavior
 
-Samsung's Bluetooth stack contains multiple override entry points that attempt to enforce its default LDAC profile.  
-Override defeat relies entirely on **Absolute Volume state** combined with correct **Bluetooth Codec Changer (BCC) chaining logic**.
-
-Sony Music Center contains its own override layer that must be fully avoided when using BCC chaining.
-
----
-
-## Core Override Stack Rules
-
-- **Absolute Volume OFF is itself an override suppression trigger.**
-  - With AV OFF active, Samsung's override stack is fully suppressed.
-  - BCC chaining (`SBC → LDAC 16 → LDAC 990`) may proceed directly or be skipped entirely.
-  - AV OFF must be active *before* initiating BCC chaining to ensure override bypass stability.
-
-- **Absolute Volume ON leaves override stack fully active.**
-  - Samsung will attempt to enforce its default profile.
-  - In this state, BCC chaining must start with SBC as initial profile before switching to LDAC 16 and finally LDAC 990 to successfully bypass override.
-
-- **Adaptive LDAC behaves identically to Fixed for override defeat.**
-  - Once initial chaining completes, Adaptive mode holds stability equal to Fixed mode.
-  - No special chaining modifications required for Adaptive profiles.
-
----
-
-## Music Center — Critical Codec Management Rule
-
-- Never adjust LDAC Audio Quality settings inside Music Center while using BCC chaining.
-- Any interaction with LDAC quality inside Music Center injects an internal override layer that conflicts with BCC control.
-- The only safe interaction inside Music Center is disabling LDAC entirely (*turning LDAC OFF inside the app*), which clears override state.
-- After disabling LDAC inside Music Center, fully clear pairing and reapply BCC chaining for a clean start.
-- BCC must always handle 100% of codec negotiation to maintain override stability.
-
----
-
-## Bluetooth Reconnect Behavior
-
-| Reconnect Scenario  | AV OFF Behavior | AV ON Behavior | Notes |
-|----------------------|-----------------|-----------------|-------|
-| Passive Reconnection | ✅ Profile often retained | ❌ Override likely retriggered | AV OFF reduces Samsung override triggers |
-| Active BCC Rechain   | ✅ Always safe  | ✅ Safe with full SBC → LDAC chaining | BCC chaining works universally |
-| Music Center Trigger | ❌ Never        | ❌ Never         | MC LDAC controls remain forbidden |
-
----
-
-## Verified Override Sources
-
-| Override Source      | Role                  | Notes |
-|-----------------------|------------------------|-------|
-| Samsung Override Stack | Default platform override | Fully active under AV ON, fully suppressed under AV OFF |
-| Sony Music Center     | App-level override     | Never change LDAC quality inside Music Center with BCC active |
-| BCC (Bluetooth Codec Changer) | Full external override | Enforces target codec profile regardless of Samsung or MC |
-| Firmware Codec Memory | Passive profile persistence | Headphone firmware may retain prior negotiated profile |
-| Google Fast Pair Restore | Cloud-level override (disabled) | Can inject synced LDAC configs if enabled |
-
----
-
-## Timing-Sensitive Override Suppression Rule
-
-Samsung's override stack activates *at the moment* Bluetooth initializes A2DP.  
-To ensure full suppression:
-
-- Apply AV OFF **before** Bluetooth is powered on.
-- Restart Bluetooth stack after AV OFF toggle.
-- Initiate BCC chaining only after clean stack state.
-
-This fully prevents Samsung override engagement.
-
----
-
-### Full Override Suppression Workflow
-
-1. **Set Absolute Volume OFF**  
-2. **Disable Bluetooth fully**  
-3. **Re-enable Bluetooth**  
-4. **Connect and apply BCC chaining**  
-
-**Timing Rule:**  
-> AV OFF must be set *before* stack initialization.  
-> If applied after stack load, partial override suppression risk remains.
-
----
-
-# Samsung Override Master Logic Table — AV ON vs AV OFF
-
-| Condition              | AV OFF Behavior       | AV ON Behavior        |
-|------------------------|------------------------|------------------------|
-| Samsung Override Stack | ✅ Fully suppressed    | ⚠ Fully active         |
-| Initial LDAC Seed      | ✅ Always safe         | ⚠ Always triggers override |
-| Non-LDAC Seed (SBC/AAC)| ✅ Always safe         | ✅ Always safe          |
-| BCC Chaining Recommended? | ✅ Optional (stability only) | ✅ Mandatory |
-| Required Chain Structure | Direct LDAC or Non-LDAC → LDAC 990 | SBC → LDAC 16 → LDAC 990 |
-| Adaptive Mode Stability | ✅ Fully stable after chaining | ✅ Fully stable after chaining |
-| Fast Pair Impact       | 🚫 No impact if cloud disabled | 🚫 No impact if cloud disabled |
-| Developer Options Impact | 🚫 No longer needed  | 🚫 No longer needed     |
-| Music Center LDAC Quality | 🚫 Forbidden         | 🚫 Forbidden             |
-| Tasker Automation Logic | ✅ Active              | ✅ Active                |
-
-**Universal Summary Rule:**  
-> Samsung override is fully neutralized if:  
-> - AV OFF is active (seed codec irrelevant), or  
-> - AV ON is active with non-LDAC seed used.
-
----
-
-# Samsung Override Activation Matrix
-
-| Absolute Volume | Initial Codec Negotiated | Override Activation? | Chaining Requirement? |
-|------------------|--------------------------|-----------------------|-----------------------|
-| AV OFF           | LDAC (any mode)         | 🚫 No override        | 🔧 Chaining optional (stability only) |
-| AV OFF           | Non-LDAC (SBC/AAC)      | 🚫 No override        | 🔧 Chaining optional (stability only) |
-| AV ON            | LDAC (any mode)         | ⚠ Override activates  | ✅ Chaining mandatory |
-| AV ON            | Non-LDAC (SBC/AAC)      | 🚫 No override        | ✅ Chaining recommended (for stability) |
-
----
-
-- When Absolute Volume is **ON**, Samsung's override stack remains fully active.
-- Samsung override enforces its own LDAC sample rate negotiation during the initial handshake.
-- BCC cannot directly change the sample rate while Samsung override is active.
-- Applying a BCC profile with a different sample rate will not take effect unless the override has been fully defeated.
 
 
 ## Bluetooth Codec Changer (BCC)
 
-BCC allows you to force codec settings (LDAC, bitrate, sample rate, bit depth) **at runtime**.  
-These settings are not persistent — they must be applied on **every connection**.
 
----
 
-###  Auto Switch
 
-When enabled, Auto Switch:
-- Automatically applies your selected codec profile upon Bluetooth connection
-- Supports delay configuration to allow time for default codec to settle before override
-
----
-
-###  2-Step Switch
-
-| Step | Description                         |
-|------|-------------------------------------|
-| 1    | Initial connection                  |
-| 2    | System selects default codec (usually LDAC or SBC) |
-| 3    | Force SBC to reset LDAC session     |
-| 4    | Delay (e.g., 500–2000 ms)           |
-| 5    | Reapply LDAC with target profile    |
-| 6    | Clean LDAC handshake achieved       |
-
- **Why 2-Step Doesn't Work Reliably on Samsung:**  
-Samsung forces its own LDAC profile **before BCC can act**.  
-This means:
-- Step 3 (SBC switch) may not reset the codec cleanly
-- GUI may show incorrect values
-- Your target LDAC profile may silently fall back to Samsung’s default
-
- **Workaround:**  
-- Apply the profile **twice**  
-- Use **Tasker automation** to enforce SBC → LDAC switching manually
-- Or use **Intermediate Profile Switch**
-
----
-
-###  Intermediate Profile Switch
-
-In Auto Switch settings, enable **Intermediate Codec Profile** and set it to **SBC**.
-
-- Forces a temporary codec downgrade (SBC) before LDAC is reapplied
-- This triggers a **true renegotiation** and breaks Samsung’s override hold
-- Without this step, BCC may silently fail or default to 96 kHz LDAC
-
- This is especially important when trying to apply:
-- 44.1 kHz / 24-bit / 990 kbps
-- Any sample rate that Samsung’s override would normally reject
-
----
-
-###  Verified 2-Step + Intermediate Profile Pairs
-
-Any switch **away from LDAC**, even briefly, forces the system to renegotiate LDAC cleanly:
-
-- `SBC → LDAC 16-bit → LDAC 990`: **Most reliable**
-- `SBC → LDAC 909`: works if your app doesn’t touch Developer Options
-- `LDAC Adaptive → SBC → LDAC Fixed`: may restore clean handshake
-
----
-
-###  BCC Limitation: LDAC Must Be Negotiated First
-
-Bluetooth Codec Changer **cannot switch to LDAC 990 kbps** unless LDAC has already been negotiated during the session.
-
-If the system is still in **SBC or AAC mode**, BCC cannot switch to LDAC.
-
-####  To ensure LDAC 990 can be applied via BCC:
-- Enable LDAC in Developer Options **before** connecting
-- Or use a handshake trick:  
-  `SBC → LDAC 16-bit → LDAC 990`
-- Or start playback in a hi-res audio app (like UAPP or Neutron)
-
- *BCC profiles are runtime-only. If LDAC hasn't been established yet, BCC cannot apply its profile.*
-
- **BCC GUI Reflects External Codec Changes**
-
-As of the latest update, BCC’s GUI reflects LDAC codec changes made by **other apps or the system**, such as:
-
-- UAPP  
-- Developer Options  
-- Sony Music Center  
-- System-level negotiation (e.g. Fast Pair)
-
- On Samsung, GUI accuracy is **only reliable when 2-Step Switch is enabled**.  
-However, 2-Step must be disabled to make LDAC profile switching stable.
-This means the GUI will often show incorrect bitrate, even though the override succeeded.
-
- For stability, keep **2-Step disabled** and use verification tools like ADB or real-time dumpsys monitoring instead.
-
- *Verified Behavior – GUI desync is expected with 2-Step disabled. Stability and accuracy cannot both be achieved on Samsung at the same time.*
 
 
 
@@ -1072,28 +864,6 @@ while ($true) {
     Start-Sleep -Seconds 2
 }
 ```
-## Adaptive Bitrate LDAC
-
-In **Adaptive** mode, LDAC may briefly report *non-standard bitrate values* (e.g., **452 kbps**). These transient values occur right at the **start of playback**, as LDAC begins its **bitrate ramp-up process**. It takes a few seconds for the adaptive logic to stabilize and settle on an official bitrate tier:
-
-- **990 / 660 / 330 kbps** → for **48 kHz** and **96 kHz**
-- **909 / 606 / 303 kbps** → for **44.1 kHz** and **88.2 kHz**
-
-This is expected behavior and typically resolves quickly.
-
-A key indicator that LDAC Adaptive has stabilized is the log entry:
-LDAC adaptive bit rate adjustments: 2
-
-A key indicator that LDAC Adaptive is not yet initialized
-LDAC encode quality mode index: -1
-
-
->  **Note on ADB and AudioFlinger:**  
-> Sample rate and bit depth shown in `adb shell dumpsys media.audio_flinger` reflect **Android's internal audio mixer output**, not the raw Bluetooth stream.  
-> - If **resampling** occurs (e.g., app outputs 44.1 kHz but Android mixes to 48 kHz), LDAC will still encode **48 kHz**.  
-> - Apps like **UAPP** and **Neutron** in bit-perfect mode can **bypass AudioFlinger**, allowing true 44.1 kHz to reach LDAC.  
->  Always verify both **codec parameters** *and* **actual playback resolution**.
-
 
 
 
