@@ -670,3 +670,84 @@ Samsung’s override injection can be fully healed using only BCC Auto Switch wi
 - Healing remains fully effective as long as playback has not yet started.
 - Fully automated healing without requiring intermediate profile or instant reaction.
 - Relies on LDAC’s A2DP renegotiation window staying open.
+
+
+# Samsung LDAC Override — Universal Defeat Logic (Deep Rule Edition)
+
+Samsung’s LDAC override system operates by injecting forced codec negotiations during Bluetooth connection events.  
+All override behavior can be fully defeated through a single governing principle: **renegotiation neutralizes override.**
+
+---
+
+## 🔬 Deep Rule — The Core Governing Principle
+
+> **Samsung override has no authority once any valid LDAC renegotiation occurs post-connection.**
+
+- Samsung injects its LDAC profile once during initial connection negotiation.
+- After connection, any valid LDAC renegotiation displaces Samsung’s injected override profile.
+- Timing is not critical; renegotiation remains possible throughout the active A2DP session.
+
+---
+
+## Universal Override Defeat Logic
+
+### 1️⃣ Connection Phase Blocking — Preemptive Neutralization
+
+- Prevent Samsung override entirely by avoiding LDAC negotiation during connection.
+- Methods:
+  - **SBC Reset:** Pair using SBC first, then switch to LDAC after connection.
+  - **Bit Depth Downgrade:** Force initial LDAC negotiation using limited 16-bit profile to block override injection.
+
+### 2️⃣ Reactive Overwrite — Post-Connection Renegotiation
+
+- Even if Samsung override attaches, LDAC renegotiation can fully override it.
+- Methods:
+  - **BCC Auto Switch:** Triggers profile renegotiation after connection.
+  - **Manual Profile Switch:** Any explicit LDAC parameter change forces renegotiation.
+
+### 3️⃣ Persistent Correction — Continuous Self-Healing
+
+- Monitoring-based correction detects override-induced desyncs and applies renegotiation anytime.
+- Methods:
+  - **AutoNotification Healing:** Monitors GUI profile changes, triggers renegotiation on mismatch.
+  - **Tasker Correction Logic:** Enforces target LDAC profile via event-driven automation.
+
+### 4️⃣ Passive Suppression — Capability Removal
+
+- Disable Samsung’s override injection logic globally by disabling Absolute Volume (AV OFF).
+- Prevents certain injection triggers from activating at connection time.
+
+---
+
+## Timing Characteristics Summary
+
+| Defeat Layer            | Timing Dependency   | Typical Window               | Control Layer         |
+|--------------------------|----------------------|------------------------------|------------------------|
+| SBC Reset (Training)     | Timing-independent   | Pre-pairing / Pre-connect    | Manual / Fast Pair     |
+| Bit Depth Downgrade      | Timing-independent   | Profile pre-selection        | BCC Intermediate       |
+| BCC Auto Switch          | Timing-independent   | Any time post-connection     | BCC Auto Switch Engine |
+| AutoNotification Healing | Timing-independent   | Full session window          | GUI / Codec Monitor    |
+| AV OFF Suppression       | Passive              | Permanent system-wide        | System Toggle          |
+
+---
+
+## Behavior Notes
+
+- Samsung override applies only once per connection or reconnection event.
+- Once LDAC renegotiation occurs, Samsung override profile is fully displaced.
+- GUI desyncs are cosmetic; actual codec state follows renegotiation result.
+- Override defeat remains possible at any time while A2DP session is active.
+- Multiple correction layers can coexist and operate simultaneously.
+- Samsung override affects LDAC only; other codecs are not influenced.
+- Full automation is achievable through chaining BCC, AutoNotification, and Tasker.
+
+---
+
+## Final Override Defeat Statement
+
+> **The only requirement to defeat Samsung override is forcing any valid LDAC renegotiation after connection.  
+> Method and timing are flexible — renegotiation neutralizes override completely.**
+
+---
+
+
