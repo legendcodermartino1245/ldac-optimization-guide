@@ -518,4 +518,94 @@ Sony’s WH-1000XM5 can **store only a limited set of codec settings** in firmwa
 >  
 > Simply uninstalling **after** a 990 kbps override won't erase the stored configuration from the headphone firmware.
 
+# 📖 Class 4 — Timing-Based Override Preemption (Auto Switch Engine)
 
+---
+
+## 🔧 Principle of Operation
+
+Samsung’s LDAC override logic does not assert immediately upon connection.  
+It operates in **two distinct handshake windows:**
+
+1️⃣ **Codec Negotiation Phase**  
+- The device negotiates LDAC codec (SBC → LDAC handshake complete).
+- Samsung begins evaluating override triggers.
+
+2️⃣ **Override Lock-In Window**  
+- After negotiation, Samsung requires ~100–500ms to apply its internal override profile (usually 96kHz / 32-bit / Adaptive).
+
+---
+
+## 🎯 The Auto Switch Preemption Strategy
+
+This defeat class works by exploiting the **delay between negotiation and override lock-in.**
+
+- **Intermediate Profile:**  
+  `96 kHz / 32-bit / ANY bitrate`  
+  → Allows Samsung’s override trigger to begin safely.
+
+- **Auto Switch Profile:**  
+  `44.1 kHz / 24-bit / 909 kbps`  
+  → Applied immediately after Intermediate Profile completes.
+
+- **Execution Delay:**  
+  `0 ms` for both Intermediate and Auto Switch profiles.
+
+---
+
+## 🚫 Why Samsung’s Override Fails
+
+- Samsung cannot fully stabilize override state unless the override window completes.
+- The **0ms Auto Switch chain collapses the override window** before Samsung can assert control.
+- By forcing codec renegotiation instantly, Samsung's override attempt is invalidated.
+
+---
+
+## 🔬 Why This Is True Override Defeat
+
+This logic does not merely **correct** the profile after override.  
+It **prevents override lock-in** by denying Samsung the required stabilization period.
+
+- Override lock-in = requires sustained negotiation stability window.
+- Auto Switch preemption = forces immediate renegotiation before Samsung finalizes override.
+
+---
+
+## ⚠ Important Technical Difference
+
+| Correction | Preemption |
+|-------------|-------------|
+| Applied after override lock | Applied before override lock |
+| Override triggers fully | Override fails to stabilize |
+| Only heals symptoms | Prevents override activation |
+
+---
+
+## 🧠 System Placement
+
+The Timing-Based Override Preemption engine operates as:
+
+- 🔧 **Live runtime override defeat.**
+- 🔧 **Fully automated inside Tasker + BCC Auto Switch logic.**
+- 🔧 **ADB-free, passive, and 100% system-compatible.**
+
+---
+
+## 🔬 Full Override Defeat Layer Model (Updated)
+
+| Class | Defeat Method | Layer |
+|-------|---------------|-------|
+| 1️⃣ | SBC Reset Training | Firmware Layer |
+| 2️⃣ | 16-bit Bit Depth Injection | Codec Negotiation Layer |
+| 3️⃣ | Codec Change Preselection | Codec Negotiation Layer |
+| 4️⃣ | Timing-Based Override Preemption (Auto Switch Engine) | Negotiation Window Layer |
+
+---
+
+## ✅ Summary
+
+- This class ensures override defeat even when Samsung initiates override negotiation.
+- It works purely through **precise execution timing**, not by blocking override triggers.
+- Once executed, Samsung override cannot stabilize fully, and BCC profile control remains dominant.
+
+---
