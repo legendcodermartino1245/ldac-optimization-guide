@@ -3414,22 +3414,6 @@ When **AV is OFF**, Android no longer sends volume changes to the headset. As a 
   - Use **AV ON** if you want **optimal clarity and tonal balance**
   - Use **AV OFF** if you're doing **critical testing or mastering**, but accept tradeoffs
 - DSEE OFF confirms: this is about **signal routing**, not upscaling artifacts
-##  Is Switching to SBC Enough to Reset Samsung’s LDAC Override?
-Yes — switching the codec to **SBC** is the **only necessary step** to:
--  Flush Samsung's stored LDAC override from Developer Options
--  Trigger a fresh LDAC negotiation on next connection
--  Enable Bluetooth Codec Changer (BCC) to fully take control
-### Why This Works:
-Samsung caches your previous LDAC profile (sample rate, bit depth, mode) from Developer Options.  
-This override survives Developer Options being turned off — unless:
->  You **manually switch to SBC first**, forcing a full codec reset handshake.
-### What You **Don’t** Need to Change:
-| Setting             | Required to reset override? | Why |
-|---------------------|-----------------------------|-----|
-| Sample Rate         |  No                        | Ignored after codec changes to SBC |
-| Bit Depth           |  No                        | Also ignored outside LDAC sessions |
-| HD Audio Toggle     |  No                        | Disables LDAC but leaves override intact |
-
 
 
 
@@ -3956,61 +3940,6 @@ After first pairing:
 
 
 
-##  Absolute Volume OFF – Final Override Strategy (Samsung)
-
-Absolute Volume OFF (AV OFF) is not just a workaround — it's the only reliable method to block Samsung's LDAC override once you've flushed it using a codec handshake.
-
----
-
-###  What AV OFF Actually Blocks — and What It Doesn’t
-
-| Layer                             | Blocked by AV OFF | Notes                                                                 |
-|-----------------------------------|-------------------|-----------------------------------------------------------------------|
-| Samsung LDAC override             |  Yes             | Prevents forced LDAC 96/32 Adaptive injection after clean handshake  |
-| Developer Options codec control   |  Yes             | Disables Android-side codec switching                                |
-| Music Center override             |  No              | Still able to inject LDAC if not force-stopped                       |
-| Tasker / BCC (post-AV toggle)     |  If pre-applied  | Only works if profiles were applied *before* AV OFF was toggled      |
-| Headphone-initiated reconnection  |  No              | Samsung override may still inject codec before BCC/Tasker react      |
-
----
-
-###  AV OFF Codec Lock Workflow (Final Form)
-
-####  Starting From AV ON
-
-1. Enable Developer Options  
-2. Set codec to **SBC** via Developer Options  
-3. Disable Developer Options while SBC is active  
-   → Samsung override flushed  
-4. Reconnect headphones  
-5. Let BCC apply **LDAC 16-bit / 990 kbps**  
-6. Auto-switch to **LDAC 24-bit / 990 kbps**  
-7. *(Optional)* Start playback in UAPP to confirm handshake  
-8. Run:
-   ```bash
-   adb shell dumpsys bluetooth_manager | grep -i ldac
-   ```
-9. Idle for **10–20 seconds** to allow the LDAC profile to store in headphone firmware  
-10. Disconnect headphones  
-11. Re-enable Developer Options  
-12. Toggle **“Disable absolute volume”** → AV is now OFF  
-13. *(Optional)* Disable Developer Options again  
-14. Reconnect headphones → LDAC profile is restored, override is blocked
-
----
-
-###  Component Behavior Matrix (AV OFF Active)
-
-| Component           | Can Control Codec? | Notes                                               |
-|---------------------|--------------------|-----------------------------------------------------|
-| Developer Options   |  No               | Ignored when AV OFF is active                       |
-| Music Center        |  Yes (still risk) | Can silently override unless force-stopped          |
-| BCC                 |  Yes              | Profile must be applied **before** AV OFF is toggled |
-| UAPP                |  Playback-only    | Sample rate renegotiation occurs only on playback   |
-| Samsung override    |  Disabled         | AV OFF blocks override logic after SBC flush        |
-| Headphone firmware  |  Yes              | Stores codec type and LDAC mode after 10–20s idle   |
-
----
 
 ##  What’s Actually Stored in Sony Headphones vs What’s Host-Controlled
 
@@ -4029,18 +3958,6 @@ Only the LDAC mode and codec type are stored, not full codec parameters.
 
 ---
 
-##  Headphone-Initiated vs Manual Reconnect Behavior
-
-| Connection Method         | First Codec Used | Override Outcome                                 |
-|---------------------------|------------------|--------------------------------------------------|
-| Manual (Quick Settings/UI)| SBC              | Clean SBC handshake → BCC profile can apply     |
-| Headphones auto-reconnect| LDAC 96/32       | Samsung override stack fires first, blocks BCC  |
-
->  Even with AV OFF, headphone-initiated reconnections can re-trigger Samsung’s override stack.  
-The only guaranteed clean handshake is via **manual connect** from the UI.
-
----
-
 ##  Dual SBC Trigger Stack — Music Center + Tasker
 
 | Source         | When it Fires          | Role                                      |
@@ -4052,66 +3969,6 @@ The only guaranteed clean handshake is via **manual connect** from the UI.
   - If Music Center fails (too slow), Tasker still resets override  
   - If Music Center wins the race, Tasker does nothing (SBC → SBC = no-op)  
   - Two triggers = maximum defense against LDAC override injection
-
----
-
-##  Do You Still Need BCC?
-
-| Situation                   | Do You Need BCC? | Reason                                          |
-|----------------------------|------------------|-------------------------------------------------|
-| Daily reconnection         |  No             | Firmware + AV OFF handle codec restoration      |
-| You reset headphones       |  Yes            | Samsung override stack will return              |
-| You re-pair from scratch   |  Yes            | Profile must be retrained from scratch          |
-| You want to change profile |  Yes            | BCC needed to apply new LDAC configuration      |
-
----
-
-##  Final Summary
-
-| Task                         | AV OFF Needed? | Developer Options? | Notes                                               |
-|------------------------------|----------------|---------------------|-----------------------------------------------------|
-| Reset Samsung override       |  No           |  Yes (then disable) | Only works while AV is ON and SBC is active         |
-| Lock LDAC in firmware        |  Yes          |  No                | Requires 10–20s idle time after SBC → LDAC switch   |
-| Toggle AV OFF                |  Yes          |  Yes               | Always do this while **disconnected**               |
-| Prevent override on reconnect|  Yes          |  No                | Samsung stack is fully blocked after clean lock-in  |
-| Confirm codec state          |  Yes          |  Yes (adb needed)  | Use `dumpsys` or BCC debug screen                   |
-
----
-
-##  Why You Can’t Fully Block Override on Headphone-Initiated Connect
-
-Even if:
-- AV is OFF   
-- SBC was stored in firmware   
-- No Developer Options are active   
-- Headphones were powered off while in SBC   
-
-If **the headphones initiate the connection**, Samsung's stack may inject LDAC 96/32 **before** BCC or Tasker can respond.
-
----
-
-##  Your Best Options
-
-| Strategy                            | Result                          | Trade-off                                |
-|-------------------------------------|----------------------------------|-------------------------------------------|
-| Reconnect via Android UI            | SBC starts handshake             | Requires manual tap from Quick Settings   |
-| Tasker auto-switch to SBC           | Overrides LDAC after 0.3s        | Slight delay, may allow LDAC momentarily  |
-| Forget + re-pair + reset + AV OFF   | SBC becomes default temporarily  | Override will return without maintenance  |
-| Music Center + Tasker combo         | Dual SBC triggers                | Best reliability, but not 100% foolproof  |
-
->  You’ve built the **most override-proof, fast-locking, and persistent LDAC 990 kbps Bluetooth stack** possible on Android — without root or ADB automation.
-
->  Once LDAC or SBC is locked in via Music Center while **AV OFF is active**,  
-> switching back to **AV ON** retains the codec preference — **and override injection is blocked.**  
-> This gives you:
-> - Seamless volume sync and multipoint control via AV ON
-> - LDAC 990 kbps stability
-> - Immunity from Samsung's override stack
-> 
->  Your codec profile is now stored in the XM5 firmware and treated as the default until you manually override it again.
-
-
-
 
 ---
 
