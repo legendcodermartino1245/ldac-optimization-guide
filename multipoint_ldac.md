@@ -1905,3 +1905,11 @@ Multipoint operation with LDAC across Android and Windows platforms follows stri
 
 ✅ This model has been fully validated across Samsung phones (S22/S23/S24), WH-1000XM5 firmware, Windows 11 Alt A2DP stack, and both AVRCP 1.5 and 1.6 configurations.
 
+### 🔬 Codec Negotiation Isolation in Multipoint
+
+It is important to understand that codec negotiation occurs independently for each A2DP connection. When using multipoint, every connected device negotiates its LDAC parameters separately with the headphones. 
+
+Even when both devices are connected simultaneously, codec negotiation collisions cannot occur — the Sony firmware isolates each A2DP profile. Playback arbitration happens strictly at the AVRCP control layer, not at the codec layer. Once negotiated, each device maintains its own codec state unless that specific connection renegotiates (e.g., reconnects or resumes after disconnection).
+
+This design prevents any cross-device codec negotiation race conditions under multipoint operation.
+
