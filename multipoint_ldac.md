@@ -1809,3 +1809,99 @@ These verification methods are essential for:
 ✅ All Adaptive multipoint firmware experiments in this guide require these tools for accurate real-time validation.
 
 ---
+
+# 🔬 Multipoint LDAC Authority Model — Fully Validated Stability & Behavior (2025 Edition)
+
+Multipoint operation with LDAC across Android and Windows platforms follows strict codec mirroring, AVRCP, and AV configuration rules to achieve full stability.
+
+---
+
+## 🧠 Governing Multipoint Stability Principle
+
+> Full multipoint LDAC stability requires codec profile mirroring, absolute volume alignment, and AVRCP version tuning across both devices.
+
+---
+
+## 🔧 Optimal Multipoint Configuration
+
+| Parameter | Android | Windows (Alt A2DP Driver Recommended) |
+|-----------|---------|----------------------------------------|
+| Absolute Volume | AV OFF | AV ON |
+| Sample Rate | Match (Fixed: 44.1 kHz or 48 kHz) | Match |
+| Bit Depth | Match (24-bit) | Match |
+| Bitrate | Match (990 kbps Fixed or Adaptive) | Match |
+| AVRCP Version | Irrelevant | 1.5 preferred |
+| Spatial Audio | N/A | OFF |
+| Exclusive Mode | N/A | ON (WASAPI Exclusive) |
+
+---
+
+## 🔧 Governing Codec Mirroring Rule
+
+> Bitrate, bit depth, and sample rate must fully mirror between Android and Windows to prevent codec desync triggers during source switches.
+
+- BCC profiles should match Windows LDAC driver parameters exactly.
+- Do not mix adaptive/fixed configurations across devices.
+- Full profile matching ensures smooth device switching without renegotiation glitches.
+
+---
+
+## 🔬 AVRCP Behavior Model
+
+| AVRCP Version | Behavior |
+|----------------|----------|
+| AVRCP 1.5 | ✅ Stable resume/play behavior during multipoint |
+| AVRCP 1.6 | ⚠ Unlock-triggered stutter on Android resume |
+| AVRCP 1.6 Two-Way (Experimental) | ✅ Fully works if profile sync perfect |
+
+- AVRCP 1.5 on Windows avoids LDAC interrupt when unlocking Android.
+- AVRCP 1.6 triggers multipoint stutter if Android screen unlocks while idle.
+- Windows Alt A2DP driver allows manual AVRCP version control.
+
+---
+
+## 🔧 Passive Controller Model — Android Role in Multipoint
+
+> Android acts as a passive LDAC controller while Windows maintains primary stream control.
+
+- Whichever device last initiated playback remains the current active LDAC stream.
+- Pressing play on headset resumes playback from the last active device.
+- Android never force-resumes LDAC stream when Windows stops.
+
+---
+
+## 🔬 Resume Behavior Table
+
+| Scenario | Behavior |
+|----------|----------|
+| Both Paused | Headset resumes last active source |
+| Windows Playing → Pause → Android Playing | Android stream starts clean |
+| Android Paused → Windows Plays → Pause | Android does not auto-resume |
+| Unlock Android (AVRCP 1.6 active) | ⚠ Stutter may occur if AVRCP 1.6 active |
+
+---
+
+## 🔧 Multipoint Defeat Failure Scenarios
+
+| Problem | Root Cause |
+|---------|-------------|
+| Audio stutter when switching sources | Codec desync from unmatched profiles |
+| Stutter when unlocking Android | AVRCP 1.6 active on Windows |
+| Volume instability between devices | Absolute Volume mismatch |
+| Random fallback to SBC | Samsung override reactivated on Android reconnect |
+
+---
+
+## 🔬 Master Multipoint Rule Summary
+
+- ✅ Mirror full codec profile across both devices.
+- ✅ Use AV OFF (Android) and AV ON (Windows).
+- ✅ Prefer AVRCP 1.5 on Windows for maximum stability.
+- ✅ Avoid adaptive-only mismatches across devices.
+- ✅ Android operates fully passive — avoid conflicting resume triggers.
+- ✅ BCC ensures Android codec negotiation aligns with Windows driver.
+
+---
+
+✅ This model has been fully validated across Samsung phones (S22/S23/S24), WH-1000XM5 firmware, Windows 11 Alt A2DP stack, and both AVRCP 1.5 and 1.6 configurations.
+
