@@ -1,7 +1,6 @@
 # LDAC Done Right
 - [LDAC Done Right](#ldac-done-right)
-- [My setup and the hard and software I used during the making of this guide](#my-setup-and-the-hard-and-software-i-used-during-the-making-of-this-guide)
-- [Inner workings of LDAC](#inner-workings-of-ldac)  
+- [My setup and the hard and software I used during the making of this guide](#my-setup-and-the-hard-and-software-i-used-during-the-making-of-this-guide) 
 - [LDAC Configuration Matrix Fixed](#ldac-configuration-matrix-fixed)
 - [LDAC Configuration Matrix Adaptive](#ldac-configuration-matrix-adaptive)
 - [The Real LDAC Bug: Quality Settings Don’t Apply on Their Own](#the-real-ldac-bug-quality-settings-dont-apply-on-their-own)
@@ -13,9 +12,6 @@
   - [LDAC Adaptive Mode Stability Matrix](#ldac-adaptive-mode-stability-matrix)
   - [Usb Audio Player Pro](#usb-audio-player-pro)
   - [Neutron Player](#neutron-player)
-  - [Settings That Dont Interfere with LDAC 990kbps](#settings-that-dont-interfere-with-ldac-990kbps)
-  - [Settings That Interfere with LDAC 990kbps](#settings-that-interfere-with-ldac-990kbps)
-  - [Settings That help with LDAC 990kbps](#settings-that-help-with-ldac-990kbps)
   - [LDAC Codec Negotiation & Profile Generation](#ldac-codec-negotiation--profile-generation)
     - [Headphone & Device Factors](#headphone--device-factors)
     - [Phone Settings That Affect Codec Negotiation](#phone-settings-that-affect-codec-negotiation)
