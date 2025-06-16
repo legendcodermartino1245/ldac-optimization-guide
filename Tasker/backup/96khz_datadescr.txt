@@ -1,0 +1,997 @@
+    Profile: Anon
+    	Event: BT Connection [ Output Variables:* Name:WH-1000XM3 Address:CC:98:8B:D1:2B:2B ] [ %bt_connected eq false ]
+    
+    
+    
+    Enter Task: Location On
+
+    Profile: Anon
+    	Event: BT Connection [ Output Variables:* Name:WH-1000XM3/WH-1000XM3 Address:CC:98:8B:D1:2B:2B/CC:98:8B:D1:2B:2B ] [ %bt_connected eq true ]
+    
+    
+    
+    Enter Task: Location Off
+
+    Profile: Xm5 Connected
+    	Event: BT Connection [ Output Variables:* Name:WH-1000XM5 Address:AC:80:0A:A1:1C:28 ] [ %bt_connected eq true ]
+    
+    
+    
+    Enter Task: Location Off
+
+    Profile: Xm5 Disconnect
+    	Event: BT Connection [ Output Variables:* Name:WH-1000XM5 Address:AC:80:0A:A1:1C:28 ] [ %bt_connected eq false ]
+    
+    
+    
+    Enter Task: Location On
+
+    Profile: LDAC_44100_16_ADAPTIVE
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 44100 • 16 • Stereo • Best effort (adaptive bit rate) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: AAC_44100_16
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: AAC • 44100 • 16 • Stereo (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Always Works Unless Quality Mismatch
+
+    Profile: Bbc Maps
+    	Application: Maps
+    
+    
+    
+    Enter Task: Ldac 660
+
+    Profile: LDAC_44100_24_ADAPTIVE
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 44100 • 24 • Stereo • Best effort (adaptive bit rate) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_44100_32_ADAPTIVE
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 44100 • 24 • Stereo • Best effort (adaptive bit rate) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_48000_16_ADAPTIVE
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 48000 • 16 • Stereo • Best effort (adaptive bit rate) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_44100_16_303
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 44100 • 16 • Stereo • Optimized for connection quality (330/303kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_44100_16_606
+    	State: AutoNotification Intercept [ Configuration:Notification Type: Only Created Notifications
+    Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 44100 • 16 • Stereo • Balanced audio and connection quality (660/606kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_44100_32_909
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 44100 • 32 • Stereo • Optimized for audio quality (990/909kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Always Works Unless Quality Mismatch
+
+    Profile: LDAC_44100_24_606
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 44100 • 24 • Stereo • Balanced audio and connection quality (660/606kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_48000_24_ADAPTIVE
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 48000 • 24 • Stereo • Best effort (adaptive bit rate) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_44100_24_303
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 44100 • 24 • Stereo • Optimized for connection quality (330/303kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_44100_32_303
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 44100 • 32 • Stereo • Optimized for connection quality (330/303kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_44100_32_606
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 44100 • 32 • Stereo • Balanced audio and connection quality (660/606kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_48000_16_330
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 48000 • 16 • Stereo • Optimized for connection quality (330/303kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_48000_32_ADAPTIVE
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 48000 • 32 • Stereo • Best effort (adaptive bit rate) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_48000_16_660
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 48000 • 16 • Stereo • Balanced audio and connection quality (660/606kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_48000_16_990
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 48000 • 16 • Stereo • Optimized for audio quality (990/909kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Always Works Unless Quality Mismatch
+
+    Profile: LDAC_48000_24_330
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 48000 • 24 • Stereo • Optimized for connection quality (330/303kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_48000_24_660
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 48000 • 24 • Stereo • Balanced audio and connection quality (660/606kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_48000_24_990
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 48000 • 24 • Stereo • Optimized for audio quality (990/909kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Always Works Unless Quality Mismatch
+
+    Profile: LDAC_48000_32_990
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 48000 • 32 • Stereo • Optimized for audio quality (990/909kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Always Works Unless Quality Mismatch
+
+    Profile: LDAC_48000_32_660
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 48000 • 32 • Stereo • Balanced audio and connection quality (660/606kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_48000_32_330
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 48000 • 32 • Stereo • Optimized for connection quality (330/303kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_96000_32_330
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 96000 • 16 • Stereo • Optimized for connection quality (330/303kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_96000_16_660
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 96000 • 16 • Stereo • Balanced audio and connection quality (660/606kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_96000_16_990
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 96000 • 16 • Stereo • Optimized for audio quality (990/909kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Always Works Unless Quality Mismatch
+
+    Profile: LDAC_88200_32_909
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 88200 • 32 • Stereo • Optimized for audio quality (990/909kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Always Works Unless Quality Mismatch
+
+    Profile: LDAC_88200_32_606
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 88200 • 32 • Stereo • Balanced audio and connection quality (660/606kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_88200_32_303
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 88200 • 32 • Stereo • Optimized for connection quality (330/303kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_88200_24_909
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 88200 • 24 • Stereo • Optimized for audio quality (990/909kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Always Works Unless Quality Mismatch
+
+    Profile: LDAC_88200_24_606
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 88200 • 24 • Stereo • Balanced audio and connection quality (660/606kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: SBC_44100_16
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: SBC • 44100 • 16 • Stereo (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Always Works Unless Quality Mismatch
+
+    Profile: LDAC_88200_24_303
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 88200 • 24 • Stereo • Optimized for connection quality (330/303kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_88200_16_909
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 88200 • 16 • Stereo • Optimized for audio quality (990/909kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Always Works Unless Quality Mismatch
+
+    Profile: LDAC_88200_16_606
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 88200 • 16 • Stereo • Balanced audio and connection quality (660/606kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_88200_16_303
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 44100 • 16 • Stereo • Optimized for connection quality (330/303kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_96000_24_330
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 96000 • 24 • Stereo • Optimized for connection quality (330/303kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_96000_24_660
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 96000 • 24 • Stereo • Balanced audio and connection quality (660/606kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_96000_24_990
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 96000 • 24 • Stereo • Optimized for audio quality (990/909kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Always Works Unless Quality Mismatch
+
+    Profile: LDAC_96000_32_990
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 96000 • 32 • Stereo • Optimized for audio quality (990/909kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Sbc Override
+
+    Profile: LDAC_96000_32_660
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 96000 • 32 • Stereo • Balanced audio and connection quality (660/606kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_96000_16_330
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 96000 • 16 • Stereo • Optimized for connection quality (330/303kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_88200_16_ADAPTIVE
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 88200 • 16 • Stereo • Best effort (adaptive bit rate) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_88200_24_ADAPTIVE
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 88200 • 24 • Stereo • Best effort (adaptive bit rate) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_88200_32_ADAPTIVE
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 88200 • 24 • Stereo • Best effort (adaptive bit rate) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_96000_16_ADAPTIVE
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 96000 • 16 • Stereo • Best effort (adaptive bit rate) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_96000_24_ADAPTIVE
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 96000 • 24 • Stereo • Best effort (adaptive bit rate) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: LDAC_96000_32_ADAPTIVE
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 96000 • 32 • Stereo • Best effort (adaptive bit rate) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Bit Depth Regeneration
+
+    Profile: UAPP Disable Bcc Profiles
+    	Application: USB Audio Player PRO
+    
+    
+    
+    Enter Task: Disable Profiles For High Res
+
+    Profile: Qobuz Enable Bcc Profiles
+    	Application: Qobuz
+    
+    
+    
+    Enter Task: Enable Profiles After High Res
+
+    Profile: LDAC_96000_32_Default
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 96000 • 32 • Stereo • Default (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Always Works Unless Quality Mismatch
+
+    Profile: LDAC_44100_24_Default
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 44100 • 24 • Stereo • Default (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Always Works Unless Quality Mismatch
+
+    Profile: LDAC_96000_24_Default
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 96000 • 24 • Stereo • Default (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Sbc Override
+
+    Profile: LDAC_96000_16_Default
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 96000 • 16 • Stereo • Default (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Always Works Unless Quality Mismatch
+
+    Profile: LDAC_88200_32_Default
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 88200 • 24 • Stereo • Default (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Always Works Unless Quality Mismatch
+
+    Profile: LDAC_88200_24_Default
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 88200 • 24 • Stereo • Default (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Always Works Unless Quality Mismatch
+
+    Profile: LDAC_88200_16_Default
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 88200 • 16 • Stereo • Default (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Always Works Unless Quality Mismatch
+
+    Profile: LDAC_48000_32_Default
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 48000 • 32 • Stereo • Default (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Always Works Unless Quality Mismatch
+
+    Profile: LDAC_44100_16_Default
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 44100 • 16 • Stereo • Default (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Always Works Unless Quality Mismatch
+
+    Profile: LDAC_48000_24_Default
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 48000 • 24 • Stereo • Default (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Always Works Unless Quality Mismatch
+
+    Profile: LDAC_44100_32_Default
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 44100 • 24 • Stereo • Best effort (adaptive bit rate) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Always Works Unless Quality Mismatch
+
+    Profile: LDAC_48000_16_Default
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 48000 • 16 • Stereo • Default (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Always Works Unless Quality Mismatch
+
+    Profile: LDAC_44100_16_909
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 44100 • 16 • Stereo • Optimized for audio quality (990/909kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Always Works Unless Quality Mismatch
+
+    Profile: LDAC_44100_24_909
+    	State: AutoNotification Intercept [ Configuration:Persistency Type: Non-Persistent Only
+    Notification Id: 101
+    Notification Apps: Bluetooth Codec Changer
+    Notification App: Bluetooth Codec Changer (exact)
+    Notification Title: WH-1000XM5
+    Notification Text: LDAC • 44100 • 24 • Stereo • Optimized for audio quality (990/909kbps) (exact)
+    Package Name: com.amrg.bluetooth_codec_converter (exact) ]
+    
+    
+    
+    Enter Task: Always Works Unless Quality Mismatch
+
+    Task: Location Off
+    Settings: Run Both Together
+    
+    A1: Variable Set [
+         Name: %BluetoothConnected
+         To: True
+         Structure Output (JSON, etc): On ]
+    
+    A2: Location Mode [
+         Mode: Off ]
+        If  [ %BluetoothConnected ~ True ]
+    
+    A3: NFC [ ]
+        If  [ %BluetoothConnected ~ True ]
+    
+    
+    Task: Location On
+    
+    A1: Variable Set [
+         Name: %BluetoothConnected
+         To: False
+         Structure Output (JSON, etc): On ]
+    
+    A2: Airplane Mode [ ]
+    
+    A3: Location Mode [
+         Mode: High Accuracy ]
+    
+    
+    Task: Anon
+    
+    A1: Location Mode [
+         Mode: Device Only ]
+    
+    A2: WiFi [
+         Set: On ]
+    
+    
+    Task: Ldac 660
+    
+    A1: Send Intent [
+         Action: com.amrg.bluetooth_codec_converter.REQUEST_PROFILE_SWITCH
+         Cat: None
+         Extra: com.amrg.bluetooth_codec_converter.extra.PROFILE_NAME:LDAC_44100_16_606
+         Package: com.amrg.bluetooth_codec_converter
+         Target: Broadcast Receiver ]
+        If  [ %BluetoothConnected ~ True ]
+    
+    A2: Send Intent [
+         Action: com.amrg.bluetooth_codec_converter.REQUEST_PROFILE_SWITCH
+         Cat: None
+         Extra: com.amrg.bluetooth_codec_converter.extra.PROFILE_NAME:LDAC_44100_24_606
+         Package: com.amrg.bluetooth_codec_converter
+         Target: Broadcast Receiver ]
+        If  [ %BluetoothConnected ~ True ]
+    
+    
+    Task: Sbc Override
+    
+    A1: Send Intent [
+         Action: com.amrg.bluetooth_codec_converter.REQUEST_PROFILE_SWITCH
+         Cat: None
+         Extra: com.amrg.bluetooth_codec_converter.extra.PROFILE_NAME:SBC_44100_16
+         Package: com.amrg.bluetooth_codec_converter
+         Target: Broadcast Receiver ]
+        If  [ %BluetoothConnected ~ True ]
+    
+    A2: Send Intent [
+         Action: com.amrg.bluetooth_codec_converter.REQUEST_PROFILE_SWITCH
+         Cat: None
+         Extra: com.amrg.bluetooth_codec_converter.extra.PROFILE_NAME:LDAC_44100_24_909
+         Package: com.amrg.bluetooth_codec_converter
+         Target: Broadcast Receiver ]
+        If  [ %BluetoothConnected ~ True ]
+    
+    
+    Task: Anon
+    
+    A1: WiFi [
+         Set: Off ]
+    
+    A2: Location Mode [
+         Mode: Off ]
+    
+    
+    Task: Always Works Unless Quality Mismatch
+    
+    A1: Send Intent [
+         Action: com.amrg.bluetooth_codec_converter.REQUEST_PROFILE_SWITCH
+         Cat: None
+         Extra: com.amrg.bluetooth_codec_converter.extra.PROFILE_NAME:LDAC_44100_24_909
+         Package: com.amrg.bluetooth_codec_converter
+         Target: Broadcast Receiver ]
+        If  [ %BluetoothConnected ~ True ]
+    
+    
+    Task: Disable Profiles For High Res
+    
+    A1: Profile Status [
+         Name: LDAC_88200_24_909
+         Set: Off ]
+        If  [ %BluetoothConnected ~ True ]
+    
+    A2: Profile Status [
+         Name: LDAC_48000_24_990
+         Set: Off ]
+        If  [ %BluetoothConnected ~ True ]
+    
+    A3: Profile Status [
+         Name: LDAC_96000_24_990
+         Set: Off ]
+        If  [ %BluetoothConnected ~ True ]
+    
+    
+    Task: Enable Profiles After High Res
+    
+    A1: Profile Status [
+         Name: LDAC_88200_24_909
+         Set: On ]
+        If  [ %BluetoothConnected ~ True ]
+    
+    A2: Profile Status [
+         Name: LDAC_48000_24_990
+         Set: On ]
+        If  [ %BluetoothConnected ~ True ]
+    
+    A3: Profile Status [
+         Name: LDAC_96000_24_990
+         Set: On ]
+        If  [ %BluetoothConnected ~ True ]
+    
+    
+    Task: Bit Depth Regeneration
+    
+    A1: Send Intent [
+         Action: com.amrg.bluetooth_codec_converter.REQUEST_PROFILE_SWITCH
+         Cat: None
+         Extra: com.amrg.bluetooth_codec_converter.extra.PROFILE_NAME:LDAC_44100_16_909
+         Package: com.amrg.bluetooth_codec_converter
+         Target: Broadcast Receiver ]
+        If  [ %BluetoothConnected ~ True ]
+    
+    A2: Send Intent [
+         Action: com.amrg.bluetooth_codec_converter.REQUEST_PROFILE_SWITCH
+         Cat: None
+         Extra: com.amrg.bluetooth_codec_converter.extra.PROFILE_NAME:LDAC_44100_24_909
+         Package: com.amrg.bluetooth_codec_converter
+         Target: Broadcast Receiver ]
+        If  [ %BluetoothConnected ~ True ]
+    
+    
