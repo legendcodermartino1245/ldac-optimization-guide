@@ -792,30 +792,6 @@ However:
 
 
 
-
-
-## Bluetooth Codec Changer (BCC)
-
-
-
-
-
-
-
-## Verify BCC Isn’t Lying
-
-Use this PowerShell script to monitor real-time LDAC status:
-
-```powershell
-while ($true) {
-    Clear-Host
-    adb shell dumpsys bluetooth_manager | Select-String "ldac"
-    Start-Sleep -Seconds 2
-}
-```
-
-
-
 ###  LDAC Adaptive Mode Stability Matrix
 
 | Sample Rate | Bit Depth         | Stability    | Observations                                                       |
@@ -3843,34 +3819,6 @@ filter option is set to show less in  connectivity labs
 
 ---
 
-
-
-##  What BCC Can and Cannot Store (Session vs Firmware)
-
-Bluetooth Codec Changer (BCC) can apply LDAC profiles during a Bluetooth session, but it cannot persist them across reconnects. Only Sony Music Center can store codec preferences in the headphone firmware.
-
-###  Storage Capability Matrix
-
-| Component                         | Can Apply Codec? | Persists After Reconnect? | Stored in Headphones?     | Notes                                         |
-|----------------------------------|------------------|----------------------------|----------------------------|-----------------------------------------------|
-| **Bluetooth Codec Changer (BCC)**|  Yes           |  No                      |  No                      | Session-only, needs AV ON to apply            |
-| **Sony Music Center**            |  Yes           |  Yes                     |  Yes                     | Can store SBC / LDAC mode in firmware         |
-| **Developer Options**            |  Yes           |  No                      |  No                      | UI-only, gets reset on reconnect              |
-| **Tasker (with BCC)**            |  Yes           |  No                      |  No                      | Needs to trigger on every reconnect           |
-| **Android System (Samsung)**     |  Yes (override)|  Yes                     |  No (stack memory)       | Persists until flushed manually               |
-
----
-
-###  Key Takeaway
-
-> You cannot lock your own LDAC profile with BCC or Developer Options.  
-> Only **Music Center**, when used with **AV ON**, can store a profile that survives Bluetooth off/on, headphone reboot, or reconnect.  
->  **Sample rate and bit depth are never stored** — they are renegotiated per stream.
-
-
-
-
-
 ## Samsung Codec Behavior 
 AAC override is also always active right if LDAC isn't enabled and does enable hd audio in dev settings.
 
@@ -3885,39 +3833,6 @@ After first pairing:
 -  **It is not an opportunity** — it’s part of the automatic override stack.
 
 > Even if you see AAC after a reconnect, Samsung will often switch to LDAC automatically within seconds — unless the override is actively blocked or interrupted (e.g., via SBC or intermediate profile tricks).
-
-
-
-
-
-##  What’s Actually Stored in Sony Headphones vs What’s Host-Controlled
-
-| Setting                       | Stored in Firmware? | Notes                                                                 |
-|-------------------------------|----------------------|-----------------------------------------------------------------------|
-| Codec type (LDAC/SBC/AAC)     |  Yes               | Written by Music Center                                               |
-| LDAC mode (Quality/Stability) |  Yes               | Stored as "Sound Quality Priority" or "Stable Connection"             |
-| Bitrate (990/660/330 kbps)    |  Indirectly        | Tied to LDAC mode, not a direct numeric setting                       |
-| Bit depth (16/24/32-bit)      |  No                | Controlled by host OS or player app                                  |
-| Sample rate (44.1/48/96 kHz)  |  No                | Set dynamically at stream start by the player                        |
-| Absolute Volume ON/OFF        |  No                | Host-side only                                                        |
-| BCC profile                   |  No                | Session-only, cleared on disconnect or reboot                         |
-
->  Bitrate, bit depth, and sample rate are *not* part of the persistent LDAC profile.  
-Only the LDAC mode and codec type are stored, not full codec parameters.
-
----
-
-##  Dual SBC Trigger Stack — Music Center + Tasker
-
-| Source         | When it Fires          | Role                                      |
-|----------------|------------------------|-------------------------------------------|
-| Music Center   | On reconnect           | Applies stored SBC profile                |
-| Tasker         | Bluetooth connected    | Forces SBC via BCC after ~0.3–1.0s delay  |
-
--  **Result:**  
-  - If Music Center fails (too slow), Tasker still resets override  
-  - If Music Center wins the race, Tasker does nothing (SBC → SBC = no-op)  
-  - Two triggers = maximum defense against LDAC override injection
 
 ---
 
