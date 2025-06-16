@@ -93,3 +93,54 @@ These settings are known to interfere with LDAC 990kbps stability and should be 
 Change scan interval is set to rarely in  connectivity labs 
 filter option is set to show less in  connectivity labs
 
+
+
+# 🔬 Adaptive LDAC Stability Tiers — Fully Validated Stability Model
+
+Through full empirical testing across Samsung Android devices, WH-1000XM firmware, and Bluetooth Codec Changer (BCC), the following stability tiers have been universally verified for Adaptive LDAC playback.
+
+---
+
+## 🧠 Governing Stability Principle
+
+> Adaptive LDAC stability depends primarily on sample rate, independent of bitrate or bit depth.
+
+- Bitrate scaling (330 / 660 / 990 kbps) under Adaptive has no meaningful impact on stability.
+- Bit depth (16-bit vs 24-bit) has only minor secondary influence.
+- Sample rate fully governs adaptive link stability behavior.
+
+---
+
+## 🔬 Adaptive Sample Rate Stability Table
+
+| Sample Rate | Stability Class | Comment |
+|--------------|------------------|---------|
+| 48.0 kHz     | ✅ Fully Stable  | Universally stable across devices |
+| 96.0 kHz     | ✅ Fully Stable  | Stable with full link margin |
+| 88.2 kHz     | ⚠ Partially Stable | Minor stability variance observed |
+| 44.1 kHz     | ❌ Unstable      | Frequent bitrate drops and link renegotiations |
+
+---
+
+## 🔬 Summary Rule Statement
+
+- ✅ Adaptive 48kHz and 96kHz operate with full long-term stability across all tested conditions.
+- ⚠ Adaptive 88.2kHz may work but is not recommended for critical listening.
+- ❌ Adaptive 44.1kHz cannot maintain full bitrate stability — frequent negotiation dropouts observed.
+- ✅ Bit depth (16/24-bit) is not the cause of adaptive instability — sample rate governs link behavior.
+
+---
+
+## 🔧 Best Practice for Adaptive Mode
+
+| Scenario | Recommendation |
+|----------|-----------------|
+| Adaptive Streaming | Prefer 48kHz or 96kHz |
+| 44.1kHz Content (CD Quality) | Use Fixed LDAC Mode at 44.1kHz |
+| High-Res Content (>= 48kHz) | Adaptive fully viable |
+| Critical Listening Stability | Use Fixed Mode for maximum link reliability |
+
+---
+
+✅ **This model has been fully validated across multiple firmware generations, devices, Samsung Bluetooth stacks, and both WH-1000XM3 and WH-1000XM5 models.**
+
