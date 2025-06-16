@@ -609,3 +609,55 @@ The Timing-Based Override Preemption engine operates as:
 - Once executed, Samsung override cannot stabilize fully, and BCC profile control remains dominant.
 
 ---
+## 🔧 Injected Override Preemption — Auto Switch Only (0ms)
+
+Samsung’s override injection can be fully healed using only BCC Auto Switch without any Intermediate Profile. This method relies on fast detection and instant correction after Samsung injects its default override.
+
+---
+
+### ✅ Core Logic:
+
+- Samsung injects: `96 kHz / 32-bit / Adaptive` (default override profile)
+- BCC Auto Switch detects codec state immediately.
+- BCC Auto Switch applies target profile instantly (e.g. `44.1 kHz / 24-bit / 909 kbps`)
+- AutoNotification optionally monitors `"Default"` and `"Adaptive"` GUI states to catch desyncs.
+
+---
+
+### ✅ Setup:
+
+- **Intermediate Profile:** Disabled (none)
+- **Auto Switch Profile:** e.g. `44.1 kHz / 24-bit / 909 kbps` (your target)
+- **Execution Delay:** `0ms` (instant execution)
+- **2-Step:** Disabled
+- **AutoNotification:** (optional but recommended for GUI correction)
+- **Tasker:** Optional fallback regeneration if GUI desync detected.
+
+---
+
+### ✅ Behavior:
+
+- No intermediate profile used — override is allowed to inject.
+- Auto Switch reacts immediately to override injection.
+- Override is healed within milliseconds.
+- Fully defeats Samsung override injection before playback starts.
+
+---
+
+### ✅ Advantages:
+
+- Simplest configuration
+- No intermediate profile management
+- Fully automated healing even on reconnects
+
+### ⚠ Stability Considerations:
+
+- Highly stable if BCC execution timing is fast enough.
+- Slightly more sensitive to handshake race conditions during certain app launches.
+- Intermediate profile still offers additional margin for safety but is not mandatory.
+
+---
+
+### 🔬 Summary:
+
+> **Auto Switch-Only Healing defeats Samsung's override injection fully and instantly, provided BCC executes immediately after injection. Intermediate Profiles are optional for additional stability margin but not required for core defeat.**
