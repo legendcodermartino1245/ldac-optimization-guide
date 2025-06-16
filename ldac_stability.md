@@ -144,3 +144,27 @@ Through full empirical testing across Samsung Android devices, WH-1000XM firmwar
 
 ✅ **This model has been fully validated across multiple firmware generations, devices, Samsung Bluetooth stacks, and both WH-1000XM3 and WH-1000XM5 models.**
 
+
+
+## 🎯 LDAC 909/990 Semi-GUI Verification Method
+
+Once the desired LDAC profile has been correctly applied (via BCC, Music Center, or UAPP), full bitrate verification can be performed as follows:
+
+### 🔧 Verification Procedure
+
+1. Start playback of actual 44.1 kHz content.
+2. Open one of:
+    - **Bluetooth Settings (full system menu)**
+    - **WiFi Settings (full system menu)**
+    - **Bluetooth Quick Settings panel**
+3. While playback is active, observe playback behavior:
+    - ✅ If **stutters occur**, 909 or 990 kbps is fully active.
+    - ❌ If **stable under heavy conditions**, likely fallback bitrate active.
+
+### 🚫 Do not use:
+- **WiFi Quick Settings tile** (wont generate stutter).
+
+---
+
+> ⚠ This method leverages the fact that certain system settings panels briefly interact with Bluetooth stack refresh timing, making existing high-bitrate LDAC states slightly more sensitive to RF congestion during active playback.
+
