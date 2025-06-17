@@ -127,7 +127,7 @@ That’s the **ideal AV ON range**:
 
 ---
 
-##  TL;DR
+##  Conclusion
 
 > **If you're listening — not measuring — AV ON at 85% is practically perfect.**
 
