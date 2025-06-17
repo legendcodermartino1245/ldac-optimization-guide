@@ -157,132 +157,140 @@ Samsung injects its own LDAC codec profile at the very start of every Bluetooth 
 >    - **Bluetooth Codec Changer = Default**
 
 
-##  LDAC Codec Negotiation & Profile Generation
+## LDAC Codec Negotiation & Profile Generation — Finalized Edition
 
 > Everything that determines which codec (SBC, LDAC 330/660/990) gets selected during Bluetooth connection.  
 > This list is 100% focused on **connection-time behaviors** — not post-connection bitrate changes or audio stability.
 
 ---
 
-###  Headphone & Device Factors
+### 🎧 Headphone & Device Factors
 
--  **Power cycling headphones**  
+- **Power cycling headphones**  
   → Clears stored codec profile in the headphone’s memory.  
   → Allows a new profile (e.g., LDAC 990) to be stored on next clean connection.
 
--  **Multipoint pairing active**  
+- **Multipoint pairing active**
 
--  **AVRCP version mismatch**  
+- **AVRCP version mismatch**  
   → May block proper Absolute Volume detection.  
   → Can disrupt handshake logic or GUI sync.
 
--  **Absolute Volume ON vs OFF**  
+- **Absolute Volume ON vs OFF**  
   - **AV ON**: Android controls headphone volume directly. Can block SBC → LDAC profile switching.  
   - **AV OFF**: Required for proper manual profile chaining, BCC override, and stored profile training.  
     → Disables Android volume sync interference, enabling clean codec negotiation.
 
 ---
 
-###  Phone Settings That Affect Codec Negotiation
+### 📱 Phone Settings That Affect Codec Negotiation
 
--  **LDAC toggle in Developer Options**  
+- **LDAC toggle in Developer Options**  
   → Activates Samsung’s LDAC override stack.  
   → Must be followed by SBC reset and Developer Options OFF to stop override.
 
--  **Developer Options open during connection**  
+- **Developer Options open during connection**  
   → Re-applies override logic immediately if LDAC is selected.  
   → Avoid opening Dev Options during or right before pairing.
 
--  **HD Audio toggle in Bluetooth device settings**  
+- **HD Audio toggle in Bluetooth device settings**  
   → Triggers full codec renegotiation.  
-  → May allow or re-trigger override stack.
+  → May allow or re-trigger override stack.  
+  → Controls whether LDAC is allowed at all in A2DP profile exchange (independent of Developer Options LDAC toggle).
 
--  **Nearby Devices permission** (e.g., Music Center, GMS)  
+- **Nearby Devices permission (Music Center, GMS)**  
   → Enables silent override via GATT.  
   → Reapplies stored codec profiles without user interaction.  
   → Must be revoked or app force-stopped to disable.
 
--  **Connection method: Quick Settings vs Power-On**  
+- **Connection method: Quick Settings vs Power-On**  
   → Reconnecting via **Quick Settings** toggle: more likely to honor stored (trained) profile.  
   → Reconnecting via **powering on headphones**: often re-triggers Samsung override.
 
--  **Disabling Developer Options while disconnected**  
+- **Disabling Developer Options while disconnected**  
   → Leaves override state intact — no reset occurs.
 
--  **Disabling Developer Options while connected**  
+- **Disabling Developer Options while connected**  
   → Clears override state immediately, allowing your codec profile to apply.
 
 ---
 
-###  System Stack Behavior & Profile Storage
+### ⚙ System Stack Behavior & Profile Storage
 
--  **Samsung LDAC override stack**  
+- **Samsung LDAC override stack**  
   → Automatically activates if LDAC is used in Developer Options.  
-  → Always forces Samsung’s preferred LDAC mode unless bypassed.
+  → Always forces Samsung’s preferred LDAC mode unless bypassed.  
+  → On Samsung, override stack can independently toggle HD Audio ON after pairing.  
+  → However, override stack **cannot toggle LDAC codec toggle directly** — only HD Audio layer.
 
--  **Absolute Volume status**  
+- **AAC default fallback post-pairing (Samsung stack)**  
+  → After first pairing, AAC is no longer neutral.  
+  → Becomes part of Samsung’s override chain if LDAC isn't fully locked.  
+  → Even with AV OFF, Samsung may initially negotiate AAC, then force LDAC override within seconds unless SBC profile chaining blocks it.
+
+- **Absolute Volume status**  
   - **AV ON**: Volume sync events can re-trigger override or block codec switching.  
   - **AV OFF**: Required for successful intermediate profile chaining and GUI desync repair.  
     → Prevents Android-side volume control from interfering with profile logic.
 
--  **Fast Pair timing**  
+- **Fast Pair timing**  
   → Determines which profile wins: Samsung override or user-defined profile.  
   → Override usually applies within 1–2 seconds unless interrupted by SBC chaining.
 
--  **Intermediate profile chaining**  
+- **Intermediate profile chaining**  
   → Example: SBC → LDAC 16-bit → LDAC 24-bit 990  
   → Bypasses override stack when done early and with AV OFF.  
   → Essential to force LDAC 990 without triggering Samsung override.
 
--  **Waiting 10+ seconds post-handshake (no override)**  
+- **Waiting 10+ seconds post-handshake (no override)**  
   → Locks negotiated profile into headset firmware (WH-1000XM5/XM3).  
   → Overrides won’t reapply unless retriggered.
 
--  **GUI desync between Developer Options and BCC**  
+- **GUI desync between Developer Options and BCC**  
   → Happens if override or stack race condition occurs.  
   → Solved by double-applying the BCC profile and using AV OFF.
 
--  **Codec override persists across reboots**  
+- **Codec override persists across reboots**  
   → Only cleared via SBC handshake followed by Developer Options OFF during active connection.
 
 ---
 
-###  App Behavior That Influences Codec Negotiation
+### 📲 App Behavior That Influences Codec Negotiation
 
--  **Sony | Music Center**  
+- **Sony | Music Center**  
   → With Nearby Devices permission: silently re-applies LDAC profile at connection.  
   → Override happens even if you only changed volume.  
   → Must be force-stopped or stripped of permission to prevent interference.
 
--  **Bluetooth Codec Changer (BCC)**  
+- **Bluetooth Codec Changer (BCC)**  
   → Defeats Samsung override using profile chaining:  
     - SBC → LDAC 16-bit → LDAC 24-bit 990  
   → Must apply within 1–2 seconds of connection.  
   → Double-apply profile to fix GUI mismatch.
 
--  **USB Audio Player PRO (UAPP)**  
+- **USB Audio Player PRO (UAPP)**  
   → May re-trigger codec negotiation at playback start.  
   → Can override or conflict with BCC if launched too early.  
   → Best practice: allow BCC to finish first, then launch UAPP.
 
--  **Google Play Services (GMS)**  
+- **Google Play Services (GMS)**  
   → With Nearby Devices permission: silently applies stored override.  
   → Often triggered during Fast Pair.  
   → Disable permission to stop this.
 
--  **Tasker (Bluetooth connect triggers)**  
+- **Tasker (Bluetooth connect triggers)**  
   → Can switch to SBC or intermediate LDAC profiles instantly at connect.  
   → Must run before override logic executes (within ~1–2s).  
   → Used to automate profile chaining for override bypass.
 
--  **“Automatically save devices” in Fast Pair**  
+- **“Automatically save devices” in Fast Pair**  
   → If enabled, GMS syncs override profiles to the cloud.  
   → Reapplies LDAC override silently after reset or on new device.  
   → Must be turned OFF to prevent Samsung override returning.
 
 ---
 
-## 🔧 Samsung Codec Behavior — Override Negotiation Logic
+## 🧬 Samsung Codec Behavior — Override Negotiation Logic
 
 Samsung's codec handling is **never neutral** after pairing — all codec transitions participate in its override system.
 
@@ -296,6 +304,8 @@ Samsung's codec handling is **never neutral** after pairing — all codec transi
 - AAC becomes the "preferred high-quality codec" under Samsung's stack if LDAC is not allowed.
 - AAC selection here is not user-driven — it is part of Samsung’s override logic asserting itself even in absence of LDAC.
 - Disabling LDAC does not fall back to SBC by default; AAC is treated as the next-in-line override.
+- **Absolute Volume state has no effect on AAC override behavior**:  
+  → AV OFF does not prevent AAC default activation when LDAC is disabled.
 
 ---
 
@@ -324,9 +334,11 @@ Samsung's codec handling is **never neutral** after pairing — all codec transi
 
 ### 🔧 Samsung Override Control Priority
 
-1️⃣ HD Audio Toggle (global switch Samsung controls)  
-2️⃣ Override stack injects AAC or LDAC depending on allowed codec set  
-3️⃣ Developer Options LDAC settings mostly ignored unless override is fully defeated
+| Priority | Control Layer |
+|----------|----------------|
+| 1️⃣ | HD Audio Toggle (global switch Samsung controls) |
+| 2️⃣ | Override stack injects AAC or LDAC depending on allowed codec set |
+| 3️⃣ | Developer Options LDAC settings mostly ignored unless override is fully defeated |
 
 ---
 
