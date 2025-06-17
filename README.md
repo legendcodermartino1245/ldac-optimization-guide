@@ -541,6 +541,17 @@ Samsung's override stack injects codecs in strict priority order based on availa
 - Developer Options codec selections override this priority chain only if explicitly forced.
 
 
+## 🎯 LDAC Toggle — Playback State Independence
+
+- Enabling the LDAC toggle in Bluetooth settings **only updates the allowed codec whitelist.**
+- This whitelist update occurs immediately, regardless of whether music playback is active or paused.
+- Playback state has no authority over codec permission.
+- However, playback state can affect *when* renegotiation occurs:
+  - If playback is running during whitelist change, the A2DP session will not renegotiate live.
+  - If playback is paused or restarted, the next A2DP handshake can negotiate LDAC automatically using the updated whitelist.
+- Developer Options remains the only authority that can immediately force renegotiation during active playback.
+- BCC (Bluetooth Codec Changer) can trigger renegotiation indirectly by manipulating handshake profiles, even while playback is active.
+
 
 ## Basic setup from start
 1. Settings Google services all services devices enable scan for nearby devices
