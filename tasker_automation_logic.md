@@ -566,4 +566,145 @@ These are embedded inside the Tasker `.prj.xml` using:
 - `<plugintypeid>com.joaomgcd.autonotification.intent.IntentInterceptNotification</plugintypeid>`
 - And are activated as soon as AutoNotification is installed and allowed notification access.
 
-2. AutoNotification Fallback Recovery Chain
+
+
+
+# 🧬 Tasker ↔ BCC Integration Contract
+
+This section defines how **Tasker and Bluetooth Codec Changer (BCC)** work together to control LDAC codec switching.  
+All codec control in this system is done by **Tasker broadcasting BCC profile names**, and **every name must exist inside BCC's `.json` profile files** for the override logic to work.
+
+---
+
+## ✅ Profile Naming Convention
+
+Each BCC profile used by Tasker follows this format:
+
+```
+LDAC_<SAMPLE_RATE>_<BIT_DEPTH>_<MODE>
+```
+
+- **SAMPLE_RATE**: `44100`, `48000`, `88200`, `96000`
+- **BIT_DEPTH**: `16`, `24`, `32`
+- **MODE**:
+  - `303`, `606`, `909`, `990` — Fixed bitrate
+  - `ADAPTIVE` — Adaptive bitrate
+  - `DEFAULT` — System-decided fallback
+  - `SBC_DEFAULT` — Special fallback used to trigger SBC handshake
+
+---
+
+## 📁 BCC Profile File Location
+
+All profiles must be defined inside files like:
+
+```
+Bluetooth Codec Changer/profiles/tested/WH-1000XM5_AV_OFF.json
+Bluetooth Codec Changer/profiles/tested/WH-1000XM5_AV_ON.json
+Bluetooth Codec Changer/profiles/tested/WH-1000XM3_AV_OFF.json
+...
+```
+
+These files must contain a `profiles` array with matching `"name"` fields.
+
+---
+
+## 📡 Tasker-to-BCC Broadcast Logic
+
+Every codec switch in Tasker uses:
+
+```
+Intent:
+  com.amrg.bluetooth_codec_converter.REQUEST_PROFILE_SWITCH
+
+Extra:
+  com.amrg.bluetooth_codec_converter.extra.PROFILE_NAME:<EXACT_NAME>
+```
+
+Tasker tasks like `Sbc Override`, `Bit Depth Regeneration`, and `Always Works Unless Quality Mismatch` all broadcast specific `PROFILE_NAME` values to BCC.
+
+---
+
+## ✅ Profile Usage Matrix
+
+| Tasker Task                          | BCC Profile Name            | Must Exist in BCC? | Purpose                            |
+|--------------------------------------|------------------------------|---------------------|-------------------------------------|
+| `Sbc Override`                       | `SBC_DEFAULT`                | ✅                  | Triggers SBC handshake reset        |
+| `Bit Depth Regeneration`            | `LDAC_44100_16_606`          | ✅                  | Forces low-bit LDAC profile to retrain firmware |
+| `Always Works Unless Mismatch`      | `LDAC_44100_24_909`          | ✅                  | Applies high-quality LDAC profile   |
+| `Ldac 660`                           | `LDAC_44100_24_660` (optional) | ✅                | Handles fallback from AAC/APTX      |
+| `AV_OFF Recovery`                   | `LDAC_44100_16_ADAPTIVE`     | ✅                  | Ensures override bypass with AV OFF |
+| `Default Detection Recovery`        | `LDAC_44100_24_DEFAULT`      | ✅                  | Handles fallback if system returns to Default |
+
+---
+
+## ⚠️ Enforcement Rule
+
+> **If a Tasker task references a profile that does not exist in BCC, the codec switch fails silently.**
+
+To ensure proper operation:
+- Every profile name used in Tasker **must exist** in BCC
+- Tasker assumes BCC has full authority and correct codec access
+- This allows complete override of Developer Options, Samsung behavior, and Fast Pair profiles
+
+---
+
+## 🔁 Practical Tip
+
+To generate or sync profiles:
+- Create them manually in BCC using its UI
+- Or export from a working config and import on new devices
+- Match Tasker broadcast values 1:1 with `"name"` fields in `.json`
+
+
+## 🔍 AutoNotification-Based Codec Validation — Canonical Method
+
+This Tasker system validates codec switching **only via BCC’s own notification**, not guessed system state.
+
+- BCC's notification reflects the **actual active codec profile**.
+- AutoNotification intercepts this to confirm:
+  - Codec type (LDAC)
+  - Sample rate (e.g., 44.1 kHz)
+  - Bit depth (e.g., 24-bit)
+  - Bitrate/quality (e.g., 909 kbps)
+- This is **the authoritative state** after any renegotiation.
+
+### Why This Is Superior:
+- ✅ No ADB or dumpsys required
+- ✅ Reflects final applied state, not just intent
+- ✅ Works post-handshake and after fallback recovery
+- ⚠ Only inaccurate if **2-Step is visually enabled but functionally broken**, which is handled by fallback logic (Class 3.x)
+
+### Logic Summary:
+- If profile matches `LDAC_44100_24_909` → Success
+- Else → Trigger fallback logic or retry (e.g., Class 2.2 → 3.2)
+
+This is the **only trusted runtime verification layer** and forms the core of Tasker’s self-healing override strategy.
+
+
+
+
+
+## 🔍 AutoNotification-Based Codec Validation — Canonical Method
+
+This Tasker system validates codec switching **only via BCC’s own notification**, not guessed system state.
+
+- BCC's notification reflects the **actual active codec profile**.
+- AutoNotification intercepts this to confirm:
+  - Codec type (LDAC)
+  - Sample rate (e.g., 44.1 kHz)
+  - Bit depth (e.g., 24-bit)
+  - Bitrate/quality (e.g., 909 kbps)
+- This is **the authoritative state** after any renegotiation.
+
+### Why This Is Superior:
+- ✅ No ADB or dumpsys required
+- ✅ Reflects final applied state, not just intent
+- ✅ Works post-handshake and after fallback recovery
+- ⚠ Only inaccurate if **2-Step is visually enabled but functionally broken**, which is handled by fallback logic (Class 3.x)
+
+### Logic Summary:
+- If profile matches `LDAC_44100_24_909` → Success
+- Else → Trigger fallback logic or retry (e.g., Class 2.2 → 3.2)
+
+This is the **only trusted runtime verification layer** and forms the core of Tasker’s self-healing override strategy.
