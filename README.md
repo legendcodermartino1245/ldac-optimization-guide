@@ -473,7 +473,72 @@ Samsung's codec handling is **never neutral** after pairing — all codec transi
 ---
 
 
+### ✅ aptX Override Logic (Unified with AAC Behavior)
 
+Samsung’s override stack applies identical injection logic for aptX and AAC when LDAC is unavailable or disabled.
+
+- If **LDAC is disabled globally** (HD Audio toggle OFF or LDAC toggle OFF):
+  - Samsung will forcibly activate **aptX** if supported by both device and headphones.
+  - If aptX is not supported, Samsung falls back to **AAC** as the next override layer.
+  - Only if both aptX and AAC are unavailable will SBC be negotiated.
+
+- The same Samsung authority behavior applies for both aptX and AAC:
+  - HD Audio toggle is automatically enabled at connection when aptX- or AAC-capable headphones are paired.
+  - Override injection happens immediately at handshake.
+  - Absolute Volume ON or OFF has no effect on Samsung’s decision to inject aptX or AAC.
+  - Developer Options can override codec selection manually if codec whitelist manipulation is performed.
+
+- aptX and AAC are never neutral fallback codecs inside Samsung's override stack:
+  - Both are active override pathways.
+  - Both may briefly appear during initial connection before Samsung may transition to LDAC (if later allowed).
+  - SBC is not negotiated unless all high-quality codecs are unavailable or manual override defeat methods (e.g. SBC handshake exploit) are used.
+
+---
+
+### ✅ HD Audio Toggle Auto-Activation Logic (Full Behavior)
+
+- Samsung automatically enables the HD Audio toggle at:
+  - First pairing with any LDAC-, aptX-, or AAC-capable device.
+  - Every reconnection of any previously paired LDAC-, aptX-, or AAC-capable device.
+  - Reconnection after reboot, power cycle, or Bluetooth toggle cycling.
+  - Even if user manually disabled HD Audio previously, Samsung re-enables it at handshake.
+
+- This occurs independently of:
+  - Developer Options state.
+  - Absolute Volume ON or OFF.
+  - Google Fast Pair metadata.
+  - Manual user interaction.
+
+- HD Audio toggle acts as Samsung's override authority gate:
+  - Required for Samsung to inject LDAC, aptX or AAC.
+  - Toggle state is vendor-managed at handshake level.
+
+| Event | HD Audio Toggle Behavior |
+|-------|--------------------------|
+| First pairing (LDAC/aptX/AAC capable device) | ✅ Auto-enabled |
+| Reconnection after reboot / power cycle | ✅ Auto-enabled |
+| Reconnection after manual HD Audio disable | ✅ Auto-reenabled |
+| SBC-only device | 🔴 No change |
+| Device unpaired and fully removed | 🔴 Reset to default OFF |
+
+> **Note:** Samsung never toggles the LDAC codec toggle directly. Only HD Audio toggle is manipulated automatically as part of Samsung’s vendor override activation logic.
+
+---
+
+### 🔧 Samsung Codec Override Injection Priority
+
+Samsung's override stack injects codecs in strict priority order based on available capabilities:
+
+| Priority | Codec Injected | Trigger Condition |
+|----------|-----------------|--------------------|
+| 1️⃣ | LDAC | If LDAC allowed and override active |
+| 2️⃣ | aptX | If LDAC unavailable but aptX supported |
+| 3️⃣ | AAC | If LDAC and aptX unavailable but AAC supported |
+| 4️⃣ | SBC | Only if all others unavailable or override defeat logic applies |
+
+- The HD Audio toggle must be ON for any of these override injections to execute.
+- Absolute Volume state has no effect on this priority ordering.
+- Developer Options codec selections override this priority chain only if explicitly forced.
 
 
 
