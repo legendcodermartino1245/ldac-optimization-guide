@@ -621,6 +621,77 @@ Samsung override inherits the active A2DP codec profile during LDAC toggle event
 
 
 
+## 🔬 Developer Options — Session-Based Authority Model (Fully Validated)
+
+> Developer Options LDAC control operates strictly at the A2DP session level.
+
+| Session Phase | Developer Options Behavior | Injection Authority |
+|----------------|-----------------------------|---------------------|
+| **Handshake Phase (New Connection)** | Injects LDAC codec profile directly into A2DP negotiation. | ✅ Full injection authority. |
+| **Active Session (Already Connected)** | Updates codec whitelist only; no codec renegotiation occurs automatically. | ❌ No live injection authority. |
+
+### 🧬 Memory Behavior
+
+- If Developer Options was active during handshake → codec profile injection persists in system memory across reconnects.
+- Disabling Developer Options while disconnected does not clear this memory state.
+- Only performing a **SBC handshake reset + Developer Options OFF while connected** fully clears the Developer Options memory carryover.
+
+### 🔑 Absolute Summary Rule
+
+> **Developer Options = Session-based codec injection authority.**  
+> - Active only at handshake phase.  
+> - Passive (whitelist only) during live A2DP sessions.
+dev options is session based
+
+
+# 🧬 LDAC Override Authority Model — Unified Engineering Addendum (v3.5 Final Master Model)
+
+This addendum documents the full internal injection logic, authority timing, renegotiation models, firmware storage layers, and reinjection subsystems behind Samsung's LDAC override behavior — fully reverse-engineered from real-world system behavior.
+
+---
+
+## 1️⃣ Unified Override Authority Chain
+
+| Authority | Injection Timing | Function |
+|------------|-------------------|----------|
+| **Developer Options** | Pre-Handshake | Modifies Android’s Bluetooth codec whitelist before A2DP negotiation. Controls which codecs, sample rates, bit depths, and bitrate modes are allowed. Does **not** inject full codec profiles directly. |
+| **Fast Pair (Google Play Services)** | Pre-Handshake (Reinjection Layer) | Injects previously learned profiles before A2DP handshake completes if cloud profile syncing is enabled. Can fully bypass Samsung override injection. |
+| **Samsung Override** | During Handshake | Injects LDAC codec parameters (Adaptive 96 kHz / 32-bit / 990 kbps) into A2DP session if Fast Pair or Developer Options did not preempt injection. |
+| **Bluetooth Codec Changer (BCC)** | Post-Handshake (Active Renegotiation) | Actively forces codec renegotiation after Samsung injection. Fully overrides active A2DP profile before firmware memory is updated. |
+| **Tasker (via BCC control)** | Post-Handshake Automation | Indirect control via BCC API. Triggers BCC renegotiation actions but holds no native injection authority itself. |
+| **UAPP Direct Driver (HAL)** | Post-Handshake (Active Renegotiation via HAL driver reinit) | Triggers A2DP renegotiation indirectly via playback parameter change (sample rate, bit depth). Fully valid renegotiation authority. |
+| **Sony Headphone Firmware Profile Memory** | Post-Renegotiation (Passive Learning) | Learns and stores LDAC profiles *after* valid renegotiation has stabilized. Applies stored profiles during future reconnects. |
+| **Music Center App** | Post-Handshake (Reinjection Layer) | Reasserts previously stored LDAC profiles after A2DP session opens. Applies correction if session parameters mismatch firmware memory.
+
+---
+
+## 2️⃣ Unified Override Injection & Reinjection Flow
+
+```text
+Bluetooth Connection Event
+  ├── Developer Options modifies codec whitelist (if active)
+  │      ├── Restrictive whitelist → Samsung blocked
+  │      └── Permissive whitelist → Samsung allowed
+  ├── Fast Pair may inject full profile pre-handshake (if cloud profile syncing enabled)
+  └── If Fast Pair inactive → Samsung injects Adaptive 96/32 profile during handshake
+
+Post-Handshake Session Opens
+  ├── Renegotiation Engines:
+  │      ├── BCC (Manual or Tasker): Direct A2DP renegotiation
+  │      └── UAPP: HAL parameter change → indirect renegotiation
+  │              ├── Sample rate / bit depth change → guaranteed renegotiation
+  │              └── HAL idle-resume reopening → renegotiation possible
+  ├── Music Center Reinjection:
+  │      └── Post-handshake profile reassertion from firmware memory
+  └── Firmware Learning:
+         └── Firmware stores profile after valid renegotiation
+
+Future Reconnects:
+  ├── Fast Pair may inject stored profile pre-handshake
+  └── Music Center may reapply profile post-handshake if mismatch detected
+```
+
+
 
 
 ## Basic setup from start
@@ -807,67 +878,5 @@ Samsung override inherits the active A2DP codec profile during LDAC toggle event
 
 # Linux
 Dont use Pulseaudio use Pipewire instead
-
-
-## 🔬 Developer Options — Session-Based Authority Model (Fully Validated)
-
-> Developer Options LDAC control operates strictly at the A2DP session level.
-
-| Session Phase | Developer Options Behavior | Injection Authority |
-|----------------|-----------------------------|---------------------|
-| **Handshake Phase (New Connection)** | Injects LDAC codec profile directly into A2DP negotiation. | ✅ Full injection authority. |
-| **Active Session (Already Connected)** | Updates codec whitelist only; no codec renegotiation occurs automatically. | ❌ No live injection authority. |
-
-### 🧬 Memory Behavior
-
-- If Developer Options was active during handshake → codec profile injection persists in system memory across reconnects.
-- Disabling Developer Options while disconnected does not clear this memory state.
-- Only performing a **SBC handshake reset + Developer Options OFF while connected** fully clears the Developer Options memory carryover.
-
-### 🔑 Absolute Summary Rule
-
-> **Developer Options = Session-based codec injection authority.**  
-> - Active only at handshake phase.  
-> - Passive (whitelist only) during live A2DP sessions.
-dev options is session based
-
-
-# 🧬 LDAC Override Authority Model — Unified Engineering Addendum (Final Authority Stack Edition)
-
-This addendum documents the full internal injection logic, authority timing, renegotiation models, firmware storage layers, and reinjection subsystems behind Samsung's LDAC override behavior — fully reverse-engineered from real-world system behavior.
-
----
-
-## 1️⃣ Unified Override Authority Chain
-
-| Authority | Injection Timing | Function |
-|------------|-------------------|----------|
-| **Developer Options** | Pre-Handshake | Modifies Android’s Bluetooth codec whitelist before A2DP negotiation. Controls which codecs, sample rates, bit depths, and bitrate modes are allowed. Does **not** inject full codec profiles directly. |
-| **Fast Pair (Google Play Services)** | Pre-Handshake (Reinjection Layer) | Injects previously learned profiles before A2DP handshake completes if cloud profile syncing is enabled. Can fully block Samsung override from injecting at connection. |
-| **Samsung Override** | During Handshake | Injects LDAC codec parameters (Adaptive 96 kHz / 32-bit / 990 kbps) into A2DP session if Fast Pair or Developer Options did not preempt injection. Operates as primary system override at connection time. |
-| **Bluetooth Codec Changer (BCC)** | Post-Handshake (Active Renegotiation) | Actively forces codec renegotiation after Samsung injection. Fully overrides active A2DP profile before firmware memory is updated. |
-| **Tasker (via BCC control)** | Post-Handshake Automation | Indirect control via BCC API. Triggers BCC renegotiation actions but holds no native injection authority itself. |
-| **UAPP Direct Driver** | HAL Level | Bypasses Android’s A2DP stack entirely. Direct transport-level communication — not part of override model. |
-| **Sony Headphone Firmware Profile Memory** | Post-Renegotiation (Passive Learning) | Learns and stores LDAC profiles *after* valid renegotiation has stabilized. Cannot apply profiles during initial handshake. Only contributes on future reconnects. |
-| **Music Center App** | Post-Handshake (Reinjection Layer) | Reasserts previously stored LDAC profiles after A2DP session opens. Applies correction if session parameters mismatch firmware memory. Operates after Fast Pair and Samsung layers.
-
----
-
-## 2️⃣ Complete Override Injection & Reinjection Flow
-
-```text
-Bluetooth Connection Event
-  ├── Developer Options modifies codec whitelist (if active)
-  │      ├── If restrictive → Fast Pair and Samsung limited
-  │      └── If permissive → Fast Pair or Samsung may inject full profile
-  └── Fast Pair may inject profile pre-handshake (if cloud profile syncing enabled)
-      └── If Fast Pair inactive or absent → Samsung injects Adaptive 96/32 during handshake
-          └── After Samsung injection → A2DP renegotiation possible
-              └── Renegotiation triggered (e.g. by BCC or compatible method)
-                  └── If renegotiation succeeds → Headphone firmware learns and stores profile
-                      └── On future reconnects:
-                          ├── Fast Pair may inject profile pre-handshake
-                          └── Music Center may reinject profile post-handshake if needed
-
 
 
