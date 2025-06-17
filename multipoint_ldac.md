@@ -1,4 +1,4 @@
-##  Multipoint LDAC Overview
+#  Multipoint LDAC Overview
 
 The **Sony WH-1000XM5** supports **multipoint Bluetooth**, allowing connection to **two devices simultaneously**.
 
