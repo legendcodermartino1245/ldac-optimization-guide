@@ -380,13 +380,11 @@ Samsung's codec handling is **never neutral** after pairing — all codec transi
 
 | Condition | LDAC Switches Automatically? | Notes |
 |-----------|----------------------------|-------|
-| ✅ No active playback (idle/disconnected) | ✅ Yes | Full A2DP negotiation on first playback. |
-| ✅ New A2DP session start (app switch) | ✅ Yes | Session switch triggers renegotiation. |
 | ✅ Disconnect → Reconnect | ✅ Yes | Always renegotiates codec. |
 | ✅ Changing LDAC settings (Developer Options) | ✅ Yes | Developer Options directly injects codec pre-handshake. |
 | ⚠ Changing LDAC settings (BCC, Music Center) | ❌ No (needs renegotiation) | Requires active A2DP session and renegotiation. |
 | ⚠ Changing sample rate via UAPP | ✅ Yes (indirect) | HAL session reset triggers renegotiation. |
-| ⚠ Pause + Resume (media apps) | ❌ Usually no | Session often stays alive. |
+| ⚠ Pause + Resume (media apps) | ❌ no | Session often stays alive. |
 | 🔴 Active playback ongoing during toggle | ❌ No | Fully locked session. |
 | 🔴 Short pause (few sec) | ❌ No | A2DP stack remains alive. |
 | 🔴 No external renegotiation triggers | ❌ No | Toggle alone insufficient. |
@@ -399,7 +397,7 @@ Samsung's codec handling is **never neutral** after pairing — all codec transi
 
 | Developer Options History | Behavior on Reconnect |
 |---------------------------|-----------------------|
-| LDAC previously selected in Developer Options | LDAC often activates automatically upon reconnect. |
+| LDAC previously selected in Developer Options | LDAC always activates automatically upon reconnect. |
 | Developer Options disabled, but SBC reset not performed | LDAC memory still applied automatically. |
 | Developer Options disabled **and** SBC handshake performed (override reset) | LDAC activation requires full renegotiation. |
 
@@ -444,7 +442,7 @@ Samsung's codec handling is **never neutral** after pairing — all codec transi
 | Timing | Who Can Control? | Method |
 |--------|------------------|--------|
 | 🔌 **Before Connection (Handshake)** | Developer Options, Samsung Override, Fast Pair | Direct codec injection authority. |
-| 🎶 **After Connection (Active Session)** | BCC, Music Center, UAPP (session restart), Tasker | Renegotiation triggers only. |
+| 🎶 **After Connection (Active Session)** | BCC, Music Center, UAPP (session restart) | Renegotiation triggers only. |
 
 ---
 
@@ -551,6 +549,78 @@ Samsung's override stack injects codecs in strict priority order based on availa
   - If playback is paused or restarted, the next A2DP handshake can negotiate LDAC automatically using the updated whitelist.
 - Developer Options remains the only authority that can immediately force renegotiation during active playback.
 - BCC (Bluetooth Codec Changer) can trigger renegotiation indirectly by manipulating handshake profiles, even while playback is active.
+
+
+## 🧬 Samsung Override — Full Authority Chain Behavior (Finalized Edition)
+
+> This module documents the fully validated override behavior inside Samsung’s Bluetooth stack, covering profile inheritance, filtering, session isolation, and parameter authority boundaries.
+
+---
+
+### 1️⃣ A2DP Profile Inheritance Authority
+
+Samsung’s override system dynamically inherits LDAC profiles from the active A2DP session whenever the LDAC toggle (HD Audio ON/OFF) is flipped while the headphones remain connected.
+
+- Inheritance applies to any codec profile negotiated through:
+  - Bluetooth Codec Changer (BCC)
+  - Sony Music Center
+  - Developer Options
+  - Android system codec negotiation
+- Direct-driver apps like UAPP do not contribute to inheritance; they bypass the A2DP stack entirely.
+- Override authority operates strictly at the A2DP session layer.
+- Override logic reads and copies the currently active A2DP LDAC profile into its injection logic.
+
+---
+
+### 2️⃣ Selective Parameter Filtering Logic
+
+Samsung override does not fully copy every parameter from the inherited A2DP profile. Internal filtering applies:
+
+| Codec Parameter | Inheritance Behavior |
+|------------------|----------------------|
+| Bitrate (330/660/990/909 kbps) | Fully inherited |
+| Bit depth (16/24/32-bit) | Fully inherited |
+| Sample rate (44.1 / 48 / 88.2 / 96 kHz) | Selective: non-standard rates often normalized to 96 kHz |
+| Adaptive vs Fixed | Often forced into Fixed 990 kbps |
+
+- Exotic profiles (such as 44.1 kHz / 24-bit / 909 kbps) often revert back to 96 kHz / 24-bit / 990 kbps after override injection.
+- Samsung validates and adjusts parameters based on internal profile limits before final injection occurs.
+
+---
+
+### 3️⃣ A2DP Session Isolation Protection
+
+Samsung override only operates within system-managed A2DP sessions. It does not activate inside direct-driver sessions.
+
+| Playback Session Type | Samsung Override Active? |
+|------------------------|--------------------------|
+| System A2DP session (standard apps, BCC, Music Center) | Yes — override triggers |
+| Direct Hi-Res driver session (UAPP, exclusive drivers) | No — override fully bypassed |
+
+- Direct-driver apps bypass the system’s A2DP stack entirely.
+- Samsung’s override logic has no injection access during direct-driver sessions.
+- Direct-driver playback creates a fully protected override-safe zone, even when toggling LDAC system settings.
+
+---
+
+### 4️⃣ LDAC Control Authority — Parameter Limitations by Control Source
+
+| Control Source | Sample Rate Control | Bit Depth Control | Bitrate Control | Full LDAC Frame Control? |
+|----------------|---------------------|--------------------|------------------|-------------------------|
+| Bluetooth Codec Changer (BCC) | Limited — 44.1/88.2 kHz often rejected | Partial | Full (330/660/990/909 kbps) | No |
+| Sony Music Center | Limited — sample rate usually restricted to standard rates | Partial | Full | No |
+| Developer Options | Limited — controlled by internal stack defaults | Partial | Full | No |
+| Android Native System | Fully controlled by Samsung's internal negotiation rules | Partial | Full | No |
+| UAPP (Hi-Res Direct Driver) | Full — all sample rates allowed (44.1/88.2/96 kHz) | Full | Full | Yes |
+
+---
+
+### 🧬 Master Override Rule
+
+Samsung override inherits the active A2DP codec profile during LDAC toggle events, but applies internal filtering rules before injecting the profile. Override authority is fully bypassed for direct-driver playback sessions. Only direct-driver apps (such as UAPP) have full LDAC parameter control.
+
+
+
 
 
 ## Basic setup from start
