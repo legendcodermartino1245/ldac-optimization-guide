@@ -230,7 +230,7 @@ This mapping details each Tasker task by ID and name, its intended purpose, and 
 ---
 
 ### 🔍 Task ID: 15 — `Ldac 660`
-**Purpose:** Possibly used to switch to LDAC 660 or test profile.
+**Purpose:** for apps that need bleutooth and wifi scanning which is unstable at 990 or 909 so switched back t0 606 or 909
 
 **Linked Profile:**
 - Bbc Maps
@@ -269,4 +269,16 @@ This mapping details each Tasker task by ID and name, its intended purpose, and 
 **Linked Profile:**
 - UAPP Disable Bcc Profiles
 
+## 📲 AutoNotification Integration
+
+This Tasker project contains fully integrated **AutoNotification Intercept profiles** that:
+- Monitor Bluetooth codec notifications (LDAC, SBC, APTX, AAC)
+- Automatically trigger codec override tasks like:
+  - `Sbc Override`
+  - `Bit Depth Regeneration`
+  - `Ldac 660`
+
+These are embedded inside the Tasker `.prj.xml` using:
+- `<plugintypeid>com.joaomgcd.autonotification.intent.IntentInterceptNotification</plugintypeid>`
+- And are activated as soon as AutoNotification is installed and allowed notification access.
 
