@@ -809,3 +809,24 @@ Samsung override inherits the active A2DP codec profile during LDAC toggle event
 Dont use Pulseaudio use Pipewire instead
 
 
+## 🔬 Developer Options — Session-Based Authority Model (Fully Validated)
+
+> Developer Options LDAC control operates strictly at the A2DP session level.
+
+| Session Phase | Developer Options Behavior | Injection Authority |
+|----------------|-----------------------------|---------------------|
+| **Handshake Phase (New Connection)** | Injects LDAC codec profile directly into A2DP negotiation. | ✅ Full injection authority. |
+| **Active Session (Already Connected)** | Updates codec whitelist only; no codec renegotiation occurs automatically. | ❌ No live injection authority. |
+
+### 🧬 Memory Behavior
+
+- If Developer Options was active during handshake → codec profile injection persists in system memory across reconnects.
+- Disabling Developer Options while disconnected does not clear this memory state.
+- Only performing a **SBC handshake reset + Developer Options OFF while connected** fully clears the Developer Options memory carryover.
+
+### 🔑 Absolute Summary Rule
+
+> **Developer Options = Session-based codec injection authority.**  
+> - Active only at handshake phase.  
+> - Passive (whitelist only) during live A2DP sessions.
+dev options is session based
