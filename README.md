@@ -163,22 +163,6 @@ Samsung injects its own LDAC codec profile at the very start of every Bluetooth 
 >    - **Bluetooth Codec Changer = Default**
 
 
-
-
-
-
-
-
-###  LDAC Adaptive Mode Stability Matrix
-
-| Sample Rate | Bit Depth         | Stability    | Observations                                                       |
-|-------------|-------------------|--------------|--------------------------------------------------------------------|
-| 44.1 kHz    | 16-bit / 24-bit   |  Unstable   | Frequently drops to 606 / 303 kbps, rarely sustains 909 kbps       |
-| 48 kHz      | 16-bit / 24-bit   |  Stable     | Consistently ramps to and holds 990 kbps                           |
-| 88.2 kHz    | 16-bit / 24-bit   |  Moderate   | Slightly more stable than 44.1, but not reliable at high bitrates  |
-| 96 kHz      | 16-bit / 24-bit   |  Stable     | Ramps cleanly and holds 990 kbps with minimal adjustments          |
-
-
 ##  LDAC Codec Negotiation & Profile Generation
 
 > Everything that determines which codec (SBC, LDAC 330/660/990) gets selected during Bluetooth connection.  
