@@ -154,6 +154,16 @@ Samsung injects its own LDAC codec profile at the very start of every Bluetooth 
 >    - **Bluetooth Codec Changer = Default**
 
 
+
+
+
+
+
+
+
+
+
+
 ## LDAC Codec Negotiation & Profile Generation — Finalized Edition
 
 > Everything that determines which codec (SBC, LDAC 330/660/990) gets selected during Bluetooth connection.  
@@ -348,6 +358,119 @@ Samsung's codec handling is **never neutral** after pairing — all codec transi
 | Override Defeated (BCC/Tasker) | Anything | Full manual handshake control |
 
 
+# 🎛 LDAC Codec Negotiation — Activation, Memory Effects & Authority Model (Final Engineering Companion Edition)
+
+> This module documents the complete verified behavior behind LDAC activation, delayed switching, Developer Options memory effects, codec renegotiation triggers, and exact codec authority layers across all apps and subsystems.
+
+---
+
+## 🎯 LDAC Toggle Behavior — Activation vs Actual Codec Switch
+
+- The LDAC toggle in Android Bluetooth settings **only updates the allowed codec list**.
+- It does **not** guarantee immediate LDAC activation during live playback.
+- Actual codec switching depends on:
+  - A2DP session state
+  - Playback state
+  - Prior Developer Options usage
+  - Codec memory state inside Android’s Bluetooth stack.
+
+---
+
+### 🔧 LDAC Toggle — Immediate vs Delayed Activation (Fully Validated)
+
+| Condition | LDAC Switches Automatically? | Notes |
+|-----------|----------------------------|-------|
+| ✅ No active playback (idle/disconnected) | ✅ Yes | Full A2DP negotiation on first playback. |
+| ✅ New A2DP session start (app switch) | ✅ Yes | Session switch triggers renegotiation. |
+| ✅ Disconnect → Reconnect | ✅ Yes | Always renegotiates codec. |
+| ✅ Changing LDAC settings (Developer Options) | ✅ Yes | Developer Options directly injects codec pre-handshake. |
+| ⚠ Changing LDAC settings (BCC, Music Center) | ❌ No (needs renegotiation) | Requires active A2DP session and renegotiation. |
+| ⚠ Changing sample rate via UAPP | ✅ Yes (indirect) | HAL session reset triggers renegotiation. |
+| ⚠ Pause + Resume (media apps) | ❌ Usually no | Session often stays alive. |
+| 🔴 Active playback ongoing during toggle | ❌ No | Fully locked session. |
+| 🔴 Short pause (few sec) | ❌ No | A2DP stack remains alive. |
+| 🔴 No external renegotiation triggers | ❌ No | Toggle alone insufficient. |
+
+---
+
+## 🧬 Developer Options Memory Carryover Behavior
+
+> Prior use of Developer Options codec selection can cause LDAC to activate automatically even without renegotiation.
+
+| Developer Options History | Behavior on Reconnect |
+|---------------------------|-----------------------|
+| LDAC previously selected in Developer Options | LDAC often activates automatically upon reconnect. |
+| Developer Options disabled, but SBC reset not performed | LDAC memory still applied automatically. |
+| Developer Options disabled **and** SBC handshake performed (override reset) | LDAC activation requires full renegotiation. |
+
+- This codec memory state lives inside Android’s Bluetooth stack (not Sony firmware).
+- Samsung override still executes after this unless fully defeated.
+
+---
+
+## 🔑 Absolute Authority Rule — Post-Toggle Codec Injection
+
+> ✅ **Once LDAC toggle is enabled, Developer Options is the only mechanism capable of directly injecting LDAC profile selection without renegotiation.**
+
+| Layer | Can Inject LDAC Profile After Toggle? | Why? |
+|-------|-----------------------------------|-------|
+| **Developer Options (Codec Memory)** | ✅ YES | Injects codec directly into A2DP negotiation stack. |
+| **Samsung Override Stack** | ✅ Yes (at handshake only) | Injects Adaptive LDAC default profile. |
+| **Fast Pair (Google Play Services)** | ❌ NO | Only injects pairing metadata during initial pairing. |
+| **Bluetooth Codec Changer (BCC)** | ❌ NO | Requires renegotiation after A2DP is live. |
+| **Sony Music Center** | ❌ NO | Issues renegotiation request only. |
+| **UAPP** | ❌ NO (Bluetooth) | Can trigger renegotiation via session recreation. |
+| **Tasker + AutoNotification** | ❌ NO | Monitors and triggers renegotiation workflows only. |
+
+---
+
+## 🎯 Master Authority Table — Who Can Control Codecs?
+
+| Layer / App | Authority Type | Can Force Codec Without Live Renegotiation? | Notes |
+|--------------|----------------|----------------------------------|-------|
+| **Developer Options (Android Bluetooth Settings)** | Codec Memory Authority | ✅ YES | Injects codec directly into A2DP stack before/during connection. Retains memory across sessions even after disabled. |
+| **Samsung Override Stack** | Vendor Override Stack | ✅ YES (own injected profile only) | Injects Adaptive LDAC profile at handshake unless blocked by reset. |
+| **Fast Pair (Google Play Services)** | Pairing Metadata Authority | ✅ YES (during pairing) | Injects codec preferences during initial pairing handshake only. |
+| **Bluetooth Codec Changer (BCC)** | Runtime Profile Switcher | ❌ NO | Triggers codec renegotiation after A2DP session is live. |
+| **Sony Music Center** | App-Level Codec Negotiator | ❌ NO | Requests renegotiation but requires active A2DP session. |
+| **UAPP (USB/Hi-Res mode)** | Direct Driver Control | ✅ YES (USB mode) | Can directly manage codec/sample rate for USB audio; Bluetooth still subject to renegotiation logic. |
+| **UAPP (Bluetooth mode)** | Session Manager | ❌ NO | Can only trigger renegotiation by restarting playback sessions. |
+| **Tasker + AutoNotification** | Automation Healing Layer | ❌ NO | Monitors codec state and issues corrective triggers via BCC or app relaunches. |
+
+---
+
+## 🔧 Codec Control Timing Map
+
+| Timing | Who Can Control? | Method |
+|--------|------------------|--------|
+| 🔌 **Before Connection (Handshake)** | Developer Options, Samsung Override, Fast Pair | Direct codec injection authority. |
+| 🎶 **After Connection (Active Session)** | BCC, Music Center, UAPP (session restart), Tasker | Renegotiation triggers only. |
+
+---
+
+## 🔬 System Authority Layer Hierarchy
+
+| Layer | Control Scope |
+|-------|----------------|
+| **Developer Options Codec Memory** | Full injection pre-handshake. |
+| **Samsung Override Stack** | Injects override profile at handshake. |
+| **Fast Pair Subsystem** | Injects pairing metadata codec preferences. |
+| **Bluetooth Codec Changer (BCC)** | Runtime renegotiation. |
+| **Sony Music Center** | Requests renegotiation after session live. |
+| **UAPP** | Session management (Bluetooth) / Direct control (USB). |
+| **Tasker + AutoNotification** | Codec state monitoring and healing automation. |
+
+---
+
+## 🚀 Relation to LDAC Override Defeat Workflow
+
+- The full override defeat chain works by:
+  - Fully resetting Developer Options codec memory state.
+  - Forcing Samsung override reset via SBC → LDAC16 → LDAC990 handshake chaining.
+  - Utilizing BCC + Tasker to maintain target profile via controlled renegotiation.
+  - Suppressing Fast Pair reinjections via permission revocation timing.
+
+---
 
 
 
@@ -539,117 +662,4 @@ Samsung's codec handling is **never neutral** after pairing — all codec transi
 # Linux
 Dont use Pulseaudio use Pipewire instead
 
-# 🎛 LDAC Codec Negotiation — Activation, Memory Effects & Authority Model (Final Engineering Companion Edition)
-
-> This module documents the complete verified behavior behind LDAC activation, delayed switching, Developer Options memory effects, codec renegotiation triggers, and exact codec authority layers across all apps and subsystems.
-
----
-
-## 🎯 LDAC Toggle Behavior — Activation vs Actual Codec Switch
-
-- The LDAC toggle in Android Bluetooth settings **only updates the allowed codec list**.
-- It does **not** guarantee immediate LDAC activation during live playback.
-- Actual codec switching depends on:
-  - A2DP session state
-  - Playback state
-  - Prior Developer Options usage
-  - Codec memory state inside Android’s Bluetooth stack.
-
----
-
-### 🔧 LDAC Toggle — Immediate vs Delayed Activation (Fully Validated)
-
-| Condition | LDAC Switches Automatically? | Notes |
-|-----------|----------------------------|-------|
-| ✅ No active playback (idle/disconnected) | ✅ Yes | Full A2DP negotiation on first playback. |
-| ✅ New A2DP session start (app switch) | ✅ Yes | Session switch triggers renegotiation. |
-| ✅ Disconnect → Reconnect | ✅ Yes | Always renegotiates codec. |
-| ✅ Changing LDAC settings (Developer Options) | ✅ Yes | Developer Options directly injects codec pre-handshake. |
-| ⚠ Changing LDAC settings (BCC, Music Center) | ❌ No (needs renegotiation) | Requires active A2DP session and renegotiation. |
-| ⚠ Changing sample rate via UAPP | ✅ Yes (indirect) | HAL session reset triggers renegotiation. |
-| ⚠ Pause + Resume (media apps) | ❌ Usually no | Session often stays alive. |
-| 🔴 Active playback ongoing during toggle | ❌ No | Fully locked session. |
-| 🔴 Short pause (few sec) | ❌ No | A2DP stack remains alive. |
-| 🔴 No external renegotiation triggers | ❌ No | Toggle alone insufficient. |
-
----
-
-## 🧬 Developer Options Memory Carryover Behavior
-
-> Prior use of Developer Options codec selection can cause LDAC to activate automatically even without renegotiation.
-
-| Developer Options History | Behavior on Reconnect |
-|---------------------------|-----------------------|
-| LDAC previously selected in Developer Options | LDAC often activates automatically upon reconnect. |
-| Developer Options disabled, but SBC reset not performed | LDAC memory still applied automatically. |
-| Developer Options disabled **and** SBC handshake performed (override reset) | LDAC activation requires full renegotiation. |
-
-- This codec memory state lives inside Android’s Bluetooth stack (not Sony firmware).
-- Samsung override still executes after this unless fully defeated.
-
----
-
-## 🔑 Absolute Authority Rule — Post-Toggle Codec Injection
-
-> ✅ **Once LDAC toggle is enabled, Developer Options is the only mechanism capable of directly injecting LDAC profile selection without renegotiation.**
-
-| Layer | Can Inject LDAC Profile After Toggle? | Why? |
-|-------|-----------------------------------|-------|
-| **Developer Options (Codec Memory)** | ✅ YES | Injects codec directly into A2DP negotiation stack. |
-| **Samsung Override Stack** | ✅ Yes (at connect only) | Injects Adaptive LDAC default profile. |
-| **Fast Pair (Google Play Services)** | ❌ NO | Only injects pairing metadata during initial pairing. |
-| **Bluetooth Codec Changer (BCC)** | ❌ NO | Requires renegotiation after A2DP is live. |
-| **Sony Music Center** | ❌ NO | Issues renegotiation request only. |
-| **UAPP** | ❌ NO (Bluetooth) | Can trigger renegotiation via session recreation. |
-| **Tasker + AutoNotification** | ❌ NO | Monitors and triggers renegotiation workflows only. |
-
----
-
-## 🎯 Master Authority Table — Who Can Control Codecs?
-
-| Layer / App | Authority Type | Can Force Codec Without Live Renegotiation? | Notes |
-|--------------|----------------|----------------------------------|-------|
-| **Developer Options (Android Bluetooth Settings)** | Codec Memory Authority | ✅ YES | Injects codec directly into A2DP stack before/during connection. Retains memory across sessions even after disabled. |
-| **Samsung Override Stack** | Vendor Override Stack | ✅ YES (own injected profile only) | Injects Adaptive LDAC profile at handshake unless blocked by reset. |
-| **Fast Pair (Google Play Services)** | Pairing Metadata Authority | ✅ YES (during pairing) | Injects codec preferences during initial pairing handshake only. |
-| **Bluetooth Codec Changer (BCC)** | Runtime Profile Switcher | ❌ NO | Triggers codec renegotiation after A2DP session is live. |
-| **Sony Music Center** | App-Level Codec Negotiator | ❌ NO | Requests renegotiation but requires active A2DP session. |
-| **UAPP (USB/Hi-Res mode)** | Direct Driver Control | ✅ YES (USB mode) | Can directly manage codec/sample rate for USB audio; Bluetooth still subject to renegotiation logic. |
-| **UAPP (Bluetooth mode)** | Session Manager | ❌ NO | Can only trigger renegotiation by restarting playback sessions. |
-| **Tasker + AutoNotification** | Automation Healing Layer | ❌ NO | Monitors codec state and issues corrective triggers via BCC or app relaunches. |
-
----
-
-## 🔧 Codec Control Timing Map
-
-| Timing | Who Can Control? | Method |
-|--------|------------------|--------|
-| 🔌 **Before Connection (Handshake)** | Developer Options, Samsung Override, Fast Pair | Direct codec injection authority. |
-| 🎶 **After Connection (Active Session)** | BCC, Music Center, UAPP (session restart), Tasker | Renegotiation triggers only. |
-
----
-
-## 🔬 System Authority Layer Hierarchy
-
-| Layer | Control Scope |
-|-------|----------------|
-| **Developer Options Codec Memory** | Full injection pre-handshake. |
-| **Samsung Override Stack** | Injects override profile at handshake. |
-| **Fast Pair Subsystem** | Injects pairing metadata codec preferences. |
-| **Bluetooth Codec Changer (BCC)** | Runtime renegotiation. |
-| **Sony Music Center** | Requests renegotiation after session live. |
-| **UAPP** | Session management (Bluetooth) / Direct control (USB). |
-| **Tasker + AutoNotification** | Codec state monitoring and healing automation. |
-
----
-
-## 🚀 Relation to LDAC Override Defeat Workflow
-
-- The full override defeat chain works by:
-  - Fully resetting Developer Options codec memory state.
-  - Forcing Samsung override reset via SBC → LDAC16 → LDAC990 handshake chaining.
-  - Utilizing BCC + Tasker to maintain target profile via controlled renegotiation.
-  - Suppressing Fast Pair reinjections via permission revocation timing.
-
----
 
