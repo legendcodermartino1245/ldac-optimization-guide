@@ -566,3 +566,4 @@ These are embedded inside the Tasker `.prj.xml` using:
 - `<plugintypeid>com.joaomgcd.autonotification.intent.IntentInterceptNotification</plugintypeid>`
 - And are activated as soon as AutoNotification is installed and allowed notification access.
 
+2. AutoNotification Fallback Recovery Chain
