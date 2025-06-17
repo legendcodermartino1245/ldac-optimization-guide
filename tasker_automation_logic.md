@@ -1,5 +1,6 @@
 
-# 🎯 LDAC Done Right — Universal Override Auto-Switch LogicThis section documents the full override defeat engine architecture, combining BCC Auto Switch, Intermediate Profiles, AutoNotification healing, and Tasker correction logic across all Samsung LDAC override defeat classes.---
+# 🎯 LDAC Done Right — Universal Override Auto-Switch Logic
+This section documents the full override defeat engine architecture, combining BCC Auto Switch, Intermediate Profiles, AutoNotification healing, and Tasker correction logic across all Samsung LDAC override defeat classes.---
 
 
 
