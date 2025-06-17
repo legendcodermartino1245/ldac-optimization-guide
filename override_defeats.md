@@ -7,13 +7,13 @@
 
 
 
-# 📖 Samsung Override Defeat — Full Master Section
+# Samsung Override Defeat — Full Master Section
 
 Samsung's LDAC override logic can be neutralized through several fully validated mechanisms. Each exploits distinct Bluetooth stack behaviors that control Samsung's forced codec negotiation during Bluetooth pairing and reconnects.
 
 ---
 
-## 🔑 Core Override Defeaters — Fully Verified Methods
+## Core Override Defeaters — Fully Verified Methods
 
 | Defeater              | Usage Context                  | Override Defeat Strength | Speed      | Automation Feasibility |
 |-----------------------|----------------------------------|--------------------------|------------|------------------------|
@@ -24,7 +24,7 @@ Samsung's LDAC override logic can be neutralized through several fully validated
 
 ---
 
-### 1️⃣ Codec Change Override Defeater
+### Codec Change Override Defeater
 
 **Principle:**  
 Samsung's override attaches only when LDAC is negotiated directly at connection. Pre-selecting a non-LDAC codec neutralizes override logic.
@@ -40,7 +40,7 @@ Samsung's override attaches only when LDAC is negotiated directly at connection.
 
 ---
 
-### 2️⃣ Bit Depth Downgrade Exploit (LDAC 16-bit Entry)
+### Bit Depth Downgrade Exploit (LDAC 16-bit Entry)
 
 **Principle:**  
 Samsung override triggers primarily at 24-bit LDAC handshake. Initializing connection at LDAC 16-bit bypasses override enforcement.
@@ -56,7 +56,7 @@ Samsung override triggers primarily at 24-bit LDAC handshake. Initializing conne
 
 ---
 
-### 3️⃣ SBC Reset Exploit
+### SBC Reset Exploit
 
 **Principle:**  
 Forcing SBC handshake fully resets firmware codec state before LDAC negotiation.
@@ -72,7 +72,7 @@ Forcing SBC handshake fully resets firmware codec state before LDAC negotiation.
 
 ---
 
-### 4️⃣ Passive AV Suppression (AV OFF)
+### Passive AV Suppression (AV OFF)
 
 **Principle:**  
 Absolute Volume OFF disables Samsung's override hook attachment phase.
@@ -89,9 +89,9 @@ Absolute Volume OFF disables Samsung's override hook attachment phase.
 
 ---
 
-# 🔬 Advanced Stability Chains (Fixed & Adaptive)
+# Advanced Stability Chains (Fixed & Adaptive)
 
-### 🔧 Bit Depth Matching — Transition Optimization
+### Bit Depth Matching — Transition Optimization
 
 | Parameter              | Recommendation         |
 |------------------------|-------------------------|
@@ -104,7 +104,7 @@ Absolute Volume OFF disables Samsung's override hook attachment phase.
 
 ---
 
-### 🔧 96kHz Override Preemption
+### 96kHz Override Preemption
 
 > Any valid LDAC profile using 96kHz disables Samsung override, regardless of bitrate, bit depth, or quality mode.
 
@@ -121,7 +121,7 @@ Absolute Volume OFF disables Samsung's override hook attachment phase.
 
 ---
 
-### 🔧 Samsung Override Risk Table
+### Samsung Override Risk Table
 
 | Condition                          | Override Risk | Comment                      |
 |------------------------------------|---------------|------------------------------|
@@ -133,7 +133,7 @@ Absolute Volume OFF disables Samsung's override hook attachment phase.
 
 ---
 
-## 🧩 AutoNotification Recovery Chain (AV ON — Button Connect Edge Case)
+## AutoNotification Recovery Chain (AV ON — Button Connect Edge Case)
 
 ### Problem:
 
@@ -152,7 +152,7 @@ Absolute Volume OFF disables Samsung's override hook attachment phase.
 
 ---
 
-## 🔬 Developer Options SBC Switch: Deprecated
+## Developer Options SBC Switch: Deprecated
 
 | Parameter         | Status   |
 |-------------------|----------|
@@ -165,7 +165,7 @@ Absolute Volume OFF disables Samsung's override hook attachment phase.
 
 ---
 
-# 🔬 LDAC Parameter Switching Latency Table
+# LDAC Parameter Switching Latency Table
 
 | Change Type | Parameter Modified | Typical Latency |
 |--------------|--------------------|------------------|
@@ -180,7 +180,7 @@ Absolute Volume OFF disables Samsung's override hook attachment phase.
 
 ⚠ Note: BCC 2-Step Switching strongly recommended to avoid GUI state desync between Developer Options and actual codec state.
 
-# 🏁 Master Stability Summary
+# Master Stability Summary
 
 - ✅ Samsung Override can be fully neutralized through multiple independent mechanisms.
 - ✅ Bit Depth Matching simplifies BCC profile transitions.
@@ -192,13 +192,13 @@ Absolute Volume OFF disables Samsung's override hook attachment phase.
 ---
 
 
-# 🧩 BCC Manual Profile Chaining — Relevance Model (2025 Edition)
+# BCC Manual Profile Chaining — Relevance Model (2025 Edition)
 
 This section clarifies the role, relevance, and optional nature of **BCC Manual Profile Chaining (Deep Profile Sequencing)** in the context of the modern **Universal Override Auto-Switch Engine**.
 
 ---
 
-## 🔧 What Is BCC Manual Profile Chaining?
+## What Is BCC Manual Profile Chaining?
 
 - BCC allows users to manually define multi-step profile sequences.
 - Classic chaining example:
@@ -208,7 +208,7 @@ This section clarifies the role, relevance, and optional nature of **BCC Manual 
 
 ---
 
-## ✅ Relevance vs Auto-Switch Engine
+## Relevance vs Auto-Switch Engine
 
 | Aspect | Status | Explanation |
 |--------|--------|-------------|
@@ -219,7 +219,7 @@ This section clarifies the role, relevance, and optional nature of **BCC Manual 
 
 ---
 
-## 🔬 Key Difference Table
+## Key Difference Table
 
 | Feature | Manual Chaining | Auto-Switch Engine |
 |---------|------------------|--------------------|
@@ -231,7 +231,7 @@ This section clarifies the role, relevance, and optional nature of **BCC Manual 
 
 ---
 
-## 🏁 Summary Statement
+## Summary Statement
 
 - ✅ Manual Chaining is technically valid but no longer required.
 - ✅ Your Auto-Switch + Intermediate Profile system completely replaces it.
@@ -240,7 +240,7 @@ This section clarifies the role, relevance, and optional nature of **BCC Manual 
 
 ---
 
-# 🔐 Override Defeat Architecture Tier — Final Classification
+# Override Defeat Architecture Tier — Final Classification
 
 | Tier | Strategy | Override Defeat Class | Speed | Automation |
 |------|----------|-----------------------|-------|------------|
@@ -338,9 +338,9 @@ Only the LDAC mode and codec type are stored, not full codec parameters.
 
 
 
-# 🔬 Samsung Override Reinfection via Music Center Disconnect
+# Samsung Override Reinfection via Music Center Disconnect
 
-## 🚫 Dangerous Scenario
+## Dangerous Scenario
 
 > If you press **Disconnect** in Music Center *while Samsung override is active*, you risk permanently training override-biased profiles into firmware.
 
@@ -359,7 +359,7 @@ Only the LDAC mode and codec type are stored, not full codec parameters.
 
 ---
 
-## 🔑 Core Effect
+## Core Effect
 
 | Action | Result |
 |--------|--------|
@@ -370,14 +370,14 @@ Only the LDAC mode and codec type are stored, not full codec parameters.
 
 ---
 
-## 🎯 Critical Rule
+## Critical Rule
 
 > **Never press Disconnect while override is active.**  
 > Always verify your target profile (`44.1 / 24 / 909`) is fully active before any disconnect, power-off, or Fast Pair operation.
 
 ---
 
-## 🧭 Reinfection Summary
+## Reinfection Summary
 
 | Disconnect Timing | Outcome |
 |-------------------|---------|
@@ -387,7 +387,7 @@ Only the LDAC mode and codec type are stored, not full codec parameters.
 
 ---
 
-## 🔬 Summary Statement
+## Summary Statement
 
 > Disconnect button behavior directly impacts future override injection logic.  
 > Improper use allows Samsung override bias to permanently embed into firmware-level reconnect preference, disabling further override defeat mechanisms.
@@ -536,7 +536,7 @@ It operates in **two distinct handshake windows:**
 
 ---
 
-## 🎯 The Auto Switch Preemption Strategy
+## The Auto Switch Preemption Strategy
 
 This defeat class works by exploiting the **delay between negotiation and override lock-in.**
 
@@ -553,7 +553,7 @@ This defeat class works by exploiting the **delay between negotiation and overri
 
 ---
 
-## 🚫 Why Samsung’s Override Fails
+## Why Samsung’s Override Fails
 
 - Samsung cannot fully stabilize override state unless the override window completes.
 - The **0ms Auto Switch chain collapses the override window** before Samsung can assert control.
@@ -561,7 +561,7 @@ This defeat class works by exploiting the **delay between negotiation and overri
 
 ---
 
-## 🔬 Why This Is True Override Defeat
+## Why This Is True Override Defeat
 
 This logic does not merely **correct** the profile after override.  
 It **prevents override lock-in** by denying Samsung the required stabilization period.
@@ -571,7 +571,7 @@ It **prevents override lock-in** by denying Samsung the required stabilization p
 
 ---
 
-## ⚠ Important Technical Difference
+## Important Technical Difference
 
 | Correction | Preemption |
 |-------------|-------------|
@@ -581,7 +581,7 @@ It **prevents override lock-in** by denying Samsung the required stabilization p
 
 ---
 
-## 🧠 System Placement
+## System Placement
 
 The Timing-Based Override Preemption engine operates as:
 
@@ -591,7 +591,7 @@ The Timing-Based Override Preemption engine operates as:
 
 ---
 
-## 🔬 Full Override Defeat Layer Model (Updated)
+## Full Override Defeat Layer Model (Updated)
 
 | Class | Defeat Method | Layer |
 |-------|---------------|-------|
@@ -602,20 +602,20 @@ The Timing-Based Override Preemption engine operates as:
 
 ---
 
-## ✅ Summary
+## Summary
 
 - This class ensures override defeat even when Samsung initiates override negotiation.
 - It works purely through **precise execution timing**, not by blocking override triggers.
 - Once executed, Samsung override cannot stabilize fully, and BCC profile control remains dominant.
 
 ---
-## 🔧 Injected Override Preemption — Auto Switch Only (0ms)
+## Injected Override Preemption — Auto Switch Only (0ms)
 
 Samsung’s override injection can be fully healed using only BCC Auto Switch without any Intermediate Profile. This method relies on fast detection and instant correction after Samsung injects its default override.
 
 ---
 
-### ✅ Core Logic:
+### Core Logic:
 
 - Samsung injects: `96 kHz / 32-bit / Adaptive` (default override profile)
 - BCC Auto Switch detects codec state immediately.
@@ -624,7 +624,7 @@ Samsung’s override injection can be fully healed using only BCC Auto Switch wi
 
 ---
 
-### ✅ Setup:
+### Setup:
 
 - **Intermediate Profile:** Disabled (none)
 - **Auto Switch Profile:** e.g. `44.1 kHz / 24-bit / 909 kbps` (your target)
@@ -635,7 +635,7 @@ Samsung’s override injection can be fully healed using only BCC Auto Switch wi
 
 ---
 
-### ✅ Behavior:
+### Behavior:
 
 - No intermediate profile used — override is allowed to inject.
 - Auto Switch reacts immediately to override injection.
@@ -644,7 +644,7 @@ Samsung’s override injection can be fully healed using only BCC Auto Switch wi
 
 ---
 
-### ✅ Advantages:
+### Advantages:
 
 - Simplest configuration
 - No intermediate profile management
@@ -658,7 +658,7 @@ Samsung’s override injection can be fully healed using only BCC Auto Switch wi
 
 ---
 
-### 🔬 Summary:
+### Summary:
 
 > **Auto Switch-Only Healing defeats Samsung's override injection fully and instantly, provided BCC executes immediately after injection. Intermediate Profiles are optional for additional stability margin but not required for core defeat.**
 
@@ -679,7 +679,7 @@ All override behavior can be fully defeated through a single governing principle
 
 ---
 
-## 🔬 Deep Rule — The Core Governing Principle
+## Deep Rule — The Core Governing Principle
 
 > **Samsung override has no authority once any valid LDAC renegotiation occurs post-connection.**
 
@@ -691,28 +691,28 @@ All override behavior can be fully defeated through a single governing principle
 
 ## Universal Override Defeat Logic
 
-### 1️⃣ Connection Phase Blocking — Preemptive Neutralization
+### Connection Phase Blocking — Preemptive Neutralization
 
 - Prevent Samsung override entirely by avoiding LDAC negotiation during connection.
 - Methods:
   - **SBC Reset:** Pair using SBC first, then switch to LDAC after connection.
   - **Bit Depth Downgrade:** Force initial LDAC negotiation using limited 16-bit profile to block override injection.
 
-### 2️⃣ Reactive Overwrite — Post-Connection Renegotiation
+### Reactive Overwrite — Post-Connection Renegotiation
 
 - Even if Samsung override attaches, LDAC renegotiation can fully override it.
 - Methods:
   - **BCC Auto Switch:** Triggers profile renegotiation after connection.
   - **Manual Profile Switch:** Any explicit LDAC parameter change forces renegotiation.
 
-### 3️⃣ Persistent Correction — Continuous Self-Healing
+### Persistent Correction — Continuous Self-Healing
 
 - Monitoring-based correction detects override-induced desyncs and applies renegotiation anytime.
 - Methods:
   - **AutoNotification Healing:** Monitors GUI profile changes, triggers renegotiation on mismatch.
   - **Tasker Correction Logic:** Enforces target LDAC profile via event-driven automation.
 
-### 4️⃣ Passive Suppression — Capability Removal
+### Passive Suppression — Capability Removal
 
 - Disable Samsung’s override injection logic globally by disabling Absolute Volume (AV OFF).
 - Prevents certain injection triggers from activating at connection time.
@@ -751,7 +751,7 @@ All override behavior can be fully defeated through a single governing principle
 ---
 
 
-# 🔬 Universal LDAC Override Physics — Samsung A2DP Injection Model
+# Universal LDAC Override Physics — Samsung A2DP Injection Model
 
 Samsung’s LDAC override operates purely as a connection-time injection event within the A2DP codec negotiation layer.  
 It is not codec-locked, but negotiation-state dependent.
@@ -760,13 +760,13 @@ It is not codec-locked, but negotiation-state dependent.
 
 ---
 
-## 🧠 Governing Override Displacement Rule
+## Governing Override Displacement Rule
 
 **Any valid LDAC renegotiation fully displaces Samsung’s injected override profile.**
 
 ---
 
-## 🔧 What Triggers Override Displacement
+## What Triggers Override Displacement
 
 | Action | Override Defeat |
 |--------|------------------|
@@ -782,7 +782,7 @@ It is not codec-locked, but negotiation-state dependent.
 
 ---
 
-## 🔬 Core Principle
+## Core Principle
 
 - Override is injected once at connection.
 - Override authority ends upon any codec renegotiation event.
@@ -792,7 +792,7 @@ It is not codec-locked, but negotiation-state dependent.
 
 ---
 
-## 🛑 What Does Not Work to Prevent Override
+## What Does Not Work to Prevent Override
 
 | Action | Effect |
 |--------|--------|
@@ -803,14 +803,14 @@ It is not codec-locked, but negotiation-state dependent.
 
 ---
 
-## 🧠 Simplified Override Collapse Law
+## Simplified Override Collapse Law
 
 > **Override = Temporary Injection State  
 > Renegotiation = Override Collapse**
 
 ---
 
-## 🔬 System Model Flow
+## System Model Flow
 
 1️⃣ Bluetooth connects  
 2️⃣ Samsung injects override profile  
@@ -821,14 +821,14 @@ It is not codec-locked, but negotiation-state dependent.
 
 ---
 
-## 🔬 Why SBC and Bit Depth Downgrade Still Exist
+## Why SBC and Bit Depth Downgrade Still Exist
 
 - SBC Reset and 16-bit Downgrade allow **pre-connection prevention**, stopping override injection before it attaches.
 - Once override has attached, these methods are not required — any renegotiation path inside LDAC remains fully valid.
 
 ---
 
-## 🔬 Absolute Volume (AV) Context
+## Absolute Volume (AV) Context
 
 - AV OFF prevents certain injection scenarios entirely at capability layer.
 - AV ON allows injection but leaves renegotiation pathways fully open.
@@ -836,7 +836,7 @@ It is not codec-locked, but negotiation-state dependent.
 
 ---
 
-## 🎯 LDAC Codec Negotiation Authority — Complete List
+## LDAC Codec Negotiation Authority — Complete List
 
 Only the following apps and system layers have true codec negotiation authority on Android:
 
@@ -854,14 +854,14 @@ This is possible because Samsung's override operates purely as a one-time inject
 
 ✅ **All other apps are codec-passive and cannot issue valid codec negotiation commands.**
 
-# 🔬 Universal Samsung Override Physics — A2DP Injection Model
+# Universal Samsung Override Physics — A2DP Injection Model
 
 Samsung’s LDAC override operates purely as a connection-time injection event inside the A2DP codec negotiation layer.  
 It is not codec-locked — it is negotiation-state dependent.
 
 ---
 
-## 🧠 Governing Override Displacement Rule
+## Governing Override Displacement Rule
 
 **Any valid LDAC renegotiation fully displaces Samsung’s injected override profile.**
 
@@ -878,7 +878,7 @@ It is not codec-locked — it is negotiation-state dependent.
 
 ---
 
-## 🔧 Override Defeat Triggers
+## Override Defeat Triggers
 
 | Action | Override Defeat |
 |--------|------------------|
