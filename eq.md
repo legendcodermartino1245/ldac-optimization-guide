@@ -1,4 +1,4 @@
-##  EQ Optimization (Wavelet Best Practices)
+#  EQ Optimization (Wavelet Best Practices)
 For users who want to apply EQ while preserving LDAC 990 kbps playback, Wavelet is the safest option.
 ###  Recommended EQ Setup
 Use **Wavelet** as your only EQ. Disable all other music app EQs:
