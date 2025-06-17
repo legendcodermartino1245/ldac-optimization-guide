@@ -1,4 +1,4 @@
-##  Complete LDAC Codec Reset Matrix (v2025)
+#  Complete LDAC Codec Reset Matrix (v2025)
 
 ---
 
