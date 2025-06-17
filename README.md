@@ -3,8 +3,6 @@
 - [My setup and the hard and software I used during the making of this guide](#my-setup-and-the-hard-and-software-i-used-during-the-making-of-this-guide) 
 - [LDAC Configuration Matrix Fixed](#ldac-configuration-matrix-fixed)
 - [LDAC Configuration Matrix Adaptive](#ldac-configuration-matrix-adaptive)
-- [The Real LDAC Bug: Quality Settings Don’t Apply on Their Own](#the-real-ldac-bug-quality-settings-dont-apply-on-their-own)
-- [What Triggers a Real Codec Reset?](#what-triggers-a-real-codec-reset)
 - [Samsung LDAC Override Stack](#samsung-ldac-override-stack)
 - [LDAC Codec Negotiation & Profile Generation](#ldac-codec-negotiation--profile-generation)
 - [Headphone & Device Factors](#headphone--device-factors)
@@ -14,7 +12,6 @@
 - [Samsung Codec Behavior](#samsung-codec-behavior)
 - [AAC ≠ Neutral on Reconnect — It's Just Another Override Pathway](#aac--neutral-on-reconnect--its-just-another-override-pathway)
 - [Basic setup from start](#basic-setup-from-start)
-- [Google Play Services Interference Timing](#google-play-services-interference-timing)
 - [macOS and iPhone – LDAC Status](#macos-and-iphone--ldac-status)
 - [Linux](#linux)
 
