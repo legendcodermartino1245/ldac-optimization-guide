@@ -172,8 +172,6 @@ Absolute Volume OFF disables Samsung's override hook attachment phase.
 
 > ⚠ **Note:** Any non-LDAC codec can serve as the initial handshake codec to defeat Samsung override. SBC is used as default due to universal compatibility, but AAC (or aptX where available) may achieve faster handshake speeds while still fully neutralizing Samsung's override logic.
 
-⚠ Note: BCC 2-Step Switching strongly recommended to avoid GUI state desync between Developer Options and actual codec state.
-
 # Master Stability Summary
 
 - ✅ Samsung Override can be fully neutralized through multiple independent mechanisms.
