@@ -46,11 +46,51 @@ This module provides the full technical consolidation of **all verified behavior
 ## 🧠 Firmware Negotiation Window — Session Training Logic
 
 - SBC → LDAC 16-bit → LDAC 990 creates stable profile training chain.
-- Training window closes after ~10s idle while fully connected.
-- Profile storage survives power cycle if stored cleanly via BCC Auto Switch method.
+- Profile storage survives power cycle if stored cleanly via Music center method.
 - Profile loss occurs if Bluetooth stack shuts down while link still active.
 
 ---
+
+
+# 🧬 Firmware Negotiation Storage Behavior — Final Model (2025)
+
+> Defines exactly when the Sony WH-1000XM firmware stores LDAC profiles.
+
+---
+
+## ✅ Firmware Storage Logic Summary
+
+| Path | Firmware Profile Stored? | Storage Timing |
+|------|--------------------------|----------------|
+| 🎧 **Music Center (Sony A2DP stack)** | ✅ Yes | Instant after handshake |
+| 🎯 **Bluetooth Codec Changer (BCC intermediate chaining)** | ✅ Yes | Instant after renegotiation completes |
+| 🤖 **Tasker Automation (via BCC profiles)** | ✅ Yes | Instant after BCC completes profile switch |
+| 🚫 **UAPP Direct Driver (HAL bypass)** | ❌ No | Firmware never sees profile |
+| 🚫 **Developer Options (codec whitelist injection)** | ❌ No | No profile stored; only pre-handshake codec filtering |
+| 🚫 **Samsung Default Override (if not bypassed)** | ❌ No | Firmware stores Samsung-injected override profile |
+
+---
+
+## 🧬 Key Rule
+
+- ✅ Firmware profile storage occurs **immediately** after a clean A2DP handshake or renegotiation.
+- ✅ No idle window or waiting period is required after successful renegotiation.
+- ✅ Firmware learns only profiles visible to A2DP codec negotiation (Music Center / BCC / Tasker+BCC).
+
+---
+
+## 🔒 Firmware Learning Scope
+
+- Applies equally to **WH-1000XM3** and **WH-1000XM5**
+- Applies to both **AV ON** and **AV OFF** states
+- Applies to all code combinations music center can do
+- ✅ Fully compatible with override defeat chains
+
+---
+
+
+
+
 
 ## 🔧 Multipoint Passive Role Rule (Validated 2025)
 
