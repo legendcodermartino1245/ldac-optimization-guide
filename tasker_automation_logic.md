@@ -144,3 +144,129 @@ This section documents the full override defeat engine architecture, combining B
 - Ideal for verifying whether intermediate profile chaining or override defeats executed as intended.
 
 
+# 🎯 Tasker Profile → Task Mapping (Samsung_Override.prj.xml)
+
+This mapping details each Tasker task by ID and name, its intended purpose, and the list of profiles that trigger it.
+
+---
+
+### 🔧 Task ID: 102 — `Always Works Unless Quality Mismatch`
+**Purpose:** Main fallback handler for successful BCC codec switches; used when quality is acceptable.
+
+**Linked Profiles:**
+- AAC_44100_16
+- SBC_44100_16
+- LDAC_44100_16_909
+- LDAC_44100_16_Default
+- LDAC_44100_24_303
+- LDAC_44100_24_606
+- LDAC_44100_24_909
+- LDAC_44100_24_Default
+- LDAC_44100_32_303
+- LDAC_44100_32_606
+- LDAC_44100_32_909
+- LDAC_48000_16_330
+- LDAC_48000_16_660
+- LDAC_48000_16_990
+- LDAC_48000_16_Default
+- LDAC_48000_24_330
+- LDAC_48000_24_660
+- LDAC_48000_24_990
+- LDAC_48000_24_Default
+- LDAC_48000_32_330
+- LDAC_48000_32_660
+- LDAC_48000_32_990
+- LDAC_48000_32_Default
+- LDAC_88200_16_909
+- LDAC_88200_24_303
+- LDAC_88200_24_606
+- LDAC_88200_24_909
+- LDAC_88200_32_303
+- LDAC_88200_32_606
+- LDAC_88200_32_909
+- LDAC_88200_32_Default
+- LDAC_96000_16_330
+- LDAC_96000_16_660
+- LDAC_96000_16_990
+- LDAC_96000_24_330
+- LDAC_96000_24_660
+- LDAC_96000_24_990
+- LDAC_96000_24_Default
+- LDAC_96000_32_330
+- LDAC_96000_32_660
+- LDAC_96000_32_Default
+
+---
+
+### ⚠️ Task ID: 23 — `Bit Depth Regeneration`
+**Purpose:** Adaptive codec detection and override mismatch correction.
+
+**Linked Profiles:**
+- LDAC_44100_16_303
+- LDAC_44100_16_606
+- LDAC_44100_16_ADAPTIVE
+- LDAC_44100_24_ADAPTIVE
+- LDAC_44100_32_ADAPTIVE
+- LDAC_48000_16_ADAPTIVE
+- LDAC_48000_24_ADAPTIVE
+- LDAC_48000_32_ADAPTIVE
+- LDAC_88200_16_303
+- LDAC_88200_16_606
+- LDAC_88200_16_ADAPTIVE
+- LDAC_88200_24_ADAPTIVE
+- LDAC_88200_32_ADAPTIVE
+- LDAC_96000_16_ADAPTIVE
+- LDAC_96000_24_ADAPTIVE
+- LDAC_96000_32_ADAPTIVE
+
+---
+
+### 🧪 Task ID: 17 — `Sbc Override`
+**Purpose:** Force SBC handshake to reset Samsung override authority.
+
+**Linked Profile:**
+- LDAC_96000_32_990
+
+---
+
+### 🔍 Task ID: 15 — `Ldac 660`
+**Purpose:** Possibly used to switch to LDAC 660 or test profile.
+
+**Linked Profile:**
+- Bbc Maps
+
+---
+
+### 🎧 Task ID: 3 — `Location Off`
+**Purpose:** Likely toggles environment prep or scanning off after connection.
+
+**Linked Profiles:**
+- Xm3 Connected
+- Xm5 Connected
+
+---
+
+### 🔌 Task ID: 5 — `Location On`
+**Purpose:** Environment or scanning restore after disconnect.
+
+**Linked Profiles:**
+- Xm3 Disconnect
+- Xm5 Disconnect
+
+---
+
+### 🎶 Task ID: 74 — `Enable Profiles After High Res`
+**Purpose:** Resume BCC switching after closing Qobuz.
+
+**Linked Profile:**
+- Qobuz Enable Bcc Profiles
+
+---
+
+### 🎛 Task ID: 73 — `Disable Profiles For High Res`
+**Purpose:** Prevent profile switching during UAPP playback.
+
+**Linked Profile:**
+- UAPP Disable Bcc Profiles
+
+
