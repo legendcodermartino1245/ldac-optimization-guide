@@ -79,3 +79,47 @@ This module provides the full technical consolidation of **all verified behavior
 ---
 
 *This engineering companion is intended for advanced debugging, reverse-engineering alignment, and state machine tracking across full LDAC 990kbps override suppression environments.*
+
+
+# 🛠 LDAC Engineering Companion — Authority Control Map (Gold Edition)
+
+This document maps the full causal authority structure that governs LDAC override behavior on Samsung + Sony WH-1000XM systems.  
+It isolates where each override injection happens, who controls it, and where interventions are possible.
+
+---
+
+## 🔬 Authority Control Stack
+
+| Layer | Ownership | Control Scope | Intervention Point? |
+|-------|-----------|---------------|----------------------|
+| **Firmware (Sony Headphones)** | Sony | Stores last valid LDAC profile | ✔ During training handshake |
+| **Vendor Stack (Samsung)** | Samsung A2DP injection | Injects adaptive LDAC default profiles, triggers override | ✔ Blocked via handshake exploits |
+| **Google Services (Fast Pair)** | Google Play Services | Syncs stored profile metadata, Nearby Devices injection | ✔ Blocked via permission revocation & metadata purge |
+| **Developer Options (Android UI)** | User Interface Layer | Exposes codec toggles, but does not control negotiation stack directly | ✔ Used only to force clean SBC handshake resets |
+| **Host Stack (A2DP Negotiation)** | Android Bluetooth Stack | Negotiates codec profiles during initial connection | ✔ BCC + profile chaining modifies handshake behavior |
+| **Override Defeat Tools (BCC, Tasker, AutoNotification)** | User Automation | Forces codec renegotiation, healing, and profile enforcement | ✔ Fully in user's control |
+| **Transport / Adaptive Layer** | Firmware Negotiation | Adaptive bitrate bins, sample rate window stability | ✔ Stabilized via adaptive stability tier targeting |
+
+---
+
+## 🔬 Control Priority Summary
+
+1. Samsung Override Stack  
+2. Google Play Services Fast Pair Injection  
+3. Developer Options (stale state)  
+4. Firmware Profile Memory  
+5. BCC + Tasker Automation Layer  
+6. Adaptive Sample Rate Stability
+
+---
+
+## 🧠 Engineering Rule:
+
+> Each layer can **only be defeated upstream**.  
+> Lower layers (e.g. BCC) cannot fully override higher-layer injection unless the injection itself is blocked.
+
+---
+
+## 🚩 Critical Debugging Rule:
+
+- If override defeat fails, always analyze **which authority layer injected the failure state.**
