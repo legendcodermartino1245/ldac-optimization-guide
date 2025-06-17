@@ -282,23 +282,61 @@ Samsung injects its own LDAC codec profile at the very start of every Bluetooth 
 
 ---
 
-## Samsung Codec Behavior 
-AAC override is also always active right if LDAC isn't enabled and does enable hd audio in dev settings.
+## 🔧 Samsung Codec Behavior — Override Negotiation Logic
 
-Sbc is never the first codec when paired in bluetooth settings on samsung.
-
-### AAC ≠ Neutral on Reconnect — It's Just Another Override Pathway
-
-After first pairing:
-
-- **AAC is no longer a passive fallback.**
-- It becomes just another codec Samsung temporarily switches through on its way to enforcing **LDAC**.
--  **It is not an opportunity** — it’s part of the automatic override stack.
-
-> Even if you see AAC after a reconnect, Samsung will often switch to LDAC automatically within seconds — unless the override is actively blocked or interrupted (e.g., via SBC or intermediate profile tricks).
+Samsung's codec handling is **never neutral** after pairing — all codec transitions participate in its override system.
 
 ---
 
+### ✅ AAC Override Logic (When LDAC Is Disabled)
+
+- If **LDAC is disabled globally** (HD Audio toggle OFF):
+  - Samsung will forcibly activate **AAC** whenever possible.
+  - This occurs regardless of **Absolute Volume ON or OFF**.
+- AAC becomes the "preferred high-quality codec" under Samsung's stack if LDAC is not allowed.
+- AAC selection here is not user-driven — it is part of Samsung’s override logic asserting itself even in absence of LDAC.
+- Disabling LDAC does not fall back to SBC by default; AAC is treated as the next-in-line override.
+
+---
+
+### ✅ SBC Is Never Neutral — Samsung Will Never Default to SBC
+
+- Samsung’s pairing and reconnect behavior **never defaults to SBC** after initial pairing.
+- SBC only appears under very specific conditions:
+  - Explicit SBC selection in Developer Options.
+  - Manual override defeat workflows (SBC handshake exploit).
+  - Complete device capability fallback (rare edge case if all high-quality codecs fail).
+- Even during poor RF conditions or reconnections, Samsung prefers Adaptive LDAC degradation over SBC fallback.
+- SBC is therefore not a "graceful fallback" in Samsung's override stack — it is an explicit override defeat tool.
+
+---
+
+### ✅ AAC ≠ Neutral on Reconnect — It’s Part of Override Negotiation
+
+- AAC is not a fallback or neutral reconnect state.
+- On reconnect:
+  - Samsung may briefly show **AAC** for several seconds.
+  - The override system then auto-transitions to **LDAC Adaptive** unless override defeat logic is actively blocking it.
+  - AAC is simply a transient override phase in Samsung's handshake logic.
+- This is why AAC sometimes appears momentarily before BCC or SBC handshake defeats fully assert.
+
+---
+
+### 🔧 Samsung Override Control Priority
+
+1️⃣ HD Audio Toggle (global switch Samsung controls)  
+2️⃣ Override stack injects AAC or LDAC depending on allowed codec set  
+3️⃣ Developer Options LDAC settings mostly ignored unless override is fully defeated
+
+---
+
+### 🔬 Summary Table
+
+| Scenario | Codec | Override Behavior |
+|----------|-------|--------------------|
+| LDAC Disabled | AAC | Forced by Samsung (independent of AV state) |
+| LDAC Enabled (Override Active) | AAC → LDAC Adaptive | Sequential override progression |
+| Override Defeated (BCC/Tasker) | Anything | Full manual handshake control |
 
 
 
