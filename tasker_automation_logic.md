@@ -103,7 +103,16 @@
 
 
 
-## 🔧 Universal Self-Healing Logic (AutoNotification + Tasker Logic)| Trigger Condition                                         | Healing Action                    ||-----------------------------------------------------------|------------------------------------|| Sample Rate ≠ 44.1 kHz                                    | Apply `44.1 kHz / 24-bit / 909`   || Bit Depth ≠ 24-bit                                        | Apply `44.1 kHz / 24-bit / 909`   || Bitrate = Default (303/606/etc) **AND Codec = LDAC**      | GUI Sync Only                     || Bitrate ≠ 909 (when LDAC active)                          | Apply Bit Depth Regeneration      || Codec Change Event (non-LDAC → LDAC or intra-LDAC renegotiation) | Samsung Override Fully Displaced || Otherwise                                                  | No Action                         |
+## 🔧 Universal Self-Healing Logic (AutoNotification + Tasker Logic)
+
+| Trigger Condition | Healing Action |
+|--------------------|----------------|
+| Sample Rate ≠ 44.1 kHz | Apply `44.1 kHz / 24-bit / 909` |
+| Bit Depth ≠ 24-bit | Apply `44.1 kHz / 24-bit / 909` |
+| Bitrate = Default (303/606/etc) **AND Codec = LDAC** | GUI Sync Only |
+| Bitrate ≠ 909 (when LDAC active) | Apply Bit Depth Regeneration |
+| Codec Change Event (non-LDAC → LDAC or intra-LDAC renegotiation) | Samsung Override Fully Displaced |
+| Otherwise | No Action |
 
 
 
