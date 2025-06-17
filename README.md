@@ -353,3 +353,27 @@ Samsung injects its own LDAC codec profile at the very start of every Bluetooth 
 Dont use Pulseaudio use Pipewire instead
 
 
+### 🎛️ Samsung Override Trigger Conditions — HD Audio vs Media Audio vs LDAC Toggle
+
+Samsung’s LDAC override depends on **three Bluetooth settings toggles**:
+
+| Toggle                      | Role in Override Logic                                                                 |
+|-----------------------------|----------------------------------------------------------------------------------------|
+| **HD Audio**                | Enables advanced codecs (LDAC, AAC). Required for override.                           |
+| **Media Audio**             | Enables A2DP audio streaming — required to trigger handshake.                         |
+| **LDAC Toggle (Bluetooth settings)** | Allows LDAC as preferred codec — must be ON to permit override. Dependent on HD Audio. |
+
+---
+
+#### 🔁 Behavior Matrix
+
+| HD Audio | Media Audio | LDAC Toggle | Result                                                  |
+|----------|-------------|-------------|----------------------------------------------------------|
+| OFF      | ON          | OFF         | ❌ **SBC only** — override blocked, advanced codecs disabled |
+| ON       | OFF         | ON          | ⏸️ No stream — no handshake, override stalled            |
+| ON       | ON          | OFF         | 🔁 **AAC** used — LDAC bypassed, override not triggered  |
+| ON       | ON          | ON          | ✅ Samsung override triggered (e.g., 96kHz Adaptive LDAC) |
+
+> 💡 *The LDAC toggle is shown but disabled when HD Audio is OFF — effectively OFF. All three toggles must be ON for Samsung’s LDAC override to activate.*
+
+
