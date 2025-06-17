@@ -1,4 +1,4 @@
-##  Settings That Dont Interfere with LDAC 990kbps
+#  Settings That Dont Interfere with LDAC 990kbps
 1. 5 GHZ wi-fi.
 2. VoLTE 
 4. 5G
