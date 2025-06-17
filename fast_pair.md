@@ -1,4 +1,4 @@
-## fast pair
+# fast pair
 ###  Fast Pair Auto-Connect — The Hidden Override Trigger
 
 Fast Pair doesn’t just work when you tap the notification. Even if you ignore it, it can automatically reconnect your headphones in the background using Google Play Services — often **faster than Samsung’s own auto-connect**.
