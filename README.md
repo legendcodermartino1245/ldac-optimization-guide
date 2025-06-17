@@ -381,4 +381,4 @@ Samsung’s LDAC override depends on **three Bluetooth settings toggles**:
 ldacc quality is sometimes greyed out explore
 ldac can be selected when ldac toggle is off and hd audio is on but disapears when hd audio is off why can i select it but not use it explore this fully
 enabling eq in sound connect also makes ldac quality grey
-i think it means stuck at 303/330 bitrate
+if ldac toggle is disabled the quality option is greyed out when hd audio is on
