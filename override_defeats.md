@@ -40,19 +40,14 @@ Samsung's override attaches only when LDAC is negotiated directly at connection.
 
 ---
 
-### Bit Depth Downgrade Exploit (LDAC 16-bit Entry)
+### Bit Depth Downgrade Exploit
 
 **Principle:**  
-Samsung override triggers primarily at 24-bit LDAC handshake. Initializing connection at LDAC 16-bit bypasses override enforcement.
+It doesnt matter what the target ldac profile will be as long as the bit depth in the first switch doesnt match with the bit depth in the target ldac profile
 
-**Sequence:**
-1. Apply LDAC 16-bit (e.g., 990 kbps, 44.1 or 48 kHz).
-2. After stable 16-bit LDAC, switch to 24-bit target LDAC.
-
-**Result:**  
-- Override stack bypassed internally.
-- Clean firmware profile established.
-- Very fast, often bypasses SBC step entirely.
+**example:**
+1. Apply LDAC 44.1 16-bit 990 kbps.
+2. Apply LDAC 44.1 24-bit 990 kbps.
 
 ---
 
@@ -63,8 +58,7 @@ Forcing SBC handshake fully resets firmware codec state before LDAC negotiation.
 
 **Sequence:**
 1. Apply SBC profile.
-2. Wait for stable handshake (~1–2 seconds).
-3. Apply LDAC profile.
+2. Apply any LDAC profile.
 
 **Result:**  
 - Override neutralized via full A2DP renegotiation.
@@ -79,12 +73,12 @@ Absolute Volume OFF disables Samsung's override hook attachment phase.
 
 **Sequence:**
 1. Disable Absolute Volume (Developer Options).
-2. Pair/connect headphones.
-3. Apply desired LDAC profile.
-
+2. Disable bluetooth
+3. Enable bluetooth
+4. Pair/connect headphones.
+5. Apply desired LDAC profile.
 **Result:**  
 - Override bypassed at Bluetooth capability declaration.
-- No intermediate profiles required.
 - Fully automatable with permanent effect.
 
 ---
