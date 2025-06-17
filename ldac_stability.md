@@ -197,3 +197,18 @@ You can identify apps or system components that silently interfere with Bluetoot
 ---
  *This method reveals hidden reconnections, override attempts, or scanning triggers — even after toggles have been turned off.*
 >  Combine this technique with `dumpsys bluetooth_manager` or ADB log monitoring for full visibility.
+
+
+#### Google Play Services Interference Timing
+
+You do **not** need to disable Nearby Devices or revoke Find My Device permissions immediately.
+
+- During initial setup (SBC handshake, profile injection, LDAC training), Google’s override services do not interfere — as long as:
+  - Developer Options are fully cleared.
+  - Sony Music Center is inactive.
+
+- Only after the LDAC 990 profile is confirmed and stored in firmware should you disable:
+  - Nearby Devices permission for `com.google.android.gms` (via ADB or system settings)
+  - Assistant and Find My Device background access (optional)
+
+✅ This allows full device tracking, Find My Device, and Assistant functionality to remain active during the initial training phase.
