@@ -171,8 +171,6 @@ Samsung injects its own LDAC codec profile at the very start of every Bluetooth 
   → Allows a new profile (e.g., LDAC 990) to be stored on next clean connection.
 
 -  **Multipoint pairing active**  
-  → Prevents LDAC negotiation entirely.  
-  → Defaults to SBC or AAC to maintain multipoint compatibility.
 
 -  **AVRCP version mismatch**  
   → May block proper Absolute Volume detection.  
