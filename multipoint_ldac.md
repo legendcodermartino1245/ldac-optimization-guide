@@ -2164,3 +2164,42 @@ While certain negotiation stages remain inaccessible to real-time packet capture
 ✅ This model allows functional reverse-engineering of the entire LDAC multipoint negotiation stack, without requiring hardware sniffers or vendor internal tools.
 
 > ✅ The following models reflect fully validated system behavior based on controlled experimental outcome verification, full firmware profile manipulation, codec negotiation observations, and multipoint role control testing.
+
+
+## ❌ Fully Inaccessible Vendor Firmware Internals
+
+| Vendor Logic Layer | Status |
+|---------------------|--------|
+| Adaptive Bin Scoring Model | ❌ Inaccessible |
+| Adaptive Retry Threshold Logic | ❌ Inaccessible |
+| Firmware Queue/Jitter Buffers | ❌ Inaccessible |
+| Negotiation Arbitration Logic | ❌ Inaccessible |
+| Vendor RF Margin Filters | ❌ Inaccessible |
+| Vendor Recovery Algorithms | ❌ Inaccessible |
+| FEC Retransmit Counters | ❌ Inaccessible |
+| Negotiation Window Decay Timers | ❌ Inaccessible |
+
+---
+
+## 🔬 HCI Logging Scope Summary
+
+| Observation Layer | HCI Usefulness |
+|-------------------|-----------------|
+| A2DP Capability Negotiation Timing | ✅ Useful |
+| Codec Switch Transition Timing | ✅ Useful |
+| CT/TG Role Arbitration Timing | ✅ Partial |
+| AVRCP Command Observations | ✅ Useful |
+| Adaptive Bin Transition Decisions | ❌ Not Exposed |
+| Bin Scoring Model Access | ❌ Not Exposed |
+| Firmware Buffer State Access | ❌ Not Exposed |
+| Vendor Negotiation Window Exposure | ❌ Not Exposed |
+
+---
+
+## 🔬 Absolute Boundary — Fully Inaccessible Subset
+
+| Layer | Status |
+|-------|--------|
+| Internal Vendor Scoring Models | ❌ Fully Inaccessible |
+| Firmware Queue / Jitter Buffers | ❌ Fully Inaccessible |
+| Adaptive Retry Logic | ❌ Fully Inaccessible |
