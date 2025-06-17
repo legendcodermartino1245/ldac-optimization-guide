@@ -1,4 +1,4 @@
-##  High-Resolution Audio
+#  High-Resolution Audio
 ###  General Configuration Advice
 - **App-Specific Profiles in BCC** require **Usage Data Access** to function.
 - **64-bit mode in Neutron** breaks **BCC Adaptive Sample Rate Switching**.
