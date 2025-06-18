@@ -221,7 +221,6 @@ Bluetooth Codec Changer (BCC) can apply LDAC profiles during a Bluetooth session
 | **Bluetooth Codec Changer (BCC)**|  Yes           |  No                      |  No                      | Session-only, needs AV ON to apply            |
 | **Sony Music Center**            |  Yes           |  Yes                     |  Yes                     | Can store SBC / LDAC mode in firmware         |
 | **Developer Options**            |  Yes           |  No                      |  No                      | UI-only, gets reset on reconnect              |
-| **Tasker (with BCC)**            |  Yes           |  No                      |  No                      | Needs to trigger on every reconnect           |
 | **Android System (Samsung)**     |  Yes (override)|  Yes                     |  No (stack memory)       | Persists until flushed manually               |
 
 ---
