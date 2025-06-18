@@ -1,4 +1,4 @@
-# LDAC Done Right
+![image](https://github.com/user-attachments/assets/c078c8eb-bb69-45ec-9707-dbdc5d90ed34)# LDAC Done Right
 - [LDAC Done Right](#ldac-done-right)
 - [My setup and the hard and software I used during the making of this guide](#my-setup-and-the-hard-and-software-i-used-during-the-making-of-this-guide) 
 - [LDAC Configuration Matrix Fixed](#ldac-configuration-matrix-fixed)
@@ -353,32 +353,354 @@ Samsung injects its own LDAC codec profile at the very start of every Bluetooth 
 Dont use Pulseaudio use Pipewire instead
 
 
-### 🎛️ Samsung Override Trigger Conditions — HD Audio vs Media Audio vs LDAC Toggle
 
-Samsung’s LDAC override depends on **three Bluetooth settings toggles**:
 
-| Toggle                      | Role in Override Logic                                                                 |
-|-----------------------------|----------------------------------------------------------------------------------------|
-| **HD Audio**                | Enables advanced codecs (LDAC, AAC). Required for override.                           |
-| **Media Audio**             | Enables A2DP audio streaming — required to trigger handshake.                         |
-| **LDAC Toggle (Bluetooth settings)** | Allows LDAC as preferred codec — must be ON to permit override. Dependent on HD Audio. |
+
+# 🔄 Samsung LDAC Override Behavior — *Sound Connect: Prioritize Stable Connection*
+
+## 📌 Scenario  
+When you select **`Prioritize Stable Connection`** in Samsung's **Sound Connect** settings:
+
+| 🔧 Setting / Behavior                 | Result                                                                 |
+|--------------------------------------|------------------------------------------------------------------------|
+| `Prioritize Stable Connection`       | ✅ **Enabled**                                                          |
+| **LDAC Toggle (Bluetooth Settings)** | ❌ **Disabled & Hidden** — LDAC cannot be enabled manually              |
+| **HD Audio Toggle**                  | ✅ **ON and changeable** — remains fully interactive                    |
+| **Active Codec**                     | 🎯 **AAC is selected** — injected by Samsung override                  |
+| **LDAC Codec (Developer Options)**   | ✅ **Visible** — LDAC still appears in the codec list                   |
+| **LDAC Quality (Developer Options)** | ⚠️ **Greyed Out** — quality not selectable because LDAC is not active  |
+
+---
+## 🧠 Explanation
+
+- Selecting `Prioritize Stable Connection` **removes LDAC from the connection path** by hiding its toggle.
+- **HD Audio remains ON** and can still be toggled, but **AAC** is negotiated as the active codec due to Samsung’s override.
+- **LDAC remains visible** in Developer Options, but the **quality selector becomes greyed out** simply because:
+  > LDAC is **not the current codec**, not because it's "blocked."
+
+  This is a key distinction — the quality selector only becomes active **after LDAC is successfully negotiated**.
 
 ---
 
-#### 🔁 Behavior Matrix
+## ✅ Summary
 
-| HD Audio | Media Audio | LDAC Toggle | Result                                                  |
-|----------|-------------|-------------|----------------------------------------------------------|
-| OFF      | ON          | OFF         | ❌ **SBC only** — override blocked, advanced codecs disabled |
-| ON       | OFF         | ON          | ⏸️ No stream — no handshake, override stalled            |
-| ON       | ON          | OFF         | 🔁 **AAC** used — LDAC bypassed, override not triggered  |
-| ON       | ON          | ON          | ✅ Samsung override triggered (e.g., 96kHz Adaptive LDAC) |
+- `Prioritize Stable Connection` = 🔒 **LDAC blocked by toggle**, 🎯 **AAC negotiated**
+- HD Audio = ✅ **On and user-toggleable**
+- LDAC toggle = ❌ Hidden from UI
+- LDAC codec = ✅ **Visible in Developer Options**
+- LDAC quality = ⚠️ **Greyed out (no LDAC session active)**
+- Override status = 🔁 **AAC forced by Samsung override**
 
-> 💡 *The LDAC toggle is shown but disabled when HD Audio is OFF — effectively OFF. All three toggles must be ON for Samsung’s LDAC override to activate.*
+---
+
+## 📎 Notes
+
+- To use LDAC again, switch to `Prioritize Sound Quality` and manually re-enable LDAC in Bluetooth settings.
+- Even then, Samsung override will likely inject **LDAC Adaptive** unless defeated (via BCC, bit-depth switch, SBC trick, etc.).
+- Most important insight:
+  > **LDAC Quality greyed out ≠ LDAC blocked — it just means LDAC isn’t in use yet.**
+ 
+
+## 🔁 LDAC Override Reinjection via Sound Connect Toggle
+
+### 🧠 Description
+
+When using **Samsung Sound Connect**, the following sequence causes LDAC to become disabled and forces Samsung’s override when re-enabled:
+
+1. Open **Sound Connect**.
+2. Select **Prioritize Stable Connection**.
+3. Then switch back to **Prioritize Sound Quality**.
+
+This silently disables LDAC (toggle off), even though **HD Audio stays enabled**.
+
+Manually re-enabling LDAC at this point **triggers Samsung’s override**.
+
+---
+
+### ⚙️ Technical Behavior
+
+| Action                                      | Result                                                                 |
+|---------------------------------------------|------------------------------------------------------------------------|
+| `Prioritize Stable Connection`              | Disables LDAC, hides its toggle in Bluetooth settings                  |
+| `Prioritize Sound Quality`                  | Makes LDAC toggle visible again, but now set to **OFF**                |
+| Manual re-toggle of LDAC                    | Triggers override due to HD Audio being **ON**                         |
+| LDAC quality setting (in Developer Options) | Becomes visible again — proof that Samsung override is re-applied      |
+
+---
+
+### 📌 Implications
+
+- **HD Audio remains ON** throughout the toggle process.
+- Re-enabling LDAC while HD Audio is ON causes **Samsung’s LDAC override** to activate (typically Adaptive 96 kHz).
+- Any prior clean LDAC profile (e.g., 44.1 kHz Fixed) is **overwritten**.
+- This shows that **manual LDAC toggling is enough to retrigger override**, even without reconnecting.
+
+---
+
+### ✅ Recommendations
+
+- **Never manually toggle LDAC** after using Sound Connect — override will be injected.
+- Use tools like **Bluetooth Codec Changer (BCC)** to apply desired LDAC profiles **without triggering override**.
+- Consider using a **bit-depth mismatch exploit** (e.g., LDAC 16-bit → LDAC 24-bit) to defeat the override via codec switching logic.
+- Avoid enabling **HD Audio**, unless override injection is desired.
+- Keep **Sound Connect** on "Prioritize Sound Quality" without toggling between modes if a clean profile is already trained.
+
+---
+
+### 🧪 Example Use Case
+
+If you're trying to maintain a stable **LDAC 44.1 kHz 990kbps Fixed** profile:
+
+- Toggling Sound Connect to "Stable" and then back to "Sound Quality" will reset the toggle.
+- Manually enabling LDAC again will **lose your fixed profile** and inject **Samsung’s override**.
+- Only automated switching (via Tasker/BCC) or bit-depth trick logic will retain codec integrity.
+
+---
 
 
 
-ldacc quality is sometimes greyed out explore
-ldac can be selected when ldac toggle is off and hd audio is on but disapears when hd audio is off why can i select it but not use it explore this fully
-enabling eq in sound connect also makes ldac quality grey
-if ldac toggle is disabled the quality option is greyed out when hd audio is on
+## 📶 Samsung LDAC Override Codec Table (Including SBC Fallback)
+
+| Media Audio | HD Audio | LDAC Toggle   | Codec Selected | Override Active | Notes                                                   |
+|-------------|----------|----------------|----------------|------------------|----------------------------------------------------------|
+| On          | On       | On             | LDAC           | Yes              | Override selects LDAC (typically 96 kHz Adaptive)        |
+| On          | On       | Off            | AAC            | Yes              | LDAC unavailable; override falls to AAC                  |
+| On          | On       | Hidden         | AAC            | Yes              | LDAC not exposed; override selects AAC                   |
+| On          | On       | Greyed out     | AAC            | Yes              | LDAC visually present but blocked; override selects AAC  |
+| On          | Off      | Any            | SBC            | No               | HD Audio OFF disables override; fallback codec is SBC    |
+| Off         | On       | Any            | No audio       | No               | No A2DP session; override logic not triggered            |
+
+---
+
+## 🔍 Codec Requirements (Full Context)
+
+| Codec | Requires Media Audio | Requires HD Audio | Requires LDAC Toggle |
+|--------|----------------------|-------------------|------------------------|
+| LDAC   | Yes                  | Yes               | Yes                   |
+| AAC    | Yes                  | Yes               | No                    |
+| SBC    | Yes                  | No                | No                    |
+
+## ⚠️ Additional Notes
+
+- 🎧 **Input Device toggle** (in Bluetooth settings)  
+  → *Has no impact on codec negotiation or override behavior.*  
+  It only signals whether the device can act as a **microphone input**, not an audio sink.
+AAC is preferred by Samsung over SBC when HD Audio is ON but LDAC toggle is OFF — even though SBC would normally be default.
+
+
+
+## 📱 Developer Options — LDAC Quality Toggle Behavior
+
+### ✅ LDAC Quality *Selectable* in Developer Options
+- **Meaning:**  
+  Samsung **override is triggered**, because it *always* triggers when HD Audio is ON and the LDAC toggle is ON.
+- **Reasoning:**  
+  The LDAC quality dropdown only becomes **selectable** when LDAC is the active codec. Since Samsung enforces LDAC under these conditions, its presence implies the override logic is in effect.
+- **Implication:**  
+  If you can select LDAC quality, you're seeing the result of Samsung's override stack — **not user-defined codec negotiation**.
+
+---
+
+### ⚪ LDAC Quality *Greyed Out* in Developer Options
+- **Meaning:**  
+  This state is **ambiguous** and doesn't indicate anything conclusive about codec negotiation or override status.
+- **Why it happens:**  
+  The LDAC quality option can appear greyed out when:
+  - No device is connected
+  - LDAC toggle is OFF
+  - HD Audio is OFF
+  - Sound Assistant or Sound Connect is limiting LDAC usage
+- **Implication:**  
+  A greyed-out LDAC quality setting means **LDAC is not in use**, but it doesn’t mean override logic is inactive — it simply means the codec isn’t engaged.
+
+---
+
+### 📊 Summary Table
+
+| LDAC Quality in Dev Options | What It Means                                 | Samsung Override Status      |
+|-----------------------------|-----------------------------------------------|-------------------------------|
+| ✅ Selectable               | LDAC is active due to system-level enforcement | ✅ Override is **triggered**  |
+| ⚪ Greyed Out               | LDAC is not active or blocked by config        | ❓ Override status **unknown** |
+
+---
+
+> 💡 **Note:**  
+> The real proof of override lies in whether *you* chose the codec — or Samsung did.  
+> If you didn’t change anything and LDAC is active, the override logic won.
+
+LDAC Quality is always greyed out when no device is connected — even if override is armed, because there is no A2DP session to inject into.
+
+
+
+
+
+
+## 🧠 Samsung Override Is Always Armed Behind HD Audio
+
+Even **when no Bluetooth device is connected**, Samsung’s override system is **already active** as long as `HD Audio` is enabled.
+
+- 🧱 The **SBC codec** appears as default, since no A2DP device is connected.
+- ⚠️ The **LDAC Quality** setting is greyed out — **not because LDAC is inactive**, but because Samsung’s override profile **hasn’t been injected yet**.
+
+This confirms:
+
+- ✅ **Samsung’s override logic is always armed when `HD Audio` is ON**
+- 🧠 **Override injection only occurs during the A2DP handshake**
+- 🔁 You **never toggle `HD Audio`** unless absolutely necessary, because Samsung will **automatically re-enable it** after most disconnections
+
+---
+
+### 🔁 What Happens on Device Connect
+
+Once an LDAC-capable device connects and both `Media Audio` and `HD Audio` are enabled:
+
+- 🔴 If **LDAC is enabled**, Samsung immediately **injects its override LDAC profile**:
+  - `96 kHz / Adaptive / 32-bit` (typical)
+- 🔴 If **LDAC is disabled**, Samsung selects **AAC**, *not* SBC.
+- ⚠️ The **LDAC Quality** setting remains **greyed out** — override is active.
+- 🧼 A **clean LDAC profile is never auto-applied** — only possible via manual trick or override defeat.
+
+---
+
+### 📊 Samsung Override Behavior Table
+
+| Condition                            | Override Logic State | Codec Displayed  | LDAC Quality Setting |
+|-------------------------------------|-----------------------|------------------|-----------------------|
+| No device connected, HD Audio ON    | 🟡 Armed              | SBC              | Greyed out            |
+| Device connects, LDAC ON            | 🔴 Injects override   | LDAC Adaptive    | Greyed out            |
+| Device connects, LDAC OFF           | 🔴 Injects override   | AAC              | Hidden                |
+| Device connects, HD Audio OFF       | ⚪ Inactive           | SBC              | Hidden                |
+| Override defeated (e.g. SBC trick)  | 🟢 Bypassed           | LDAC Fixed       | Selectable            |
+
+---
+
+## 🔥 Samsung Override Is Inevitable
+
+You **can’t prevent it** — you can only **defeat or manipulate it**:
+
+- 🎭 Use **profile switch tricks** (like SBC → LDAC 16-bit → LDAC 990kbps) to bypass override logic.
+- 🤖 Use **Bluetooth Codec Changer (BCC)** to automate negotiation **before override is injected**.
+
+
+
+
+
+
+# 🔓 Defeating Samsung's LDAC Override Instantly
+
+Samsung injects a **default LDAC override profile** during A2DP connection **if `HD Audio` is enabled**.  
+This override forces:
+
+- ✅ LDAC codec (even if disabled prior)
+- ⚠️ Quality = **Adaptive 96 kHz**
+- 🚫 Developer Options LDAC settings **ignored**
+
+---
+
+## ✅ Override Defeat Rule
+
+> **Changing *any* LDAC or codec-related setting after connection defeats the Samsung override.**
+
+---
+
+## 🧪 Verified Setting Changes That Defeat Override
+
+| Setting Changed                   | Override Defeated | Notes                                                  |
+|----------------------------------|--------------------|---------------------------------------------------------|
+| LDAC Quality (e.g., 990kbps)     | ✅ Yes             | Fastest and most reliable override break               |
+| Sample Rate (Dev Options)        | ✅ Yes             | Forces re-negotiation with new values                  |
+| Bit Depth (Dev Options)          | ✅ Yes             | Applies new bit depth and reasserts codec config       |
+| Codec Switch (e.g., SBC → LDAC)  | ✅ Yes             | Override dropped; A2DP renegotiation is triggered      |
+
+---
+
+## 🧠 Why It Works
+
+- Samsung’s override is **only applied during handshake**
+- Changing a codec setting **forces a fresh A2DP renegotiation**
+- This **invalidates** Samsung's pre-injected LDAC profile
+- Developer Options values become **active and respected**
+
+---
+
+## 🎯 Outcome After Defeat
+
+- 🔄 LDAC config is **reapplied from Developer Options or BCC**
+- 🧾 `dumpsys` reports **correct sample rate, bitrate, and bit depth**
+- 🔊 Audio quality improves — **stuttering often eliminated**
+- 🎮 BCC can switch profiles freely without override resistance
+
+---
+
+## ⚠️ Notes & Limitations
+
+- Override **still loads at initial connection** if HD Audio is ON
+- A clean profile is **never possible on Samsung** — must always break it post-handshake
+- If LDAC toggle is **OFF** during connection:
+  - 🔇 AAC is selected
+  - 🧱 Override applies to **AAC**, not LDAC
+- 🔄 Toggling `HD Audio` again **rearms override**
+
+---
+
+## 📌 Summary
+
+```text
+→ Any LDAC or codec setting change defeats the override.
+→ Quality = fastest way; bit depth = most reliable fallback.
+→ Override is always injected at connect — must be broken manually.
+```
+## 🎚️ Sound Connect EQ Has No Impact on LDAC Quality (WH-1000XM5)
+
+When using the **Sony WH-1000XM5** with LDAC active, enabling or disabling **EQ in the Sound Connect app** does **not** affect LDAC quality, bitrate, or codec parameters.
+
+### ✅ Confirmed Behavior:
+- LDAC **remains active** at the **same bitrate and sample rate** regardless of EQ state.
+- The **Developer Options “LDAC Audio Quality”** setting stays unchanged (e.g. 990 kbps) when EQ is toggled.
+- No codec renegotiation or fallback (e.g. to AAC) occurs when EQ is applied.
+
+### 🧠 Why It Matters:
+- On older Sony headphones (e.g. WH-1000XM3), enabling EQ **can** lower the effective LDAC bitrate or force fallback to AAC.
+- On WH-1000XM5, **LDAC codec quality is preserved** even with audio processing features like EQ enabled — as long as override conditions aren't triggered (e.g. Samsung LDAC override or HD Audio toggling).
+
+### 📌 Tip:
+- You can safely use **EQ in Sound Connect** on XM5 **without compromising LDAC 990 kbps** or causing bitrate drops — unless **other system-level override conditions** interfere.
+
+
+
+
+
+## 🎚️ Absolute Volume (AV) Has No Role in Override Defeat
+
+Samsung’s LDAC override can be **defeated immediately** by changing any codec-related setting — **regardless of whether Absolute Volume (AV) is ON or OFF**.
+
+---
+
+### ✅ Override Defeat Works With or Without AV
+
+| Action                                 | Defeats Override | Requires AV | Notes                                                       |
+|----------------------------------------|------------------|-------------|--------------------------------------------------------------|
+| Changing LDAC Quality (e.g. 990 kbps)  | ✅ Yes           | ❌ No       | Fastest method — override breaks instantly                  |
+| Changing Bit Depth (e.g. 16-bit → 24)  | ✅ Yes           | ❌ No       | Triggers full LDAC renegotiation                            |
+| Changing Sample Rate                   | ✅ Yes           | ❌ No       | Any change forces override to be dropped                    |
+| Switching Codec (e.g. SBC → LDAC)      | ✅ Yes           | ❌ No       | Clean profile reset via handshake chaining                  |
+
+---
+
+### 📌 What AV *Does* Affect (Unrelated to Override)
+
+| Behavior                                | Affected by AV? | Notes                                                             |
+|-----------------------------------------|------------------|--------------------------------------------------------------------|
+| Samsung LDAC Override Logic             | ❌ No            | AV has zero influence on injection or defeat logic                 |
+| Volume Sync Between Devices             | ✅ Yes           | AV ON = shared volume; AV OFF = per-device volume                  |
+| Multipoint Stability (LDAC)             | ✅ Yes           | AV mismatches can cause stuttering or volume jumps                 |
+| SBC → LDAC Timing Trick (Optional)      | ⚠️ Rarely        | Some handshake chains may perform better with AV ON                |
+| Sony Music Center Volume Mapping        | ✅ Yes           | With AV OFF, Android volume does **not** override XM5 gain levels  |
+
+---
+
+> 🧠 **Conclusion:**  
+> Override defeat is **fully codec-driven** — Absolute Volume has **no effect** on whether override is injected or broken.
+
+
+
