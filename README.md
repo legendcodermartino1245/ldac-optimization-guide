@@ -535,7 +535,7 @@ LDAC Quality is always greyed out when no device is connected — even if overri
 
 
 
-## 🧠 Samsung Override Is Always Armed Behind HD Audio
+## 🧠 Samsung LDAC Override: Armed by HD Audio, Injected on A2DP Connect
 
 Even **when no Bluetooth device is connected**, Samsung’s override system is **already active** as long as `HD Audio` is enabled.
 
@@ -562,6 +562,17 @@ Once an LDAC-capable device connects and both `Media Audio` and `HD Audio` are e
 
 ---
 
+> 📶 Enabling `HD Audio` unlocks access to **higher-quality Bluetooth codecs**, including:
+>
+> - **LDAC**
+> - **AAC**
+> - **aptX / aptX HD** (if supported by both device and headphones)
+>
+> However, `HD Audio` does **not control which codec is selected** during connection.  
+> That decision is made by the system during the **A2DP handshake**, where Samsung’s override may still inject its preferred codec — typically **LDAC Adaptive** or **AAC**.
+
+---
+
 ### 📊 Samsung Override Behavior Table
 
 | Condition                            | Override Logic State | Codec Displayed  | LDAC Quality Setting |
@@ -578,8 +589,22 @@ Once an LDAC-capable device connects and both `Media Audio` and `HD Audio` are e
 
 You **can’t prevent it** — you can only **defeat or manipulate it**:
 
-- 🎭 Use **profile switch tricks** (like SBC → LDAC 16-bit → LDAC 990kbps) to bypass override logic.
-- 🤖 Use **Bluetooth Codec Changer (BCC)** to automate negotiation **before override is injected**.
+- 🎭 Use **profile switch tricks**:
+  - Start with `SBC`, then manually or automatically switch to `LDAC 16-bit`
+  - Finalize with `LDAC 990kbps / Fixed`
+  - This sequence hijacks the A2DP handshake *before* Samsung injects its override
+- 🤖 Use **Bluetooth Codec Changer (BCC)**:
+  - Automate codec negotiation steps
+  - Ensure `LDAC 990kbps` is injected *before* the system applies override logic
+  - Works best when paired with Fast Pair training or Developer Options cleanup
+- 🧠 Remember:  
+  The **first clean codec** applied after `A2DP connect` is the one **stored in Sony firmware**  
+  (unless Samsung’s override **beats you to it**)
+
+---
+
+> ⚠️ **HD Audio = codec access, not codec choice**  
+> Samsung’s stack **still decides** the initial codec — unless **you intercept it** with a forced profile switch.
 
 
 
