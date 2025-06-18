@@ -611,21 +611,6 @@ This override forces:
 → Quality = fastest way; bit depth = most reliable fallback.
 → Override is always injected at connect — must be broken manually.
 ```
-## 🎚️ Sound Connect EQ Has No Impact on LDAC Quality (WH-1000XM5)
-
-When using the **Sony WH-1000XM5** with LDAC active, enabling or disabling **EQ in the Sound Connect app** does **not** affect LDAC quality, bitrate, or codec parameters.
-
-### ✅ Confirmed Behavior:
-- LDAC **remains active** at the **same bitrate and sample rate** regardless of EQ state.
-- The **Developer Options “LDAC Audio Quality”** setting stays unchanged (e.g. 990 kbps) when EQ is toggled.
-- No codec renegotiation or fallback (e.g. to AAC) occurs when EQ is applied.
-
-### 🧠 Why It Matters:
-- On older Sony headphones (e.g. WH-1000XM3), enabling EQ **can** lower the effective LDAC bitrate or force fallback to AAC.
-- On WH-1000XM5, **LDAC codec quality is preserved** even with audio processing features like EQ enabled — as long as override conditions aren't triggered (e.g. Samsung LDAC override or HD Audio toggling).
-
-### 📌 Tip:
-- You can safely use **EQ in Sound Connect** on XM5 **without compromising LDAC 990 kbps** or causing bitrate drops — unless **other system-level override conditions** interfere.
 
 
 
