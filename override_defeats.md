@@ -19,7 +19,7 @@ Samsung's LDAC override logic can be neutralized through several fully validated
 |-----------------------|----------------------------------|--------------------------|------------|------------------------|
 | Codec Change Override | Universal (any device)          | ✅ Full                  | ⚡ Fast     | ✅ Excellent           |
 | Bit Depth Downgrade   | Samsung-specific (LDAC 16-bit)  | ✅ Full                  | ⚡ Very Fast| ✅ Excellent           |
-| SBC Reset             | Clean training, Fast Pair use   | ✅ Full                  | ⚠ Slower   | ✅ Excellent           |
+| non-ldac Reset             | Clean training, Fast Pair use   | ✅ Full                  | ⚠ Slower   | ✅ Excellent           |
 | AV OFF Suppression    | Samsung capability suppression  | ✅ Full                  | ⚡ Instant  | ✅ Excellent           |
 
 ---
@@ -30,7 +30,7 @@ Samsung's LDAC override logic can be neutralized through several fully validated
 Samsung's override attaches only when LDAC is negotiated directly at connection. Pre-selecting a non-LDAC codec neutralizes override logic.
 
 **Sequence:**
-1. Apply non-LDAC profile (e.g., SBC, AAC).
+1. Apply non-LDAC profile SBC, AAC or APTX
 2. After stable handshake, apply target LDAC profile.
 
 **Result:**  
@@ -51,13 +51,13 @@ It doesnt matter what the target ldac profile will be as long as the bit depth i
 
 ---
 
-### SBC Reset Exploit
+### non-LDAC Reset Exploit
 
 **Principle:**  
 Forcing SBC handshake fully resets firmware codec state before LDAC negotiation.
 
 **Sequence:**
-1. Apply SBC profile.
+1. Apply non-LDAC profile.
 2. Apply any LDAC profile.
 
 **Result:**  
