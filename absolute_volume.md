@@ -395,3 +395,15 @@ Instead, your **headphones take full control** of gain and amplification through
 > Set it smartly to get the **most out of LDAC 990kbps and Hi-Res playback**.
 
 
+
+### Is AV OFF an Override Reset Trigger?
+
+> No — toggling AV OFF does **not** reset or clear Samsung's override if it's already been injected.  
+> ✅ But: AV OFF **can prevent** override injection during first-time pairing or clean re-pairing — if enabled before connection.
+
+| Scenario                        | Override Injected? | AV OFF Effect            |
+|---------------------------------|---------------------|--------------------------|
+| AV OFF before pairing           | ❌                  | ✅ Prevents override     |
+| AV OFF after override injection | ✅ Already injected | ❌ Too late to stop      |
+| AV OFF + Music Center SBC       | ✅ → ❌ (reset)      | ✅ Full override defeat  |
+
