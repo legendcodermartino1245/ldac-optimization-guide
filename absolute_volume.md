@@ -316,3 +316,82 @@ When **AV is OFF**, Android no longer sends volume changes to the headset. As a 
 | 28   | 93%              |
 | 29   | 97%              |
 | 30   | 100% (max)       |
+
+
+
+## Is AV Off Still Better Than AV On at 100%?
+
+> ✅ Yes — **AV Off provides a cleaner signal path**, even when system volume is at 100%.
+
+| AV Setting        | Signal Path Integrity | LDAC Stability        | Headphone DAC Control     |
+|------------------|------------------------|------------------------|----------------------------|
+| AV On @ 100%     | ⚠️ Not guaranteed      | ⚠️ More AVRCP traffic  | ❌ Android manages volume  |
+| AV Off           | ✅ Fully clean          | ✅ No AVRCP interference| ✅ Full control by headphones |
+
+- **Why?** Even at 100%, Android’s digital volume scaling is *still in effect* — meaning the signal may be shaped or resampled before reaching the Bluetooth stack.  
+- **With AV Off**, Android stops managing volume altogether. Your headphones take full control of the gain, preserving resolution and dynamic range.
+
+> 🔒 **AV Off = true high-res + clean signal path**  
+> 🎧 Especially critical for **LDAC 990kbps** + **bit-perfect playback**
+
+---
+
+## Best Volume Practices with AV Off
+
+When **Absolute Volume is OFF**, Android no longer controls the volume.  
+Instead, your **headphones take full control** of gain and amplification through their internal DAC and amp.
+
+> 🎯 This means: **The headphone volume level matters — a lot.**
+
+---
+
+### What Happens with AV Off?
+
+| Control          | Behavior                                        |
+|------------------|--------------------------------------------------|
+| Android volume   | 🔒 Disabled — no effect                          |
+| Headphone volume | ✅ Fully active — adjusts analog gain directly   |
+| Audio signal     | ✅ Untouched by Android’s digital volume/mixer   |
+
+---
+
+### Why Volume Level Affects Audio Quality
+
+| Volume Level         | Effect                        | Notes                                      |
+|----------------------|-------------------------------|--------------------------------------------|
+| 🔈 **Low (10–30%)**   | 🟡 Reduced SNR, may lose detail | Analog gain too low → subtle dynamics fade |
+| 🔉 **Medium (60–85%)**| ✅ Optimal fidelity             | Clean dynamics, low distortion             |
+| 🔊 **High (90–100%)** | ⚠️ Risk of clipping with EQ/DSEE | Only risky with Clear Bass or EQ boosts    |
+
+> Even with LDAC 990kbps, **poor volume level can degrade perceived quality** — due to analog circuitry behavior.
+
+---
+
+### Recommended Volume Range for WH-1000XM5 (AV Off)
+
+- **🎚️ 60% to 85% headphone volume**
+  - ✔️ Best dynamic range  
+  - ✔️ Avoids distortion  
+  - ✔️ Maintains high signal-to-noise ratio  
+
+> Avoid **very low** volume unless necessary — and **watch for distortion** at max volume if using:
+- DSEE Extreme  
+- Clear Bass  
+- Manual EQ boosts  
+
+---
+
+## Summary
+
+| Setting          | Effect with AV Off                             |
+|------------------|------------------------------------------------|
+| Android Volume   | 🔒 Ignored                                     |
+| Headphone Volume | 🎚️ Critical — controls analog gain             |
+| Best Range       | ✅ 60–85%                                       |
+| Too Low          | ⚠️ Loss of dynamics, worse SNR                  |
+| Too High         | ⚠️ Distortion with EQ/DSEE                      |
+
+> 🧬 With AV Off, your **headphone volume becomes the only volume that matters**.  
+> Set it smartly to get the **most out of LDAC 990kbps and Hi-Res playback**.
+
+
