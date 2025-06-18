@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/c078c8eb-bb69-45ec-9707-dbdc5d90ed34)# LDAC Done Right
+# LDAC Done Right
 - [LDAC Done Right](#ldac-done-right)
 - [My setup and the hard and software I used during the making of this guide](#my-setup-and-the-hard-and-software-i-used-during-the-making-of-this-guide) 
 - [LDAC Configuration Matrix Fixed](#ldac-configuration-matrix-fixed)
