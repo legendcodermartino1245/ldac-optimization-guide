@@ -74,13 +74,8 @@
   - **AV OFF**: Prevents Android-side volume control from interfering with profile logic.
 
 - **Fast Pair timing**  
-  → Determines which profile wins: Samsung override or user-defined profile.  
-  → Override usually applies within 1–2 seconds unless interrupted by SBC chaining.
-
-- **Intermediate profile chaining**  
-  → Example: SBC → LDAC 16-bit → LDAC 24-bit 990  
-  → Bypasses override stack when done early and with AV OFF.  
-  → Essential to force LDAC 990 without triggering Samsung override.
+  → Samsung override always wins
+  → if Automatically save devices is on it will get stored in the cloud
 
 - **Writing to firmware post-handshake (after override) with Music Center**  
   → Locks negotiated profile into headset firmware (WH-1000XM5/XM3).  
@@ -88,7 +83,7 @@
 
 - **GUI desync between Developer Options and BCC**  
   → Happens if override or stack race condition occurs.  
-  → Solved by double-applying the BCC profile and using AV OFF.
+  → Solved by double-applying the BCC profile
 
 - **Codec override persists across reboots**  
   → Only cleared via SBC handshake followed by Developer Options OFF during active connection.
