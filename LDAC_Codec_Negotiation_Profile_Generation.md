@@ -483,10 +483,9 @@ This addendum documents the full internal injection logic, authority timing, ren
 | Authority | Injection Timing | Function |
 |------------|-------------------|----------|
 | **Developer Options** | Pre-Handshake | Modifies Android’s Bluetooth codec whitelist before A2DP negotiation. Controls which codecs, sample rates, bit depths, and bitrate modes are allowed. Does **not** inject full codec profiles directly. |
-| **Fast Pair (Google Play Services)** | Pre-Handshake (Reinjection Layer) | Injects previously learned profiles before A2DP handshake completes if cloud profile syncing is enabled. Can fully bypass Samsung override injection. |
+| **Fast Pair (Google Play Services)** | Pre-Handshake (Reinjection Layer) | Injects previously learned profiles before A2DP handshake completes if cloud profile syncing is enabled. Participates in Samsung's override logic by injecting stored codec preferences, but cannot bypass Samsung’s override. Samsung will always inject its own LDAC profile |
 | **Samsung Override** | During Handshake | Injects LDAC codec parameters (Adaptive 96 kHz / 32-bit / 990 kbps) into A2DP session if Fast Pair or Developer Options did not preempt injection. |
 | **Bluetooth Codec Changer (BCC)** | Post-Handshake (Active Renegotiation) | Actively forces codec renegotiation after Samsung injection. Fully overrides active A2DP profile before firmware memory is updated. |
-| **Tasker (via BCC control)** | Post-Handshake Automation | Indirect control via BCC API. Triggers BCC renegotiation actions but holds no native injection authority itself. |
 | **UAPP Direct Driver (HAL)** | Post-Handshake (Active Renegotiation via HAL driver reinit) | Triggers A2DP renegotiation indirectly via playback parameter change (sample rate, bit depth). Fully valid renegotiation authority. |
 | **Sony Headphone Firmware Profile Memory** | Post-Renegotiation (Passive Learning) | Learns and stores LDAC profiles *after* valid renegotiation has stabilized. Applies stored profiles during future reconnects. |
 | **Music Center App** | Post-Handshake (Reinjection Layer) | Reasserts previously stored LDAC profiles after A2DP session opens. Applies correction if session parameters mismatch firmware memory.
