@@ -40,8 +40,15 @@ UAPP does not directly control Bluetooth codec state — it only feeds PCM. Thus
 
 ## Global Recommendation
 
-> ℹ️ **Firmware Note:** Only the **first active codec** after A2DP connect is stored in Sony WH-1000XM firmware **if initiated by a firmware-writing method (e.g., Sony Music Center or system UI codec switch)**.  
-> Ensure the correct codec (e.g., SBC or LDAC 990) is active **immediately post-connect** to persist the override bypass.
+ℹ️ **Firmware Note:** On Sony WH-1000XM headphones, only a codec selected via a **firmware-writing method** (e.g., **Sony Music Center**, **Developer Options codec toggle**, or **SBC→LDAC handshake**) is stored in the internal codec profile.
+
+> ⚠️ On **Samsung devices**, the system-injected LDAC override always applies first at A2DP connect — regardless of which codec becomes active afterward.
+
+To persist **LDAC 990** or **SBC** as the stored profile, use **Music Center** or **BCC automation** to forcibly apply a new codec *after* connect.  
+UAPP **cannot** override Samsung’s default — it must follow a codec already set by **BCC** or any other method capable of codec injection.
+
+
+
 
 Always use 24-bit for both BCC profile locking and UAPP PCM output.  
 16-bit profiles are reserved solely for intermediate handshake defeat (override reset).
