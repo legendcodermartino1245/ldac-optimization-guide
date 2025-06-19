@@ -386,8 +386,8 @@ Instead, your **headphones take full control** of gain and amplification through
 | Setting          | Effect with AV Off                             |
 |------------------|------------------------------------------------|
 | Android Volume   | 🔒 Ignored                                     |
-| Headphone Volume | 🎚️ Critical — controls analog gain             |
-| Best Range       | ✅ 60–85%                                       |
+| Headphone Volume | 🎚️ Critical — controls analog gain        |
+| Optimal volume   | ✅ 87%                                       |
 | Too Low          | ⚠️ Loss of dynamics, worse SNR                  |
 | Too High         | ⚠️ Distortion with EQ/DSEE                      |
 
