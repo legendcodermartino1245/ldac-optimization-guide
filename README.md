@@ -349,7 +349,8 @@ When using **Samsung Sound Connect**, the following sequence causes LDAC to beco
 
 This silently disables LDAC (toggle off), even though **HD Audio stays enabled**.
 
-Manually re-enabling LDAC at this point **triggers Samsung’s override**.
+Override is only triggered if you manually toggle LDAC back ON after switching Sound Connect modes.
+Simply switching from Stable → Sound Quality does not cause override until LDAC is manually re-enabled.
 
 ---
 
