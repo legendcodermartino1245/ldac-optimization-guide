@@ -819,12 +819,13 @@ Sony WH-1000XM headphones store the **first stable Bluetooth codec** used after 
 
 ---
 
-### ✅ The 2 Valid Firmware Profile Write Methods
+### ✅ The 3 Valid Firmware Profile Write Methods
 
-| #   | Method                                         | Prevents Samsung Override? | Can Write LDAC 990? | Notes                                                                 |
-|-----|------------------------------------------------|------------------------------|----------------------|-----------------------------------------------------------------------|
-| 1️⃣ | **SBC Handshake Method** <br> (Music Center SBC — works with Fast Pair or manual pairing) | ❌ No *(override still happens)* | ✅ Yes               | SBC becomes active ~5–10s after connect, then LDAC 990 is injected. Fast Pair may help (with Save Devices OFF), but manual pairing works the same. |
-| 2️⃣ | **Windows First Codec Write**                 | 🔸 Conditional               | ✅ / ❌              | Only works if override was already bypassed or overwritten. First codec after A2DP connect (SBC or LDAC) gets stored in firmware for that device. |
+| #   | Method                                                                                     | Prevents Samsung Override?     | Can Write LDAC 990?            | Notes                                                                                                              |
+|-----|---------------------------------------------------------------------------------------------|--------------------------------|-------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| 1️⃣ | **SBC Handshake Method** <br> (Music Center SBC — works with Fast Pair or manual pairing)  | ❌ No *(override still happens)* | ❌ No                         | SBC becomes active ~5–10s after connect, then LDAC 990 is injected. Fast Pair may help (with Save Devices OFF), but manual pairing works the same. |
+| 2️⃣ | **Windows First Codec Write**                                                              | 🔸 Conditional                  | ✅ / ❌                        | Only works if override was already bypassed or overwritten. First codec after A2DP connect (SBC or LDAC) gets stored in firmware for that device. |
+| 3️⃣ | **SBC → LDAC Chain** <br> (via Music Center SBC toggle, then clean LDAC switch)            | ❌ No *(but override overwritten)* | ✅ Yes (990 + Adaptive)      | Clean SBC activation followed by LDAC injection. Ensures LDAC 990 and LDAC Adaptive profiles are stored.          |
 
 ---
 
@@ -838,11 +839,8 @@ Sony WH-1000XM headphones store the **first stable Bluetooth codec** used after 
 - A2DP connect triggers **Samsung override profile**
 - Within ~5–10 seconds, **SBC becomes active** via:
   - `Sony Music Center` set to SBC  
-  - OR Fast Pair with **“Save Devices = OFF”**
 
 **💾 Result:** SBC becomes the **stored firmware profile** for that device.
-
-> 🧠 This method doesn't prevent override — it performs a **controlled overwrite** using SBC → LDAC 990 chain.
 
 ---
 
@@ -860,12 +858,27 @@ Sony WH-1000XM headphones store the **first stable Bluetooth codec** used after 
 
 ---
 
+#### 3️⃣ SBC → LDAC Chain ❌
+
+> Samsung override **does trigger**, but it’s overwritten.
+
+**Flow:**
+- A2DP connect triggers **Samsung override profile**
+- Within ~5–10 seconds, **SBC becomes active** via:
+  - `Sony Music Center` set to SBC  
+  - `Sony Music Center` set to LDAC Priority on Sound Quality or LDAC Priority on Stable Connection
+**💾 Result:** either LDAC 96 khz 32 bit 990/909 or LDAC 96 khz 32 bit Adaptive becomes the **stored firmware profile** for that device.
+
+---
+
+
+
 ### ✅ Summary Table: Real Firmware Write Paths
 
 | Method Type           | Who Initiates It       | Override Defeated? | Codec Stored        | Notes                                                |
 |------------------------|-------------------------|---------------------|----------------------|--------------------------------------------------------|
-| **SBC → LDAC Chain**   | User (Music Center / Fast Pair) | ❌ No (but overwritten) | ✅ LDAC 990         | Clean SBC activation followed by LDAC injection        |
-| **Windows Codec First**| Windows A2DP connect    | 🔸 Conditional       | ✅ / ❌ (depends)     | Depends on what becomes active first after connect     |
+| **SBC → LDAC Chain**   | User (Music Center) | ❌ No (but overwritten) | ✅ LDAC 990/909 or Adaptive       | Clean SBC activation followed by LDAC injection        |
+| **Windows Codec First**| Windows A2DP connect    | 🔸 Conditional       | ✅ / ❌ (depends)                | Depends on what becomes active first after connect     |
 
 ---
 
