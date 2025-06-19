@@ -839,10 +839,8 @@ Sony WH-1000XM headphones store the **first stable Bluetooth codec** used after 
 - Within ~5–10 seconds, **SBC becomes active** via:
   - `Sony Music Center` set to SBC  
   - OR Fast Pair with **“Save Devices = OFF”**
-- LDAC 990 is then injected manually using **Bluetooth Codec Changer (BCC)** or Hi-Res playback
-- Maintain LDAC 990 for ~20 seconds
 
-**💾 Result:** LDAC 990 becomes the **stored firmware profile** for that device.
+**💾 Result:** SBC becomes the **stored firmware profile** for that device.
 
 > 🧠 This method doesn't prevent override — it performs a **controlled overwrite** using SBC → LDAC 990 chain.
 
@@ -1026,7 +1024,7 @@ There is **no method that blocks the override from occurring**, but some reliabl
 | **Developer Options codec toggle (any AV state)**| ❌ No                       | ✅ Yes (live only)         | ❌ No                       | ❌ No               | Live switchable mid-session; never stored or used at handshake       |
 | **Music Center SBC after connect**               | ❌ No                       | ✅ Yes                     | ✅ Yes                      | ✅ Yes              | Safest persistent override method; SBC stored in firmware            |
 | **BCC SBC → LDAC 990 profile switch**            | ❌ No                       | ✅ Yes (live only)         | ❌ No                       | ⚠️ No               | Session-only; needs Music Center follow-up for firmware persistence  |
-| **Forget + AV OFF + reconnect + SBC injection**  | ❌ No                       | ✅ Yes                     | ✅ Yes                      | ✅ Yes              | Same as Music Center method; SBC must activate early post-connect    |
+| **Forget + reconnect + SBC injection**           | ❌ No                       | ✅ Yes                     | ✅ Yes                      | ✅ Yes              | Same as Music Center method; SBC must activate early post-connect    |
 
 ---
 
@@ -1034,7 +1032,6 @@ There is **no method that blocks the override from occurring**, but some reliabl
 
 | Method                         | Status  | Why Invalid                                               |
 |--------------------------------|---------|-----------------------------------------------------------|
-| **AV OFF only**                | ❌ No   | Does nothing on its own — Samsung override still injects |
 | **Fast Pair (any variant)**    | ❌ No   | Override is always faster; Fast Pair never stores LDAC 990|
 
 ---
