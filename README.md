@@ -1032,14 +1032,15 @@ There is **no method that blocks the override from occurring**, but some reliabl
 
 ## ✅ Final Override Defeat Table (Valid + Persistent Methods Only)
 
-| Method                                            | Prevents Initial Override? | Overwrites After Inject? | Firmware Profile Updated? | Persistent Result? | Notes                                                                 |
-|--------------------------------------------------|-----------------------------|----------------------------|-----------------------------|---------------------|-----------------------------------------------------------------------|
-| **Pre-set SBC in Music Center (before pairing)** | ❌ No                       | ✅ Yes                     | ✅ Yes                      | ✅ Yes              | SBC activates post-connect (~5–10s) and reliably overwrites override |
-| **Developer Options codec toggle (any AV state)**| ❌ No                       | ✅ Yes (live only)         | ❌ No                       | ❌ No               | Live switchable mid-session; never stored or used at handshake       |
-| **Music Center SBC after connect**               | ❌ No                       | ✅ Yes                     | ✅ Yes                      | ✅ Yes              | Safest persistent override method; SBC stored in firmware            |
-| **BCC SBC → LDAC 990 profile switch**            | ❌ No                       | ✅ Yes (live only)         | ❌ No                       | ⚠️ No               | Session-only; needs Music Center follow-up for firmware persistence  |
-| **Forget + reconnect + SBC injection**           | ❌ No                       | ✅ Yes                     | ✅ Yes                      | ✅ Yes              | Same as Music Center method; SBC must activate early post-connect    |
-| **Music Center LDAC toggle (no SBC)**       | ❌ No                       | ✅ Yes                     | ✅ Yes                      | ✅ Yes              | Fastest native method — toggling LDAC replaces override with 990/adaptive |
+| Method                                            | Prevents Initial Override? | Overwrites After Inject? | Firmware Profile Updated? | Persistent Result? | Notes|                                                                                      
+|--------------------------------------------------|-----------------------------|----------------------------|-----------------------------|---------------------|------------------------------------------------------------------------------------------------|
+| **Pre-set SBC in Music Center (before pairing)** | ❌ No                       | ✅ Yes                     | ✅ Yes                      | ✅ Yes              | SBC becomes active immediately after Samsung override and reliably overwrites it              |
+| **Developer Options codec toggle (any AV state)**| ❌ No                       | ✅ Yes (live only)         | ❌ No                       | ❌ No               | Live switchable mid-session; never stored or used at handshake                                 |
+| **Music Center SBC after connect**               | ❌ No                       | ✅ Yes                     | ✅ Yes                      | ✅ Yes              | SBC becomes active immediately after Samsung override and reliably overwrites it in firmware   |
+| **BCC SBC → LDAC 990 profile switch**            | ❌ No                       | ✅ Yes (live only)         | ❌ No                       | ⚠️ No               | Session-only; needs Music Center follow-up for firmware persistence                             |
+| **Forget + reconnect + SBC injection**           | ❌ No                       | ✅ Yes                     | ✅ Yes                      | ✅ Yes              | Same as Music Center method; SBC must activate immediately after connect                        |
+| **Music Center LDAC toggle (no SBC)**            | ❌ No                       | ✅ Yes                     | ✅ Yes                      | ✅ Yes              | Fastest native method — toggling LDAC replaces override with 990/adaptive                      |
+
 
 ---
 
@@ -1062,6 +1063,7 @@ There is **no method that blocks the override from occurring**, but some reliabl
 - ❌ **Fast Pair never injects LDAC 990**, and a “clean” Fast Pair state never occurs on Samsung
 - ✅ **Music Center SBC**, even when triggered after override, *will overwrite* it and store SBC
 - ✅ **LDAC 990 will only persist** if applied *after* SBC has successfully overwritten the override
+> ✅ **Note:** BCC can override Samsung's injected LDAC Adaptive *during the session*, even if it cannot store the codec persistently.
 
 ---
 
