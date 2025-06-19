@@ -1038,6 +1038,7 @@ There is **no method that blocks the override from occurring**, but some reliabl
 | **Music Center SBC after connect**               | ❌ No                       | ✅ Yes                     | ✅ Yes                      | ✅ Yes              | Safest persistent override method; SBC stored in firmware            |
 | **BCC SBC → LDAC 990 profile switch**            | ❌ No                       | ✅ Yes (live only)         | ❌ No                       | ⚠️ No               | Session-only; needs Music Center follow-up for firmware persistence  |
 | **Forget + reconnect + SBC injection**           | ❌ No                       | ✅ Yes                     | ✅ Yes                      | ✅ Yes              | Same as Music Center method; SBC must activate early post-connect    |
+| **Music Center LDAC toggle (no SBC)**       | ❌ No                       | ✅ Yes                     | ✅ Yes                      | ✅ Yes              | Fastest native method — toggling LDAC replaces override with 990/adaptive |
 
 ---
 
