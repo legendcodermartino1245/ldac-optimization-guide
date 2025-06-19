@@ -1297,5 +1297,5 @@ Trying to build a **Tasker-based sample rate parser** on Android is **not useful
 | **Roon ARC**   | ❌ No                    | Streams lossy Opus (~320 kbps); no sample rate exposed                |
 | **Roon (App)** | ❌ No                    | Uses Android mixer; resampled output; no metadata accessible          |
 
-> Even Android’s notification system doesn’t provide codec/sample rate info — only track, artist, etc.![image](https://github.com/user-attachments/assets/68b52351-3fa6-401b-adf5-1f4d8a8b1929)
+> Even Android’s notification system doesn’t provide codec/sample rate info — only track, artist, etc.
 
