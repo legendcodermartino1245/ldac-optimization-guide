@@ -686,10 +686,10 @@ The **override only triggers** when:
 | Trigger                                | Override? | Notes                                                             |
 |----------------------------------------|-----------|-------------------------------------------------------------------|
 | **HD Audio toggle alone**              | ❌ NO     | It just enables codecs                                            |
-| **Dev Options set to LDAC before connect** | ✅ YES  | Forces override handshake                                         |
+| **Dev Options set to LDAC before connect** | ✅ YES  | Forces override handshake                                       |
 | **First connect = LDAC active**        | ✅ YES    | Override profile locks in immediately                             |
 | **Connect using SBC, switch via BCC**  | ❌ NO     | Override bypassed — clean training path enabled                   |
-| **AV = OFF during connect**            | ✅ YES    | Blocks SBC trick; override remains                                |
+| **AV = OFF during connect**            | ❌ NO     | AV has no effect — SBC trick still works                          |
 | **Fast Pair device sync ON**           | ✅ YES    | Syncs override LDAC settings from Google cloud                    |
 
 ---
