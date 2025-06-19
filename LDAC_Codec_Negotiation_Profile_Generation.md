@@ -71,8 +71,7 @@
 
 - **Absolute Volume status**  
   - **AV ON**: Volume sync events can re-trigger override or block codec switching.  
-  - **AV OFF**: Required for successful intermediate profile chaining and GUI desync repair.  
-    → Prevents Android-side volume control from interfering with profile logic.
+  - **AV OFF**: Prevents Android-side volume control from interfering with profile logic.
 
 - **Fast Pair timing**  
   → Determines which profile wins: Samsung override or user-defined profile.  
