@@ -823,7 +823,7 @@ Sony WH-1000XM headphones store the **first stable Bluetooth codec** used after 
 
 | #   | Method                                                                                     | Prevents Samsung Override?     | Can Write LDAC 990?            | Notes                                                                                                              |
 |-----|---------------------------------------------------------------------------------------------|--------------------------------|-------------------------------|--------------------------------------------------------------------------------------------------------------------|
-| 1️⃣ | **SBC Handshake Method** <br> (Music Center SBC — works with Fast Pair or manual pairing)  | ❌ No *(override still happens)* | ❌ No                         | SBC becomes active ~5–10s after connect, then LDAC 990 is injected. Fast Pair may help (with Save Devices OFF), but manual pairing works the same. |
+| 1️⃣ | **SBC Handshake Method** <br> (Music Center SBC — works with Fast Pair or manual pairing)  | ❌ No *(override still happens)* | ❌ No                         | SBC becomes active instantly after connect, then LDAC 990 is injected. Fast Pair may help (with Save Devices OFF), but manual pairing works the same. |
 | 2️⃣ | **Windows First Codec Write**                                                              | 🔸 Conditional                  | ✅ / ❌                        | Only works if override was already bypassed or overwritten. First codec after A2DP connect (SBC or LDAC) gets stored in firmware for that device. |
 | 3️⃣ | **SBC → LDAC Chain** <br> (via Music Center SBC toggle, then clean LDAC switch)            | ❌ No *(but override overwritten)* | ✅ Yes (990 + Adaptive)      | Clean SBC activation followed by LDAC injection. Ensures LDAC 990 and LDAC Adaptive profiles are stored.          |
 
@@ -864,7 +864,7 @@ Sony WH-1000XM headphones store the **first stable Bluetooth codec** used after 
 
 **Flow:**
 - A2DP connect triggers **Samsung override profile**
-- Within ~5–10 seconds, **SBC becomes active** via:
+-  **SBC becomes active instantly** via:
   - `Sony Music Center` set to SBC  
   - `Sony Music Center` set to LDAC Priority on Sound Quality or LDAC Priority on Stable Connection
 **💾 Result:** either LDAC 96 khz 32 bit 990/909 or LDAC 96 khz 32 bit Adaptive becomes the **stored firmware profile** for that device.
