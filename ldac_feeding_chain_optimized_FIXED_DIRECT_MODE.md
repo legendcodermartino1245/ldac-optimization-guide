@@ -22,7 +22,8 @@ Always manually set both UAPP PCM output and BCC target profile to 24-bit intege
 ## Additional Stability Rule
 
 Never switch BCC profiles while A2DP session is active.  
-All profile negotiation must complete prior to stream initiation.
+❗ Never switch BCC profiles mid-stream.  
+All codec switching must finish *before* A2DP handshake completes, or override risk and codec desync may occur.
 
 ---
 
