@@ -20,7 +20,7 @@
 - **Absolute Volume ON vs OFF**  
   - **AV ON**: Android controls headphone volume directly. 
   - **AV OFF**:
-    → Disables Android volume sync interference, enabling clean codec negotiation.
+    → Disables Android volume sync interference
 
 ---
 
@@ -67,11 +67,10 @@
 - **AAC default fallback post-pairing (Samsung stack)**  
   → After first pairing, AAC is no longer neutral.  
   → Becomes part of Samsung’s override chain if LDAC isn't fully locked.  
-  → Even with AV OFF, Samsung may initially negotiate AAC, then force LDAC override within seconds unless SBC profile chaining blocks it.
 
 - **Absolute Volume status**  
   - **AV ON**: Volume sync events can re-trigger override or block codec switching.  
-  - **AV OFF**: Prevents Android-side volume control from interfering with profile logic.
+  - **AV OFF**: Prevents Android-side volume control.
 
 - **Fast Pair timing**  
   → Samsung override always wins
@@ -140,7 +139,6 @@ Samsung's codec handling is **never neutral** after pairing — all codec transi
 - AAC selection here is not user-driven — it is part of Samsung’s override logic asserting itself even in absence of LDAC.
 - Disabling LDAC does not fall back to SBC by default; AAC is treated as the next-in-line override.
 - **Absolute Volume state has no effect on AAC override behavior**:  
-  → AV OFF does not prevent AAC default activation when LDAC is disabled.
 
 ---
 
