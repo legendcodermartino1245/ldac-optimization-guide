@@ -56,14 +56,6 @@ adb shell pm grant com.pittvandewitt.wavelet android.permission.DUMP
 
 ✅ Verified: On **WH-1000XM5**, toggling EQ in the Sound Connect app **does not reduce LDAC bitrate or cause fallback.** You will stay locked at **990 kbps LDAC**, even with EQ on.
 
-📶 LDAC 990 kbps remains stable — EQ toggling in Sound Connect does not cause codec renegotiation.
-
-### ✅ Confirmed Behavior:
-- LDAC **remains at 990 kbps** regardless of EQ on/off.
-- No fallback to AAC or lower LDAC bitrates (e.g. 330 kbps).
-- No changes to Developer Options LDAC settings.
-- No renegotiation or dropout during EQ toggling.
-
 ### ⚠️ Important Note:
 - This applies only to **XM5 and newer** models.
 > ❗ *Using EQ in Sound Connect reduces LDAC bitrate on older headphones (like WH-1000XM3), but does **not** affect LDAC 990 kbps on the WH-1000XM5.*
