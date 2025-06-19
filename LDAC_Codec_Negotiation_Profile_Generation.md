@@ -18,8 +18,8 @@
   → Can disrupt handshake logic or GUI sync.
 
 - **Absolute Volume ON vs OFF**  
-  - **AV ON**: Android controls headphone volume directly. Can block SBC → LDAC profile switching.  
-  - **AV OFF**: Required for proper manual profile chaining, BCC override, and stored profile training.  
+  - **AV ON**: Android controls headphone volume directly. 
+  - **AV OFF**:
     → Disables Android volume sync interference, enabling clean codec negotiation.
 
 ---
@@ -83,9 +83,9 @@
   → Bypasses override stack when done early and with AV OFF.  
   → Essential to force LDAC 990 without triggering Samsung override.
 
-- **Waiting 10+ seconds post-handshake (no override)**  
+- **Writing to firmware post-handshake (after override) with Music Center**  
   → Locks negotiated profile into headset firmware (WH-1000XM5/XM3).  
-  → Overrides won’t reapply unless retriggered.
+  → will apply after samsung override
 
 - **GUI desync between Developer Options and BCC**  
   → Happens if override or stack race condition occurs.  
