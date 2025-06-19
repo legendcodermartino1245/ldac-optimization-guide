@@ -823,7 +823,7 @@ Sony WH-1000XM headphones store the **first stable Bluetooth codec** used after 
 
 | #   | Method                                         | Prevents Samsung Override? | Can Write LDAC 990? | Notes                                                                 |
 |-----|------------------------------------------------|------------------------------|----------------------|-----------------------------------------------------------------------|
-| 1️⃣ | **SBC Handshake Method** <br> (Music Center SBC or Fast Pair hijack) | ❌ No *(override still happens)* | ✅ Yes               | Override is triggered first, but SBC becomes active 5–10s later and overwrites the profile. LDAC 990 is then injected and becomes persistent. |
+| 1️⃣ | **SBC Handshake Method** <br> (Music Center SBC — works with Fast Pair or manual pairing) | ❌ No *(override still happens)* | ✅ Yes               | SBC becomes active ~5–10s after connect, then LDAC 990 is injected. Fast Pair may help (with Save Devices OFF), but manual pairing works the same. |
 | 2️⃣ | **Windows First Codec Write**                 | 🔸 Conditional               | ✅ / ❌              | Only works if override was already bypassed or overwritten. First codec after A2DP connect (SBC or LDAC) gets stored in firmware for that device. |
 
 ---
