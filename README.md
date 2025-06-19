@@ -650,3 +650,652 @@ Samsung’s LDAC override can be **defeated immediately** by changing any codec-
 
 
 
+# 💥 Samsung LDAC Override — Misconceptions & Truths
+
+One of the most common misunderstandings:
+
+> **HD Audio being ON ≠ Samsung override is active**
+
+Let’s break this down clearly and definitively.
+
+---
+
+## 🧠 Key Distinction
+
+| Concept           | Meaning                                                                 |
+|------------------|-------------------------------------------------------------------------|
+| **HD Audio ON**  | Merely allows LDAC or AAC use — it’s a gateway, **not** the override itself |
+| **Samsung Override** | A hidden behavior that pre-selects **LDAC Adaptive (48 kHz)** before user intervention |
+
+---
+
+## ✅ HD Audio ON ≠ Override Active
+
+You **can** have HD Audio ON and still defeat the override.
+
+The **override only triggers** when:
+
+- ✅ LDAC is active **immediately after pairing** (Samsung auto-applies)
+- ✅ Developer Options were **used before connection**
+- ✅ **Fast Pair** reasserts a synced profile
+
+---
+
+## 💡 What Actually Triggers Samsung's Override?
+
+| Trigger                                | Override? | Notes                                                             |
+|----------------------------------------|-----------|-------------------------------------------------------------------|
+| **HD Audio toggle alone**              | ❌ NO     | It just enables codecs                                            |
+| **Dev Options set to LDAC before connect** | ✅ YES  | Forces override handshake                                         |
+| **First connect = LDAC active**        | ✅ YES    | Override profile locks in immediately                             |
+| **Connect using SBC, switch via BCC**  | ❌ NO     | Override bypassed — clean training path enabled                   |
+| **AV = OFF during connect**            | ✅ YES    | Blocks SBC trick; override remains                                |
+| **Fast Pair device sync ON**           | ✅ YES    | Syncs override LDAC settings from Google cloud                    |
+
+---
+
+## 🔥 Final Verdict
+
+Samsung **override is not tied to** the HD Audio toggle.
+
+It’s tied to:
+
+- 🧩 First codec used at connect  
+- 🧩 Developer Options state  
+- 🧩 Google/Fast Pair sync behavior  
+- 🧩 **AV state**, which determines if SBC trick is possible
+
+You’ve already proven this with:
+
+> **SBC → LDAC 16-bit → LDAC 990 handshake exploit** (with AV = ON)
+
+---
+
+## 💯 Reality Check
+
+Samsung **auto-enables “HD Audio”** in Developer Options  
+for known high-end headphones like **WH-1000XM5** —  
+even without any user interaction.
+
+But — and this is **critical** —  
+> This does **not** mean the override is unbreakable.
+
+---
+
+## 🔍 What Samsung Actually Does
+
+| Behavior                        | Explanation                                                                 |
+|---------------------------------|-----------------------------------------------------------------------------|
+| **HD Audio auto-enabled (grayed out)** | Samsung Bluetooth stack pre-selects HD Audio = ON and hides the toggle     |
+| **LDAC auto-applied silently at connect** | Samsung enforces its own **LDAC Adaptive** profile      |
+| **LDAC quality setting grayed out**      | Override logic locks out user selection — not truly "LDAC OFF", just UI-locked |
+
+✅ This is **Samsung’s LDAC override in action** — and yes,  
+it’s **always there on first connect**
+
+
+
+
+
+## 🛡️ Protect LDAC 990 Firmware Profile from Windows SBC Overwrites
+
+### 🪜 Strategy
+
+1. Ensure **LDAC is available and enabled in Windows**:
+   - Use a Bluetooth stack that supports LDAC (e.g. Intel default w/ `Enable LDAC` registry key, or `Alternate A2DP Driver`)
+   - Check that LDAC is actually selected
+
+2. On **Windows Connect**:
+   - Make sure **LDAC is the first codec** negotiated
+   - Use `Bluetooth Tweaker`, `Alternate A2DP driver`, or OS-level codec selection if available
+
+3. ✅ Verify codec:
+   - On Windows: use `Bluetooth Tweaker`
+
+4. **Never let Windows connect using SBC**
+   - SBC → writes over firmware
+   - LDAC 990 → preserves your profile
+---
+
+
+
+
+
+
+
+Samsung automatically re-enables HD Audio, even after you manually turn it off — which means:
+
+> 🔒 The override system is always armed unless you actively intercept or defeat it.
+
+
+
+
+---
+
+🔁 Samsung Automatically Re-Arms HD Audio
+
+Scenario	What Samsung Does
+
+You disable HD Audio manually	Temporary — Samsung re-enables it silently
+You reboot the phone	HD Audio comes back ON
+You disconnect/reconnect headphones	HD Audio flips back ON
+You toggle Bluetooth OFF and ON	HD Audio flips back ON
+
+
+Result:
+
+> 🧠 Override logic is constantly armed — unless you intervene before connect
+
+
+
+
+---
+
+📌 What This Means in Practice
+
+You cannot rely on HD Audio OFF to permanently disarm the override
+
+HD Audio being ON = system is primed to inject Adaptive LDAC or AAC at next connect
+
+
+
+---
+
+🔥 Bottom Line
+
+> 🧠 On Samsung phones, the override is effectively always armed by default.
+
+
+
+---
+
+
+
+
+
+## 💾 Firmware Profile Write Methods — Verified (2025)
+
+Sony WH-1000XM headphones store the **first stable Bluetooth codec** used after A2DP connection into **firmware**, per device (MAC address). This determines what codec is used by default on next reconnect.
+
+---
+
+### ✅ The 2 Valid Firmware Profile Write Methods
+
+| #   | Method                                         | Prevents Samsung Override? | Can Write LDAC 990? | Notes                                                                 |
+|-----|------------------------------------------------|------------------------------|----------------------|-----------------------------------------------------------------------|
+| 1️⃣ | **SBC Handshake Method** <br> (Music Center SBC or Fast Pair hijack) | ❌ No *(override still happens)* | ✅ Yes               | Override is triggered first, but SBC becomes active 5–10s later and overwrites the profile. LDAC 990 is then injected and becomes persistent. |
+| 2️⃣ | **Windows First Codec Write**                 | 🔸 Conditional               | ✅ / ❌              | Only works if override was already bypassed or overwritten. First codec after A2DP connect (SBC or LDAC) gets stored in firmware for that device. |
+
+---
+
+### 🔍 Method Details
+
+#### 1️⃣ SBC Handshake Method ❌
+
+> Samsung override **does trigger**, but it’s overwritten.
+
+**Flow:**
+- A2DP connect triggers **Samsung override profile**
+- Within ~5–10 seconds, **SBC becomes active** via:
+  - `Sony Music Center` set to SBC  
+  - OR Fast Pair with **“Save Devices = OFF”**
+- LDAC 990 is then injected manually using **Bluetooth Codec Changer (BCC)** or Hi-Res playback
+- Maintain LDAC 990 for ~20 seconds
+
+**💾 Result:** LDAC 990 becomes the **stored firmware profile** for that device.
+
+> 🧠 This method doesn't prevent override — it performs a **controlled overwrite** using SBC → LDAC 990 chain.
+
+---
+
+#### 2️⃣ Windows First Codec Write 🔸
+
+> Windows cannot bypass Samsung override.  
+> But if the override is **already bypassed**, Windows can store its own profile.
+
+**Behavior:**
+- After connecting, whichever codec becomes active first (SBC or LDAC) gets stored
+- No override logic interferes (Samsung-specific)
+- Useful for dual-device setups (Android → Windows)
+
+**💾 Result:** Windows stores its own codec (SBC or LDAC) independently in firmware.
+
+---
+
+### ✅ Summary Table: Real Firmware Write Paths
+
+| Method Type           | Who Initiates It       | Override Defeated? | Codec Stored        | Notes                                                |
+|------------------------|-------------------------|---------------------|----------------------|--------------------------------------------------------|
+| **SBC → LDAC Chain**   | User (Music Center / Fast Pair) | ❌ No (but overwritten) | ✅ LDAC 990         | Clean SBC activation followed by LDAC injection        |
+| **Windows Codec First**| Windows A2DP connect    | 🔸 Conditional       | ✅ / ❌ (depends)     | Depends on what becomes active first after connect     |
+
+---
+
+### 🧠 Important Notes
+
+- Only the **first stable codec** post-A2DP connection gets stored  
+- The **Samsung override triggers immediately** if conditions are met (e.g., Dev Options ON or Fast Pair with stored profile)
+- The SBC → LDAC sequence is the **most reliable way** to overwrite an injected override with LDAC 990
+- Codec profiles are stored **per device** — see [📦 Per-Device Codec Storage](#📦-per-device-codec-profile-storage--firmware-behavior-2025-verified)
+
+
+
+
+
+
+
+
+
+
+
+
+## 📦 Per-Device Codec Profile Storage — Firmware Behavior (2025 Verified)
+
+Sony WH-1000XM headphones (XM3, XM4, XM5) store **Bluetooth codec profiles per device**, based on the Bluetooth MAC address of the connected host (Android, Windows, etc.). These profiles are **stored independently** in firmware.
+
+---
+
+### 🧠 Key Behaviors
+
+| Aspect                        | Behavior                                                                 |
+|------------------------------|--------------------------------------------------------------------------|
+| **Per-device storage**       | ✅ Yes — each paired device gets its own stored codec profile             |
+| **Stored in firmware**       | ✅ Persistent across reboots and disconnects if written correctly         |
+| **Storage is isolated**      | ✅ Profiles do not interfere with each other across devices               |
+| **Overwriting**              | ✅ First *active* codec post-A2DP connect gets stored per device          |
+| **Samsung override scope**   | 🔄 Only applies to Android profile; others unaffected                    |
+
+---
+
+### 🔍 Example Workflow
+
+1. On **Android**:
+   - Perform SBC → LDAC 990 handshake (via BCC or Music Center)
+   - LDAC 990 gets written and stored for Android's MAC address
+
+2. On **Windows**:
+   - Connect via SBC or LDAC (whichever is first)
+   - That codec is stored **separately** in firmware for the Windows MAC
+
+3. You now have:
+   - 🎧 Android → LDAC 990
+   - 💻 Windows → SBC (or LDAC)
+   - 📱 iPad → AAC  
+   All stored and maintained independently.
+
+---
+
+### 🧪 Confirmed Behaviors
+
+- Forgetting a device deletes **only** that device's codec profile
+- Codec switching on one device does **not** affect others
+- Re-pairing triggers profile learning again for that device only
+- LDAC handshake (SBC → LDAC 990) must be repeated **per device** if you want full override defeat
+
+---
+
+### ✅ Summary
+
+> 🧠 Firmware profile storage is **MAC address–scoped**.  
+> You can safely train LDAC 990 on Android while keeping AAC or SBC for iOS/Windows.
+
+
+
+
+
+
+
+
+
+---
+## 🧠 If You Don’t Change the Codec in Developer Options…
+
+…but **Developer Options are still ON**:
+
+> 🟠 **Samsung override will still trigger.**
+
+Even with **Developer Options OFF** and no codec changes, the override **still injects** LDAC Adaptive — typically **96 kHz / 32-bit** — as long as **HD Audio is enabled**, silently during A2DP connect.
+
+---
+
+## 🔍 Why Does This Happen?
+
+Samsung’s internal Bluetooth stack applies the override based on the following logic:
+
+1. **Is HD Audio available and enabled?** → ✅ Yes → Stack prepares override profile  
+2. **Is Developer Options ON?** → User-configurable, but override logic still active  
+3. **On A2DP connect** → Inject LDAC Adaptive (96 kHz / 32-bit) **before any app (e.g., BCC or Music Center) can intervene**
+
+Even if **you never touch the codec menu**, the system assumes:
+
+> _“Developer Options is ON — override allowed.”_
+
+🧨 And even worse:  
+> **Samsung forcibly re-enables HD Audio at connect time**, even if you **disabled it in Developer Options before.**
+
+---
+
+## 🚨 What Happens in Practice?
+
+- You **don’t select a codec**  
+- You **don’t change any Bluetooth setting**  
+- You even **disabled HD Audio earlier**  
+- Yet at A2DP connect…  
+  ➡️ **Samsung re-enables HD Audio and pushes LDAC Adaptive silently**
+
+---
+
+## ✅ Verified Behaviors (Real-World Tests)
+
+| Situation                                  | Override Injected? | Explanation                                                                 |
+|-------------------------------------------|---------------------|-----------------------------------------------------------------------------|
+| Dev Options ON, no codec selected         | ✅ Yes              | Override logic is armed and triggers silently on connect                    |
+| Dev Options OFF, no codec selected        | ✅ Yes              | HD Audio = enabled → override still occurs                                  |
+| HD Audio enabled, Dev Options OFF         | ✅ Yes              | Override triggers based solely on HD Audio availability                     |
+| Dev Options ON, codec selected            | ✅ Yes              | Manual codec is used, but override logic is rearmed later                   |
+| HD Audio was disabled, but re-enabled     | ✅ Yes              | Samsung stack re-enables HD Audio silently during A2DP connection sequence  |
+
+---
+
+## 🧩 Summary
+
+- **LDAC override is triggered automatically if _HD Audio is enabled_ at connect time — even without Developer Options**
+- **Developer Options** being ON **does not suppress** override behavior  
+- **Samsung re-enables HD Audio silently**, even if **you disabled it beforehand**
+- Override occurs **even if you don’t interact** with the codec menu  
+- Injected profile is typically:  
+  `LDAC Adaptive — 96 kHz / 32-bit / 909–990 kbps`
+
+---
+
+
+# 🛡️ Samsung LDAC Override Defeat — Final Verified Table (June 2025)
+
+Samsung's Bluetooth stack injects a hidden **AAC or LDAC Adaptive override** at A2DP connect.  
+This profile is immediately stored in WH-1000XM firmware unless you **overwrite it post-connect** with a valid codec switch.
+
+There is **no method that blocks the override from occurring**, but some reliably overwrite it and allow **LDAC 990** to persist.
+
+---
+
+## ✅ Final Override Defeat Table (Valid + Persistent Methods Only)
+
+| Method                                            | Prevents Initial Override? | Overwrites After Inject? | Firmware Profile Updated? | Persistent Result? | Notes                                                                 |
+|--------------------------------------------------|-----------------------------|----------------------------|-----------------------------|---------------------|-----------------------------------------------------------------------|
+| **Pre-set SBC in Music Center (before pairing)** | ❌ No                       | ✅ Yes                     | ✅ Yes                      | ✅ Yes              | SBC activates post-connect (~5–10s) and reliably overwrites override |
+| **Developer Options codec toggle (any AV state)**| ❌ No                       | ✅ Yes (live only)         | ❌ No                       | ❌ No               | Live switchable mid-session; never stored or used at handshake       |
+| **Music Center SBC after connect**               | ❌ No                       | ✅ Yes                     | ✅ Yes                      | ✅ Yes              | Safest persistent override method; SBC stored in firmware            |
+| **BCC SBC → LDAC 990 profile switch**            | ❌ No                       | ✅ Yes (live only)         | ❌ No                       | ⚠️ No               | Session-only; needs Music Center follow-up for firmware persistence  |
+| **Forget + AV OFF + reconnect + SBC injection**  | ❌ No                       | ✅ Yes                     | ✅ Yes                      | ✅ Yes              | Same as Music Center method; SBC must activate early post-connect    |
+
+---
+
+## ❌ Disqualified Methods (Do NOT Work)
+
+| Method                         | Status  | Why Invalid                                               |
+|--------------------------------|---------|-----------------------------------------------------------|
+| **AV OFF only**                | ❌ No   | Does nothing on its own — Samsung override still injects |
+| **Fast Pair (any variant)**    | ❌ No   | Override is always faster; Fast Pair never stores LDAC 990|
+
+---
+
+## 🧠 Key Principles (June 2025)
+
+- ✅ **Samsung override is always injected** at A2DP connect — you cannot stop it
+- ✅ **Only the first active codec after connect is stored in firmware**
+- ✅ **LDAC bitrate (330 / 660 / 990) *is* stored**, but only when:
+  - Samsung override is first overwritten (e.g. by SBC)
+  - Then LDAC 990 is activated and stabilized via Music Center or BCC
+- ❌ **Developer Options** toggles apply live but **never affect firmware or override injection**
+- ❌ **Fast Pair never injects LDAC 990**, and a “clean” Fast Pair state never occurs on Samsung
+- ✅ **Music Center SBC**, even when triggered after override, *will overwrite* it and store SBC
+- ✅ **LDAC 990 will only persist** if applied *after* SBC has successfully overwritten the override
+
+---
+
+## 🧩 Firmware Profile Logic Summary
+
+| Trigger Event                            | Firmware Update? | Notes                                                     |
+|------------------------------------------|------------------|-----------------------------------------------------------|
+| First codec at A2DP connect              | ✅ Yes           | Samsung injects override instantly                        |
+| Music Center SBC becomes active          | ✅ Yes           | Replaces stored profile after ~5–10s                      |
+| LDAC 990 used after SBC (Music Center)   | ✅ Yes           | Quality setting (990 kbps) is stored and persists         |
+| DevOpts codec change (any AV state)      | ❌ No            | Live switch only — never stored in firmware               |
+| BCC codec change without SBC             | ❌ No            | Session-only; not written to firmware                     |
+| Fast Pair LDAC 990 manually post-connect | ❌ No            | Override profile already saved — LDAC 990 not stored      |
+
+---
+
+> ⚠️ Do not rely on Fast Pair or Developer Options alone  
+> ✅ Music Center is the only app capable of persistently writing codec profiles, including LDAC 990
+
+
+
+## ❌ No Override Prevention — Only Post-Connect OverwriteThere is **no way to stop** Samsung's override from triggering at A2DP connect.  What you can do is:- Let the override happen- Then **overwrite it within ~10 seconds** using a known-good codec (SBC → LDAC 990)- This replaces the override profile in **Sony WH-1000XM firmware**, per device🧠 This is **not** prevention. It’s **post-injection correction**.The only known reliable methods are:- **Music Center SBC preset before pairing**- **Fast Pair with Save Devices = OFF**- **Immediate BCC profile switch to LDAC 990**- **Playback of LDAC 990 for 20+ seconds**✅ This results in a persistent firmware-stored LDAC 990 profile for that device.❌ But the override was still there — just overwritten later.
+
+
+
+## 🎛️ Sony Headphones Connect — EQ, DSEE Extreme & ANC Behavior on WH-1000XM5
+
+This section explains exactly how **EQ**, **DSEE Extreme**, and **ANC** behave on Sony WH-1000XM5 headphones — and why they are **inactive** or altered in high-fidelity setups like `UAPP + BCC + AV Off + LDAC 990 kbps Fixed`.
+
+---
+
+### ✅ EQ Behavior — When Does It Actually Apply?
+
+| Condition                          | Sony EQ Applies | Notes                                                                 |
+|-----------------------------------|------------------|-----------------------------------------------------------------------|
+| **LDAC Adaptive (any bitrate)**   | ✅ Yes           | Firmware DSP engine is active                                        |
+| **AAC / SBC codecs**              | ✅ Yes           | EQ applied in firmware                                               |
+| **LDAC Fixed 990 kbps (via BCC)** | ❌ No            | DSP engine is bypassed completely                                    |
+| **UAPP Direct(LDAC) mode**        | ❌ No            | Audio bypasses AudioFlinger and Sony DSP entirely                    |
+| **Absolute Volume (AV) Off**      | ❌ No impact     | Affects volume only — not DSP or EQ                                  |
+| **DSEE Off**                      | ❌ No            | DSP chain inactive = EQ and DSEE fully off                           |
+| **Sony Headphones Connect UI**    | ❌ Not reliable  | UI may show EQ/DSEE as active even when DSP is off                   |
+
+> ❗ **EQ and DSEE do not function in LDAC Fixed mode** — even if the app UI claims otherwise.
+
+---
+
+### 🎚️ Sony EQ Frequency Bands on WH-1000XM5
+
+| Band           | Frequency Range | Effect                                          |
+|----------------|------------------|-------------------------------------------------|
+| **Clear Bass** | ~60–100 Hz       | Boosts sub-bass; can mask midrange             |
+| **400 Hz**     | Low mids         | Adds warmth or muddiness                       |
+| **1 kHz**      | Presence         | Boosts vocal clarity or nasal tone             |
+| **2.5 kHz**    | Upper mids       | Enhances articulation; risk of harshness       |
+| **6.3 kHz**    | Lower treble     | Adds shimmer; may cause sharpness              |
+| **16 kHz**     | "Air"            | Brightens top end; mostly artificial sparkle   |
+
+> ⚠️ These bands only affect sound when **DSP is active**.  
+> ℹ️ *Clear Bass* may slightly alter ANC tone — but **not** in LDAC Fixed mode.
+
+---
+
+### ✨ DSEE Extreme — Real Behavior
+
+| Attribute              | Behavior                                                                 |
+|------------------------|--------------------------------------------------------------------------|
+| **Function**           | AI-based restoration of high frequencies and transients                  |
+| **Applies to**         | Lossy sources only (e.g., SBC, AAC, MP3)                                 |
+| **Effects**            | Adds brightness, “detail,” stereo widening                               |
+| **Hi-Res Impact**      | ❌ Harms fidelity; introduces artificial coloration                      |
+| **PCM Alteration**     | ✅ Yes — processes audio before LDAC encoding                            |
+
+---
+
+### 🔬 What DSEE Extreme Actually Does
+
+- Reconstructs artificial high-end detail  
+- Slight stereo widening (enhanced spatial cues)  
+- Restores some "sparkle" to lossy streams  
+- ❗ *Smears high-resolution content* — not desirable in audiophile playback
+
+---
+
+### 📉 When to Use (and Avoid) DSEE Extreme
+
+| Source Type            | Use DSEE? | Reason                                  |
+|------------------------|-----------|-----------------------------------------|
+| **Spotify / YouTube Music** | ✅ Yes     | Improves perceived quality of lossy audio |
+| **MP3 / AAC Files**         | ✅ Yes     | Useful for legacy or compressed music     |
+| **FLAC / ALAC / WAV**       | ❌ No      | Adds artificial enhancements              |
+| **UAPP / Neutron (bit-perfect)** | ❌ No      | Breaks fidelity and bit-perfect flow       |
+| **LDAC Fixed 990 kbps**     | ❌ No      | DSP is off — DSEE is bypassed            |
+
+---
+
+### ⚙️ DSP Dependency Matrix (WH-1000XM5)
+
+| Feature                     | Requires DSP Engine? | Notes                                                    |
+|-----------------------------|----------------------|----------------------------------------------------------|
+| **DSEE Extreme**            | ✅ Yes               | Not available in LDAC Fixed mode                         |
+| **Sony EQ**                 | ✅ Yes               | Disabled with Fixed LDAC or UAPP Direct                  |
+| **360 Reality Audio**       | ✅ Yes               | Fully DSP-dependent experience                           |
+| **LDAC 990 kbps (Fixed)**   | ❌ No                | DSP bypassed; bit-perfect flow via Bluetooth             |
+| **Noise Cancelling (Auto)** | ✅ Yes               | No adaptive ANC in DSP-disabled mode                     |
+| **Absolute Volume (AV) Off**| ❌ No                | System volume routing only — no DSP effect               |
+
+---
+
+### ✅ Final Verdict — DSP Features
+
+| Feature             | Active in This Setup?         | Why                                                 |
+|---------------------|-------------------------------|------------------------------------------------------|
+| **Sony EQ**         | ❌ No                         | DSP inactive with Fixed LDAC                        |
+| **DSEE Extreme**    | ❌ No                         | Not functional without DSP                          |
+| **Audio Purity**    | ✅ Yes                        | DSP bypassed, no coloration                         |
+| **Volume Integrity**| ✅ Yes                        | AV Off disables Android’s volume scaling            |
+
+> 🧠 In this config, **no Sony DSP effects are applied** — which is **perfect for high-res wireless playback**.
+
+> 💡 *Quick test:* Toggle EQ mid-song. No change? You're in a true DSP-free mode.
+
+---
+
+## 🎧 ANC (Active Noise Cancellation) — Behavior in LDAC Fixed Mode
+
+Sony WH-1000XM5 uses a **hybrid ANC system**, combining analog feedforward/feedback circuits with DSP-based environmental tuning. In `LDAC Fixed` mode, DSP is disabled, so **adaptive ANC tuning is inactive** — but **core ANC remains functional**.
+
+---
+
+### 🧠 ANC Behavior by Codec Mode
+
+| Condition                          | ANC Active?      | Notes                                                               |
+|-----------------------------------|------------------|---------------------------------------------------------------------|
+| **LDAC Adaptive (any bitrate)**   | ✅ Full DSP      | Real-time environmental tuning                                      |
+| **AAC / SBC codecs**              | ✅ Full DSP      | Full ANC behavior and wind/pressure adaptation                      |
+| **LDAC Fixed 990 kbps (via BCC)** | ✅ Static Only   | Core ANC active; DSP-based tuning (wind, motion) disabled           |
+| **UAPP Direct(LDAC) mode**        | ✅ Static Only   | Same as above — analog ANC only                                     |
+
+---
+
+### 🔄 What Changes in LDAC Fixed Mode?
+
+- ✅ **Basic ANC circuit** remains active  
+- ❌ **Dynamic ANC tuning** (wind, motion, pressure) disabled  
+- ✅ **No DSP artifacts** or fluctuating tonal balance  
+- ✅ **Clean and consistent ANC profile**
+
+---
+
+### ⚖️ ANC Trade-Offs — Fixed vs Adaptive Mode
+
+| Feature / Behavior                | LDAC Fixed (DSP Off) | LDAC Adaptive (DSP On)       |
+|----------------------------------|------------------------|-------------------------------|
+| **Core ANC function**            | ✅ Yes                | ✅ Yes                         |
+| **Adaptive tuning**              | ❌ No                 | ✅ Yes                         |
+| **Wind noise reduction**         | ❌ No                 | ✅ Yes                         |
+| **Pressure detection**           | ❌ No                 | ✅ Yes                         |
+| **Motion sensitivity**           | ❌ No                 | ✅ Yes                         |
+| **Fidelity preservation**        | ✅ Highest            | ⚠️ DSP introduces coloration    |
+| **ANC predictability**           | ✅ Very High          | ⚠️ Can vary with environment    |
+
+---
+
+### ✅ Final ANC Verdict
+
+- **For travel & noise adaptation** → Use **Adaptive LDAC**  
+  ➤ Better ANC responsiveness, but sound may be colored by DSP.
+
+- **For high-fidelity listening** → Use **Fixed LDAC**  
+  ➤ ANC remains effective but static — and **sound stays pure**.
+
+> 🎯 *Fixed LDAC = Static ANC, zero coloration*  
+> 🤖 *Adaptive LDAC = Smart ANC, with DSP tradeoffs*
+
+
+
+# 🥊 Final Showdown: UAPP vs Neutron + BCC + Tasker
+
+| Feature / Behavior                           | Neutron + BCC + Tasker                     | UAPP (Hi-Res Driver, Bit-Perfect)              |
+|---------------------------------------------|--------------------------------------------|------------------------------------------------|
+| **Audio Output Path**                        | ❌ AudioTrack / OpenSL (Android mixer risk) | ✅ Native driver — full AudioFlinger bypass     |
+| **Bit-Perfect Output (PCM / DSD)**           | ⚠️ Device-dependent                         | ✅ True bit-perfect (USB & Hi-Res HAL)          |
+| **LDAC Bitrate Lock (990 kbps)**             | ✅ Enforced via BCC                         | ✅ Native — stable without intervention         |
+| **LDAC Sample Rate Match (Per Track)**       | ⚠️ Simulated via Tasker + file parsing      | ✅ Native per-track adaptive sync               |
+| **Bit Depth Handling (16/24/32-bit)**        | ✅ Forced via BCC                           | ✅ Native — automatically aligned               |
+| **Gapless Playback (Codec-Safe)**            | ❌ Requires delay logic between tracks      | ✅ Fully native gapless + adaptive LDAC         |
+| **LDAC Override Protection (Samsung etc.)**  | ✅ Manual SBC trick / logic chain           | ✅ Native immunity once override is removed     |
+| **LDAC Fallback Recovery (e.g., from AAC)**  | ✅ Tasker/BCC recovery                      | ✅ Native renegotiation — no scripting needed   |
+| **AVRCP / Multipoint Sync**                  | ⚠️ Manual tuning required                  | ✅ OS-managed — UAPP is AVRCP compliant         |
+| **Automation / Scripting Required**          | ✅ Needed to achieve reliable playback      | ❌ Not needed — zero scripting required         |
+| **Transparency / Debugging (dumpsys etc.)**  | ✅ Full codec visibility                    | ❌ Not exposed — UAPP never loses codec lock    |
+| **Setup Complexity**                         | ❌ High — Tasker profiles, delays, tuning   | ✅ Simple — plug-and-play                       |
+| **Battery Efficiency**                       | ⚠️ Lower — Tasker & BCC run in background  | ✅ Efficient — no background logic needed       |
+| **Codec Control Authority**                  | ❌ Neutron depends on BCC — no internal authority | ✅ UAPP controls A2DP + playback pipeline |
+
+---
+
+## 🏁 Verdict by Category
+
+| Category                         | Winner     | Reason                                                   |
+|----------------------------------|------------|----------------------------------------------------------|
+| Audio Fidelity / Bit-Perfect     | ✅ UAPP     | Owns entire pipeline — no mixer, no resample             |
+| LDAC 990 + Adaptive Sync         | ✅ UAPP     | Native, stable, per-track — no scripting required        |
+| Gapless + Rate Switching         | ✅ UAPP     | Only player that handles both natively                   |
+| Override Resistance & Recovery   | ✅ UAPP     | Immune after one-time setup — self-healing               |
+| Transparency / Debugging         | ❌ Obsolete | UAPP doesn’t fail — visibility no longer needed          |
+| Setup Simplicity + Efficiency    | ✅ UAPP     | No Tasker, no BCC, no monitoring                         |
+| Manual Profile Control           | ❌ Obsolete | UAPP removed the need for external enforcers like BCC    |
+
+---
+
+## ➕ Optional Add-On Verdicts (Advanced)
+
+| Category                               | Winner     | Reason                                                      |
+|----------------------------------------|------------|-------------------------------------------------------------|
+| Hi-Res File Support (DSD, DXD, ISO)    | ✅ UAPP     | Native DSD/DoP/ISO support; Neutron lacks native ISO        |
+| Android Audio HAL Compatibility        | ✅ UAPP     | Works below AudioFlinger — direct HAL integration           |
+| LDAC Adaptive Stability (All Rates)    | ✅ UAPP     | No stutters even at 44.1 adaptive — confirmed stable        |
+
+---
+
+## 🔥 Final Verdict
+
+> **UAPP is the undisputed best choice** for LDAC 990 playback, bit-perfect audio, adaptive sample rate, and system-level stability.  
+> Neutron + BCC + Tasker is now a **legacy workaround stack** — useful only for testing edge cases or reverse engineering, not for real-world playback.
+
+
+
+
+
+# 📉 Is Sample Rate Parsing with Tasker Useful on Android?
+
+Trying to build a **Tasker-based sample rate parser** on Android is **not useful**, unless you're using a highly specific setup.
+
+---
+
+## ❌ Why It's Not Useful (for Most Apps)
+
+| App            | Sample Rate Accessible? | Reason                                                                 |
+|----------------|--------------------------|------------------------------------------------------------------------|
+| **Qobuz**      | ❌ No                    | Android resamples all output; app doesn't expose sample rate          |
+| **Tidal**      | ❌ No                    | No public broadcast/API for playback rate                             |
+| **Spotify**    | ❌ No                    | Streams in 44.1 kHz lossy; nothing exposed to system or Tasker        |
+| **Roon ARC**   | ❌ No                    | Streams lossy Opus (~320 kbps); no sample rate exposed                |
+| **Roon (App)** | ❌ No                    | Uses Android mixer; resampled output; no metadata accessible          |
+
+> Even Android’s notification system doesn’t provide codec/sample rate info — only track, artist, etc.![image](https://github.com/user-attachments/assets/68b52351-3fa6-401b-adf5-1f4d8a8b1929)
+
