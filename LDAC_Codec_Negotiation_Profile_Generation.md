@@ -208,7 +208,8 @@ Samsung's codec handling is **never neutral** after pairing — all codec transi
 |-----------|----------------------------|-------|
 | ✅ Disconnect → Reconnect | ✅ Yes | Always renegotiates codec. |
 | ✅ Changing LDAC settings (Developer Options) | ✅ Yes | Developer Options directly injects codec pre-handshake. |
-| ⚠ Changing LDAC settings (BCC, Music Center) | ❌ No (needs renegotiation) | Requires active A2DP session and renegotiation. |
+| ⚠ Changing LDAC settings (BCC) | ❌ No (needs renegotiation) | Requires active A2DP session and renegotiation. |
+| ⚠ Changing LDAC settings (Music Center) | ✅ Yes | Requires active A2DP session and renegotiation. |
 | ⚠ Changing sample rate via UAPP | ✅ Yes (indirect) | HAL session reset triggers renegotiation. |
 | ⚠ Pause + Resume (media apps) | ❌ no | Session often stays alive. |
 | 🔴 Active playback ongoing during toggle | ❌ No | Fully locked session. |
