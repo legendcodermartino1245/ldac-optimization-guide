@@ -9,8 +9,6 @@ Use **Wavelet** as your only EQ. Disable all other music app EQs:
 -  UAPP parametric EQ
 -  Poweramp tone controls or presets
 
-> ❗ *Using EQ in Sound Connect may reduce LDAC bitrate on older headphones (like WH-1000XM3), but does **not** affect LDAC 990 kbps on the WH-1000XM5.*
-
 ###  Wavelet Settings for LDAC Stability
 | Setting         | Recommended Value                        |
 |----------------|-------------------------------------------|
@@ -52,8 +50,6 @@ adb shell pm grant com.pittvandewitt.wavelet android.permission.DUMP
 | Gaming or real-time use (low latency)   | ✅ **Sound Connect** | Minimal delay, safer for video/gaming with no DSP overhead          |
 | Want full control over EQ profiles      | ✅ **Wavelet**        | Manual parametric + FIR/IIR support                                 |
 
-> 🔄 *You can mix both if desired (e.g. Sound Connect for basic tuning, Wavelet for detailed tuning), but Wavelet must have DUMP access and be the only active DSP to avoid conflicts.*
-
 ---
 
 ## 🔍 Sound Connect EQ — Stable LDAC 990 on WH-1000XM5
@@ -70,10 +66,4 @@ adb shell pm grant com.pittvandewitt.wavelet android.permission.DUMP
 
 ### ⚠️ Important Note:
 - This applies only to **XM5 and newer** models.
-- On older models (like **XM3**), enabling EQ **may** trigger fallback or codec renegotiation unless you override it manually.
-
-### Extra Tip: Verify LDAC Live Codec State
-Use ADB to confirm LDAC is still active during EQ usage:
-```bash
-adb shell dumpsys bluetooth_manager | grep -i codec
-```
+> ❗ *Using EQ in Sound Connect reduces LDAC bitrate on older headphones (like WH-1000XM3), but does **not** affect LDAC 990 kbps on the WH-1000XM5.*
