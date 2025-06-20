@@ -53,7 +53,6 @@ All override behavior can be fully defeated through a single governing principle
 | Bit Depth Downgrade      | Timing-independent   | Profile pre-selection        | BCC Intermediate       |
 | BCC Auto Switch          | Timing-independent   | Any time post-connection     | BCC Auto Switch Engine |
 | AutoNotification Healing | Timing-independent   | Full session window          | GUI / Codec Monitor    |
-| AV OFF Suppression       | Passive              | Permanent system-wide        | System Toggle          |
 
 ---
 
