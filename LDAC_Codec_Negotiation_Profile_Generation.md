@@ -1,7 +1,7 @@
 # LDAC Codec Negotiation & Profile Generation
 
 > Everything that determines which codec (SBC, LDAC 330/660/990) gets selected during Bluetooth connection.  
-> This list is 100% focused on **connection-time behaviors** — not post-connection bitrate changes or audio stability.
+> This document focuses on empirically observed connection-time codec negotiation behavior in a Samsung Android + Sony WH-1000XM5 test setup.
 
 ---
 
@@ -28,10 +28,10 @@
 
 - **LDAC toggle in Developer Options**  
   → Often causes Samsung devices to renegotiate toward preferred LDAC behavior.  
-  → Typically requires an SBC reset and Developer Options OFF during active connection to clear observed renegotiation carryover behavior.
+  → Typically requires an SBC reset and Developer Options OFF during active connection to clear previously observed codec carryover behavior.
 
 - **Developer Options open during connection**  
-  → May retrigger Samsung codec renegotiation behavior if LDAC is selected.  
+  → May retrigger Samsung codec reconnect behavior if LDAC is selected.  
   → Avoid opening Dev Options during or right before pairing.
 
 - **HD Audio toggle in Bluetooth device settings**  
@@ -46,7 +46,7 @@
 
 - **Connection method: Quick Settings vs Power-On**  
   → Reconnecting via **Quick Settings** toggle: more likely to honor stored (trained) profile.  
-  → Reconnecting via **powering on headphones**: often re-triggers observed Samsung negotiation behavior.
+  → Reconnecting via **powering on headphones**: often re-triggers Samsung override behavior.
 
 - **Disabling Developer Options while disconnected**  
   → Leaves renegotiation state intact — no reset occurs.
@@ -58,34 +58,35 @@
 
 ### ⚙ Observed System Negotiation Behavior & Profile Persistence
 
-- **Samsung LDAC observed negotiation behavior**  
+- **Samsung LDAC override behavior**  
   → Automatically activates if LDAC is used in Developer Options.  
   → Often renegotiates toward Samsung’s preferred LDAC behavior unless alternative renegotiation workflows intervene.  
-  → On Samsung, observed negotiation behavior can independently toggle HD Audio ON after pairing.  
-  → However, observed negotiation behavior **cannot toggle LDAC codec toggle directly** — only HD Audio layer.
+  → On Samsung devices in this setup, HD Audio often appeared to re-enable automatically after pairing.
+  → Samsung override behavior did not appear to toggle the LDAC codec toggle directly in this setup.
 
 - **AAC default fallback post-pairing (Samsung stack)**  
-  → After first pairing, AAC is no longer neutral.  
-  → Becomes part of Samsung’s observed codec negotiation behavior if LDAC isn't fully locked.  
+  → After first pairing, AAC is no longer neutral.
 
 - **Absolute Volume status**  
   - **AV ON**: Volume sync events can re-trigger override or block codec switching.  
   - **AV OFF**: Prevents Android-side volume control.
 
 - **Fast Pair timing**  
-  → Samsung negotiation behavior usually takes precedence
+  → Samsung reconnect behavior often appeared to take precedence in this setup.
   → if Automatically save devices is on it may get stored in the cloud
 
-- **Writing to firmware post-handshake (after override) with Music Center**  
-  → Behavior suggests negotiated profiles may persist across reconnects (WH-1000XM5/XM3).  
-  → may apply after observed Samsung negotiation behavior
+### Possible Music Center Reinjection Behavior
+
+→ Behavior suggests some negotiated codec preferences may persist across reconnects after stable renegotiation events.
+
+→ Music Center may reapply previously negotiated codec states after reconnect on some Sony headphone models.
 
 - **GUI desync between Developer Options and BCC**  
   → Happens if renegotiation timing conflict occurs.  
   → Solved by double-applying the BCC profile
 
 - **Codec override persists across reboots**  
-  → Only cleared via SBC handshake followed by Developer Options OFF during active connection.
+→ In this testing, the most reliable reset method was an SBC handshake followed by Developer Options OFF during active connection.
 
 ---
 
@@ -93,11 +94,11 @@
 
 - **Sony | Music Center**  
   → With Nearby Devices permission: silently re-applies LDAC profile at connection.  
-  → Override happens even if you only changed volume.  
+  → Codec renegotiation behavior may occur even after seemingly minor interactions such as volume adjustments.  
   → Must be force-stopped or stripped of permission to prevent interference.
 
 - **Bluetooth Codec Changer (BCC)**  
-  → Defeats observed Samsung negotiation behavior using profile chaining:  
+  → Attempts to bypass Samsung reconnect renegotiation behavior using profile chaining:
     - SBC → LDAC 16-bit → LDAC 24-bit 990  
   → Must apply within 1–2 seconds of connection.  
   → Double-apply profile to fix GUI mismatch.
@@ -119,14 +120,14 @@
 
 - **“Automatically save devices” in Fast Pair**  
   → If enabled, GMS syncs previously negotiated codec profiles to the cloud.  
-  → Reapplies LDAC override silently after reset or on new device.  
-  → Must be turned OFF to reduce observed Samsung negotiation behavior on reconnect.
+  → May contribute to reconnect codec persistence behavior across resets or new device setups.  
+  → Must be turned OFF to reduce Samsung override behavior on reconnect.
 
 ---
 
 ## 🧬 Samsung Codec Behavior — Override Negotiation Logic
 
-Samsung reconnect behavior often appears to prioritize higher-quality codecs after pairing — all codec transitions participate in its override system.
+Samsung reconnect behavior often appeared to prioritize higher-quality codecs after pairing in this test setup.
 
 ---
 
@@ -135,22 +136,22 @@ Samsung reconnect behavior often appears to prioritize higher-quality codecs aft
 - If **LDAC is disabled globally** (HD Audio toggle OFF):
   Samsung devices often negotiate AAC automatically when LDAC is unavailable.
   - This occurs regardless of **Absolute Volume ON or OFF**.
-- AAC becomes the "preferred high-quality codec" under Samsung's stack if LDAC is not allowed.
-- AAC selection here is not user-driven — it is part of Samsung’s renegotiation behavior asserting itself even in absence of LDAC.
-- Disabling LDAC does not fall back to SBC by default; AAC is treated as the next-in-line override.
-- **Absolute Volume state has no effect on AAC override behavior**:  
+  - AAC often becomes the negotiated fallback codec when LDAC is unavailable in this setup.
+- Disabling LDAC does not fall back to SBC by default; AAC appears to be preferred over SBC in this setup when LDAC is unavailable.
+- **Absolute Volume state did not appear to significantly affect AAC reconnect behavior in this setup.**:  
 
 ---
 
-### ✅ SBC Is Never Neutral — Samsung may Never Default to SBC
+### ✅ SBC Rarely Appeared as Automatic Fallback in This Setup
 
 - In this test setup, the Samsung device rarely appeared to default to SBC after initial pairing.
 - SBC only appears under very specific conditions:
   - Explicit SBC selection in Developer Options.
-  - Manual profile reset workflow workflows (SBC handshake exploit).
+  - Manual profile reset workflows (SBC handshake exploit).
   - Complete device capability fallback (rare edge case if all high-quality codecs fail).
-- Even during poor RF conditions or reconnections, Samsung devices often appear to favor Adaptive LDAC degradation before falling back to SBC.
-- SBC is therefore not a "graceful fallback" in Samsung's observed negotiation behavior — it is an explicit profile reset workflow tool.
+- Even during poor RF conditions or reconnections, Samsung devices often appeared to remain on LDAC profiles under degraded RF conditions before falling back to SBC.
+- In this setup, SBC rarely appeared as an automatic reconnect fallback unless manually forced or all higher-quality codecs were unavailable.
+- SBC primarily behaved as a manual reset or profile-clearing tool during testing.
 
 ---
 
@@ -159,18 +160,18 @@ Samsung reconnect behavior often appears to prioritize higher-quality codecs aft
 - In this setup, AAC did not behave like a fully neutral reconnect state.
 - On reconnect:
   - Samsung may briefly show **AAC** for several seconds.
-  - reconnect behavior may later transition toward Adaptive LDAC unless profile reset workflow logic is actively blocking it.
-  - AAC appeared to act as a transient phase in Samsung's observed handshake behavior before another codec profile was negotiated.
-- This is why AAC sometimes appears momentarily before BCC or SBC handshake defeats fully assert.
+  - Reconnect behavior may later transition toward higher-quality LDAC profiles unless profile reset workflow logic is actively blocking it.
+  - AAC sometimes appeared transiently before another codec profile transition occurred
+  - This may explain why AAC sometimes appeared briefly before BCC or SBC reset workflows fully transitioned to the target codec profile.
 
 ---
 
-### 🔧 observed Samsung negotiation behavior Control Priority
+## 🔧 Samsung Override Priority Model
 
 | Priority | Control Layer |
 |----------|----------------|
 | 1️⃣ | HD Audio Toggle (global switch Samsung controls) |
-| 2️⃣ | Samsung negotiation behavior often prioritizes AAC or LDAC depending on allowed codec set |
+| 2️⃣ | Samsung override behavior |
 | 3️⃣ | Developer Options LDAC settings mostly ignored unless override is fully defeated |
 
 ---
@@ -181,7 +182,7 @@ Samsung reconnect behavior often appears to prioritize higher-quality codecs aft
 |----------|-------|--------------------|
 | LDAC Disabled | AAC | Frequently negotiated automatically on Samsung devices (independent of AV state) |
 | LDAC Enabled (Override Active) | AAC → LDAC Adaptive | Sequential override progression |
-| profile reset workflowed (BCC/Tasker) | Anything | Greater manual influence over renegotiation behavior |
+| Manual profile reset workflow (BCC/Tasker) | Anything | Greater manual influence over renegotiation behavior |
 
 
 # 🎛 LDAC Codec Negotiation — Observed Activation & Renegotiation Behavior
@@ -206,7 +207,7 @@ Samsung reconnect behavior often appears to prioritize higher-quality codecs aft
 
 | Condition | LDAC Switches Automatically? | Notes |
 |-----------|----------------------------|-------|
-| ✅ Disconnect → Reconnect | ✅ Yes | Always renegotiates codec. |
+| ✅ Disconnect → Reconnect | ✅ Yes | Typically renegotiates codec on reconnect in this setup. |
 | ✅ Changing LDAC settings (Developer Options) | ✅ Yes | Developer Options appears to influence codec negotiation during handshake. |
 | ⚠ Changing LDAC settings (BCC) | ❌ No (needs renegotiation) | Requires active A2DP session and renegotiation. |
 | ⚠ Changing LDAC settings (Music Center) | ✅ Yes | Requires active A2DP session and renegotiation. |
@@ -224,20 +225,20 @@ Samsung reconnect behavior often appears to prioritize higher-quality codecs aft
 
 | Developer Options History | Behavior on Reconnect |
 |---------------------------|-----------------------|
-| LDAC previously selected in Developer Options | LDAC always activates automatically upon reconnect. |
+| LDAC previously selected in Developer Options | LDAC frequently activated automatically upon reconnect in this setup. |
 | Developer Options disabled, but SBC reset not performed | LDAC memory still applied automatically. |
 | Developer Options disabled **and** SBC handshake performed (override reset) | LDAC activation requires full renegotiation. |
 
-- This codec memory state lives inside Android’s Bluetooth stack (not Sony firmware).
-- observed Samsung negotiation behavior still executes after this unless fully defeated.
+- Behavior suggests codec preference persistence may exist somewhere within the Android Bluetooth negotiation layer. (not Sony firmware).
+- Samsung reconnect renegotiation behavior may still occur after this state unless additional reset workflows are applied.
 
 ---
 
-## 🔑 Absolute Authority Rule — Post-Toggle Codec Injection
+## Observed Codec Negotiation Priority — Post-Toggle Codec Injection
 
-> ✅ **Once LDAC toggle is enabled, Developer Options is the only mechanism capable of directly injecting LDAC profile selection without renegotiation.**
+> ✅ **In this test setup, once the LDAC toggle was enabled, Developer Options appeared to be the only mechanism capable of directly influencing LDAC profile selection without renegotiation.**
 
-| Layer | Can Inject LDAC Profile After Toggle? | Why? |
+| Layer | Observed Influence on LDAC Profile Selection | Why? |
 |-------|-----------------------------------|-------|
 | **Developer Options (Codec Memory)** | ✅ YES | Appears to influence A2DP negotiation behavior during connection setup. |
 | **Samsung codec preference behavior** | ✅ Yes (at handshake only) | Often negotiates toward Adaptive LDAC profiles during reconnect behavior. |
@@ -251,14 +252,14 @@ Samsung reconnect behavior often appears to prioritize higher-quality codecs aft
 
 ## 🎯 Observed Control Behavior Table — Who Can Control Codecs?
 
-| Layer / App | Authority Type | Can Force Codec Without Live Renegotiation? | Notes |
+| Layer / App | Authority Type | Observed Influence Without Live Renegotiation | Notes |
 |--------------|----------------|----------------------------------|-------|
 | **Developer Options (Android Bluetooth Settings)** | Observed codec memory behavior | ✅ YES | Appears to strongly influence codec negotiation before or during connection setup. Retains memory across sessions even after disabled. |
-| **Samsung codec preference behavior** | Observed Samsung negotiation behavior | ✅ YES (own injected profile only) | Often renegotiates toward Adaptive LDAC profiles during reconnect behavior. |
+| **Samsung codec preference behavior** | Samsung override behavior | ✅ YES (Observed reconnect renegotiation behavior only) | Often renegotiates toward Adaptive LDAC profiles during reconnect behavior. |
 | **Fast Pair (Google Play Services)** | Pairing Metadata Authority | ✅ YES (during pairing) | May influence codec preferences during initial pairing behavior. |
 | **Bluetooth Codec Changer (BCC)** | Runtime Profile Switcher | ❌ NO | Triggers codec renegotiation after A2DP session is live. |
 | **Sony Music Center** | App-Level Codec Negotiator | ❌ NO | Requests renegotiation but requires active A2DP session. |
-| **UAPP (USB/Hi-Res mode)** | Direct-driver playback behavior | ✅ YES (USB mode) | Can directly manage codec/sample rate for USB audio; Bluetooth still subject to renegotiation logic. |
+| **UAPP (USB/Hi-Res mode)** | Direct-driver playback behavior | ✅ YES (USB mode) | Can directly manage audio sample rate behavior for USB playback. Bluetooth playback remains subject to normal Android Bluetooth renegotiation behavior. |
 | **UAPP (Bluetooth mode)** | Session Manager | ❌ NO | Can only trigger renegotiation by restarting playback sessions. |
 | **Tasker + AutoNotification** | Automation Healing Layer | ❌ NO | Monitors codec state and issues corrective triggers via BCC or app relaunches. |
 
@@ -268,7 +269,7 @@ Samsung reconnect behavior often appears to prioritize higher-quality codecs aft
 
 | Timing | Who Can Control? | Method |
 |--------|------------------|--------|
-| 🔌 **Before Connection (Handshake)** | Developer Options, observed Samsung negotiation behavior, Fast Pair | Pre-handshake negotiation influence. |
+| 🔌 **Before Connection (Handshake)** | Developer Options, Samsung override behavior, Fast Pair | Pre-handshake negotiation influence. |
 | 🎶 **After Connection (Active Session)** | BCC, Music Center, UAPP (session restart) | Renegotiation triggers only. |
 
 ---
@@ -291,7 +292,7 @@ Samsung reconnect behavior often appears to prioritize higher-quality codecs aft
 
 - The full profile reset workflow chain works by:
   - Fully resetting Developer Options codec memory state.
-  - Forcing observed Samsung negotiation behavior reset via SBC → LDAC16 → LDAC990 handshake chaining.
+  - Forcing Samsung override behavior reset via SBC → LDAC16 → LDAC990 handshake chaining.
   - Utilizing BCC + Tasker to maintain target profile via controlled renegotiation.
   - Suppressing Fast Pair reinjections via permission revocation timing.
 
@@ -352,7 +353,7 @@ Observed Samsung reconnect behavior for aptX and AAC appears similar to its LDAC
 
 ### 🔧 Samsung Codec Override Injection Priority
 
-Observed Samsung negotiation behavior appears to prioritize codecs in the following order based on available capabilities:
+Samsung override behavior appears to prioritize codecs in the following order based on available capabilities:
 
 | Priority | Codec Injected | Trigger Condition |
 |----------|-----------------|--------------------|
@@ -362,7 +363,7 @@ Observed Samsung negotiation behavior appears to prioritize codecs in the follow
 | 4️⃣ | SBC | Only if all others unavailable or profile reset workflow logic applies |
 
 - The HD Audio toggle appears strongly associated with whether these codec renegotiation behaviors occur.
-- Absolute Volume state has no effect on this priority ordering.
+- Absolute Volume state did not appear to significantly affect this priority ordering.
 - Developer Options codec selections override this priority chain only if explicitly forced.
 
 
@@ -393,7 +394,7 @@ Observed behavior suggests Samsung devices may reuse previously negotiated LDAC 
   - Sony Music Center
   - Developer Options
   - Android system codec negotiation
-- Direct-driver apps like UAPP do not contribute to inheritance; they bypass the A2DP stack entirely.
+- UAPP operating in USB/direct-driver mode does not appear to participate in normal Android Bluetooth A2DP inheritance behavior.
 - Override authority operates strictly at the A2DP session layer.
 - Behavior suggests previously negotiated parameters may influence how Samsung devices renegotiate active LDAC profiles during reconnect events.
 
@@ -401,7 +402,7 @@ Observed behavior suggests Samsung devices may reuse previously negotiated LDAC 
 
 ### 2️⃣ Selective Parameter Filtering Logic
 
-observed Samsung negotiation behavior does not fully copy every parameter from the inherited A2DP profile. Observed renegotiation behavior suggests some parameter normalization may occur:
+Samsung override behavior does not fully copy every parameter from the inherited A2DP profile. Observed renegotiation behavior suggests some parameter normalization may occur:
 
 | Codec Parameter | Inheritance Behavior |
 |------------------|----------------------|
@@ -417,22 +418,22 @@ observed Samsung negotiation behavior does not fully copy every parameter from t
 
 ### 3️⃣ A2DP Session Isolation Protection
 
-observed Samsung negotiation behavior only operates within system-managed A2DP sessions. It does not activate inside direct-driver sessions.
+Samsung override behavior only operates within system-managed A2DP sessions. It does not activate inside direct-driver sessions.
 
-| Playback Session Type | observed Samsung negotiation behavior Active? |
+| Playback Session Type | Samsung override behavior Active? |
 |------------------------|--------------------------|
 | System A2DP session (standard apps, BCC, Music Center) | Yes — override triggers |
 | Direct Hi-Res driver session (UAPP, exclusive drivers) | Appears significantly less affected |
 
-- Direct-driver apps bypass the system’s A2DP stack entirely.
-- observed Samsung negotiation behavior appears less active during direct-driver sessions.
+- UAPP USB/direct-driver playback bypasses normal Android Bluetooth A2DP negotiation behavior.
+- Samsung override behavior appears less active during direct-driver sessions.
 - Direct-driver playback appears significantly less affected by normal Android renegotiation behavior, even when toggling LDAC system settings.
 
 ---
 
 ### 4️⃣ LDAC Control Authority — Parameter Limitations by Control Source
 
-| Control Source | Sample Rate Control | Bit Depth Control | Bitrate Control | Full LDAC Frame Control? |
+| Control Source | Sample Rate Control | Bit Depth Control | Bitrate Control | Relative LDAC Parameter Control |
 |----------------|---------------------|--------------------|------------------|-------------------------|
 | Bluetooth Codec Changer (BCC) | Limited — 44.1/88.2 kHz often rejected | Partial | Full (330/660/990/909 kbps) | No |
 | Sony Music Center | Limited — sample rate usually restricted to standard rates | Partial | Full | No |
@@ -459,7 +460,7 @@ Observed behavior suggests Samsung devices may reuse previously negotiated A2DP 
 
 ### 🧬 Memory Behavior
 
-- If Developer Options was active during handshake → observed codec preferences may persist across reconnects.
+- If Developer Options was active during handshake → previous codec preferences sometimes appeared to persist across reconnects.
 - Disabling Developer Options while disconnected does not clear this memory state.
 - Only performing a **SBC handshake reset + Developer Options OFF while connected** fully clears the Developer Options memory carryover.
 
@@ -468,7 +469,6 @@ Observed behavior suggests Samsung devices may reuse previously negotiated A2DP 
 > **Developer Options behavior appears primarily handshake-scoped.**  
 > - Active only at handshake phase.  
 > - Passive (whitelist only) during live A2DP sessions.
-dev options is session based
 
 
 # 🧬 LDAC Negotiation Behavior — Empirical Behavioral Addendum
@@ -477,14 +477,14 @@ This addendum documents an observed behavioral model derived from empirical test
 
 ---
 
-## 1️⃣ Unified Override Authority Chain
+## Observed Behavioral Negotiation Model
 
 | Authority | Injection Timing | Function |
 |------------|-------------------|----------|
 | **Developer Options** | Pre-Handshake | Modifies Android’s Bluetooth codec whitelist before A2DP negotiation. Controls which codecs, sample rates, bit depths, and bitrate modes are allowed. Does **not** inject full codec profiles directly. |
 | **Fast Pair (Google Play Services)** | Pre-Handshake (Reinjection Layer) | May influence reconnect negotiation behavior before A2DP negotiation completes if cloud profile syncing is enabled. Participates in Samsung's renegotiation behavior by reusing previously negotiated codec preferences, but cannot bypass Samsung’s override. Samsung devices often renegotiate toward their preferred LDAC profile behavior |
-| **observed Samsung negotiation behavior** | During Handshake | Often renegotiates toward LDAC parameter sets (Adaptive 96 kHz / 32-bit / 990 kbps) into A2DP session if Fast Pair or Developer Options did not preempt injection. |
-| **Bluetooth Codec Changer (BCC)** | Post-Handshake (Active Renegotiation) | Actively forces codec renegotiation after Samsung injection. Can renegotiate the active A2DP profile before firmware memory is updated. |
+| **Samsung override behavior** | During Handshake | Often appeared to renegotiate toward high-quality LDAC profiles during reconnect behavior in this setup. if Fast Pair or Developer Options did not preempt injection. |
+| **Bluetooth Codec Changer (BCC)** | Post-Handshake (Active Renegotiation) | Actively forces codec renegotiation after Samsung injection. Can renegotiate the active A2DP profile before reconnect persistence behavior stabilized. |
 | **UAPP Direct Driver (HAL)** | Post-Handshake (Active Renegotiation via HAL driver reinit) | Triggers A2DP renegotiation indirectly via playback parameter change (sample rate, bit depth). Reliably observed renegotiation trigger. |
 | **Sony Headphone Firmware Profile Memory** | Post-Renegotiation (Passive Learning) | Behavior suggests some negotiated profiles may persist across reconnects *after* valid renegotiation has stabilized. May reapply previously negotiated profiles during future reconnects. |
 | **Music Center App** | Post-Handshake (Reinjection Layer) | Reasserts previously stored LDAC profiles after A2DP session opens. Applies correction if session parameters mismatch firmware memory.
@@ -498,8 +498,8 @@ Bluetooth Connection Event
   ├── Developer Options modifies codec whitelist (if active)
   │      ├── Restrictive whitelist → Samsung renegotiation constrained
   │      └── Permissive whitelist → Samsung renegotiation unrestricted
-  ├── Fast Pair may influence reconnect negotiation behavior before handshake completion (if cloud profile syncing enabled)
-  └── If Fast Pair inactive → Samsung devices often renegotiate toward Adaptive 96 kHz / high-bitrate LDAC behavior during handshake
+  ├── Fast Pair may correlate with reconnect codec persistence behavior when cloud device syncing is enabled. (if cloud profile syncing enabled)
+  └── If Fast Pair inactive → Samsung devices often appeared to renegotiate toward high-quality LDAC behavior during handshake in this setup.
 
 Post-Handshake Session Opens
   ├── Renegotiation Engines:
@@ -513,7 +513,7 @@ Post-Handshake Session Opens
          └── Behavior suggests some negotiated parameters may persist after successful renegotiation
 
 Future Reconnects:
-  ├── Fast Pair may influence reconnect negotiation behavior before handshake completion
+  ├── Fast Pair may correlate with reconnect codec persistence behavior when cloud device syncing is enabled.
   └── Music Center may reapply profile post-handshake if mismatch detected
 ```
 
